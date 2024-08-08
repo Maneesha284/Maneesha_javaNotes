@@ -1,0 +1,248 @@
+Spring:-(Rod Jhonson)(interface 21-oldname)
+----------
+Spring<--------->EJB
+
+Spring:-
+--------------
+use JDK libraries, Spring jar files
+not dependent OS
+Application are light weight
+without application server
+loosely coupled
+pojo(HAS-A(developer) Runtime ploymoriphisam)
+IOC
+
+
+EJB:-(awt)
+-------------
+use OS libraries
+dependency of Application server
+awt are heavy weight
+tightly coupled
+=================================================================================================================
+MVC:-
+--------
+view
+---------
+
+controler
+------------
+
+model
+--------
+service layer
+business layer(loosely coupled)
+DAO layer(loosely coupled)--->jdbc, hibernet,JPA(Rules(I))
+=================================================================================================================
+pojo(HAS-A)
+      /\
+       |
+IOC(core ,J2EE)  || Spring MVC(web container)
+      /\
+       |
+input(xml)  (Runtime ploymoriphisam)
+=================================================================================================================
+Container:-
+--------------
+It will web.xml file, 
+It will creates instances of xml beans, (pojo)
+ It will manage life cycle of bean classes, (pojo)
+It will pass dynamic parameters supply to bean class. (pojo)(Dependency injection)
+
+IOC container:-(Dependency injection)
+--------------------
+core container class name is BeanFactory(I)
+J2EE container class name is ApplicationContext(I)
+
+MVC:-
+web container class name is WebApplicationContext(I)
+
+Dependency injection:-
+It will pass dynamic inputs (parameters) supply to pojo class. 
+By using Runtime ploymoriphisam implemented this
+
+=================================================================================================================
+core container class name is BeanFactory(I)-----implementation-------->XmlBeanFactory(c)
+
+J2EE container class name is ApplicationContext(I)------>ConfigurableApplicationContext(I)------implementation------->ClassPathXmlApplicationContext(c)
+
+web container class name is WebApplicationContext(I)------implementation------>WebApplicationContextUtil(c)(Factory class)
+
+How to start/stop IOC container:-
+--------------------------------------
+new XmlBeanFactory();
+
+new ClassPathXmlApplicationContext();
+
+WebApplicationContextUtil.getObject();
+=================================================================================================================
+Main componenets:-
+
+1)pojo class
+2).xml file
+3)driver class
+
+Test.java
+----------
+package beans;
+public class Test {
+	public void msg(){
+		System.oot.println("hello world");
+	} 
+}
+
+test.xml:-
+----------
+dtd(document type defination)/xsd(xml schema defination)------>hibernet must needed
+<beans>	//root tag
+	<bean class="Test" id="t"/>//configure pojo class
+	or </bean>
+	
+</beans>
+
+class Client {
+	psvm(-) {
+		Resource r=new ClassPathResource("test.xml");//find the location .xml
+		BeanFactory factory=new XmlBeanFactory(r);
+		Test t=(Test)factory.getBean("t");  // getBean() imp method in XmlBeanFactory class, test class ref
+		t.msg();		
+	}
+}
+
+=====================================================================================
+WebApplication framework:-structs
+Application Framework:-Spring framework
+Frameworks are providing 70% of our Application implementation by deafault.
+Spring f/w is modleizerd framework
+
+Spring Modules (Spring-1):-
+---------------------------------
+1.core Module:-basic fondation spring
+pojo, Autowiring
+Autowiring:-
+one bean object attached(injecting) to another bean object, another bean object attached(injecting) to another bean object
+
+2.Spring JDBC/DAO Module:-To interact with DB 
+	//JDBC-common code(Boiler plate code)
+jdbcTemplate.execute("select * from emp");
+
+3.Spring ORM Module:-
+The boilerpltecode is abstracted
+[	In the hibernet
+1.create configuration object
+Configuration cfg=new Configuration();
+cfg.configure();
+
+2.create SessionFactory object
+SessionFactory sf=cfg.buildSessionFactory();
+
+3.create Session object
+Session s=sf.openSession();
+
+4.create Transaction Object
+Transaction tx=s.beginTransaction();
+
+5.Perform Database operations
+   int kval=s.save(emp);
+
+6.tx.commit();
+
+7.close the resources
+s.close();
+sf.close();		]
+
+Spring hibernate:
+The boilerpltecode is abstracted
+HibernateTemplate
+hibernateTemplate.save(emp);
+
+4.Spring AOP Module:-
+(Aspect oriented programming)
+*Business logic and services logic seperatly
+*It is not given flexibility to write services code inside business logic.
+*we are able define services logic explicitly
+*Which location requires services(Authentication,Transaction) is needed(maybe before method after method)
+
+5.Spring Transaction Module:-Relationship b/w DB
+Must be applied Business logic
+Transaction Module provide very good environment transactions
+@transactional
+
+6.Spring web Module:-(web application prepare more effective manner)
+web Module:-structs framework(MVC based), JSF... presentation
+Web MVC Module:-only MVC 
+
+7.Spring Security Module:-
+web application securiry like username, password
+ Authentication and Autherization services 
+======================================================================
+1.MAVEN
+2.LOG4J
+4.JUNIT
+============================================================================================================
+Advanced modules in Spring-2:-
+----------------------------------------
+1.Spring Boot
+2.Spring JPA
+3.Spring data-JPA
+4.Spring cloud
+5.Spring Micro services
+6.Spring social
+7.Spring Batch
+============================================================================================================
+Basics:-
+Enterprice:-It is a business org, It is a group of organization running under single lable(Relaince-->mobile, shopings, market)
+Enterprice Application:-It is a s/w app designed for an enterprice.It will simplfy the internal business processing.
+1.Presentation(UI) layer:-starting point,improve look and feel,take data from users to submit app,data validation, diff types of requests from client to server, presentation logic
+Presntation layer Frameworks:-structs, JSF
+2.Business processing layer:-It used to executed all business rules and regulations from client required, To use separate logic called as business logoc,
+To use a set of technologies0(Java beans, Servlet, EJB's)
+3.Data persistance layer:-To interact woth DB, perform operations as per the business and reglations, To use persistance logic, JDBC, JPA,..
+ Hibernate,EJBs-Entity beans....
+
+============================================================================================================
+System Architecture:-
+--------------------------
+1-Tier Architecture:-
+We will provide all the enterprise app layers in a single Architecture
+limitations:-
+It is highly recomended for standalone app
+All Three layers must be managed by single machine resources may not be sufficient to execute enterprice app.
+It will reduec App performance, only single user envirobment
+not providing database sharability
+It is Tiglhtly coupled Architecture
+
+2-Tier Architecture:-
+To complete enterprise app in 2 machines With DB
+To manage Tier-1 machine(UI,BusinessProcessing) and Tier-2 Machine(Data Access Layer) with DB
+Loosely coupled
+Client and server Machine
+improve database sharabilty
+limitation:-
+little bit Tightly coupled design with this Architecture
+Component sharability not available
+It is not suitble standalone app
+To imporive performnce but maintaince cost will be increased
+only single user envirobment
+
+3-Tier Architecture:-
+It is managed by 3 Machines with DB
+To manage Tier-1 machine(UI) and Tier-2 Machine(BusinessProcessing) and Tier-3(Data Access Layer) with DB
+client, application server and database server with DB
+Multiuser environment
+Loosely coupled design
+To imporive performnce 
+improve database sharabilty
+Flexiblity increased
+Component sharability available
+
+
+
+
+============================================================================================================
+1.CORE MODULE:-
+--------------------------
+
+
+
+============================================================================================================

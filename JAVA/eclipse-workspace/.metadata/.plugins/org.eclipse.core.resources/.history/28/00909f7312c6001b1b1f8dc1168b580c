@@ -1,0 +1,40 @@
+import java.util.Scanner;
+
+public class CountEvenOdd {
+
+	public static void main(String[] args) {
+		String result = "";
+		Scanner sr = new Scanner(System.in);
+		System.out.println("Enter any number");
+		int num = sr.nextInt();
+		String s = String.valueOf(num);
+		int len = s.length();
+		char ch[] = s.toCharArray();
+		int even = 0, odd = 0;
+		
+		for (int i = 0; i < len; i++) {
+			if (len >= 15) {
+				result = "Invalid input";
+				break;
+			} 
+			else if (num < 0) {
+				result = "Invalid input";
+				break;
+			} 
+			else {
+				if ((int)ch[i] == 0 || ch[i] % 2 == 1) {
+					//System.out.println(ch[i]+" hi");
+					odd++;
+				} 
+				else if ( (int)ch[i] != 0 && ch[i] % 2 == 0 ) {
+					//System.out.println(ch[i]+" hello");
+					even++;
+				}
+			}
+		}
+		result += odd + "\n" + even;
+		System.out.println(result);
+
+	}
+
+}

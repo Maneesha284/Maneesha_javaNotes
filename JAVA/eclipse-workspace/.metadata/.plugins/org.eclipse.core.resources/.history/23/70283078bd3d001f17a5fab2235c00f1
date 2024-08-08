@@ -1,0 +1,17 @@
+package Now08072024;
+
+import java.util.function.Consumer;
+import java.util.function.Function;
+
+public class FunctionalInterfacesExample {
+
+	public static void main(String[] args) {
+		Consumer<String> con=s->System.out.println(s);
+		con.accept("manee");
+		
+		Function<String> fun=s->s.length();
+		fun.apply("manee")
+
+	}
+
+}

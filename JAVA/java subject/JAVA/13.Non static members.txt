@@ -1,0 +1,152 @@
+Non static members:-
+==============
+NSV(IV),NSB,NSM,NSIC,CON
+1)Non static variable
+==============
+Non static variables cannot be accessed inside a static method. 
+Non static variables are specific to that instance of a class.
+
+Local Variables:-
+A variable defined "within a block or method or constructor" is called local variable.
+These variable are created when the block in entered or the function is called and destroyed after exiting from the block or when the
+ call returns from the function.
+Initialisation of Local Variable is Mandatory.
+
+public class Dog
+{
+    public void putAge()
+    {
+        int age = 0; //local variable
+        age = age + 6;
+        System.out.println("Dog age is : " + age);
+    }
+    public static void main(String args[]) 
+ {
+        Dog d = new Dog();
+        d.putAge();
+    }
+}
+Output:
+Dog age is : 6
+
+Instance Variables:- 
+Instance variables are non-static variables and are declared "in a class outside any method, constructor or block".
+As instance variables are declared in a class, these variables are created when an object of the class is created and destroyed when the object is destroyed.
+Instance Variable can be accessed only by "creating objects".
+
+class GfG 
+{   
+    int rk = 10; 
+     public static void main(String[] args) 
+    { 
+        // Instance created inorder to access 
+        // a non static variable. 
+        Gfg f = new Gfg(); 
+        System.out.println("Non Static variable "+ f.rk); 
+    } 
+} 
+Output:-
+Non Static variable 10
+ 
+The main differences between static and non static variables are:
+
+STATIC VARIABLE	                                                                                            NON STATIC VARIABLE
+Static variables can be accessed using class name	                       Non static variables can be accessed using instance of a class
+Static variables can be accessed by static and non static methods	    Non static variables cannot be accessed inside a static method.
+Static variables reduce the amount of memory used by a program.	    Non static variables do not reduce the amount of memory used by a program
+Static variables are shared among all instances of a class.	                       Non static variables are specific to that instance of a class.
+Static variable is like a global variable and is available to all methods.    Non static variable is like a local variable and they can be accessed through 
+                                                                                                                       only instance of a class.
+
+2)Non Static block:-
+============
+When the block is declared without using any modifier Then treated as  the NSB is first executed after the constructor is executed.
+NSB directly access SV and instance variable.
+A NSB executes when the object is created, before the constructor.
+In case of multiple NSB, the block executes the "order" it is defiened in the class.
+ 
+public class nonstatic
+{
+  nonstatic()
+  {
+    System.out.println("constructor");  //constructor
+  }
+   {        
+    System.out.println("NSB ");  //NSB  
+    }
+    public static void main(String args[])
+    {
+       nonstatic n=new nonstatic();
+    }
+}
+o/p:-
+NSB
+constructor
+
+3)Non static method:-
+==============
+*JVM does not executes non static method by itself. 
+*A NSM belongs to an object of a class.
+*A NSM  can access both static members and non static members of class because at the time when the static method is called the class 
+might not be instatiated.
+*NSM are used create multiple copies.
+Example:
+class Test17
+{
+	
+	void m1()
+	{
+		System.out.println("from m1");
+	}
+	public static void main(String[] args) 
+	{
+		Test17 obj=new Test17();
+		obj.m1();
+	}
+}
+output:-
+from m1
+
+4)Non-static Inner class:-
+=================
+Nested Inner class can access any private instance variable of outer class. 
+
+class Outer 
+{ 
+   int x=10;
+   void abc()
+   {
+         System.out.println("method");
+   }
+   class Inner
+ { 
+      public void show() 
+    { 
+           System.out.println("In a nested class method"); 
+              System.out.println(a);
+             abc();
+      } 
+   } 
+} 
+class Main { 
+   public static void main(String[] args) { 
+       Outer.Inner in = new Outer().new Inner(); 
+       in.show(); 
+   } 
+} 
+Output:
+In a nested class method
+10 
+method
+
+
+5)Constructor:-
+=========
+ class name and constructor same name
+
+class abc
+{
+  abc()
+   {
+    }
+}

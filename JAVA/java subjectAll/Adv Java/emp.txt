@@ -1,0 +1,104 @@
+<!-- Name                                      Null?    Type
+----------------------------------------- -------- -------------
+USERID                                    NOT NULL NUMBER
+ADDRESSID                                 NOT NULL NUMBER
+ADDRESSTYPE                               NOT NULL VARCHAR2(10)
+HOUSENO                                            VARCHAR2(30)
+STREET                                             VARCHAR2(30)
+CITY                                               VARCHAR2(30)
+STATE                                              VARCHAR2(30)
+COUNTRY                                            VARCHAR2(30)
+PINCODE                                            VARCHAR2(10)
+PHNO                                               VARCHAR2(15) -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Employee Registration</title>
+</head>
+<body bgcolor="cyan">
+	<form action="registrationController" method="get">
+	<center>
+	<table border=2>
+		<tr><td>Enter User ID:</td><td><input type='number' name='userid' placeholder='USERID'></td></tr>
+		<tr><td>Enter Addess ID:</td><td><input type='number' name='addessid' placeholder='ADDRESSID'></td></tr>
+		<tr><td>Enter Address TYPE:</td><td><input type='text' name='addresstype' placeholder='ADDRESSTYPE'></td></tr>
+		<tr><td>Enter House Number:</td><td><input type='text' name='houseno' placeholder='HOUSENO'></td></tr>
+		<tr><td>Enter Street:</td><td><input type='text' name='street' placeholder='STREET'></td></tr>
+		<tr><td>Enter City:</td><td><input type='text' name='city' placeholder='CITY'></td></tr>
+		<tr><td>Enter State:</td><td><input type='text' name='state' placeholder='STATE'></td></tr>
+		<tr><td>Enter Country:</td><td><input type='text' name='country' placeholder='COUNTRY'></td></tr>
+		<tr><td>Enter Pincode:</td><td><input type='text' name='pincode' placeholder='PINCODE'></td></tr>
+		<tr><td>Enter Phone number:</td><td><input type='text' name='phno' placeholder='PHNO'></td></tr>
+		<tr><td colspan="2" align="center"><input type='submit' value="Registration"></td></tr>
+	</table>
+	</center>
+	</form>
+</body>
+</html>
+
+
+==================================================================================================
+
+
+
+package com.nacre.reg;
+import java.io.*;
+import java.sql.*;
+import javax.servlet.*;
+/*USERID                                    NOT NULL NUMBER
+ADDRESSID                                 NOT NULL NUMBER
+ADDRESSTYPE                               NOT NULL VARCHAR2(10)
+HOUSENO                                            VARCHAR2(30)
+STREET                                             VARCHAR2(30)
+CITY                                               VARCHAR2(30)
+STATE                                              VARCHAR2(30)
+COUNTRY                                            VARCHAR2(30)
+PINCODE                                            VARCHAR2(10)
+PHNO                                               VARCHAR2(15)*/
+public class RegistrationEmp extends GenericServlet {
+	Connection con=null;
+	Statement st=null;
+	ResultSet rs=null;
+	@Override
+	public void service(ServletRequest req,ServletResponse res) throws ServletException, IOException {
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con=DriverManager.getConnection("jdbc:oracle:thin:off/off@localhost:1521:xe");
+			st=con.createStatement();
+			String userid=req.getParameter("userid");
+			String addressid=req.getParameter("addressid");
+			String addresstype=req.getParameter("addresstype");
+			String houseno=req.getParameter("houseno");
+			String street=req.getParameter("street");
+			String city=req.getParameter("city");
+			String state=req.getParameter("state");
+			String country=req.getParameter("country");
+			String pincode=req.getParameter("pincode");
+			String phno=req.getParameter("phno");
+			String insertQuery = "insert into addresses values(?,?,?,?,?,?,?,?,?,?)";
+			PreparedStatement ps=con.prepareStatement(insertQuery); 
+			ps.setString(1,userid);
+			ps.setString(2,addressid);
+			ps.setString(3,addresstype);
+			ps.setString(1,houseno);
+			ps.setString(2,street);
+			ps.setString(3,city);
+			ps.setString(1,state);
+			ps.setString(2,country);
+			ps.setString(3,pincode);
+			ps.setString(1,phno);
+			ps.execute();
+			PrintWriter out=res.getWriter();
+			res.setContentType("text/html");
+			out.println("<html>");
+			out.println("<body bgcolor='cyan'>");
+			out.println("<h1>hello "+userid+" !you are registered successfully. </h1>");
+			out.println("</body>");
+			out.println("</html>");
+		}
+		catch(Exception e) {
+			System.out.println("===========");
+		}
+	}
+}

@@ -1,0 +1,23 @@
+
+<web-app>
+	<servlet>
+		<servlet-name>Welcome</servlet-name>
+		<servlet-class>com.ojas.Welcome</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>ShopServlet</display-name>
+		<servlet-name>ShopServlet</servlet-name>
+		<servlet-class>com.session.shop.ShopServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Welcome</servlet-name>
+		<url-pattern>/Welcome</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ShopServlet</servlet-name>
+		<url-pattern>/ShopServlet</url-pattern>
+	</servlet-mapping>
+
+</web-app>

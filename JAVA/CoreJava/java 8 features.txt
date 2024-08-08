@@ -1,0 +1,676 @@
+java 1.8 new Features(2014):-
+------------------------------------
+*concise code(less code) just because of enabling functional programming
+Lambda Expressions To enalbe functional programming
+Lambda function can handle just like object
+
+//Sqrt program
+import java.util.function.Function;
+public class FuntionEx1 {
+	public static void main(String args[]) {
+		Function<Integer,Integer> f=i->i*i;  //i->i*i(Lambda function)
+		System.out.println("The 30 sqrt value: "+f.apply(30));
+		System.out.println("The 20 sqrt value: "+f.apply(20));
+	}
+}
+
+//even or not
+import java.util.function.Predicate;
+public class FunctionEx2 {
+	public static void main(String args[]) {
+		Predicate<Integer> p=i->i%2==0;
+		System.out.println("The 3 is even: "+p.test(3));  //false
+		System.out.println("The 2 is even: "+p.test(2));  //true
+	}
+}
+
+1.Lambda Expression
+2.Functional Interface
+3.Default methods and static methods
+4.Predefined Functional Interfaces
+*Predicate, Function, Consumer, Supplier etc
+5.Double colon Operator (::)
+*Method reference, constructor reference
+6.Streams
+7.Date and Time API
+8.Optional class
+9.Nashorn JavaScript Engine etc
+===========================================================================================================================
+1.Lambda Expressions:-
+-----------------------------
+*Lambda Expressions available in many lang. The main Objective of  LE is to bring benefits of functional programming 
+into java.
+*It is an anonymous function=nameless/without return type/without modifiers
+*only one abstarct method allows in lamda interface
+
+Syntax of Lambda Expressions
+(parameters) -> expression
+
+package Now08072024;
+@FunctionalInterface
+interface LambdaExpInterf {
+	void print();
+}
+@FunctionalInterface
+interface LambdaExpNames {
+	void prints();
+}
+@FunctionalInterface
+interface LambdaExpInterfAdd {
+	void add(int a,int b);
+}
+@FunctionalInterface
+interface LambdaExpInterfReturn {
+	int returnobj(int a);
+}
+@FunctionalInterface
+interface LambdaExpInterfString {
+	void returnlen(String a);
+}
+public class LambdaExp1	{
+	public static void main(String[] args) {
+		LambdaExpInterf name=()->System.out.println("maneesha");
+		name.print();
+		LambdaExpNames names=()->{
+		System.out.println("name1");
+		System.out.println("name2");
+		System.out.println("name3");
+		};
+		names.prints();
+		LambdaExpInterfAdd addobj=(a,b)->System.out.println(a+b);
+		addobj.add(2, 3);
+		LambdaExpInterfReturn rerurnobj=(n)->n*n;
+		System.out.println(rerurnobj.returnobj(2));	
+		LambdaExpInterfString obj=(s)->System.out.println(s.length());
+		obj.returnlen("maneesha.rayudu");	
+	}
+}
+
+Key Components
+Parameters: The list of parameters (in parentheses) that match the method's parameters in the functional interface.
+Arrow Token: The arrow token (->) separates the parameter list from the body of the lambda expression.
+Body: The body can be a single expression or a block of statements.
+Examples
+Example 1: Basic Lambda Expression
+Here's a simple example using a lambda expression to implement a functional interface.
+
+
+Functional Interfaces
+A functional interface is an interface with a single abstract method, known as the functional method.  
+java.util.function, which contains many built-in functional interfaces like Predicate, Consumer, Function, etc.
+
+Consumer<T>
+----------
+Represents an operation that accepts a single input argument and returns no result.
+void accept(T t);
+Consumer<String> print = s -> System.out.println(s);
+
+Function<T, R>
+----------------
+Represents a function that accepts one argument and produces a result.
+R apply(T t);
+Function<String, Integer> stringLength = s -> s.length();
+
+
+Supplier<T>
+------------
+Represents a supplier of results.
+T get();
+Supplier<String> helloSupplier = () -> "Hello, World!";
+
+Predicate<T>
+------------
+Represents a predicate (boolean-valued function) of one argument.
+boolean test(T t);
+Predicate<Integer> isEven = n -> n % 2 == 0;
+
+BiFunction<T, U, R>
+----------------
+Represents a function that accepts two arguments and produces a result.
+R apply(T t, U u);
+BiFunction<Integer, Integer, Integer> add = (a, b) -> a + b;
+
+like BiConsumer<T, U> BiPredicate<T, U>..
+--------------------------------------------------------------------
+package Now08072024;
+import java.util.function.BiPredicate;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+public class FunctionalInterfacesExample {
+	public static void main(String[] args) {
+		Consumer<String> con=s->System.out.println(s);
+		con.accept("manee");
+		
+		Function<String,Integer> fun=s->s.length();
+		System.out.println(fun.apply("manee"));
+		
+		Supplier<String> sup=()->"maneesha";
+		System.out.println(sup.get());
+		
+		Predicate<Integer> pre=n->n%3==2;
+		System.out.println(pre.test(11));
+		
+		BiPredicate<Integer,Integer> biPre=(a,b)->a-b==1;
+		System.out.println(biPre.test(5, 4));
+		
+		Runnable r=()->System.out.println("run metod");
+		r.run();
+	}
+}
+output:
+manee
+5
+maneesha
+true
+true
+run metod
+------------------------------------------------------------------
+Benefits of Using Lambda Expressions
+Parallel Processing: Works well with Java Streams API for parallel operations.
+Conclusion
+This leads to more concise and readable code, and it integrates well with the new Streams API for 
+effective data processing.
+
+
+Example 1: Filtering with Streams and Predicates
+Suppose we have a list of strings, and we want to filter out the strings that start with a particular letter.
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class LambdaFilterExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David", "Eve");
+
+        // Filtering names that start with 'A'
+        List<String> filteredNames = names.stream()
+                                          .filter(name -> name.startsWith("A"))
+                                          .collect(Collectors.toList());
+
+        System.out.println(filteredNames); // Output: [Alice]
+    }
+}
+Example 2: Sorting with Comparator
+Using a lambda expression to sort a list of objects by a particular field.
+
+java
+
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
+public class LambdaSortExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Charlie", "Alice", "David", "Bob", "Eve");
+
+        // Sorting names alphabetically
+        names.sort((name1, name2) -> name1.compareTo(name2));
+
+        System.out.println(names); // Output: [Alice, Bob, Charlie, David, Eve]
+    }
+}
+Example 3: Using Consumer to Iterate Over a List
+Using the Consumer functional interface to perform an action for each element of the list.
+
+java
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
+
+public class LambdaForEachExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+
+        // Using a lambda expression to print each name
+        Consumer<String> printName = name -> System.out.println(name);
+        names.forEach(printName);
+    }
+}
+Example 4: Custom Functional Interface
+Creating and using a custom functional interface with a lambda expression.
+
+java
+
+@FunctionalInterface
+interface StringOperation {
+    String operate(String s1, String s2);
+}
+
+public class CustomFunctionalInterfaceExample {
+    public static void main(String[] args) {
+        // Concatenating two strings using a lambda expression
+        StringOperation concatenate = (s1, s2) -> s1 + s2;
+        System.out.println(concatenate.operate("Hello, ", "World!")); // Output: Hello, World!
+
+        // Finding the longer string using a lambda expression
+        StringOperation longerString = (s1, s2) -> s1.length() > s2.length() ? s1 : s2;
+        System.out.println(longerString.operate("Hello", "World!")); // Output: World!
+    }
+}
+Example 5: Using Supplier for Lazy Evaluation
+The Supplier functional interface is used to represent a supplier of results.
+
+java
+
+import java.util.function.Supplier;
+
+public class LambdaSupplierExample {
+    public static void main(String[] args) {
+        // Using a lambda expression with Supplier
+        Supplier<Double> randomValue = () -> Math.random();
+
+        // Getting a random value
+        System.out.println(randomValue.get()); // Output: Some random value between 0.0 and 1.0
+    }
+}
+Conclusion
+These examples demonstrate the versatility and power of lambda expressions in various scenarios, from filtering and sorting 
+collections to defining custom functional interfaces and leveraging built-in ones. Lambda expressions simplify the code, making it more readable and maintainable.
+===========================================================================================================================
+2.FunctionalInterface:-
+---------------------------
+FI=FunctionalInterface
+*A Functional Interface have only one single Abstract Method 
+*LE only applicable for only Functional Interface
+//Exapmle Runnable run() // Comparable compareTo() //Comparator compare() // Callable call()
+
+Lambda Expression with Functional Interfaces:-
+-------------------------------------------------------
+*A Functional Interface have only one single Abstract Method 
+It used to If we want to invoke LE to need Functional Interface must be required
+
+*Inside Functional Interface allows both static and default methods also and only one abstract mehod but not write multiple abstract methods.
+@FunctionalInterface
+interface Inter1{
+	public static void m1() {}
+	public void m2();   //manadatory
+	void m3() {}	
+}
+
+@FunctionalInterface is used If we doing any mistake immedaitely alert the complier . It is optional.
+
+//VALID
+@FunctionalInterface
+interface A{
+	public void m1();
+}
+@FunctionalInterface
+interface B extends A{
+}
+
+//VALID
+@FunctionalInterface
+interface A{
+	public void m1();
+}
+@FunctionalInterface
+interface B extends A{
+	public void m1();     //Override
+}
+
+//INVALID
+@FunctionalInterface
+interface A{
+	public void m1();
+}
+@FunctionalInterface
+interface B extends A{
+	public void m2();    //2 abstract methods
+}
+
+//VALID
+@FunctionalInterface
+interface A{
+	public void m1();
+}
+interface B extends A{
+	public void m2();    //normal interface
+}
+
+//Normal java code
+/*interface I1{
+	public void m1();
+}
+class Demo implements I1 {
+	public void m1(){
+		System.out.println("hi...");
+	}
+}
+public class LE_Ex1 {
+	public static void main(String[] args) {
+		Demo i=new Demo();
+		i.m1();
+	}
+}*/
+//Java 8
+@FunctionalInterface
+interface I1{
+	public void m1();
+}
+public class LE_Ex1 {
+	public static void main(String[] args) {
+		I1 i=()->System.out.println("hi...by lambda expression");
+		i.m1();
+		i.m1();
+	}
+}
+
+//Java 8
+@FunctionalInterface
+interface I2{
+	public abstract void add(int a,int b); 
+}
+public class LE_Ex2 {
+	public static void main(String[] args) {
+		I2 i=(a,b)->System.out.println("Add two number by LE: "+(a+b));
+		i.add(10, 20);	//30
+		i.add(30, 10);	//40
+	}
+}
+
+//java 8
+@FunctionalInterface
+interface I3{
+	public int sqrt(int n);
+}
+public class LE_Ex3 {
+	public static void main(String[] args) {
+		//I3 i=n->n*n;   //valid
+		I3 i=n->{ return n*n; };   //valid
+		System.out.println("Square root value by LE:  "+i.sqrt(10));
+		System.out.println("Square root value by LE:  "+i.sqrt(4));
+	}
+}
+NOTE: LE wont be seperate .class files generated
+
+Runnable //run()
+------------
+//Java8 (Implementing Runnable interface by LE)
+public class LE_Thread1 {
+	public static void main(String[] args) {
+		Runnable r=()->{
+			for(int i=0;i<5;i++){
+				System.out.println("child Thread "+i);
+			}
+		};
+		Thread t=new Thread(r);
+		t.start();
+		for(int i=0;i<5;i++){
+			System.out.println("Main Thread "+i);
+		}
+	}
+}
+
+Comparator  //compare()
+--------------
+int compare(Object obj1,Object obj2)
+returns -ve iff obj1 has to come before obj2
+returns +ve iff obj1 has to come after obj2
+returns 0 iff obj1 and obj2 are equal
+
+//java 1.8 Comparator by LE
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+public class LE_Collection1 {
+	public static void main(String[] args) {
+		ArrayList<Integer> al=new ArrayList<Integer>();
+		al.add(10);
+		al.add(70);
+		al.add(40);
+		al.add(80);
+		al.add(20);
+		al.add(60);
+		System.out.println(al);
+		//Comparator<Integer> c=(i1,i2)->{return (i1<i2)?-1:(i1>i2)?1:0;};   //valid
+		Comparator<Integer> c=(i1,i2)->(i1<i2)?-1:(i1>i2)?1:0;
+		Collections.sort(al,c);
+		System.out.println(al);
+		//al.stream().forEach(System.out::println);  //To print values one by one //  ::(It is called method reference)
+		/*
+		List<Integer> al2=al.stream().filter(i->i%2==0).collect(Collectors.toList());
+		System.out.println(al2);
+		*/
+	}
+}
+
+/*
+import java.util.*;
+class MyComparator implements Comparator<Integer>{
+	public int compare(Integer i1,Integer i2) {
+		return (i1<i2)?-1:(i1>i2)?1:0;
+		/*
+		if(i1<i2) 
+			return -1;
+		else if(i1>i2) 
+			return +1;
+		else
+			return 0;
+		*/
+	}
+}
+public class LE_Collection1 {
+	public static void main(String[] args) {
+		ArrayList<Integer> al=new ArrayList<Integer>();
+		al.add(10);
+		al.add(70);
+		al.add(40);
+		al.add(90);
+		al.add(20);
+		al.add(60);
+		System.out.println(al);
+		Collections.sort(al,new MyComparator());
+		System.out.println(al);
+	}
+}
+*/
+
+===========================================================================================================================
+concise code(less code) just because of enabling functional programming
+Lambda Expressions To enalbe functional programming
+Lambda function can handle just like object
+
+1.Lambda Expressions:-
+-----------------------------
+*Lambda Expressions available in many lang. The main Objective of  LE is to bring benefits of functional functional programming into java.
+*It is an anonymous function=nameless/without return type/without modifiers
+
+//single line no need {} and multiple lines need{} no need datatype,return,method name,modifiers
+
+2.FunctionalInterface:-
+---------------------------
+FI=FunctionalInterface
+*A Functional Interface have only one single Abstract Method 
+*LE only applicable for only Functional Interface
+//Exapmle Runnable run() // Comparable compareTo() //Comparator compare() // Callable call()
+
+Lambda Expression with Functional Interfaces:-
+-------------------------------------------------------
+*A Functional Interface have only one single Abstract Method 
+It used to If we want to invoke LE to need Functional Interface must be required
+Functional interfaces:-
+If an interface contains only one abstract method is called SAM
+Ex:-
+Runnable  ----> run()
+Comparable  ----> compareTo()
+ActionListener  ----> actionPerformed()
+Callable  ----> call()
+
+Inside function interface in addition to SAM we can write no.of static and default methods.
+
+Predicate:-
+===========
+It is an interface 
+java.util.function.*; package
+interface Preducate<T>{
+	public boolean test(T t)
+}
+As predicate is a FI and hence it can refer LE.
+
+
+return type is boolean 
+boolean accept(T t);
+
+It is possible to join predicates into single predicated by using following methods 
+and()
+or()
+negate()
+
+Expression -> more than one condition
+Logical Operators -> &&, ||, !
+
+Function
+==========
+It is an interface
+java.util.Function
+
+interface Function(T ,R){
+   public R apply(T t);
+}
+
+Function are exactly same as predicate except that functions can return any type of result but function 
+can return only one value that can be any type of result as per the requirement.
+
+Streams:-
+==========
+Diff b/w collection and stream:-
+*If we want to represent a group of individual objects as a single entity tehn we should go for collection.
+
+*If we want to process group of objects from the collection then we should go for streams.
+
+*We can create a stream object to the collection by using stream() method of Collection interface.
+
+*stream() method is a default method added to the collection in 1.8 version.
+
+*default Stream stream().
+
+Streams:-
+=======
+IOStream(data)
+Collection-Stream(object)
+Diff b/w collection and streams:
+--------------------------------------
+To represent group of objects as a single entity(Collection)
+If we want to process objects from the collection(Collection-Stream
+
+If we want get the stream:-
+Stream s=col.stream();
+java.util.stream package
+
+===========================================================================================================================
+Optional class:-
+---------------
+Java 8 introduced the Optional class as part of the java.util package to address the common problem of null references. 
+The Optional class is a container that may or may not contain a non-null value. This helps in reducing the chances of encountering NullPointerException and provides a more expressive way to handle cases where a value might be absent.
+
+Here's a quick overview of how to use Optional:
+
+Creating an Optional
+Empty Optional:
+Optional<String> emptyOpt = Optional.empty();
+
+Optional with a non-null value:
+Optional<String> nonEmptyOpt = Optional.of("Hello");
+
+Optional with a potentially null value:
+Optional<String> nullableOpt = Optional.ofNullable(someValue);
+
+Checking if a value is present:
+------------------------------
+isPresent:
+if (nonEmptyOpt.isPresent()) {
+    System.out.println("Value is present");
+}
+
+ifPresent:
+nonEmptyOpt.ifPresent(value -> System.out.println("Value: " + value));
+
+Retrieving the value
+----------------------
+get:
+String value = nonEmptyOpt.get(); // Throws NoSuchElementException if no value is present
+
+orElse:
+String value = nullableOpt.orElse("Default Value");
+
+orElseGet:
+String value = nullableOpt.orElseGet(() -> "Default Value from Supplier");
+
+orElseThrow:
+String value = nullableOpt.orElseThrow(() -> new IllegalArgumentException("Value not present"));
+
+Transforming the value
+---------------------
+map:
+Optional<Integer> lengthOpt = nonEmptyOpt.map(String::length);
+
+flatMap:
+Optional<String> anotherOpt = nonEmptyOpt.flatMap(value -> Optional.of("Transformed " + value));
+
+Filtering the value
+-------------------
+filter:
+Optional<String> filteredOpt = nonEmptyOpt.filter(value -> value.startsWith("H"));
+
+Example:
+--------
+Here's a more comprehensive example to illustrate Optional usage:
+import java.util.Optional;
+public class OptionalExample {
+    public static void main(String[] args) {
+        Optional<String> opt = Optional.ofNullable(getValue());
+
+        // Checking presence of value
+        if (opt.isPresent()) {
+            System.out.println("Value is present: " + opt.get());
+        } else {
+            System.out.println("Value is absent");
+        }
+
+        // Using ifPresent
+        opt.ifPresent(value -> System.out.println("Value using ifPresent: " + value));
+
+        // Using orElse
+        String valueOrDefault = opt.orElse("Default Value");
+        System.out.println("Value or Default: " + valueOrDefault);
+
+        // Using orElseGet
+        String valueOrDefaultFromSupplier = opt.orElseGet(() -> "Default from Supplier");
+        System.out.println("Value or Default from Supplier: " + valueOrDefaultFromSupplier);
+
+        // Using orElseThrow
+        try {
+            String valueOrException = opt.orElseThrow(() -> new IllegalStateException("No value present"));
+            System.out.println("Value or Exception: " + valueOrException);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        // Transforming value using map
+        Optional<Integer> lengthOpt = opt.map(String::length);
+        lengthOpt.ifPresent(length -> System.out.println("Length of value: " + length));
+
+        // Transforming value using flatMap
+        Optional<String> transformedOpt = opt.flatMap(value -> Optional.of("Transformed " + value));
+        transformedOpt.ifPresent(transformedValue -> System.out.println("Transformed value: " + transformedValue));
+
+        // Filtering value
+        Optional<String> filteredOpt = opt.filter(value -> value.contains("Java"));
+        filteredOpt.ifPresent(filteredValue -> System.out.println("Filtered value: " + filteredValue));
+    }
+
+    public static String getValue() {
+        return "Hello Java 8 Optional";
+    }
+}
+This example demonstrates various ways to create, check, retrieve, transform, and filter values using Optional. 
+The class helps write more readable and less error-prone code by avoiding direct handling of null values.
+==========================================================================================================================
+
+===========================================================================================================================

@@ -1,0 +1,55 @@
+104.	What is deployment descriptor?
+Deployment descriptor is an xml file from which web container gets information about servlet to be invoked.
+************************************************************************************************************************************	
+105.	What are the life cycle methods of the Servlet?
+106.	What is Request Dispatcher?
+************************************************************************************************************************************
+107.	What is WAR file?
+A war file contains files(.css .html .txt .jsp .xml) in web project.
+war file combines all files into a single unit
+web archive war file contains all the contents of a web applications. 
+It reduces the time duration for transfering file from client to server.
+************************************************************************************************************************************
+108.	Differentiate Static and Dynamic webpage?
+109.	What is ServletConfig?
+110.	What is ServletContext?
+************************************************************************************************************************************
+111.	What is Web server and Application server?
+Enterprise JavaBeans(EJB)
+Web server:-
+Web server contains only web container.
+It can be used for servlet, jsp, struts etc. It can't be used EJB
+It is a computer where the web content can be stored.
+Eg:-Apache Tomcat and Resin
+Application server:-
+Application server contains web container and EJB container. 	
+It can be used for servlet, jsp, struts, EJB tec
+It provides middleware sevices for state maintaince and security.
+JBoss, Glassfish, Weblogic, Websphere
+************************************************************************************************************************************
+112.	Differentiate GET() and POST() methods?
+************************************************************************************************************************************
+113.	What is MIME Type?
+Multipurpose internet mail extension, It is Http header that provides the descriptor about what are you sending to browser.
+It is useful for extending the limited capabilities of email by allowing the insertion of sounds, images and text in a message.
+************************************************************************************************************************************
+114.	Among PrintWriter or ServletOutputStream which is efficient?
+ServletOutputStream---->byte-oriented information(such as images)---->getOutputStream()
+PrintWriter----->character information------->getWriter()
+************************************************************************************************************************************
+115.	What is the difference between GenericServlet and HttpServlet?
+************************************************************************************************************************************
+116.	What is URL Rewriting?
+URL Rewriting appending identifiers
+we can send parameters name and value pairs
+url?name1=value1&name2=value2&??
+Advantage:
+It will always work whether cookies is disabled or not.
+Extra form submission is not required on each pages.
+Disadvantage:
+It will work only with links.
+It can send only textual information
+************************************************************************************************************************************
+117.	What is the importance of cookies?
+118.	How filters work in servlets?
+119.	Explain Servlet listeners?

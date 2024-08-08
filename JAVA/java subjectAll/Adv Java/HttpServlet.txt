@@ -1,0 +1,470 @@
+javax.servlet.http.HttpServlet
+=====================
+ServletConfig [4m]   Serializable     Servlet[5m]
+	|	|	       |
+     	  Generic Servlet
+		|
+       	       HttpServlet
+
+public doXxx(-,-)
+public Service(-,-) {}
+protect Service(-,-) {}
+getLastModified() {}
+
+init()
+log()
+log(-,-)
+
+Limitation of GenericServlet:-
+=====================
+1)Whenever we send data from browser, body all the data will be attach to browser url, It may be leads "security issue".
+2)we are unable to communicate b/w "different servers".
+3)we are unable to findout "request header information".
+4)we are unable to work with httpSession [Session tracking].
+
+HttpServlet:-
+=========
+To process the response in HttpServlet we have following methods.
+1)public service(ServletRequest, ServletResponse)
+2)protected service(HttpServletRequest, HttpServletResponse)
+3)public doXxx(HttpServletRequest, HttpServletResponse)
+
+doGet(-,-):- Getting the data[webSource] from Server.
+doPost(-,-):- Placing new data[webSource] into Server.
+doPut(-,-):- Upadate data[webSource] in the Server.
+doDelete(-,-):-Deleting the data[webSource] from Server.
+
+Difference b/w doGet() and doPost():-
+==========================
+doGet(-,-):-
+========
+1)It is used for reading and geeting data from server.
+2)Request data will attached to url
+3)Request data is visible to enduser 
+4)No security
+5)Request data always going through browser url.
+6)we can send only 1024 characters
+7)we can send only characters, The reason is url supported only characters.
+8)This is not supporting uploading files.
+9)This is default request
+10)How many can we able communicate with doGet(-,-)
+we have mainly 4 approaches.
+1)With method attribute
+<form action=' ' method='get'>
+</from>
+2)Without method attribute
+<form action=' '>
+</form>
+3)making a request from browser url directly.
+https://localhost:9098/Proj/ls
+4)By using hyperlinks 
+<a href='./ls' >clickme</a>
+
+doPost():-
+=======
+1)This is used for uploading data into server
+2)Request data not attached to url
+3)Request data not visible to enduser
+4)security
+5)Request data always going through request body
+6)We can send unlimited data
+7)we can send any type of data
+8)This is supoertd for uploading file also
+9)we should write syntax explicitly by using method attributes.
+10)we can communicate only one way
+i.e; with method attribute
+<form action=' ' method='post'>
+</form>
+
+
+==============================================================================================
+methodattributevalue    |      	ourServletclassmethod     		 |       methodname     	             |     Exception
+method='attribute'		Override --------	   		           ----()		--------
+==============================================================================================
+get		Override doGet(-,-)					doGet()		No
+
+post		Override doPost(-,-)					doPost()		No
+
+get		Override doGet(-,-) and doPost(-,-)			doGet()		No
+
+post		Override doPost() and doGet(-,-)				doPost()		No
+
+get		Override doPost(-,-)					     -		Exception
+
+post		Override doGet(-,-)					     -		Exception	
+
+delete		Override doGet() and doPost(-,-)				doGet(-,-)		No
+
+put		Override doGet() and doPost(-,-)				doGet(-,-)		No
+
+get/post		Override doGet() and doPost(-,-) protected service(-,-)		protected service(-,-)	No
+
+get/post		Override doGet() and doPost(-,-) protected service(-,-) public service(-,-) public service(-,-)	No
+============================================================================================
+
+SendRedirector process:-
+=======================
+*The process of useful forwarding request from one servlet to another webresources(servlet/js) 
+within same project in same server / different project in same sever  /servlet different project in different server.
+*This method always making a new request to destination web resource
+*Destination web resource response always handover to browser/enduser.
+*This method contains only one parameter of string type(destination webresourcepath).
+
+Session Tracking:-
+=============
+HttpServlet is a protocol denpendent Servlet class. It is purely design for working Http protocol.
+
+Http Protocol:-
+==============
+The intension of protocol is making communication b/w browser and server(taking a request from browser and handover to server / getting reponse from 
+server and handover to browser).
+Simply we can say http protcol is communication chanel b/w browser and server.
+HttpProtocol provides rules to both browser and server.
+
+Mechanism of Http protocol:-
+=============================
+The communication b/w web browser and server by http protocol will be done like folllowing
+*When a client request is made then http protocol opens a scoket connection with a server internally.
+*Http protocol transfer values from browser side to server side.
+*After processing is doen at server side, the values are transfered from server to browser.
+*Http protocol closes the socket connection
+The above 4-steps are repeated for each request made from a browser.
+
+
+Web Client Specification:-(google,opera)
+=================
+The rules which are given by http protocol to browser vendor.
+
+Web Server Specification:-(ApacheTomcat,JBoss,Weblogic)
+==================
+The rules which are given by http protocol to server vendor. 
+
+Browser<---------Http Protocol------------>Server
+
+Browser:-
+========
+1)Reading the inputs from the end user and converting into appropraite requested format.
+2)Reading the response from server and handover to enduser in appropraite value.
+
+Server:-
+======
+1)Reading the request format from browser and converting into required format.
+2)Processing the request accroding to enduser requirment by using appropraite serverside app
+3)Finally handover that response to browser understandable format.
+ 
+HttpProtocol is stateless protocol:-
+===================================
+That means server can not recognized client state once response handover to browser. 
+That means server can recognize client b/w only one request-response cycle.
+
+Statelsess behavoir:-
+======================
+*When a client request is made to a server then server reads client data and process the request, after that the response will be send back to the client.
+*Onece reponse is given bak to client, aserver doesn't remeber ant data of the client. so when same client is sending another request to server then server doesn't recognize client
+*server feel each request is a new client
+
+stateful behavoir:-
+*When acient request is made to a server then a server store data to the client and whenever the same client is visting again to the server recognize a client.
+
+
+Session:-
+=======
+Session is a time peroid to interacting with server.
+
+Session Tracking:-
+=============
+To maintain or recognize client state upto time period(particular time). If u want to recognize client state.
+
+*Http protocol by default behaves like a stateless protocol. But in some applications, we need stateful behavior.
+To convert behavoir from stateless to stateful we aply a mechanisam called "session tracking"
+*Session tracking combination of "session management" and "state mgmt"
+
+*session mgmt is nothing but identifies a client whether is a old or new and state mgmt is nothing but remember the values of client at server side.
+
+How session management works:-
+==============================
+*When a client request is made to a server then server first checks wheher a client is an old client or a new client by identifying a token.
+*If there is no token in the client request then server identifies the client as new generates a new token and after that the token will be sent to client along with a response.
+*When the same client is next time visiting server then along with the request the token will also be sent to the server.
+*So a server identifies the client as an axisting client.
+*Session mgmt refers to tracking the state of an end user across web pages.
+*Session mgmt enables programmers to create applications where the state of an end user is required to be maintained across multiple pages.
+
+
+client1----------req1------------------>server
+	<-----response+token------------
+	-------req2+token--------------->
+	<----------response--------------
+
+
+Session Management using session:-
+==================================
+client----------req1------------------>server
+	---------------req2------------>
+	-------------req3--------------->
+Server remeber whtaever clien says
+This is known as converstional state with server
+Internal time b/w login and logout
+
+Let us understand about session in servlets:-
+*Session is created using Http Session interface object.
+*Web container uses HttpSession to create a session
+*HttpSession hsp=request.getSession();
+*We can use it to store anything whtaever client request.
+*It persist for entire session with a specific client
+*It creates a unique ID for each client to rember client
+
+How state Management works:-
+===========================
+*State mgmt refers to remembering a client data in a server.
+*In order to remember a client data in a server, at server an object will be created for each new Client.
+*If a server remeber a client data then a response for a request of a client, can be constructed by depending on not only the current values but alco depending on prevous values of the client
+*In order to remember a client data in a server, for each new client one object will be created and the data will be stored in that object until the client logout from the server.
+*Whenever a client request is aade to server for first time then at server side a token and an object both are generated for a client.
+Here token for session mgmt and object for state mgmt.
+*Th no.of clients connected with a server.
+
+
+client1 O---------------->O session object to store client-1 data
+client2 O---------------->O session object to store client-2 data
+
+tHE FOLLOWING 4 TECHNIQUES ARE USED TO FULFILL SESSION TRACKING MECHANISAM
+we have 4 approaches 
+a)cookies
+b)hidden form fields
+c)url-rewriting 
+d)HttpSession
+
+a)Cookies:-
+===========
+1)It is a JEE Object.
+2)It is holds information in the form of key-value pair combination.
+3)These key-values are plain textual information.
+4)Cookies is always store in browser cache memory.
+5)Whenever we send a second along with request cookie Object also added to request coming to server request.
+
+Browser			Server
+----------	  req1	       --------------------
+|cookie  |----------------->    |  Creating one cookie object and store client state in the
+|             |<-----------------    |   form of key-value pair combination and add that Object to 
+|             |	res1	      |   Servlet response
+-----------  --------------->     ---------------------
+	req2		0 user|ram--------------------------------->0 ServletResponse
+			cookie          		add to ServletResponse
+			response.addCookie(cookieobject);
+
+Cookie[] c=request.getCookies();  //null
+String username=c[0].getValue();
+out.println("<h2> username: "+username+"</h2>");
+
+*Cookies are chunks of information created by the server and are stored by the browser on the client machine.
+*Supported by the browser and the size of each cookie is maximum of 4 bytes.
+*Cookies are used by the server to find out the computer 
+
+public String getName():-Returns the name of the cookie
+public void setMaxAge(int expiry):- Sets the maximum time for which the client bowser retains the cookie value.
+public int getMaxSize():-Returns the maximum age of the cookie in seconds.
+public void setValues(String value):- Sets a new value to the cookie
+public String getValue():-Returns the value of the cookie.
+
+
+6)Multiple Cookie objects
+Cookie c1=new Cookie("username",name);
+Cookie c2=new Cookie("password",pswd);
+response.addCookie(c1);
+response.addCookie(c2);
+out.println("<h2> username: "+name+"</h2>");
+out.println("<h2> password: "+pswd+"</h2>");
+
+b)Hidden form fields:-
+=======================
+*It is the text field but not visible on browser url.
+<input type='hidden' name='hdn'>
+
+Browser---request---->Servlet1(Reading enduser details and store hidden form fields)------->Servlet2(reading hidden form fields details and main client state)
+
+Advantage:-
+It is not bother about wether cookie is enable or disable or not.
+Disadvantage:-
+We have to submit some "extra form" to server. It is also carry only textual information. It is runs in server.
+
+*Simplest technique to maintain the state of an end user
+*Embedded in an HTML form.
+*Not visible when you view an HTML file in a browser window
+*Not able to maintain the state of an end user when it encounters a static document
+ 
+c)URL-Rewriting:-
+==============
+*Maintains the state of end user by modifying the URL.
+*It is used the information to be transfered is not critical.
+*It cannot be used for maintaining the state of an end user when a static document is encountered.
+
+http://localhost:9078/poj1/as?user=vikram
+user=vikram(query)
+
+Attach client state to browser url by using hyperlink(<a href='./servlet2'> this code write in servlet1.java) is calling as url-rewriting.
+
+d)HttpSession:-
+==============
+The Servlet Session API provides various interfaces and classes, Which can be used for maintaining end user session. The interfaces defined in the servlet 
+session API are:
+javax.servlet.http.HttpSession
+javax.servlet.http.HttpSessionListener
+javax.servlet.http.HttpSessionBindingListener
+
+HttpSession session=request.getSession(true);
+*If session is available the same session only returns.
+*If session is not available, server creates new session and retuns session
+
+HttpSession session=request.getSession();
+*If session is available the same session only returns.
+*If session is not available, retuns null.
+
+
+Filter:-
+========
+It is a JEE Object. 
+It is a container managed Object. 
+It is a pluggable componenet.
+It is sutible for developing web app like Servlet
+
+With in WEBAPP
+Request-------interact each req---->Filter------->servlet/JSP
+				      |
+Rsponse<-------------------------------
+
+Filter API:-
+javax.servlet package contains 3 interfaces.
+1.Filter
+2.FilterChain
+3.FilterConfig are main intefaces
+Filter is also contains some life cycle methods.
+1)public void init(FilterConfig fc):- invoked only once 
+2)public void doFilter(ServletRequest req,ServletResponse res,FilterChain chain)
+3)public void destroy()
+The above methods executing by ServletContainer thats we calling.
+
+Types of Filters:-
+1)Pre-filter:-
+Before executing of servlet logic entire filter logic will executes.
+
+2)post-filter:-
+After executing of servlet logic entire filter logic will executes.
+
+3)pre-post filter:-
+Some of the filter logic will execute first after servlet logic executes later remaining filter logic will executes.
+
+Advantages of Filter:-
+====================
+*Filter are removable without effecting servlets
+*Filters are first to execute before servlets.
+*Used to record all incoming request.
+*Logs the API address of the computer.
+*Verfying input deatils //and many more.
+*Excecuting common logic for all servlets
+*Create our own request and response Objects.
+*Perform encryption and decryption algorithm.
+
+Like Servlet, Filter contains 5 life cycle phases:-
+=================================
+a)Loading phase:-
+Servlet contains provides memory and execution sv, sm, sb
+b)Instantation phase:-
+Creating Object for Filter class
+c)Initailization phase:-
+calling init(FilterConfig)
+d)Servicing phase:-
+calling doFilter(ServletRequest, ServletResponse)
+e)Destroy phase:-
+Calling destroy()
+
+*Whenever we deploy Filter Project in server, Then automatically servlet container will executes first 3 phases.
+*The above 3 phases executes only one time.
+*Once enduser sending request then only servicing phase executed. This phase executes multiple times based on no.of requests
+*Filter project undeploy from server then only destroy phase executed.
+
+Diff b/w doFilter(-,-,-) and FilterChain[doFilter(-,-)]:-
+=====================================
+	 doFilter(-,-,-)		FilterChain[doFilter(-,-)]
+-----------------------------------------------------------------------------------------
+1)It is a life cycle method			1)It is a not a life cycle method
+
+2)It is automatically calling by		2)It is not executing automatically we have to write syntax.
+ServletContainer
+
+3)It is useful for processing enduser request	3)It is useful for making communication b/w filter and servlet
+
+4)It contains three parameters			4)It contains only two parameters.
+
+Listeners:-
+=======
+*Listeners are java Objects which are useful for perform opeartions meanwhile of creating and destroying scope object by Servlet Container.
+*Servlet container infrom to event class about scope object(event source) creation.
+*Event classes inform to listeners for performing operations by using handler classes.
+
+<listener>
+	<listener-class>ServletContextHandler</listener-class>
+</listener>
+
+Console Deployment:-
+================
+a)Create war file with our project
+
+=============================================================================================================
+
+What is deployment descriptor?
+----------------------------------------------------
+create the deployment descriptor:-
+The Deployment descriptor is an xml file, from which web container get the information about to be invoked.
+The web container uses the "Parser" to get the information from web.xml file.
+There are many elements(<tag>) in web.xml. 
+=============================================================================================================
+
+What is WAR file?
+------------------------------------
+war(web archive)
+A war file combines all types of files in to a single unit of a web project.
+It may have servlet, .html, .jsp, .txt, image, .xml and .js etc
+Web archive file contains all the contents of a web appliaction.
+War file is used to "reduce the time duration"  while transfer file from client to server.
+
+=============================================================================================================
+
+Differentiate Static and Dynamic webpage?
+---------------------------------------------------
+Static web page:-
+Static web page written in language such as HTML, JavaScript, CSS etc..
+Static web pages when a server recieves request for web page, and server sends response to client without doing any additional process. These web pages are 
+seen through web browser.
+pages will remain same until someone changes it manually.
+Static wb page take less time for loading 
+In static web pages database not used.
+Static web page does not contain any application program.
+
+Dynamic web page:-
+Dynamic web page written in language such as CGI, ASP ASP.net etc..
+Dynamic web pages when a server recieves request for web page,and server side calls application programming and executes later server sends response to 
+client with doing any additional process. These web pages are seen through web browser.
+Content of pages are different for different visitors.
+Dynamic web page take so much time for loading 
+Dynamic web page does contain any application program.
+
+========================================================================
+
+Servlet life cycle API:-
+-------------------------
+Types of events generated during the life cycle of a servlet are:
+1.ServletRequestEvent: Relates to changes in the request objects associated with a web app
+2.Servlet context Events: Relates to changes in the ontext of a web app.
+3.HttP servlet events:Relates to changes in the session object of a servlet app.
+
+*Handling of servlet Life cycle events
+*The classes that receive notification abou the servlet life cycle events are knoen as event listeners
+*various event listerner interfaces are:-
+1.ServletRequestListener interface
+2.ServletRequestAttributeListener interface
+3.ServletContextListener interface
+4.ServletContextAttributeListener interface
+5.HttpSessionListener interface.
+6.HttpSessionAttributeListener interface.
+7.HttpSessionActivationListener interface.

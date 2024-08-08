@@ -1,0 +1,439 @@
+Spring:-(Rod Jhonson)(interface 21-oldname)
+----------
+Spring<--------->EJB
+
+Spring:-
+--------------
+use JDK libraries, Spring jar files
+not dependent OS
+Application are light weight
+without application server
+loosely coupled
+pojo(HAS-A(developer) Runtime ploymoriphisam)
+IOC
+
+
+EJB:-(awt)
+-------------
+use OS libraries
+dependency of Application server
+awt are heavy weight
+tightly coupled
+=================================================================================================================
+MVC:-
+--------
+view
+---------
+
+controller
+------------
+
+model
+--------
+service layer
+business layer(loosely coupled)
+DAO layer(loosely coupled)--->jdbc, hibernet,JPA(Rules(I))
+=================================================================================================================
+pojo(HAS-A)
+      /\
+       |
+IOC(core ,J2EE)  || Spring MVC(web container)
+      /\
+       |
+input(xml)  (Runtime ploymoriphisam)
+=================================================================================================================
+Container:-
+--------------
+It will web.xml file, 
+It will creates instances of xml beans, (pojo)
+ It will manage life cycle of bean classes, (pojo)
+It will pass dynamic parameters supply to bean class. (pojo)(Dependency injection)
+
+IOC container:-(Dependency injection)
+--------------------
+core container class name is BeanFactory(I)
+J2EE container class name is ApplicationContext(I)
+
+MVC:-
+web container class name is WebApplicationContext(I)
+
+Dependency injection:-
+It will pass dynamic inputs (parameters) supply to pojo class. 
+By using Runtime ploymoriphisam implemented this
+
+Main componenets:-
+
+1)pojo class
+2).xml file
+3)driver class
+
+Test.java
+----------
+package beans;
+public class Test {
+	public void msg(){
+		System.oot.println("hello world");
+	} 
+}
+
+test.xml:-
+----------
+dtd(document type defination)/xsd(xml schema defination)------>hibernet must needed
+<beans>	//root tag
+	<bean class="Test" id="t"/>//configure pojo class
+	or </bean>
+	
+</beans>
+
+class Client {
+	psvm(-) {
+		Resource r=new ClassPathResource("test.xml");//find the location .xml
+		BeanFactory factory=new XmlBeanFactory(r);
+		Test t=(Test)factory.getBean("t");  // getBean() imp method in XmlBeanFactory class, test class ref
+		t.msg();		
+	}
+}
+
+=====================================================================================
+WebApplication framework:-structs
+Application Framework:-Spring framework
+Frameworks are providing 70% of our Application implementation by deafault.
+Spring f/w is modleizerd framework
+
+Spring Modules (Spring-1):-
+---------------------------------
+1.core Module:-basic fondation spring
+pojo, Autowiring
+Autowiring:-
+one bean object attached(injecting) to another bean object, another bean object attached(injecting) to another bean object
+
+2.Spring JDBC/DAO Module:-To interact with DB 
+	//JDBC-common code(Boiler plate code)
+jdbcTemplate.execute("select * from emp");
+
+3.Spring ORM Module:-
+The boilerpltecode is abstracted
+[	In the hibernet
+1.create configuration object
+Configuration cfg=new Configuration();
+cfg.configure();
+
+2.create SessionFactory object
+SessionFactory sf=cfg.buildSessionFactory();
+
+3.create Session object
+Session s=sf.openSession();
+
+4.create Transaction Object
+Transaction tx=s.beginTransaction();
+
+5.Perform Database operations
+   int kval=s.save(emp);
+
+6.tx.commit();
+
+7.close the resources
+s.close();
+sf.close();		]
+
+Spring hibernate:
+The boilerpltecode is abstracted
+HibernateTemplate
+hibernateTemplate.save(emp);
+
+4.Spring AOP Module:-
+(Aspect oriented programming)
+*Business logic and services logic seperatly
+*It is not given flexibility to write services code inside business logic.
+*we are able define services logic explicitly
+*Which location requires services(Authentication,Transaction) is needed(maybe before method after method)
+
+5.Spring Transaction Module:-Relationship b/w DB
+Must be applied Business logic
+Transaction Module provide very good environment transactions
+@transactional
+
+6.Spring web Module:-(web application prepare more effective manner)
+web Module:-structs framework(MVC based), JSF... presentation
+Web MVC Module:-only MVC 
+
+7.Spring Security Module:-
+web application securiry like username, password
+ Authentication and Autherization services 
+======================================================================
+1.MAVEN
+2.LOG4J
+4.JUNIT
+============================================================================================================
+Advanced modules in Spring-2:-
+----------------------------------------
+1.Spring Boot
+2.Spring JPA
+3.Spring data-JPA
+4.Spring cloud
+5.Spring Micro services
+6.Spring social
+7.Spring Batch
+============================================================================================================
+Basics:-
+Enterprice:-It is a business org, It is a group of organization running under single lable(Relaince-->mobile, shopings, market)
+Enterprice Application:-It is a s/w app designed for an enterprice.It will simplfy the internal business processing.
+1.Presentation(UI) layer:-starting point,improve look and feel,take data from users to submit app,data validation, diff types of requests from client to server, presentation logic
+Presntation layer Frameworks:-structs, JSF
+2.Business processing layer:-It used to executed all business rules and regulations from client required, To use separate logic called as business logoc,
+To use a set of technologies0(Java beans, Servlet, EJB's)
+3.Data persistance layer:-To interact woth DB, perform operations as per the business and reglations, To use persistance logic, JDBC, JPA,..
+ Hibernate,EJBs-Entity beans....
+
+============================================================================================================
+System Architecture:-
+--------------------------
+1-Tier Architecture:-
+We will provide all the enterprise app layers in a single Architecture
+limitations:-
+It is highly recomended for standalone app
+All Three layers must be managed by single machine resources may not be sufficient to execute enterprice app.
+It will reduec App performance, only single user envirobment
+not providing database sharability
+It is Tiglhtly coupled Architecture
+
+2-Tier Architecture:-
+To complete enterprise app in 2 machines With DB
+To manage Tier-1 machine(UI,BusinessProcessing) and Tier-2 Machine(Data Access Layer) with DB
+Loosely coupled
+Client and server Machine
+improve database sharabilty
+limitation:-
+little bit Tightly coupled design with this Architecture
+Component sharability not available
+It is not suitble standalone app
+To imporive performnce but maintaince cost will be increased
+only single user envirobment
+
+3-Tier Architecture:-
+It is managed by 3 Machines with DB
+To manage Tier-1 machine(UI) and Tier-2 Machine(BusinessProcessing) and Tier-3(Data Access Layer) with DB
+client, application server and database server with DB
+Multiuser environment
+Loosely coupled design
+To imporove performance 
+improve database sharabilty
+Flexiblity increased
+Component sharability available
+maintaince cost will be increased(no.of Tiers)
+============================================================================================================
+App types:-
+--------------
+Standalone app:-
+-------------------
+CUI app and GUI app  
+If design without using Client and sever and 1-tier Arch 
+
+Enterprice app:-Both WEB ENV and Distributed ENV
+------------------
+Web app:-
+--------------
+Web app Client(Browser) logic will be distributed and sever(JVM) machine only.Client is fixed
+We have to use seperate set of technologies as web technologies like CGI, Servlet, JSP, JSTL
+To generate dynamic response from server
+Web app are executed by both web server and app server
+It is not required middleware services.
+It is collections of web components like Servlet, JSP.... which are executed by web container like  Servlet container, JSP container.......
+To prepare web app SUN microsystem given model-1 and model-2 Architecture
+model-1 Architecture[MVC1](old model)
+----------------------------------------------------
+Client 				Server			   	   		   DB
+--------------		-----------------------------------------------------------------			---------------
+|	|<----------------->	|view/controller(JSP) <---->(JAVA BEAN)Model	|<----------------->	|	|
+--------------		-----------------------------------------------------------------			---------------
+
+*JSP(view/controller) taking the response all the req and processing req
+*Tightly coupled design
+*writing java code agains of JSP technology
+
+model-2 Architecture[MVC2][MVC Architecture]
+---------------------------------------------------------------
+It is pure MVC implemetation
+*loosely coupled
+*view controller Model seperated   
+*controller identify which model component and create object for model component and execute model componen
+*model componennt execute DB
+*view sent reponse to client
+Client 				Server			   	   		   			DB
+--------------		---------------------------------------------------------------------------------------------------------------		---------------
+|	|<----------------->	|controller(Servlet)[----->view(JSP)]<---->(JAVA BEAN,Hibernate..)Model<----->view(JSP)  |<----------------->|	  |
+--------------		----------------------------------------------------------------------------------------------------------------		---------------
+
+Q)To design web app we have the tech like Servlets and JSPs, we have servers like Tomcat, weblogic...
+to similfy web app devlopment we have already some IDEs like Eclipse, .......
+To prepare with standardlization we have web app models like Model-1 arch and Model-1 Arch
+still what is req to use Frameworks?
+A)
+(predefine then developers work is simplified)Controller and generics services are common takes 70% of the actual app implementation.
+(developer remaining implmentation)JSP pages and Model are not common var takes only 30% of the acual implemntation
+
+Third parties provides products which are providing 70% common implementation called as "framework".
+
+Distributed app:-
+------------------
+logic will be distributed Distribued both Client(JVM) and sever(JVM) machines.Client is not fixed(It maybe used coreJava).
+A GUI app with action performed method, a Servlet or JSP or f/w like Structs JSF
+We have to use seperate set of technologies as Distributed technologies like Scoket, RMI, EJB, CORBA, Web services
+To establish connection communication b/w local machine and Remote machine and generate remote services from remote machine.
+Distributed app are executed by only app server(glashfish,weblogic)
+It is required middleware services.
+It is collections of EJB components which are executed by EJB container
+
+Client 			Server(Servlet)		    EJB
+--------------		--------------		---------------
+|	|		|	|		|	|
+--------------		--------------		---------------
+
+	     WEB ENV	      |	   Distributed ENV
+
+
+============================================================================================================
+*Framework is a Pre-Fabricated software components taht programmer can reuse, share and customize inorder to simplify App devlopment.
+
+*Framework is a semi implemented app, It will provide very good environment to prepare enterpise app as per developer convience.
+
+*Framework is the collection of tiils and APIs, TO prepare enterpise app in simplified manner.
+
+ADV:-
+---------
+*It will Provide standard templates to design app
+*It will Provide standard flow of execution b/w components
+*It is allowing parllel development
+*It will reduce development time/cost and to improve productivity.
+
+structs-standard template:-
+------------------------------
+Client(login page)
+Controller(Actionservlet)
+structs-config.xml
+LoginAction
+LoginActionFrom
+Success.jsp
+Failure.jsp
+
+Client(login page)----------->Controller(Actionservlet)----------->structs-config.xml
+Controller(Actionservlet)<---------->LoginAction
+Controller(Actionservlet)----------->LoginActionFrom
+Controller(Actionservlet)----------->Success.jsp------>Client(login page)
+Controller(Actionservlet)----------->Failure.jsp------>Client(login page)
+
+
+Type of frameworks:-
+--------------------------
+1.web framework:-
+------------------------
+To prepare web app only
+Ex:- like structs, JSF,.....
+
+2.Application Framewoks
+---------------------------------
+To prepare and execute any type of java, J2EE standalone, web, distribued, database related..........Application's.
+Ex:-Spring framework
+
+====================================================================================
+Diff b/w structs----JSF----Spring framework?
+--------------------------------------------------------
+*structs and JSF are prepare web app only
+Spring f/w are develop are standalone, web, distribued, database related..........Application's.
+
+*structs is able to provide focus on olny controller layer, JSF is able to provide focus on olny view layer
+Spring is able to provide focus on all layer(presentation,access,controller..........)
+
+*structs and JSF are designed on MVC and its associated design patterns.
+Spring f/w web MVC module is only designed on the top of MVC design patterns.
+
+*structs and JSF are providing generic services like validations, Exception Handling.., but not providing support of middleware services.
+Spring f/w is able to support for generic services Exception Handling, data handling and midleware services like JAAS, JNDI,.....
+
+*structs and JSF are modularized f/w to prepare any simple app even we have to load complete f/w
+Spring f/w modulized f/w to prepare any simple app even It is not required to load complete spring f/w. It is sufficient to load the required modules.
+
+*structs and JSF are more API dependent they are not following POJO/POJI impl
+Spring f/w less API dependent It is following POJO/POJI impl
+
+*structs and JSF are difficult to perform debugging and testiong
+spring f/w simple to perform debugging and testio]ng
+
+*structs and JSF heavy weight
+spring f/w light weight
+
+*structs and JSF are not providing inbuilt support for integrating the explicit app like EJB, hibernate app, AJax app, JDBC app...
+spring f/w is has providing inbuilt support for integrating the explicit app like EJB, hibernate app, AJax app, JDBC app....
+
+*structs and JSF allowing the view tech like html, JSP..... to prepare view part
+spring f/w is allowing the most advanced view tech like velocity, freemarker...... to prepare view part
+
+*structs and JSF are not having AOP
+spring f/w is having AOP support along with object orentation
+
+*structs and JSF are not  having Testing Module
+spring f/w is providing Testing support by having Testing Module
+
+*structs and JSF 
+public ActionForward(ActionMaping , ActionFrom,HttpServletRequest,HttpServletResponse) throws Exception {}
+*spring f/w
+public void doLogin() {}
+============================================================================================================
+1.Home: interface1
+2.Mr Road johnson
+3.Objective: To simplify and accelerate app development
+4.Type: open source
+5:Type of f/w:Application f/w
+6.starting version:spring 1.0 [oct,2004]....5.0
+7:website:http://spring.io
+8.Design on: java j2EE
+9.compatibilty/portability: supported by all IDE's and servers
+10.STS spring tool suite
+============================================================================================================
+Spring 1.0:-  
+--------------
+Spring AOP   
+Spring ORM   
+Spring WEB 
+Spring DAO 
+Spring context 
+Spring Web MVC  
+Spring core
+
+spring 2.0:-  Spring AOP   
+Spring ORM  
+Spring WEB 
+Spring DAO 
+Spring core
+Spring JEE
+
+Spring 3.0:-  
+Test
+core container(Beans,core,context,Expression lang)
+AOP
+Aspects
+Instrumantation
+DataAcess/Integration(Transaction,JDBC,ORM,OXM,JMS)
+Web[MVC/Remoting](web, servlet, portlet, structs)
+
+Spring 4.0:-  
+--------------
+Test
+core container(Beans,core,context,Expression lang)
+AOP
+Aspects
+Instrumantation
+Messaging
+DataAcess/Integration(Transaction,JDBC,ORM,OXM,JMS)
+Web[MVC/Remoting](web, servlet, portlet, WebSocket)
+
+Spring 5.0:-  
+--------------
+core container(Beans,core,context,SP E lang)
+AOP
+Aspects
+Instrumantation
+Messaging
+DataAcess/Integration(Transaction,JDBC,ORM,OXM,JMS)
+Web[MVC/Remoting](web, servlet, portlet, WebSocket)
+

@@ -1,0 +1,49 @@
+spring core:
+  1. What is inversion of control(IOC)
+  2. What is dependency injection(DI)
+  3. What is difference between IOC and DI
+  4. What is spring container, what is its functionality
+  5. How we can specifiy configurations to spring container
+  6. What are the core data elements present in the spring configuration
+  7. How do we specifiy configuration using annotations in java based approach
+  8. What is the use of @Configuration
+  9. What is use of @Bean
+  10. What is difference betwen @Bean and @Component
+  11. What is @ComponentScan and how it works(explain basepackages)
+  12. How do we specify dependency injection of one bean to other bean 
+     in xml or annotation
+  13. What is autowiring
+  14. What are the different ways of autowiring in xml
+  15.How @Autowired works in annotation based
+  16. What is @Qualifier and how it works
+  17. What is @Primary and how it works
+  18. Explain different bean scopes and what are the differences
+  19. Explain bean life cycle
+  20. What is difference between eager and lazy loading of beans
+  21. How @Lazy works
+  22. Write a program using spring dependency injection to create department object
+      empoloyee object, employee class containing department as property type,
+      set some property values between employee and department
+  23. What are different aware methods in spring(BeanNameAware, ApplicationContextAware)
+  24. What is BeanPostProcessor
+  25. What is difference between prototype and singleton
+  26. Write a program using dependnecy injection with following
+      a. Write an interface
+      b. Write classes implementing interface
+      c. Create objects of these classes using spring ioc
+      d. Write a common class that takes the object of any class created in point c
+         using dependency injection
+  27. Write program using spring DI for generic type classes
+  28. Explain circular dependency injection and where it fails
+  29. How annotations will work
+  30. What are the design patterns used in Spring framework work
+      Inversion of control, Dependency Injection- internally using Java Reflection
+      proxy, front controller, singleton, view templates, MVC(Model, View, Controller)
+   31. What is @Order annotation, what is its use
+   32. What is @DependsOn annotation, what is its use
+   33. How do we specify multiple annotation configuration files
+   34. What is @Resource, @Inject, @Named, @Required annotations
+  35. what is <context:annotation-config> and <context:component-scan>, what are 
+      the differences
+  36. What is @PostConstruct, @PreDestroy
+

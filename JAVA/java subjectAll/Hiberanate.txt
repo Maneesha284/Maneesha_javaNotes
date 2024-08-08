@@ -1,0 +1,754 @@
+HIBERNATE:-
+============
+Hibernate not related to exist to this technologies.
+It is not provide sun micro System.
+It is not a technology.
+
+Hibernate is an ORM(Object Relational Mapping) tool/product/implementation.
+
+J2SE:-JDBC, RMI....
+J2EE:-
+J2ME:-
+
+1.Introduction:-
+Perisistance Layer conecpts:-
+============================
+Serialization and Deserialization
+JDBC
+ORM
+	1.EJB's
+	2.JPA
+	3.Hiberanate
+	4.open JPA
+	5.Toplink
+	6.iBatis
+Hiberanate
+Hiberanate architecture
+Hibernate feature
+
+
+2.Steps to prepare Hibernate App:-
+==================================
+1.POJO class/Persistance class
+2.Hibernate Mapping File:-
+3.Hibernate Configuration File
+4.Client APP
+
+POJO class/Persistance class:-
+-----------------------------
+ JAV APP(persistance class)		DataBase
+					emp1
+class Employee{				eno ename esal
+int eid;
+String name;
+float sal;
+setter and getter methods
+}
+
+Hibernate Mapping File:-
+-----------------------
+Hibernate Mapping File means To provide mapping details between a class and table
+Employee<------>emp1
+eid<-------->eno(PK)
+name<------->ename
+sal<-------->esal
+
+Client Application:-
+-------------------
+Employee emp=new Employee();
+save(emp);
+ emp object(persistence object)
+  |
+ \/
+eid=101
+name=azure
+sal=500
+
+DataBase:-
+eno   ename    esal
+-------------------
+101   azure    500
+
+Hibernate Configuration File:-
+-----------------------------
+Driver class:
+Driver URL:
+DB uname:
+DB pswd:
+
+
+3.Hibernate Applications:-
+==========================
+combinations of Hibernate:-
+core java<---------->Hibernate
+GUI App<---------->Hibernate
+Servlets<---------->Hibernate
+JSP<---------->Hibernate
+structs<---------->Hibernate
+JSF<---------->Hibernate
+Spring<---------->Hibernate
+
+
+4.Hibernate code Generations Tools:-
+===================================
+1.Schema Export
+2.Schema Update
+3.Code Generation
+
+class A{
+}
+class B extends B{
+}
+In this particular situtaion we can intimate to DB(This tools are helpfull)
+
+
+5.Hibernate Primary key Generation Alogorithms:-
+===============================================
+Hibernate software automatically generate primary keys
+11 no.of algorithms available
+
+6.Hibernate connection pooling:-
+================================
+Inbuilt connection pooling mechnisam
+Third party vendors provided connection pooling mechnisam
+DBCP, Proxool, C#P0
+Weblogic server provided connection pooling through JNDI Server.
+
+7.Hibernate Transaction Management:-
+====================================
+ACID properties
+Automicity---->Non-Auto-coomi
+Isolation levels
+
+8.HQL(Hibernate Query Language):-
+==============================
+	from Employee;------->select * from emp1;
+Here Employee is class name 
+
+9.Native SQL:-
+=============
+
+10.Criterion API(pure java code):-
+=================================
+
+11.Hibernate Mappings 
+======================
+1.Basic or Mapping
+2.component Mapping
+3.Inheritance Mapping
+4.Association Mapping
+
+12.Hibernate Filters:-
+=====================
+
+13.Cache mechanisms:-
+=====================
+I level cache
+II level cache
+
+14.Hibernate 5.x Features:-
+=========================
+
+15.JPA Basics:-
+==============
+
+
+***********************************************************************************************************************************************************
+1.Intoduction
+=============
+Enterprise:-It is a Business organizaion or collection of organizations running a single label.
+
+Enterprise Application:- It is a software application designed for an enterprise to simplify the internal business processing
+To prepare Enterprise Application, we have to provide the following three layers
+
+	--------------------------------------------------
+	|	Presentation/UI Layer			 |
+	--------------------------------------------------
+	|	Bussiness/Bussiness procesing Layer	 |
+	--------------------------------------------------
+	|	Persistance/Data storage and Access Layer|
+	--------------------------------------------------
+
+Presentation/UI Layer:-
+=======================
+1.To improve look and feel to the Enterprise Application
+2.It is starting point to the app inorder to access
+3.To take data from users and to submit data to server side App
+4.client side data validation(register form):-Before submiting the request to server after entering data then it is called CSDV
+To perfrom CSDV we have to use JavaScript functions(To define JSP/HTML)
+server side data validation(Business logic):-After submiting the request to server if you perform data validation over data at server machine then it is
+called SSDV
+5.To submit different types of requets from client to server Ex:- POST, GET, Head..
+6.Presentation logic
+7.AWT, SWING, HTML, JSP, Free Marker, Velocity,... 
+
+Bussiness/Bussiness procesing Layer:-
+===================================
+1.To define and execute the business rules and regulations which are required by the clients exactly.
+2.To prepare business logic
+3.servlet, JSP[Rarely],EJB's-session Beans...
+
+Persistance/Data storage and Access Layer:-
+==========================================
+1.To interact with database and to achive data persistency(insert, update, delete... permenently).
+2.To prepare persistance logic 
+3.JDBC, EJB's-Entity Beans, JPA, DAO,...
+
+Hibernate------->Persistance layer
+Struts, JSF------->Presentation Layer
+Spring------->All the layers
+
+Data Persistance:-
+==================
+Representing data permanently in back end systems is called as Data Persistance
+
+Data Persistance operations:-
+==============================
+To make data persistancy if we perfrom any operations with back end systems then taht operations are called as Data Persistance operations
+Ex:-CRUD
+
+Data Persistance Technologies:-
+===============================
+to achive data persistency, if we use any tech then it is called as Data Persistance technology
+Ex:-JDBC, Hibernate, JPA, EJB's-Entity Beans,...
+
+In enterprise applications, to perform data persistency, we will use the following technologies in java:-
+
+1.Serialization and Deserialization:-[upload data into file, read data from file]
+====================================
+update and deletion operations not possible
+ObjectOutputStream------>serialization
+ObjectInputStream-------->Deserialization
+FileOutputStream
+FileInputStream
+
+2.JDBC:-
+=======
+*It is a tech or an API
+*It will perform datbase operations from java app
+*JDBC is an abstraction[collection of interface] and implemented by all the database vendors.
+*We need Drivers, It will map java api representation to sql api representation
+
+oracle:
+driver class:- oracle.jdbc.OracleDriver
+url:jdbc:- oracle:thin:@localhost:1521:xe
+
+MySql:
+Driver class:- com.mysql.cj.jdbc.Driver
+url:- jdbc:mysql://localhost:3306:dbname
+
+steps to prepare jdbc App:-
+1.Register load the class
+2.Establish con b/w java app to DB
+3.Statement, PS, CS
+4.write sql query
+5.close the resources
+
+Data persistency in JDBC:-When we establish con in java app automatically connection "Auto-commit" nature.
+
+Drawbaks of JDBC:-
+=================
+1.We must aware about SQL queries(java app not aware about SQL queries)
+2.JDBC is providing hard code approach for (5 steps-->load class, connection...,boiler plate code will be increase)
+3.Future frame work like Spring not supported boiler plate code
+4.jar file must required
+5.Statement, PS, CS object must required
+
+************************************************************************************************************************************************************
+3.ORM:-[OBJECT RELATIONAL Mapping]
+======
+HYPER TEXT DATA MODEL			OBJECT ORIENTED DATA MODEL			RELATIONAL DATA MODEL
+
+UI:- register.html []			RegApp:- RegServlet.java []			Database:- student table []
+_______________________			_____________________________			_____________________________
+
+sid:11					requestobject(sid=11,sname=aa,saddr=hyd)------req------->	id	name	addr
+sname:aa								     	     <-----res---------	11	aa	hyd
+saddr:hyd
+
+[register]--------------req---------->
+
+inserted successfully<---------res-----
+
+*Mismatched between OBJECT ORIENTED DATA MODEL to RELATIONAL DATA MODEL resolve this problem we need to use ORM
+1.Granualarity mismatch
+2.sub types mismatch
+3.association mismatch
+4.Identity mismatch
+5.cost mismatch
+
+
+OBJECT ORIENTED DATA MODEL				OBJECT RELATIONAL MAPPING[Hibernate]				RELATIONAL DATA MODEL
+_____________________________				_________________________					_________________________
+student object(sid=11,sname=aa,saddr=hyd)										std table name
+							Student<------->std						id[pk]     name		addr
+class student{						sid<------->id							----------------------------
+sid=11;							sname<------>name						11	   aa		hyd
+sname=aa;						addr<------->addr
+saddr=hyd
+}
+
+
+*It is an interface between OBJECT ORIENTED DATA MODEL and RELATIONAL DATA MODEL Either through XML document or through annotaion
+class-------->Table
+object------->record
+ID prop---->pk column
+norm prop----->normal column
+*A class from OBJECT ORIENTED DATA MODEL 
+*Table from RELATIONAL DATA MODEL
+*ID property from OBJECT ORIENTED DATA MODEL  
+*primary key column from RELATIONAL DATA MODEL
+*Normal property from OBJECT ORIENTED DATA MODEL
+*Normal column from RELATIONAL DATA MODEL
+
+
+1.Granualarity mismatch:-
+=========================
+class Employee{							emp table
+String eid;					id	name	addr	ano	aname	atype
+String ename;					----------------------------------------------
+String eaddr					101	ABC	hyd	123	ABC	savings
+Account ac;
+}
+
+class Account{						emp table[MAY NOT BE SUPPORTED]
+String acno;					id	name	addr		Eacc
+String acname;					----------------------------------------------								
+String actype;								ano	aname	atype
+}									----------------------
+
+//Here 4 properties in employee class and 6 columns emp table it is called as Granualarity mismatch
+
+Employee object O---->eid=101,ename=ABC,eaddr=hyd
+Account object O----->acno=123,acname=ABC,actype=savings
+
+solution of is Granualarity mismatch ORM(component mapping)
+
+2.sub types mismatch:-
+=======================
+
+class Person{							
+String pname;					
+String paddr;					
+}
+
+
+class Employee extends Person{						
+String eid;					
+float esal;																
+}
+
+class Student extrends Person{
+String sid;	
+String scourse;	
+}
+
+emp object
+----------
+pname=anu
+paddr=blgr
+eid=100
+esal=2500
+
+std object
+---------
+pname=rani
+paddr=hyd
+sid=101
+scourse=cj
+
+First approach:-
+save(emp)
+save(std)
+pname	paddr	eid	esal	sid	scourse
+------------------------------------------------
+anu	blgr	100	2500	null	null
+rani	hyd	null	null	101	cj
+
+
+second approach:-
+=================
+
+	emp table
+pname	paddr	eid	esal
+-----------------------------	
+anu	blgr	100	2500
+
+	std table
+pname	paddr	sid	scourse
+--------------------------------
+rani	hyd	101	cj
+
+Third approach:-
+===============
+		  person
+		pname	paddr
+		-------------
+   (PK-FK)	anu	blgr	(PK-FK)
+		rani	hyd
+    emp				    std
+eid	esal			sid	scourse
+-------------			--------------
+100	2500			101	cj
+
+						
+Above of 3 approaches problem solution is inheritance Mapping[ORM(Hibernate)].
+1.Table per class hierarchy
+2.Table per concrete class
+3.Table per sub class
+
+
+
+3.Association mismatch:-
+======================
+Inter communication b/w object
+1-1 Association
+1-M Association
+M-1 Association
+M-M Association
+
+Association we are able to define by declaring one class refernec variable in another class(By using join column)
+
+class Employee{							emp table
+String eid;					eid	name	addr	
+String ename;					-----------------------
+String eaddr					101	ABC	hyd	
+Account[] accounts;
+collection accounts;
+}
+
+class Account{						account table
+String acno;					ano	aname	atype	eid	
+String acname;					----------------------------						
+String actype;					121	a	s	101			
+}						122	b	c	101
+						123	c	s	101
+
+
+					Employee object O
+					==================
+					eid=101	
+					name=ABC	
+					addr=hyd
+					courses
+					   |
+					collection
+					   |
+					   \/
+   	c1				c2				c3
+ano=121,aname=a,atype=s		ano=122,aname=b,atype=c		ano=123,aname=c,atype=s
+
+save(std)
+
+ORM[Hibernate](Association mapping) is solution for above problem
+Here we are using 1-M Association mapping
+
+4.Identity mismatch:-
+=====================
+At java side
+==(equal opearator)
+equals()
+coustomized
+
+******************************************************************************************************************************************************
+Q)To provide dat persistency we have alredy EJB's entity beans then what is the requirment to use hibernate?
+A)
+1.EJB's entity beans heavy weight persistency solution(more no.of objects required) 
+but hibernate is light weight persistency solution(less no.of objects required).
+
+2.EJB's entity beans must required application server environment.
+hibernate application are exceuted with or without the application server.
+
+3.EJB's entity beans is more API dependent(we need to extended some predefine classes and implements interfaces) 
+hibernate is less API dependent(plain java bean classes/components no need to extended any predefine C&I)
+
+4.EJB's entity beans are not following pojo classes convention
+hibernate is following pojo classes convention
+pojo(not extended any predefine C&I)
+
+5.In case of EJB's entity beans debuging and Testing are must diffucult
+In case of hibernate debuging and Testing are very simple
+
+6.EJB's entity beans portability is very less
+hibernate portability is more
+
+7.EJB's entity beans is slower data persistency mechanism
+hibernate portability is faster data persistency mechanism
+
+8.EJB's entity beans 1-1 relation must be required java classes and DB tables
+In hibernate , It is not manadtory to manage 1-1 relation java classes and DB tables(It is support 1-1,1-m,m-1,m-m)
+
+9.In case of EJB's entity beans in bean classes not extended another bean classes(not supported inheritance)
+In case of hibernate, It is possible to supported inheritance relation b/w bean classes
+
+10.EJB's entity beans is applicable for only Enterprise application where application server environment is existed.
+hibernate, is applicable for both standalone app where application server environment is not exist and Enterprise application 
+where application server environment is existed.
+
+******************************************************************************************************************************************************
+
+						===============HIBERNATE=================
+Hibernate:-
+===========
+Tool:- ORM implementation tool
+Type:- Open source software
+objective:- To simplfy Data Persistency in Enterprise Application
+Use Version: Hibernate 5.x
+
+Hibernate Features:-
+--------------------
+*Hibernate is light weight Data Persistency mechanism
+*It is following POJO classes conventions.
+*Hibernate is DataBase independent.
+*Hibernate is able to execute its applications with or without application servers(Hibernate is less API dependent).
+*Hibernate is supported by almost all the servers and IDE's.
+*Hibernate is having cache mechanism(performance is increased).
+*Hibernate is having inbuilt connection pooling mechanism(connection object reusability).
+*Hibernate is having Transaction support.
+*Hibernate is having Collections support.
+*Hibernate is having Annotations support(Hibernate3.2.5 version onwards)
+*Hibernate is having Object oriented, DataBase independent and HQL language(power full query language).
+*Hibernate is having Associations and Joins suppport
+*Hibernate is having mapping support like inheritance mapping, Associations mapping,...
+*Hibernate is having Filters features inorder to filter the results.
+
+Hibernate Architecture:-
+------------------------
+*Persistance Object required
+*Hibernate is having 5 components as part of this Hibernate Architecture
+*Hibernate must interact with DB by using JDBC internal, so we required driver, url, username, password.
+*Hibernate configuration File is driver, url, username, password in Hibernate
+*Hibernate Mapping File contains mapping details(Employee<--->emptab, eno<--->eid,...).
+*We need to prepare bean object Client/Test Appliaction is required.
+*Clinet Aplication need to create persistancy object(eno=101,ename=abc..)
+
+
+							[ Clinet Aplication ]
+							(eno=101,ename=abc..)save(emp);
+								|	/\
+								|	|
+								\/	| 
+	[ Hibernate configuration File ]<--------------->[ Hibernate software ]<----------------->[ Hibernate Mapping File ]
+	(driver, url, username, password)			|	/\			(Employee<--->emptab, eno<--->eid,...)
+								|	|
+								\/      |     
+  			   				       [ DataBase ]
+
+
+
+Hibernate configuration File:-
+It is an XML file, It will provide all the hibernate configuration details like driver, url, username, password... which we required to connect with the
+database.
+
+Hibernate Mapping File:-
+Hibernate Mapping File is an XML file It will provide mapping between OODM eleements and RDM elements like 
+class<-------->table 
+prop---->column
+ID prop---->pk column
+
+Clinet Aplication:-
+Clinet Aplication will have responsibilties like
+*Activate hibernate software
+*Create persistance object
+*Perform persistance operations with persistance object.
+
+Hibernate software:-
+Hibernate software activated by client Hibernate software will take configuration details from configuration file and establish connection with DB.
+When persistance operations performed by client, hbnt s/w will prepare  equalent DB dependent native SQL query and it will execute SQL query and generate
+results from DB to java app.
+
+
+				----------------------------
+					Client APP
+				----------------------------
+					|	/\
+		Persistence object  O(data)	||
+					|	\/
+				---------------------------------------
+					Hibernate s/w
+
+				objects: Configuration   SessionFactory   Session...
+				----------------------------------------
+						/\
+						||
+						\/
+				----------------------------
+				Hibernate internal services
+
+				services: JDBC  ConnectionPooling   Cache Mechanisam...
+				-----------------------------
+						/\
+						||
+						\/
+				----------------------------
+					DataBase
+				----------------------------
+
+
+*********************************************************************************************************************************************************
+Steps to Prepare Hibernate App:-
+=================================
+1.Download hibernate and install:-
+
+2.Create Hibernate persistance class:-
+--------------------------------------
+It is a normal java bean class, whose objects are able to manage persistance data inorder to perform persistance operations like curd
+Guidelines to prepare persistance classes:-
+1.persistance class must be a pojo(It is suggistable to implemets java.io.Serializable and It cann't extended perdefine API)
+2.Always persistance classes must be public and non-abstract(must be create object) and non-final(extending another class)
+3.All properties with respective the DB table columns, property name and DB column name need not to be same but data type must be compatible 
+and private proprties, setter and getter methods.(Inorde to improve encapsulation in persistance classes).
+4.In persistance classes it is manadatory to manage an "ID" property to represent "primary key" column in DB.
+5.In persistance classes if u want to provide constructor we must provide public and Zero argumnent because hbrnt s/w will search and execute only public 
+and Zero argumnent cnostructor.
+6.In persitance classes, it manadatory to manage an ID property, it must represent primary column in the respective DB table. And If u want to provide 
+constructor then we must provide "public zero-srgument constructor" why because, while creating objects for persistance classes hbrt s/w will search and
+execute only "public zero-srgument constructor".
+7.In persitance classes, if we want to provide our own customizations while checking whther two persistence objects are same or not then it is suggistable
+to override equals() method in persistence classes.
+8.In persitance classes, if we want to provide our own customizations while checking whther two persistence objects are same or not then it is suggistable
+to override hashcode() method in persistence classes.
+
+Example pojo class:-
+====================
+public class Customer implements Serializable{
+	private int cid;
+	private String anme;
+	public int getCid() {
+		return cid;
+	}
+	public void setCid(int cid) {
+		this.cid = cid;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+}
+
+3.create hbrt Mapping file:-
+It is to provide mapping b/w OBJECT ORIENTED DATA MODEL	and RELATIONAL DATA MODEL 
+class-------->Table
+object------->record
+ID prop---->pk column
+norm prop----->normal column
+
+It is XML document in hibernate applications, It will provide the following configurations
+1.Basic ORM
+2.Component mapping
+3.Inheritance mapping
+4.Associations mapping
+5.Filter configurations 
+6.Procedures and Functons configurations
+
+1.Basic ORM, we have to use basic tags
+<hibernate-mapping>
+	<class name="FQPojoClassName" table="DBTable"> //single pojo class configuration
+		<id name="" column=""/>   //PK
+		<property name="" column=""/>		//Normal values
+		<property name="" column=""/>
+	</class>
+</hibernate-mapping>
+
+NOTE:- If teh pojo classes properties names and table cloumn names are same in case sesnstive manner than it is optional to provide "column attribute"
+in <id> tag and in <property> tag.
+
+Example:-
+========
+<hibernate-mapping>
+	<class name="FQPojoClassName" table="DBTable"> //single pojo class configuration
+		<id name="" column=""/>   //PK
+		<property name="" column=""/>		//Normal values
+		<property name="" column=""/>
+	</class>
+</hibernate-mapping>
+
+<hibernate-mapping>
+	<class name="com.model.Employee" table="emptab">
+		<id name="eid" column="empno"/>  
+		<property name="ename" column="empname"/>		
+		<property name="eaddr" column="empaddr"/>
+	</class>
+</hibernate-mapping>
+
+package com.model.emp;
+public class Employee {
+	private int eid;
+	private String ename;
+	private String eaddr;
+	public int getEid() {
+		return eid;
+	}
+	public void setEid(int eid) {
+		this.eid = eid;
+	}
+	public String getEname() {
+		return ename;
+	}
+	public void setEname(String ename) {
+		this.ename = ename;
+	}
+	public String getEaddr() {
+		return eaddr;
+	}
+	public void setEaddr(String eaddr) {
+		this.eaddr = eaddr;
+	}
+}
+
+Q)In single hibernate app, is it possible to provide more than one Mapping file?
+Ans:
+YES, It is possible to provide more than one Mapping file in single hibernate app.
+
+NOTE: In general we will prepare a seperate mapping file for each and every pojo class
+
+Q)Is it manadatory to provide mapping file in hibernate app for the entities configuration?
+Ans:
+alternative way is Annotation(3.2.4v)
+
+
+4.Create hibernate configuration file:-
+=========================================
+It is an XML document, It will provide all the hibernate configuration details like 
+1.Driver class configuration
+2.url
+3.username
+4.password
+5.Dialect class configuration
+6.Mapping file configuration
+7.Connection pooling configuration
+8.cache mechanisam configuration
+9.Transaction isolation level configurations
+
+<!DOCTYPE--->
+<hibernate-configuration>
+	<sessionfactory>
+		<property name="url">value</property> 	
+		---------
+		---------
+		
+	</sessionfactory>
+</hibernate-configuration>
+
+Dialect :- To diff b/w DB to DB
+Tto restrict hibernate software 
+5.create Client APP and execute client app
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

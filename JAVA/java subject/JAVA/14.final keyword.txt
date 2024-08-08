@@ -1,0 +1,109 @@
+final:-
+====
+final keyword is used in different contexts. First of all, final is a non-access modifier applicable "only to a variable, a method or a class".
+Following are different contexts where final is used.
+
+final variable => To create constant variable (stop value change)
+final method => prevent method overriding (stop overriding)
+final class     => prevent Inheritance (stop inheritance)
+
+final attribute can be assigned a value once in a life
+public final float pi=3.14;
+
+*final variable can't be modified
+=======================
+class A
+{
+   final int a=1;
+   void m1(int b)
+   {
+      //a=2;               //can't be modified---cannot assign a value to final variable 'a'
+      b=5;
+      System.out.println(a);
+      System.out.println(b);
+  }
+}
+class Test10
+{
+   public static void main(String args[])
+   {
+     A obj=new A();
+    obj.m1(10);
+  }
+}
+output:
+1
+5
+
+*final method can't be overriden
+=======================
+class A
+{
+   final void m1()
+    {
+        System.out.println("parent class");
+     }
+}
+class B extends A
+{
+    void m1()              //m1() in B can't be overriden m1() in A
+    {
+      System.out.println("child class");
+   }
+}
+class Test11
+{
+   public static void main(String args[])
+   {
+     B obj=new B();
+    obj.m1();
+  }
+}
+
+*final class can't be Extends
+=====================
+final class A
+{
+  int a=10;
+  void m1()
+	{
+	  System.out.println(a);
+	}
+}
+class B extends A              //can't inherit from final A
+{
+  int b=20;
+  void m2()
+	{
+	  System.out.println(b);
+	}
+}
+class Test12
+{
+   public static void main(String args[])
+   {
+	   B obj=new B();
+	   obj.m1();
+	   obj.m2();
+   }
+}
+
+Finally:-
+======
+Finally is a block always associated with try-catch to maintain clean up code.
+try
+{
+ //risky code
+}
+catch(X e)
+{
+ //Handlling code 
+}
+finally
+{
+  //cleanup code
+}
+
+Finalize():-
+========
+finalize() is a method which is always invoked by garbage collector just before destroying an object to perform cleanup activities.

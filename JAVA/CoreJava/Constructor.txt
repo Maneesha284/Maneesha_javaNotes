@@ -1,0 +1,49 @@
+class is a 2 types :-
+1.Library class
+main method not present
+methods: functionalties
+2.Application class
+Main is present
+method.
+
+Constructor:-
+----------------
+*class name and cons name both are same there is no return type.
+*It is used to initailize an object or instance variable of the class
+*When we create an object of the class default constructor gets executed.
+*Constructor will be invoked implicitly where as methods will be invoked explicitly.
+*We can create 2 types of cons
+Defult cons
+Parameterized cons
+*Constructor will be executed on an object only one time where as methods will be executed multiple times
+
+Constructor Overloading:-
+-------------------------
+Same constructor name with diff parameters multiple times they behave loaded to perform diff tasks is called Constructor
+Overloading.
+
+We can call one cons from other cons with in the same class using this()
+It should be the first statement inside the cons.
+
+this():-this() is used to call one cons from another cons within the same class.
+
+Access Specifiers:
+==================
+Access Specifiers specifies who can access them.
+There are four access specifiers used in java
+public
+private
+protected 
+default
+
+1.Class level access specifiers--->for java classes only
+two access specifiers are allowed
+public-->can be accessed from anywhere
+default--->can be accessed from specific
+
+2.Memberlevel access specifiers
+all four access specifiers are allowed
+public->can be accessed from anywhere
+private->can be accessed with in the class
+protected->can be accessed from same package and a subclass existing in any package.
+default->can be accessed with in same package

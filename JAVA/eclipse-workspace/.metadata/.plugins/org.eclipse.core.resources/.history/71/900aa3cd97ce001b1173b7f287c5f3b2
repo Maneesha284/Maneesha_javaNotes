@@ -1,0 +1,23 @@
+package collection;
+
+import java.util.Scanner;
+import java.util.Stack;
+
+public class StackPalindrome {
+
+	public static void main(String[] args) {
+		Stack s=new Stack();
+		System.out.println("Enter string");
+		Scanner sr=new Scanner(System.in);
+		String str1=sr.next();
+		char ch1[]=str1.toCharArray();
+		String str2="";
+		int len=str2.length();
+		char ch2[]=str2.toCharArray();
+		for(int i=len-1;i>=0;i--) {
+			System.out.print(ch2[i]);
+		}
+
+	}
+
+}

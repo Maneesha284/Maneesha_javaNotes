@@ -1,0 +1,352 @@
+Conditional stmt:-
+if tag:-
+The if tag is a conditional tag in jstl. Atext expression is evaluated and the results of the
+test can be stored for  later use
+
+If a body is supplied the body is only evaluated if the test results in true.
+
+If tag in JSTL will not have else part to evaluate.
+
+Body Content:- Optional. if present only evaluated if test expression is true.
+test attribute:- This manadatory attribute contains the expression to be evaluated
+var attribute:- This optional attribute is used to store the result of the test
+scope attribute: The optional attribute supplies the scope location of the var attribute.
+
+
+==============================================================================
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="IfDemo.jsp">
+		<h1>Employee form</h1>
+		<p>
+			<lable> Enter salary </lable>
+		</p>
+		<p>
+			<input type=text name=salary>
+		</p>
+		<p>
+			<input type=submit value="click here">
+		</p>
+	</form>
+
+</body>
+</html>
+
+<c:set var="salary" value="${param.salary}" />
+<c:if test="${salary>=20000}">
+	<p style="color: maroon">
+		MY Salary is:
+		<c:out value="${salary}" />
+	</p>
+</c:if>
+
+========================================================================
+
+*The choose tag provides if-else condition synatx
+
+*Choose tag lets you to choose between a number of alternatives.
+
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="ChooseDemo.jsp">
+		<h1>Employee form</h1>
+		<p>
+			<lable> Enter salary</lable>
+		</p>
+		<p>
+			<input type=text name=salary1>
+		</p>
+		<p>
+			<input type=submit value="click here">
+		</p>
+	</form>
+
+</body>
+</html>
+<c:set var="salary1" value="${param.salary1}" />
+<c:choose>
+	<c:when test="${salar1>=20000}">
+	<h3>Good</h3>
+	</c:when>
+	<c:when test="${salary1>=10000}">
+	<h3>okay</h3>
+	</c:when>
+	<c:otherwise>
+	<h3>No comments</h3>
+	</c:otherwise>
+</c:choose>
+=======================================================================
+
+ForEach Tag:-
+
+The ForEach tag provides iteration capabilties over a body
+
+If a collection is supplied, It can be a valid java.util.Collection, java.util.Map, java.util.Iterator, java.util.Enumearion
+
+Body content: contains what will be iterated over.
+items attribute:- This optional attribute specifies the collection to be iterated over.
+var attribute:-This optional attribute stores the current item in the iteration
+varStatus attribute:- This optional attribute stores information about the step iteration.
+
+begin attribute:- This attribute specifies the first element in the iteartion. If the items attribute is not specified, 
+the begin attribute is required.
+end attribute:-This attribute specifies the last element in the iteration. If the items attribute is not specified, 
+the end attribute is required.
+step attribute:- This optional attribute specifies that the iteartion should only every n'th item
+
+Example:-
+------------
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="MultiplicationTablr.jsp">
+		<h1>Display table</h1>
+		<p>
+		<h1>Employee any Number</h1>
+		</p>
+		<p>
+			<input type=text name="myNumber">
+		</p>
+		<p>
+			<input type=submit value="click here">
+		</p>
+	</form>
+
+</body>
+</html>
+<c:set var="num" value="${param.myNumber}" />
+
+<c:forEach var="i" begin="1" end="10" step="1">
+	<c:out value="${num}"></c:out> * <c:out value="${i}" /> =
+	<c:out value="${num * i}" />
+	<br>
+</c:forEach>
+===========================================================================================================
+
+Out tag:-
+
+The out tag is used to evaluate an expression and write the result to the current JSPWriter.
+
+Body content:- The body can contain the default result.
+Value attribute:- The attribute specifies the expression to be evaluated.
+Default attribute:-This optional attribute specifies a result to use if the exression evaluates null.
+escapeXml attributes:- This optional attributes indicates whether or not the character(<),(>),(&)
+
+<c:out value="${param.email}" default="no email provided"/>
+
+When displaying content provided by the user, it is best to set the escapeXml attribute to true to prevent cross-site attacks.
+
+<p>
+<b>comments</b>
+<c:out value="${user.comments}" escapeXml="true"/>
+
+</p>
+
+
+===========================================================================================================
+JSTL SQL tags:-
+
+This section presents a few of the tags from the SQL tag library in JSTL.
+
+setDataSource
+transaction
+update
+param
+query
+
+setDataSource Tag:-
+
+setDataSource tag is used to create a DataSource configuration that may be stored.
+
+var attribute:- 
+User attribute:- This optional attributes is the user name of the database connection
+password attribute:- This optional attribute is the password of the database connection.
+
+The follwing example shows how to use the SetDataSource:
+<%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+
+<sql:setDtaSource var="mysource" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/mysql","root","root"/>
+
+sql:quesry tag:-
+The sql:query tag is used for executing the sql quey wrriten into its body or through the sql attribute.
+
+var ttribute:- This manadatory attribue stores the value of query result
+dataSource attribute:- This optional attribute specifies the data source.
+
+
+===========================================================================================================================
+Add column in JSP
+-----------------
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action = AddMovie.jsp>
+<hr>
+Enter Movie ID: <input type = "text" name = "mid" ><br>
+Enter Movie Name: <input type = "text" name = "mname" ><br>
+<input type = "submit" value = "click" ><br>
+</form>
+</body>
+</html>
+
+AddMovie.jsp
+------------
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/sql" prefix = "sql" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core"  prefix = "c" %>
+ <sql:setDataSource  var="ds" driver="com.mysql.cj.jdbc.Driver" url="jdbc:mysql://localhost:3306/java201" user="root" password="root"/>
+ 
+ <sql:update var ="r" dataSource="${ds}">
+ insert into movies values(?,?);
+ <sql:param value ="${param.mid}"></sql:param>
+  <sql:param value ="${param.mname}"></sql:param>
+  
+  </sql:update>
+  <sql:query var ="rs" dataSource="${ds}">
+  select * from movies;
+  </sql:query>
+  <c:forEach var="rowValue" items="${rs.rows}">
+  ${rowValue.mid} ${rowValue.mname}<br>
+  </c:forEach>
+
+=============================================================================================================================
+Delete row in jsp file:-
+-----------------------
+
+DeleteMovie.jsp
+-------------------
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/sql" prefix = "sql" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core"  prefix = "c" %>
+ <sql:setDataSource  var="ds" driver="com.mysql.cj.jdbc.Driver" url="jdbc:mysql://localhost:3306/java201" user="root" password="root"/>
+ <html>
+ <body>
+ <form action="DeleteMovieNum.jsp">
+ <sql:query var="rs" dataSource= "${ds}" >
+ select * from movies;
+ </sql:query>
+ select movie id : <select name = mid> 
+ <c:forEach var = "rowValue" items= "${rs.rows }">
+ <option value = '${rowValue.mid}'>
+ 					${rowValue.mid} 
+ 					${rowVlaue.mname}</option><br>
+ </c:forEach>
+ </select><br>
+ <input type = submit value = "Delete" />
+ </form>
+ </body></html>
+
+
+DeleteMovieNum.jsp:-
+--------------------
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<sql:setDataSource var="ds" driver="com.mysql.cj.jdbc.Driver"
+	url="jdbc:mysql://localhost:3306/java201" user="root" password="root" />
+
+<sql:update var="r" dataSource="${ds}">
+delete from movies where mid=?;
+ <sql:param value="${param.mid}"></sql:param>
+</sql:update>
+
+<sql:query var="rs" dataSource="${ds}">
+  select * from movies;
+  </sql:query>
+  
+  
+<c:forEach var="rowValue" items="${rs.rows}">
+  ${rowValue.mid} ${rowValue.mname}<br>
+</c:forEach>
+
+
+=============================================================================================================================
+Update row in jsp:-
+-------------------
+UpdateMovie:-
+-------------
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<html>
+<body bgcolor="pink">
+	<form>
+		<sql:setDataSource var="ds" driver="com.mysql.cj.jdbc.Driver"
+			url="jdbc:mysql://localhost:3306/java201" user="root" password="root" />
+
+
+ <sql:query var="rs" dataSource="${ds}">
+  select * from movies;
+  </sql:query>
+
+		<c:forEach var="rowValue" items="${rs.rows}">
+  ${rowValue.mid} ${rowValue.mname}
+  <a href=UpdateDemo1.jsp?mid=${rowValue.mid}&mname=${rowValue.mname}>update</a>
+			<br>
+		</c:forEach>
+
+	</form>
+</body>
+</html>
+
+UpdateDemo1.jsp:-
+------------------
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<html>
+<body bgcolor="white">
+	<form action="MyUpdateDemo.jsp" method="post">
+		<c:set var="mid" value="${param.mid}"></c:set>
+		<c:set var="mname" value="${param.mname}"></c:set>
+		<hr>
+		Enter movie id to update:<input type="text" name="mid" value="${mid}"><br>
+		Enter movie name to update:<input type="text" name="mname" value="${mname}"><br>
+		<input type="submit" value="click">
+	</form>
+</body>
+</html>
+
+MyUpdateDemo.jsp:-
+-------------------
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/sql" prefix = "sql" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core"  prefix = "c" %>
+ <sql:setDataSource  var="ds" driver="com.mysql.cj.jdbc.Driver" url="jdbc:mysql://localhost:3306/java201" user="root" password="root"/>
+ 
+ <sql:update var ="r" dataSource="${ds}">
+update movies set mname=? where mid=?;
+ <sql:param value ="${param.mname}"></sql:param>
+  <sql:param value ="${param.mid}"></sql:param>
+  
+  </sql:update>
+  <sql:query var ="rs" dataSource="${ds}">
+  select * from movies;
+  </sql:query>
+  <c:forEach var="rowValue" items="${rs.rows}">
+  ${rowValue.mid} ${rowValue.mname}<br>
+  </c:forEach>
+
+===================================================================================================================================
+
+
+
+
+
+
+
+
+

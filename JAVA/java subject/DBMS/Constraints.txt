@@ -1,0 +1,153 @@
+Constraints:-
+-----------------
+Constraints are used to stop the invalid data entry into a table. constraints are created on table column.
+1.not null
+2.unique
+3.foreign key
+4.primary key
+5.check key
+
+All the above constraints created in 2 ways
+1.Column level:-
+In this method we are defining constraints on indiviual columns
+
+syntax:-
+create table tname(col1 datatype(size) constraintype, col2  datatype(size) constraintype,....);
+
+2.Table level:-
+In this method we are defining constraints on group of columns  
+
+syntax:-
+create table tname(col1 datatype(size),col2  datatype(size),.......... constraintype(col1,col2,.....));
+=====================================================================================================
+1.not null:-
+-------------
+In all relational databases not support at Table level.
+It will accept duplicate values but null value not accepted.
+column level:-
+SQL> create table stdu(sno number,sname varchar2(8) not null);
+Table created.
+
+SQL> insert into stdu values(101,'manee');
+SQL> insert into stdu values(102,'manee');
+
+SQL> insert into stdu values(103,'');
+insert into stdu values(103,'')                            *
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("OFF"."STDU"."SNAME")
+
+SQL> select * from stdu;
+       SNO SNAME
+---------- --------
+       101 manee
+       102 manee
+=====================================================================================================
+2.unique:-
+------------
+unique constraint allows null but not allows duplicate values
+SQL> create table st1(sno number,sname varchar2(8) unique);
+Table created.
+
+SQL> insert into st1 values(101,'');
+1 row created.
+
+SQL> insert into st1 values(102,'anu');
+1 row created.
+
+SQL> insert into st1 values(103,'anu');
+insert into st1 values(103,'anu')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (OFF.SYS_C006119) violated
+
+SQL> select * from st1;
+       SNO SNAME
+---------- --------
+       101
+       102 anu
+
+table level:-It is accept duplicate values but not accept duplicate records
+--------------
+SQL> create table st2(sno number,sname varchar2(8),marks number,unique(sno,sname));
+Table created.
+
+SQL> insert into st2 values(103,'anu',89);
+1 row created.
+
+SQL> insert into st2 values(103,'anu',89);
+insert into st2 values(103,'anu',89)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (OFF.SYS_C006120) violated
+
+SQL> select * from st2;
+
+       SNO SNAME         MARKS
+---------- -------- ----------
+       101 anu              58
+       101 jp               58
+       103 anu              89
+=====================================================================================================
+3.primary key:-
+-------------------
+primary key uniquely identified a row in a table
+They can be only one primary key in a table
+It not allows duplicate and null values
+column level:-
+-----------------
+SQL> create table table1(sno number primary key,sname varchar2(8
+Table created.
+
+SQL> insert into table1 values(101,'hyma');
+1 row created.
+
+SQL> insert into table1 values(101,'anu');
+insert into table1 values(101,'anu')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (OFF.SYS_C006129) violated
+table level:-
+---------------
+SQL> create table table2(sno number,sname varchar2(8),marks number,primary key(sno,sname));
+Table created.
+=====================================================================================================
+4.foreign key:-
+------------------
+If you want to establish relationship b/w 2 tables
+one table column foreign key and another table column primary key both columns must be same data type.
+
+SQL> create table table3(fname varchar2(8),sno number references table1(sno),phno number);
+Table created.
+
+A Foreign Key is a database key that is used to link two tables together. ... The relationship between the child and the 
+parent tables is maintained by checking the existence of the child table FOREIGN KEY values in the referenced parent 
+table's PRIMARY KEY before inserting these values into the child table.
+
+1.Deletion in master table:- first we need to delete child table 
+2.Insertion in child table:-first we need to insert parent table
+=====================================================================================================
+5.check key:-
+----------------
+Check constraint is used to define logical conditions based on client business rules.
+
+SQL> create table table4(sno number,sname varchar2(8) check(sname=upper(sname)),phno number);
+Table created.
+
+SQL> insert into table4 values(101,'hyma',48);
+insert into table4 values(101,'hyma',48)
+*
+ERROR at line 1:
+ORA-02290: check constraint (OFF.SYS_C006132) violated
+
+
+SQL> insert into table4 values(101,'HYMA',48);
+1 row created.
+
+SQL> insert into table4 values(102,'ANU',48);
+1 row created.
+SQL> select * from table4;
+
+       SNO SNAME          PHNO
+---------- -------- ----------
+       101 HYMA             48
+       102 ANU              48

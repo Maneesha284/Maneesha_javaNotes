@@ -1,0 +1,581 @@
+﻿ Inversion of control - outsourcing the creation of object in dynamic way
+ 
+ spring is based on this concept Inversion of control. My application will use spring to get the object
+
+Spring will use its container(factory class) to create the object
+
+who will define which objects to be created,
+we developers will define class names and properties in the configuration file to spring container(factory class) that will create object ans give it to us(our application)
+
+how we will define properties file in spring is
+1. through xml configuration - old way
+2. through annotations - we follow this now a days
+
+IOC - Inversion of control
+spring container(like factory class) that creates the objects and give to application
+spring open source library - has predefined classes, methods, packages
+import spring libraries(spring jars)
+maven - easy for builds and importing libraries
+predefined clas - ApplicationContext is predefined spring factory class
+ApplicationContext is also called Spring Container
+
+Spring considers any java object as bean - spring bean is equal to java object attached to application context or spring container
+      
+Spring Container uses IOC(creating objects) by reading the data defined in  properties file
+
+
+whenever we call getBean() with different alias name or bean id ,  new object is created for that alias or id using the same context
+
+Inversion of control - spring container will create the objects from configuration
+Dependency Injection- spring container will link(inject/wiring) the dependent objects
+
+In our example, Employee depends on department
+
+dependency injection(wiring)- setter method and also constructor based manual wiring(defined in xml file)
+
+autowire - byName - looks for bean dependent object property name matching with the bean id in the xml configuration. If there is no matching found,
+object will not be injected
+    
+autowire - byType -  looks for class type defined, if more than 1 bean is defined for same class type, then get an ambiguity error
+autowire - constructor - looks for construcor argument matching with bean id in the xml configuration. If there is no matching found,
+object will not be injected
+
+xml configuration - metadata(configuration) defined in xml
+annotation - metadata that is defined by Java code only  and used in the java code only
+
+The configuration follow Java syntax
+
+Java developer feels comfortable in defining the configurations usiong the java syntax
+
+xml configuration : xml syntax and bit difficult to maintain but the advantage is you can have seperate xml file which is not tied to your 
+java code 
+
+annotations : java syntax and easy to maintain for the java developers but it is tied to the java code
+
+annotations uses java reflection internally
+  
+bean scopes are singleton and prototype
+    
+singleton - default scope of bean(if we do'nt specifiy bean scope in xml or annotations), spring will consider as singleton bean
+
+singleton- how many times we call getBean from the same application context,  we get same bean object
+
+if we specify bean scope as "prototype" in xml or annotation, then how many times we call getBean from the same application context, we get different objects that many times
+
+if we call getBean from different application context or container, we get different object
+    
+
+@Autowired on field or setter method:first it will see the class type of the field and go to the @Configuration class, will see the @Bean methods with same class type
+  
+If there is only one bean method with the same class type,  then this object is injected in the @Autowired field irrespective of the @Autowired 
+field name mathching with @Bean name in the @Configuration class
+
+If there is more than one bean(@Bean) with same class type, then it will compare the bean(@Bean) method name with the @Autowired field name and if there is match then that @Bean object will be injected in this @Autowired field
+    
+If there is no match between @Autowired field name and @Bean method name, then will get ambiguity error
+
+ This can solve in 2 ways:
+ 1. using @Qualifier annotation at @Bean(Configuration class) and also @Autowired(business class, ex Employee class), where we can specify the name in the @Qualifier annoation in the @Bean and the same name with @Qualifier annotation should be specified in the @Autowired field name in the business class(Employee class)
+
+ 2. Use the same field name in the business class(i.e) wherever @Autowired is used,matching with the any of the method name in @Bean 
+
+
+
+   class Employee {
+
+    Department dept;
+   }
+
+   class Department {
+
+    }
+
+   class Employee extends Person {
+
+   }
+
+   class Department extends SuperDepartment {
+   }
+
+spring bean assigining to super class or interface
+
+when 2 beans return same class type, use @Qualifier to specify which bean to be injected
+
+@Qualifier- will search for the name defined sepcified at the @Autowired and tries to match with @Bean method name in the @Configuration class or @Qualifier name(custom names) specified at the @Bean
+
+use @Primary to specify default bean to be injected as primary bean
+
+Any java object tied to @Bean is stored in spring container any objects stored in spring container will be injected using @Autowired
+
+objects stored outside spring container cannot access the objects stored inside spring container using @Autowired
+
+If both @Qualifier and @Primary are used, priority will be given
+to @Qualifier
+
+   @Configuration
+   class AppConfig {
+
+     @Bean(name="abean")
+      public A beanA() {                   context.getBean("abean")
+     return new A();
+      }
+
+     @Bean
+     public B beanB() {
+      return new B();
+     }
+
+     @Bean
+     public C beanC() {
+      return new C();
+   }
+  }
+
+ Any class that is associated with Spring Bean can be declared with an annotation called @Component(class level annotation)
+
+ @ComponentScan : is associated with @Configuration where it will tell to spring container to scan the classes present in the base package
+annotated with @Component and create the objects of those classes and attach to spring container
+
+If we do'nt specify basepackages in @ComponentScan, by default spring container will scan for the package and subpackages where the class @Configuration is present
+
+
+ @Configuration - configuration class that creates the beans
+    In the @Configuration class, @Bean is specified at method
+level which indicates this is spring bean
+
+ @Component - is specified at class level which indicates this is
+spring bean
+
+  @Bean - this is specified at method level and we explicilty
+  create the bean using new operator
+   @Component - this is specified at class level and spring container
+ will scan for the components and create bean automatically
+
+   @Autowired - this will be used for dependency injection
+   
+    @Autowired at field level, method level, constructor level
+     @Qualifier annotation matches the name specfied with the bean name.
+   This will be useful when there are more than 1 matching bean in the @Configuration
+  
+    @Primary will indicate the primnary bean and it will be injected irresepctive 
+of the bean name matching
+ 
+    If both @Primary and @Qualifier are specified, then preference will be given
+   to @Qualifier
+   Bean scopes- singleton, prototype
+    Bean lifecycle
+
+    If there is only one matching bean with the same return type as the class type
+  at the @Autowired and if @Qualifier is declared, then the qualifier name is
+  matched with the spring bean name
+  
+     @Qualifier can match with @Bean name or @Qualifier name specified at @Configuration
+   level
+
+   If @Bean name is same for more than one @Bean, then the first bean defined in the
+   @Configuration will get injected even though it is not @Primary
+
+     1. @Autowired - first it will check by type(class type)
+     2. If there is more than 1 bean with same class type (@Bean) or @Component,
+         then it will see for the matching bean names. In case if there is no
+       matching bean name, it will throw ambiguity error
+        If there is matching bean name, then that object gets injected
+    3. If we specify @qualifier at the @Autowired, then the qualifier name is
+     matched with bean name(@Bean or @Component) and the matching will be injected
+     Incase if there is more than 1 bean with same bean name,then the first 
+     @Bean definition is injected.
+     
+      Incase of @Component with same name, we will get an error
+      @Qualifier can be declared at the @Bean and also at the @Component
+   4. @Primary is the default bean injection(can be specified at @Bean or @Component). 
+     In case if @Qualifier is specified, 
+      @Qualifier will be given priority
+      In case if 2 beans are there with same name, then the first bean 
+    @Bean will be injected
+   even though the 2nd bean @Bean is primary
+   
+   By default, during the creation of application context object only spring creates 
+the objects or beans defined in the configuration (xml or annotation) – 
+This behaviour is called Eager creation
+By default the scope of the bean is singleton – unique object returned every 
+time we call from the same application context object
+context.getBean(“employee”)
+
+If the scope of the bean is prototype, the bean is not created during the application
+context creation. This is created whenever context.getBean is called.
+This behaviour is called Lazy creation
+
+
+  singleton - eager creation--created during applictaion context creation only
+  singleton - lazy creation -- created during context.getBean is called
+  prototype - lazy or eager creation -- created during context.getBean only
+   
+   
+   Bean lifecycle :
+
+   Bean scopes:
+   singleton
+    prototype
+
+    Bean lazy loading
+      Eager loading
+
+   When applictaion context is created, by deafult all
+  beans are created and stored in the memory..This is eager loading
+
+  Whenever any bean is specifed as @Lazy, then that bean is created during 
+   context.getBean
+
+   In case if we do'nt specifiy scope, the bean is singleton
+
+   If we specify the scope , we need to declare as prototype
+
+   If the scope of bean is singleton(default scope) 
+   and @Lazy is not specified(it is eager loading),
+   that means the object is created during the application context creation
+   only and context.getBean return the same object
+
+    If the scope of bean is singleton and @Lazy is specified, that means object 
+    is created only during the context.getBean(it is not created during application
+    context creation) and the same object is returned every time 
+    context.getBean is called
+
+    If the scope of bean is prototype and @Lazy is not specified(it is eager loading),
+    the object is not created during the application context creation
+    This will be created whenever context.getBean is called and every time we call
+    context.getBean new object is created
+
+     Irrespective of Lazy or eager loading, prototype scope will always be created
+    when context.getBean is called(and not during application context creation)
+
+     If we have more objects to be used in your applictaion,
+      1000 objects - if we specifigy lazy, 
+    these objects will be created only when we need 
+    and this will optimize the memory cost
+
+   Lazy - will save memory whenever we need the objects are created and stored
+   Eager - will use more memory, the objects are created and stored in the memory
+   at the time of context creation only
+
+    Eager - faster when compared to lazy
+    context.getBean - before that only the object has been created and stored in memory
+     Lazy : context.getBean - during that time the object construtor is called, created,
+    initialized- bit slower
+
+
+    Bean life cycle, first when bean(java class) is about to create, 
+   1.  first constructor of the bean(java class) is called
+   2. Post construct is called(
+   3. Initializing bean is called
+  4. Any init method is called
+  5. The bean is created and ready to use
+   class A {
+    int x;
+    A() {
+      x=2;
+     }
+ }
+   
+bean scope : singleton or prototype
+bean creation : eager or lazy
+
+ by default bean scope is singleton
+  by default bean creation is eager(at the time of 
+application context creation(spring container)
+   only, the beans are created)
+
+
+  if we want to change bean scope, then we specify scope="prototype"
+   if we want to change bean creation then we need to specify
+  lazy-init=true, the bean is created lazily(the bean is not created at the time
+   of applictaion context cretaion)
+
+
+  database connection object - this will be same per user session
+
+  this database connection object  cannot be same for all users
+//singleton per user session    
+class DBConnection{
+
+     }
+  
+      class Employee {
+		//database connection
+                 DBConnection object
+     }
+
+   class Department {
+	//database connection
+         DBConnection object
+}
+
+If a bean is delcared to be @Primary, then that bean will be autowired
+automatically. @Primary will be useful when we have more than 1 bean of same return type
+and takes the default behaviour for injection
+
+  difference between @Qualifier and @Primary is
+   @Qualifier matches for the name specified
+
+   @Primary when declared on any bean will be cosidered for autowiring 
+
+ @Component - This is also treated as a spring bean just
+  like @Bean
+The difference is @Bean is defined at method level
+ @Component is defined/declared at class level
+
+   @ComponentScan : This is associated with @Configuration where this will scan
+   for all the @Components in the classes defined in the base package or its sub packages
+
+   my base package is com.sorterdemo1
+
+   This will search for classes  defined in com.sorterdemo1 and its sub packages
+    example : com.sorterdemo1.<>
+
+    controller
+    entity
+    dao
+    service
+	
+Life cycle of spring bean(Java object attached to application
+    context)
+
+ right from spring bean instantiation, creation, after creation 
+will be using and then destroy
+
+
+     Bean scopes are Singleton and Prototype
+
+     Bean loadings are Eager and Lazy
+
+    When an application context object is created, by default all the beans are created
+     and stored in the memory - This is called Eager loading
+
+   When we specify @Lazy on the Bean configuration(@Bean or @Component), 
+  then the bean is not created during the application context creation but created
+  only when context.getBean is created
+
+   @Lazy annotation will indicate that the bean will be created lazily
+
+    If Bean scope is singleton and the loading is not Lazy(Eager), then the bean
+   is created when the application context object is created and context.getBean
+   will give the same object everytime
+
+    If bean scope is singleton and loading is lazy, then the bean is not created
+   when the application context object is created but created when context.getBean
+   is called
+
+   For prototype, irrespective of lazy or eager, the bean is not created
+  during the application context creation.
+  The bean is created only when context.getBean is called and whenever we call
+   context.getBean, new bean object gets created
+
+   whenever bean starts getting created,
+     1. The constructor of the bean is invoked
+     2. Post construction
+     3. Initializing using init-method
+
+     when bean is started getting created, first constructor, next post construct,
+     init method
+   
+     @PostConstruct - will specify method to be called after the constructor
+    execution get completed
+
+     init method is custom method that we specify during the bean configuration
+    @Bean(intiMethod="<<nameof the method>>")
+
+   Generally we will not use both @PostConstruct and init method same time.
+   Both these methods are used for initialzing values for the bean object
+
+  The order of execution is constuctor->@postconstuct-> init method
+    
+  
+  
+  BeanNameAware interface has method to get access to the bean name
+
+If a bean or class wants to know what is its name, then if the 
+class implements BeanNameAware interface, 
+then it will get access to the name
+
+  @Autowired
+
+   @Configuration
+   class AppConfig {				
+     @Bean
+     Employee employee() {
+      return new Employee();
+     }
+   
+     @Bean
+     Department department() {
+      return new Department();
+     }
+   }
+
+@DependsOn tells that first check for the dependent object exist or not and 
+then tell to spring container to create the dependent object and then create the bean
+where @DependsOn is declared
+
+When @Lazy is specified on the dependent object, then the preference is given to @Depends on annotation
+
+BeanNameAware interface - This interface will provide the bean name to the bean
+
+If we need to initialize specific values of a bean we do that in @PostConstruct, custom init method in the methods
+implemented in the bean
+
+If we need to initialize some common values across the beans, then we can write one common class which implements BeanPostProcessor
+that will initialize all the common values across the beans
+
+@Order - This will be used whenever we need to store the beans in the  particulcar order in a list(arraylist) - arraylist is very important data structure
+that we studied in core java
+When we iterate over the list, the order is preserved and the beans are returned in the same order where the @Order values are specified
+
+The lowest value specified in the @Order is the first bean stored in the list
+The highest value specified in the @Order is the last bean stored in the list
+
+
+If there is circular dependency between the beans, constructor injection(@Autowired at constructor) will not work, it will throw error
+Only setter injection(@Autowired at setter method)  and field injection(@Autowired at field) will work in the ciruclar dependency
+
+how @Autowired will work in the generic classes
+
+Java Generic which is introduced in Java 1.5
+
+In @Autowired whenever there is generic class, first it will see for bean configuration with same class type as @Autowired
+and then matches for the same generic type parameter matching in the bean configuration
+
+
+@Import - imports one configuration data to other configuration
+
+
+
+@Autowired
+@Qualifier 
+These are spring based annotations
+
+Java enterprise edition and Java software editions(JSR-250)
+Java SE common editions
+This edition also has provided annotations for dependency injection
+
+  @Autowire  - spring annotation
+  @Inject - JSR 330
+
+  maven dependecny javax.inject 
+
+   @Qualifier - spring annotation
+   @Named - JSR 330
+
+spring supports JSR annotations
+
+   JSR : @Resource
+   @Resource is equal to combination of @Autowired and @Qualifier in spring
+
+   Internationlization - messages compatible to all languages
+
+    properties files mainatined for different languages
+   Each property file contains key, value pair
+
+   ResourceBundleMessageSource class that contains the data related to property files
+    in multiple languages
+
+
+
+
+
+any class that is annotated with @Configuration
+can be considered as configuration class
+
+In this class we can use either @ComponentScan or @Bean to create
+beans or we can combine both also
+
+Java Generics - this is very important feature of
+java introduced from 1.5 version
+
+Generics are used mainly along with collections(Arraylist, queue)
+Generics are used for type saftey and has compile time checks
+
+List<String> --  this can take only string objects
+List<Date> -- this can take only date objects
+
+List<String> datalist = new ArrayList<String>();//this can take only string objects
+datalist.add("abc");
+datalist.add("123");
+datalist.add(56);//compile time error
+
+String str = datalist.get(0);//no need to type cast
+
+List datalist = new ArrayList();//this can take any data type object
+datalist.add(45);//this can store integer value
+datalist.add("abc");//this can store string value
+
+int x = (Integer)datalist.get(0);
+String y = (String)datalist.get(1);
+
+
+Spring has its own annotations
+like @Autowired, @Qualifier
+
+Spring is built on Java, Spring is a sepearte team(it is not the team who developed Java(Oracle team))
+
+Java Team also developed some annotations for dependency injection and ioc that can be used in Spring
+
+@Autowired - spring team has developed this
+@Inject - Java team has developed this(Java SE common annotations-- JSR-250)
+
+@Qualifier - spring team has developed this
+@Named - Java team has developed this(Java SE common annotations - JSR-250)
+
+@Resource- Java team developed
+This is equivalent to combination of @Qualifier and @Autowired
+
+<context:annotation-config> tag scans and activates annotations 
+for already registered beans in Spring's application context. 
+Examples of the annotations this tag looks for 
+are @Autowired, @Resource, @PostConstruct, @PreDestroy.
+
+<context:component-scan> tag can automatically detect the classes and 
+register the corresponding beans in the Spring's application context 
+along with scanning and activating for the annotations 
+as done using <context:annotation-config>. 
+
+<context:component-scan>(in xml file) 
+is same as @ComponentScan(Java) defined in the class @Configuration
+
+@ComponentScan will look for the @Components defined in the base packages, creates
+the objects and also looks for @Autowired and injects the objects
+
+<context:annotation-config>(xml file)+Bean definitions(defined in xml file) 
+= <context:component-scan>
+Bean definitions - define in xml file like <bean>
+                   define in @Configuration in @Bean
+                   define as @Components
+
+For registring the beans the annotations this tag looks 
+for are @Component, @Repository, @Service, @Controller
+The use of <context:component-scan> implicitly 
+enables the functionality of <context:annotation-config>. 
+There is usually no need to include 
+the <context:annotation-config> element 
+when using <context:component-scan>. 
+So <context:component-scan> will do everything 
+which <context:annotation-config> does and it provides 
+the added functionality of auto-discovery of beans.
+
+
+
+
+  
+ 
+    
+
+
+    
+
+
+ 
+
+
+    
+    
+
+  
+    

@@ -1,0 +1,36 @@
+<web-app>
+<welcome-file>
+	<welcome-file-list>index.html</welcome-file-list>
+</welcome-file>
+	<servlet>
+		<servlet-name>message1</servlet-name>
+		<servlet-class>com.app.Message</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>FirstApp</display-name>
+		<servlet-name>FirstApp</servlet-name>
+		<servlet-class>com.app.FirstApp</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>Second</display-name>
+		<servlet-name>Second</servlet-name>
+		<servlet-class>com.app.Second</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>message1</servlet-name>
+		<url-pattern>/msg</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FirstApp</servlet-name>
+		<url-pattern>/FirstApp</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Second</servlet-name>
+		<url-pattern>/Second</url-pattern>
+	</servlet-mapping>
+</web-app>
+

@@ -1,0 +1,203 @@
+Normalization:-
+--------------------
+Normalization is the process of organizing the data in the database.
+Normalization is used to minimize the redundancy from a relation or set of relations. It is also used to eliminate the undesirable characteristics like Insertion, 
+Update and Deletion Anomalies.
+Normalization divides the larger table into the smaller table and links them using relationship.
+The normal form is used to reduce redundancy from the database table.
+Types of Normal Forms
+There are the four types of normal forms:
+
+DBMS Normalization
+Normal Form	Description
+1NF	A relation is in 1NF if it contains an "atomic value".
+2NF	A relation will be in 2NF if it is in 1NF and all "non-key attributes" are fully functional dependent on the primary key.
+3NF	A relation will be in 3NF if it is in 2NF and "no transition dependency exists".
+BCNF	A relation will be in BCNF if it is in Boyce Codd normal form and has "no multi-valued dependency".
+5NF	A relation is in 5NF if it is in BCNF and "not contains any join dependency" and joining should be lossless.
+======================================================================================================================
+Subqueries:-
+-----------------
+co-related suquery:-
+--------------------------
+
+non-corelated subquery:-
+------------------------
+
+SQL Sub Query
+A Subquery is a query within another SQL query and embedded within the WHERE clause.
+Important Rule:
+A subquery can be placed in a number of SQL clauses like WHERE clause, FROM clause, HAVING clause.
+You can use Subquery with SELECT, UPDATE, INSERT, DELETE statements along with the operators like =, <, >, >=, <=, IN, BETWEEN, etc.
+A subquery is a query within another query. The outer query is known as the main query, and the inner query is known as a subquery.
+Subqueries are on the right side of the comparison operator.
+A subquery is enclosed in parentheses.
+In the Subquery, ORDER BY command cannot be used. But GROUP BY command can be used to perform the same function as ORDER BY command.
+1. Subqueries with the Select Statement
+SQL subqueries are most frequently used with the Select statement.
+
+Syntax
+SELECT column_name  
+FROM table_name  
+WHERE column_name expression operator   
+( SELECT column_name  from table_name WHERE ... );  
+Example
+
+Consider the EMPLOYEE table have the following records:
+
+ID	NAME	AGE	ADDRESS	SALARY
+1	John	20	US	2000.00
+2	Stephan	26	Dubai	1500.00
+
+The subquery with a SELECT statement will be:
+
+SELECT *   
+    FROM EMPLOYEE  
+    WHERE ID IN (SELECT ID   
+    FROM EMPLOYEE   
+    WHERE SALARY > 4500);  
+This would produce the following result:
+
+ID	NAME	AGE	ADDRESS	SALARY
+4	Alina	29	UK	6500.00
+5	Kathrin	34	Bangalore	8500.00
+7	Jackson	25	Mizoram	10000.00
+2. Subqueries with the INSERT Statement
+
+SQL subquery can also be used with the Insert statement. In the insert statement, data returned from the subquery is used to insert into another table.
+In the subquery, the selected data can be modified with any of the character, date functions.
+Syntax:
+
+INSERT INTO table_name (column1, column2, column3....)   
+SELECT *  
+FROM table_name  
+WHERE VALUE OPERATOR  
+Example
+
+Consider a table EMPLOYEE_BKP with similar as EMPLOYEE.
+
+Now use the following syntax to copy the complete EMPLOYEE table into the EMPLOYEE_BKP table.
+
+INSERT INTO EMPLOYEE_BKP  
+   SELECT * FROM EMPLOYEE   
+   WHERE ID IN (SELECT ID   
+   FROM EMPLOYEE);  
+3. Subqueries with the UPDATE Statement
+The subquery of SQL can be used in conjunction with the Update statement. When a subquery is used with the Update statement, then either single or multiple columns in a table 
+can be updated.
+
+Syntax
+
+UPDATE table  
+SET column_name = new_value  
+WHERE VALUE OPERATOR  
+   (SELECT COLUMN_NAME  
+   FROM TABLE_NAME  
+   WHERE condition);  
+Example
+
+Let's assume we have an EMPLOYEE_BKP table available which is backup of EMPLOYEE table. The given example updates the SALARY by .25 times in the EMPLOYEE 
+table for all employee whose AGE is greater than or equal to 29.
+
+UPDATE EMPLOYEE  
+   SET SALARY = SALARY * 0.25  
+   WHERE AGE IN (SELECT AGE FROM CUSTOMERS_BKP  
+      WHERE AGE >= 29);  
+This would impact three rows, and finally, the EMPLOYEE table would have the following records.
+
+ID	NAME	AGE	ADDRESS	SALARY
+1	John	20	US	2000.00
+2	Stephan	26	Dubai	1500.00
+3	David	27	Bangkok	2000.00
+4	Alina	29	UK	1625.00
+5	Kathrin	34	Bangalore	2125.00
+6	Harry	42	China	1125.00
+7	Jackson	25	Mizoram	10000.00
+4. Subqueries with the DELETE Statement
+The subquery of SQL can be used in conjunction with the Delete statement just like any other statements mentioned above.
+
+Syntax
+
+DELETE FROM TABLE_NAME  
+WHERE VALUE OPERATOR  
+   (SELECT COLUMN_NAME  
+   FROM TABLE_NAME  
+   WHERE condition);   
+Example
+
+Let's assume we have an EMPLOYEE_BKP table available which is backup of EMPLOYEE table. The given example deletes the records from the EMPLOYEE table for 
+all EMPLOYEE whose AGE is greater than or equal to 29.
+
+DELETE FROM EMPLOYEE  
+   WHERE AGE IN (SELECT AGE FROM EMPLOYEE_BKP  
+      WHERE AGE >= 29 );  
+
+=======================================================================================================================
+SQL Clauses
+The following are the various SQL clauses:
+
+
+DBMS SQL Clauses
+1. GROUP BY
+-----------------
+SQL GROUP BY statement is used to arrange identical data into groups. The GROUP BY statement is used with the SQL SELECT statement.
+The GROUP BY statement follows the WHERE clause in a SELECT statement and precedes the ORDER BY clause.
+The GROUP BY statement is used with aggregation function.
+Syntax
+SELECT column  
+FROM table_name  
+WHERE conditions   
+GROUP BY column  
+ORDER BY column  
+Sample table:
+
+
+PRODUCT_MAST
+PRODUCT	COMPANY	QTY	RATE	COST
+Item1	Com1	2	10	20
+Item2	Com2	3	25	75
+
+Example:
+SELECT COMPANY, COUNT(*)  
+FROM PRODUCT_MAST   
+GROUP BY COMPANY;  
+Output:
+Com1   5
+Com2   3
+Com3   2
+2. HAVING
+--------------------
+HAVING clause is used to specify a search condition for a group or an aggregate.
+Having is used in a GROUP BY clause. If you are not using GROUP BY clause then you can use HAVING function like a WHERE clause.
+Syntax:
+SELECT column1, column2   
+FROM table_name  
+WHERE conditions   
+GROUP BY column1, column2   
+HAVING conditions  
+ORDER BY column1, column2;  
+Example:
+
+SELECT COMPANY, COUNT(*)  
+FROM PRODUCT_MAST   
+GROUP BY COMPANY  
+HAVING COUNT(*)>2;  
+Output:
+Com1   5
+Com2   3
+3. ORDER BY
+--------------------
+The ORDER BY clause sorts the result-set in ascending or descending order.
+It sorts the records in ascending order by default. DESC keyword is used to sort the records in descending order.
+Syntax:
+
+SELECT column1, column2  
+FROM table_name  
+WHERE condition  
+ORDER BY column1, column2... ASC|DESC;  
+Where
+ASC: It is used to sort the result set in ascending order by expression.
+DESC: It sorts the result set in descending order by expression.
+Example: Sorting Results in Ascending Order
+Table:
+=========================================================================================================================

@@ -1,0 +1,8 @@
+From nataraz-javaconsultant to Everyone:  07:17 PM
+for eclipse donwload :: https://www.eclipse.org/downloads/packages/release/2020-06/rhttps://repo.spring.io/release/org/springframework/spring/5.3.1/   -- for spring
+From nataraz-javaconsultant to Everyone:  07:36 PM
+https://mvnrepository.com/artifact/commons-logging/commons-logging/1.2  -- for commons-logging
+
+progrmam:-
+From nataraz-javaconsultant to Everyone:  06:52 PM
+<?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans"xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"xsi:schemaLocation="http://www.springframework.org/schema/beanshttps://www.springframework.org/schema/beans/spring-beans.xsd">

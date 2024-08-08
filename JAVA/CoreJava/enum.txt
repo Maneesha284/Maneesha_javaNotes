@@ -1,0 +1,21 @@
+Enum:-
+
+enum Operations {
+	add,sub,mul,div
+}
+enum role{
+	HR,MANAGER,TRAINER
+}
+
+enum Material{
+	polyster, linen,cotton
+}
+
+enum is a datatype which stores set of constants such as days in week, months in a year.
+Inside enum, we can declare variables and constructor
+
+Operations.operVar;
+sopln(operVar'.add)
+
+They are implicity subclasses of java.lang.Enum
+Enum constants are by default 

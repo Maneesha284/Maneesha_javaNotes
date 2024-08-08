@@ -1,0 +1,195 @@
+Collection Framework:-
+=========================
+A collection is a structured group of objects manipulate as a single object
+
+*Array is fixed size, can hold only one type of objects(primitive data also)
+
+Collections:
+*Collections are dynamic in nature and can grow as necessary.
+*Collections are hetrogeneous, can store diff objects 
+*Collection can contain only objects(reference type)
+*java.util package
+
+
+collection
+
+Set	List
+
+SortedSet
+
+
+Map
+
+SortedMap
+
+*Collections are primarily defined through a set of interfaces.
+*As they are interfaces thaey do not allow primary data.
+===================================================================================================================================
+Generics:-
+----------
+It is a parameterized.
+If u create a generic class that will work on diff data types
+package Generics;
+public class Demo1<T> {
+	T num;
+	Demo1(T num){
+		this.num=num;
+	}
+	T getNum() {
+		return num;
+	}
+	public static void main(String[] args) {
+		Demo1<Integer> obj1=new Demo1<Integer>(10);
+		System.out.println(obj1.getNum());
+		Demo1<Float> obj2=new Demo1<Float>(19.34f);
+		System.out.println(obj2.getNum());
+		Demo1<String> obj3=new Demo1<String>("maneesha");
+		System.out.println(obj3.getNum());
+	}
+}
+
+===================================================================================================================================
+Boxing:-
+---------
+Converting primitive datatype to an Object(Wrappwe class)
+Unboxing:-
+Converting an object to prmitive datatype
+
+JDK 1.5Version :- we have AutoBoxing and AutoUnboxing
+
+
+Avariable number of arguments:-
+It is similar to array only but it accespts any no.of argumnets from method.
+
+
+public class NoOfArgs {
+	public static void display(int... num) {
+		System.out.println("Array size:  " + num.length);
+		for (int i : num)
+			System.out.println(i);
+	}
+	public static void main(String[] args) {
+		display(1, 2, 3, 4, 5, 6, 7, 8);
+		display(10, 20, 30, 40);
+		display(25, 43, 44);
+	}
+
+}
+===================================================================================================================================
+1)CF classes introdced versions.
+
+2)Hetrogeneous data allowed or not allowed
+
+3)Null insertion is possible or not possible
+
+4)Duplicate objects are allowed or not allowed
+Inserting same object more than one time isa called duplication
+add(e1)
+add(e1)
+
+5)Insertion oder is preserved or not preserved
+In which order we are inserting ele,ment same order output is printed say insertion order is preserved otherwise not.
+
+6)Collection classes methods syn or non-synch
+If the methods are synchronized only one thread is allow to access, thses methods are threadsafe but performnace is reduced,
+If the methods are non-synchronized multiple threads are  allow to access, thses methods are not thread safe but performnace is high.
+
+7)Collection classes underlying DS.
+Arrays are does not contains underlying DS hence 
+Every collection class contains underlying DS hence it supports predefine methods.
+
+8)Collection classes supported cursors.
+The Collection classes are used to represent group of objects as a single entity & to retrive the objects from collation class we are using cursors.
+
+===================================================================================================================================
+Legacy classes:-
+introduced 1.0v are lagacy classes and java.util package
+1)Dictionary
+2)Hashtable
+3)properties
+4)stack
+5)Vector
+
+Legacy interfaces:-
+Enumeration
+===================================================================================================================================
+List interfaces common properties:-
+1)All list class allows herogeneous data.
+2)All list interface implementation classes allows null insertion
+3)allow duplicate.
+4)insertion order preserved.
+
+ArrayList characterstics:-
+==========================
+1.2v
+Hetrogeneous objects allowed
+AL is possible null insertion 
+allow duplicate
+insertion order preserved means whatever the order we inserted the data in the same 
+
+Iterator:-
+==========
+Retrive the objects from collection classes.
+12.v
+It is used Retrive the data from all collection classes.
+Its is an universal cursor because it is applicable for all collection classes
+Get the iterator object by using iterator method
+Vector v =new Vector();
+Enumeration e =v.iterator();
+It contains 2 methods 
+hasNext()
+next()
+read and remove()
+only forward direction
+interface.
+===================================================================================================================================
+instanceof:-
+===============
+instanceof is a operator. It is an comparsion operator. always it returns boolean value
+It checks whether that instance is of a specified type(Class/sub-class/interface) or not.
+===================================================================================================================================
+Diff b/w Comparable(I) and Comparator(I) :-
+============================
+	Comparable
+1.It is meant for Default sorting order.
+
+2.Present in java.lang package
+
+3.It defines only one method compareTo()
+
+4.All wrapper classes and String class implement comparable(I)
+
+	Comparator
+1.It is meant for Customized sorting order.
+
+2.Present in java.util package
+
+3.It defines 2 method compare() and equals()
+
+4.Only one implemented classes of comparator are Collator and RuleBasedCollator
+
+===================================================================================================================================
+All CF classes and interfaces are prsent in java.util package
+The root interface 
+1.Collection(I):-
+===========
+1.If u want to represent a group of individual objects as a single entity then we should go for collection.
+2.Collection Interface defines the most common methods which are applicable for any collection object
+3.In general CI is considered as Root Interface of collection Framework.
+4.There is a "concrete class" which implements collection interface directly
+ 
+         COLLECTION(parent collection)
+                             |
+         |--------------|
+     List    
+       |
+  -----------------------
+  |                               |   
+AL                           LL     
+
+Diff b/w Collection and Collections :-
+=========================
+*Collection is an interface. If u want represent a group of individual objects as a single entity.
+*Collections is an utility class present in java.util package to define several utility methods for collection objects.
+(Like sorting, searching etc..)
+[If u want to sorted AL-----> collections.sort(al);]

@@ -1,0 +1,267 @@
+StringBuffer:-
+=========
+[Content keep on changing never recommended to use String.
+s=maneesha
+s.concat("rayudu")    //maneesharayudu  //new object
+s.concat("mca")        //maneesharayudumca    //new object]
+
+All required changes will be performed in existing object(same object) only to use StringBuffer.
+sb=maneesha
+sb.concat("rayudu")    //maneesharayudu  //existing object
+sb.concat("mca")       //maneesharayudumca    //existing object
+
+Importent constructor of StringBuffer:-
+===========================
+capacity():-
+========
+StringBuffer sb=new StringBuffer("maneesha"); 
+System.out.println(sb.capacity());
+
+1)String s=new String("maneesha");
+s----->maneesha    //length=8 capacity=8  (same)
+StringBuffer sb=new StringBuffer("maneesha");
+sb----->maneesha       //length=8 capacity=   (different)
+StringBuffer sb=new StringBuffer();   
+default capacity=16 once capacity is full 16+17(sb)
+New Capacity=(current capacity(16)+1)*2=34
+New Capacity=(current capacity(34)+1)*2=70
+StringBuffer sb=new StringBuffer(); 
+System.out.println(sb.capacity());     //16
+sb.append("abcdefghijklmnop");
+System.out.println(sb.capacity());       //16
+sb.append("q");             
+System.out.println(sb.capacity());       //34
+sb.append("abcdefghijklmnopabcdefghijklmnopabcdefghijklmnop");
+System.out.println(sb.capacity());         //70
+next------------>142
+next------------>286
+
+2)StringBuffer sb=new StringBuffer(int intailizeCapacity()); 
+StringBuffer sb=new StringBuffer(1000); 
+System.out.println(sb.capacity());
+
+3)StringBuffer sb=new StringBuffer(String s); 
+StringBuffer sb=new StringBuffer("maneesha"); 
+System.out.println(sb.capacity());     //capacity=s.length()+16  8+16=24
+
+Importent methods of StringBuffer:-
+=========================
+1)public int length()
+2)public int capacity()
+
+3)public char charAt(int index)
+StringBuffer sb=new StringBuffer("maneesha");   //(0 to 7)
+System.out.println(sb.charAt(n));
+System.out.println(sb.charAt(20));    //StringIndexOutOfBoundsException
+
+4)public void setCharAt(int index,char new char);
+StringBuffer sb=new StringBuffer("maneesha");   (0 to 7)
+sb.setCharAt(4,z);   
+System.out.println(sb);     //manezsha
+
+StringBuffer sb=new StringBuffer("maneesha");   (0 to 7)
+sb.setCharAt(9,z);   
+System.out.println(sb);     //StringIndexOutOfBoundsException
+
+5)append():-To add string to last index position
+public StringBuffer append(String s)  //overloaded methods(multiple append methods)
+public StringBuffer append(byte b)
+public StringBuffer append(int i)
+public StringBuffer append(long l)
+public StringBuffer append(float f)
+public StringBuffer append(double d)
+public StringBuffer append(boolean b)
+
+StringBuffer sb=new StringBuffer();
+sb.append("pi value is");
+sb.append(3.14);
+sb.append(true);
+System.out.println(sb);    //pi value is3.14true
+
+6)public StringBuffer insert(int index,String s)  //(multiple insert methods)
+public StringBuffer insert(int index,double d)
+public StringBuffer insert(int index,boolean b)
+public StringBuffer insert(int index,char c)
+public StringBuffer insert(int index,int i)
+public StringBuffer insert(int index,float f)
+
+StringBuffer sb=new StringBuffer("maneesha");
+sb.insert(5,"HAI");
+System.out.println(sb);    //maneeHAIsha
+
+StringBuffer sb=new StringBuffer("abcdefghijklmnopabcdefghijklmnopqrstuvwxyz");
+sb.insert(2,8);
+sb.insert(4,8.5f);
+sb.insert(10,8.56);
+sb.insert(15,"HAI");
+sb.insert(19,true);
+sb.insert(20,'a');
+System.out.println(sb);  
+
+7)I want to delete group of character
+public StringBuffer delete(int begin,int end)
+It delete characters to from begin index to end-1 index
+StringBuffer sb=new StringBuffer("maneesha");
+sb.delete(2,4);      //2 to 4-1   2 to 3
+System.out.println(sb);    //maesha
+
+I want to delete single character
+public StringBuffer deleteCharAt(int index)
+StringBuffer sb=new StringBuffer("maneesha");
+sb.deleteCharAt(5);   
+System.out.println(sb);     //maneeha
+
+8)public StringBuffer reverse()
+StringBuffer sb=new StringBuffer("maneesha");
+sb.reverse();
+System.out.println(sb);       //ahseenam
+
+1)public void setLength(int length)
+StringBuffer sb=new StringBuffer("maneeshanitya");
+sb.setLength(8);
+System.out.println(sb);    //maneesha
+
+2)public void ensureCapacity(int capacity)    //To increasing capacity based on our requitrment
+StringBuffer sb=new StringBuffer();
+System.out.println(sb.capacity());  //16
+sb.ensureCapacity(800);
+System.out.println(sb.capacity());  //800
+
+3)public void trimToSize()      //To remove unless capacity size 
+StringBuffer sb=new StringBuffer(1000);
+sb.append("ABC");
+System.out.println(sb.capacity());     //1000
+sb.trimToSize();
+System.out.println(sb.capacity());     //3
+
+**********************************************************************
+
+StringBuilder(1.5v):-
+==========
+Every method present inside StringBuffer is synchronized(only one thread performance very less)
+D:\>javap java.lang.StringBuffer
+
+In 1.5v introduced StringBuilder.To overcome this problem introduce javap java.lang.StringBuffer.
+StringBuffer all constructors,method same applicable for StringBuilder.only 
+
+Difference between  StringBuilder and  StringBuffer:-
+======================================
+Buffer--repalced with--->Builder(synchronized remove)(StringBuffer.java save to StringBuilder.java)
+Non synchronized version in StringBuilder
+synchronized version in StringBuffer
+
+StringBuffer                                   
+1)Most of the methods present inside StringBuffer are synchronized 
+ 2)At a time only one thread is allowed operate on StringBuffer object and hence it is thread-safe
+3)Thread are required to wait to operate on StringBuffer object and hence relatively pefromance is low
+4)Introduced 1.0v
+
+StringBuilder
+1)No methods present inside StringBuilder are sync
+2)At a time multiple thread is allowed operate on StringBuilder object and hence it is not thread-safe
+3)Thread are not required to wait to operate on StringBuilder object and hence relatively pefromance is high
+4)Introduced 1.5v
+
+String:-
+======
+Memory utilization imporment performance improvement
+Content is fixed won't changed frequently
+Alll immutable objects default Thread safe
+
+StringBuffer:-
+=========
+Content is not fixed keep on changing but thread safty is required at a time only one thread allow to operand
+Every method present inside synchronized
+
+StringBuilder:-
+=========
+Content is not fixed keep on changing if you don't want thread safty multiple threads are allow to oprand simultneously
+
+Method Chaining(StringBuffer and StringBuilder):-
+==================================
+StringBuider  append()
+StringBuider reverse()
+StringBuider insert()
+StringBuider delete()
+
+StringBuider sb=new StringBuider();
+sb.m1().m2().m3()..................  is called Method Chaining
+
+StringBuider sb=new StringBuider();
+sb.append("maneesha").append("rayudu").reverse().insert(8,xyz).delete(4,7);
+System.out.println(sb);
+
+StringBuider sb=new StringBuider();
+sb.append("durga").append("solution").reverse().insert(2,xyz).delete(4,7);
+System.out.println(sb);   //uduyhxyzseenam
+******************************************************************************
+Strings :-
+=====
+Strings are defined as "an array of characters". The difference between a character array and a string is the string is terminated with a special character ‘\0’.
+Syntax:
+<String_Type>  <string_variable> = “<sequence_of_string>”;
+Example: String str = "Geeks";
+
+Memory allotment of String:-
+===================
+Whenever a String Object is created, two objects will be created- one in the Heap Area and one in the String constant pool and the String object reference always points to heap area object.
+For example: String str = "Geeks";
+
+import java.lang.*;   
+class Test 
+{ 
+    public static void main(String[] args) 
+    { 
+        // Declare String without using new operator 
+        String s = "GeeksforGeeks"; 
+        System.out.println("String s = " + s);   
+        // Declare String using new operator 
+        String s1 = new String("GeeksforGeeks"); 
+        System.out.println("String s1 = " + s1); 
+    } 
+} 
+Output:
+String s = GeeksforGeeks
+String s1 = GeeksforGeeks
+
+Interfaces and Classes in Strings in Java:-
+============================
+1)CharBuffer:-
+--------------
+This class implements the CharSequence interface. This class is used to allow character buffers to be used in place of CharSequences. An example of such usage is the regular-expression package java.util.regex.
+
+2)String:-
+---------
+String is a sequence of characters. In java, objects of String are immutable which means a constant and cannot be changed once created.
+There are two ways to create string in Java:
+String literal
+String s = “GeeksforGeeks”;
+Using new keyword
+String s = new String (“GeeksforGeeks”);
+
+3)StringBuffer:-
+---------------
+StringBuffer is a peer class of String that provides much of the functionality of strings. String represents fixed-length, immutable character sequences while StringBuffer represents growable and writable character sequences.
+Syntax:
+StringBuffer s = new StringBuffer("GeeksforGeeks");
+
+4)StringBuilder:-
+----------------
+The StringBuilder in Java represents a mutable sequence of characters. Since the String Class in Java creates and immutable sequence of characters, the StringBuilder class provides an alternate to String Class, as it creates a mutable sequence of characters.
+Syntax:
+StringBuilder str = new StringBuilder();
+str.append("GFG");
+
+5)StringTokenizer:-
+-------------------
+StringTokenizer class in Java is used to break a string into tokens.
+Example:
+stringtokenizer
+A StringTokenizer object internally maintains a current position within the string to be tokenized. Some operations advance this current position past the characters processed.
+A token is returned by taking a substring of the string that was used to create the StringTokenizer object.
+
+6)StringJoiner:-
+---------------
+StringJoiner is a class in java.util package which is used to construct a sequence of characters(strings) separated by a delimiter and optionally starting with a supplied prefix and ending with a supplied suffix. Though this can also be with the help of StringBuilder class to append delimiter after each string, StringJoiner provides an easy way to do that without much code to write.
+Syntax:
+public StringJoiner(CharSequence delimiter)

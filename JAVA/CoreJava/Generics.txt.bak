@@ -1,0 +1,182 @@
+Generics:-
+=======
+Generics to provide Type-safety and to resolve Type-casting.
+Generic concept is applicable at Compile time but not Runtime there is no such type. 
+
+a)Type-safety:-
+------------------
+*Arrays always Type safe so to hold homogeneous data only. If we are  try to add other type we will get CE
+
+String[] s=new String[10];
+s[0]="anu";
+s[1]="abc";
+s[2]=10; //CE
+
+*Collections not a type safe, we can hold any type of data. If we are  try to add other type we wont get ce but may fail at RE.
+
+ArrayList al=new ArrayList();
+al.add("anu");
+al.add("renu");
+al.add(new Integer(10));
+String name1=(String) al.get(0);
+String name2=(String) al.get(1);
+//String name3=(String) al.get(2);    //RE
+int name3=(Integer) al.get(2);
+System.out.println(name1+"	"+name2+"	"+name3);
+//System.out.println(al);
+
+Hence Collections are not safe to use with respect to type.
+
+b)Type-casting:-
+-------------------
+*Array is not required Type-casting.
+
+String[] s=new String[10];
+s[0]="anu";
+s[1]="abc";
+String name1=s[0];
+System.out.println(name1);
+
+*In this case Collections must required Type-casting.
+
+ArrayList al=new ArrayList();
+al.add("anu");
+al.add("renu");
+al.add(new Integer(10));
+String name1=(String) al.get(0);
+
+*To overcome this problem of Collections sun people introduce Generics.
+Generics main Objective
+1.To provide Type-safety to the collections
+2.To resolve Type-casting problems
+
+*To hold only String type of objects we can create a generic of ArrayList
+
+ArrayList<String> al=new ArrayList<String>();
+*So al can add only String type. If we are  try to add other type we will get CE. i.e; Generics we are getting Type-Safety.
+
+ArrayList<String> al=new ArrayList<String>();
+al.add("anu");
+al.add("renu");
+String name1=al.get(0);
+String name2=al.get(1);
+System.out.println(name1+"	"+name2);
+*In this case Collections not required Type-casting.
+i.e; Generics we can resolve Type-casting problem.
+
+Polymorphism:-
+--------------------
+Polymorphism concept applicable for only base type but not for parameter type(Usage of parent reference to hold child object is 
+called polymorphism)
+
+ArrayList<String>
+    |	|
+   \/             \/
+BaseType  ParameterType
+
+List<String> al=new ArrayList<String>();
+al.add("anu");
+al.add("manu");
+String name1= al.get(0);
+String name2=al.get(1);
+System.out.println(name1+"	"+name2);
+
+Collections concept applicable only for Object type. Other we will get CE.
+ArrayList<String>
+    	|
+                  \/
+           ObjectType
+
+===================================================================================================
+Generic Classes:type with parameter:-
+--------------------------------------------
+Non Generic version of ArrayList class is declared as follows.(1.4v)
+
+class ArrayList {
+	add(Object o);
+	Object get(int index);
+}
+
+1.5v:-
+class ArrayList<T> {
+	add(T o);
+	T get(int index);
+}
+
+
+ArrayList<String> al=new ArrayList<String>();
+*So al can add only String type. If we are  try to add other type we will get CE. i.e; Generics we are getting Type-Safety.
+*In Generics we are associated a type parameter to the class, such type of paramerterized classes nothing but Generic classes.
+*Based on our req we can create our own Generic classes also... as follows
+
+class Animal<Type1>{
+	Type1 obj;
+	public Animal(Type1 obj1) {
+		this.obj=obj1;
+	}
+	public void show() {
+		System.out.println("Object type: "+obj.getClass().getName());
+		
+	}
+	public Type1 getObject(){
+		return obj;	
+	}
+}
+public class GenericClassEx {
+	public static void main(String[] args) {
+		Animal<Integer> al1=new Animal<Integer>(10);
+		al1.show();
+		System.out.println("Parameter value:	"+al1.getObject());
+		Animal<String> al2=new Animal<String>("Dog");
+		al2.show();
+		System.out.println("Parameter value:	"+al2.getObject());
+	}
+}
+o/p:-
+Object type: java.lang.Integer
+Parameter value:	10
+Object type: java.lang.String
+Parameter value:	Dog
+
+Bounded types:-
+------------------
+*We can bouded type parameter for a particular range by using "extends" keyword such types are called bounded types.
+class Animal1<Type1 extends Number>{
+	public Animal1(Type1 t) {
+	}
+}
+public class Bounded {
+	public static void main(String[] args) {
+		Animal1<Integer> al1=new Animal1<Integer>(10);
+		//Animal1<String> al2=new Animal1<String>("Dog");
+//J.l.String is not within its bound 
+	}
+}
+
+*We can pass any no.of parameters 
+class HashMap<K,V>
+HashMap<Integer,String> h=new HashMap<Integer,String>();
+
+*We can pass any type which extends Number class and implements Runnable.
+class Test<Type extends Number&Runnable>	//valid
+class Test<Type extends Number&Runnable&Comparable>    //valid
+class Test<Type extends Number&String> //invalid
+class Test<Type extends Number&Runnable&>	//invalid
+
+===========================================================================================================
+Generic methods and wild-card characters:-
+--------------------------------------------------
+ArrayList<String>
+add("mani");  //valid
+add(null);	    //valid
+add(10);	    //invalid
+
+ArrayList<?>
+add("mani");  //invalid
+add(null);	    //valid
+add(10);	    //invalid
+
+ArrayList<?> l2=new ArrayList<String>();	//valid
+ArrayList<?> l3=new ArrayList<Integer>();	//valid
+ArrayList<? extends Number> l4=new ArrayList<Integer>();	//valid
+ArrayList<? extends Number> l5=new ArrayList<String>();	//invalid

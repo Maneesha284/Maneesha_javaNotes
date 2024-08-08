@@ -1,0 +1,67 @@
+Serialization:-
+==========
+Serialization is a mechanism of writing state of an Object into a byte stream. It is mainly used in hibernet, RMI etc.. technologies.
+Deserlizable is a byte stream converted into an Object.
+Serialization and Deserialization prcoess is platform independent. If you can serializing an Object one platform, and deserialization process is another platform.
+Serialization--->we call the writeObejct() method of ObjectOutputStream class
+Deserialization --->we call the readObject() method of ObjectInputStream class
+
+java.io.Serializable
+=============
+Serializable is the marker interface(no data member and methods). It is used to "mark" the java classes so that the Object of these classes may get certain 
+capability.
+clonable and Remote also marker interface
+It must be implements whose object you want persistance
+The string classes and wrapper classes implements serializable interface by default.
+
+final void writeObject(obj)---->write the specified object to the ObjectOutputStream
+ObjectOutPutStream()---->creates an ObjectOutputStream to writes the specified OutputStream
+
+public final void readObject(obj)----->read the speicfied object to the ObjectInputStream
+public ObjectInputStream(InputStream in) --->creates an obejct to read the specified InputStream
+
+import java.io.Serializable;
+public class Student implements Serializable {
+	int no;
+	String name;
+	public Student(int sno,String sname) {
+		this.no=sno;
+		this.name=sname;
+	}
+}
+
+Serialization:-
+==========
+import java.io.*;
+class Seriali {
+	public static void main(String args[]) throws Exception{
+		Student s1=new Student(222,"anusha");
+		FileOutputStream fos=new FileOutputStream("man.txt");
+		ObjectOutputStream oos=new ObjectOutputStream(fos);
+		oos.writeObject(s1);
+		oos.flush();
+		System.out.println("data inserting into file completed");	
+	}
+}
+
+Deserialization:-
+============
+import java.io.*;
+class Deser{
+	public static void main(String args[]) throws Exception {
+		FileInputStream fis=new FileInputStream("man.txt");
+		ObjectInputStream ois=new ObjectInputStream(fis);
+		Student ds=(Student)ois.readObject();
+		System.out.println(ds.no+"	"+ds.name);
+	}
+}
+
+Serializable with inheritance:-(IS-A)
+==========================
+If a class implements Serializable then all sub classes will also be Serailizable(IS-A Relationship).
+
+Externalization:-
+============
+Externalization and Serialization both are mechanism of writing state of an Object into a byte stream.
+Externalization is a customized Serialization based on our requirment.
+It contains 2 methods readExternal() and writeExternal()

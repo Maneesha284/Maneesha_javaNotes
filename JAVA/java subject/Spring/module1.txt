@@ -1,0 +1,155 @@
+============================================================================================================
+1.CORE MODULE:-
+--------------------------
+Steps to prepare first Spring App core module:-
+1.Download Spring framework(jar's)
+
+https://repo.spring.io/release/org/springframework/spring/
+https://commons.apache.org/proper/commons-logging/download_logging.cgi
+
+common-loggings-1.2.jar
+beans
+context
+context-support
+core
+expression
+
+2.prepare java project
+3.prepare spring library with the required jar files
+
+4.prepare bean class
+--------------------------
+*Bean is reusable component , It is a normal java class having properties and the respective setXxx() and getXxx() methods
+
+*Spring f/w is using POJO classes(It not extends predefien  java.io.Serializable)
+JSP-useBean
+structs-ActioForm/FormBean
+JSF-BackingBean
+Spring and Hibernate-POJO
+
+*POJO class must be a java bean class, It must be declared as public, non abstract non final
+a)Bean as public is to make available to spring f/w inorder to create object
+b)Spring f/w must crete object for Bean class it must be non-abstract
+c)If u want to bean class properties to use another bean class To code reusability it must be non-final
+
+*In Bean class declare properties as per the req and we must provide a seperate set of setXxx() and getXxx()
+
+*In Bean class declare all properties as private and methods as public "Encapsulation"
+
+*In Bean class if u want to provide constructor but it must be public and zero-argument constructor
+because while instantaiting Bean class, spring f/w search and execute only public and zero-arg cons
+
+*if u want to provide our own comparision b/w 2 bean objects then we have to override eqauls().
+
+*if u want to generate hashCode values of the Bean objects in our own view then we have to Override hashCode()
+
+5.prepare spring configuration file with bean configuration file
+------------------------------------------------------------------------------
+*It is an xml file , It will include all beans configuration details like 
+name of the bean class, identify of bean class, properties and their values of the Bean class.
+
+*The main intention of Bean configuration in Spring configuration file is to create Bean object by spring frameworke(activiat  container).
+(Each and Every Bean class Spring f/w will create sepearte object) and container creates responsibilty Bean object.
+
+*Spring f/w is able to allow any name to the configuration file but suggistable name is "applicationContext.xml"
+other developers---->spring.xml  beans.xml   spring-beans.xml
+
+*
+<beans   ------XSD------->
+<bean id="--" class="--"/>
+-----------
+</beans>
+
+id=It will take variable name as an identity to the genearted Bean object.
+class=It will take fully qualified name of the respective Bean class
+
+<beans ----XSD---->
+	<bean id="helloBean" class="com.durgasoft.beans.HelloBean">
+</beans>
+
+=================================================================================================================
+core container class name is BeanFactory(I)-----implementation-------->XmlBeanFactory(c)
+
+J2EE container class name is ApplicationContext(I)------>ConfigurableApplicationContext(I)------implementation------->ClassPathXmlApplicationContext(c)
+
+web container class name is WebApplicationContext(I)------implementation------>WebApplicationContextUtil(c)(Factory class)
+
+How to start/stop IOC container:-
+--------------------------------------
+new XmlBeanFactory();
+
+new ClassPathXmlApplicationContext();
+
+WebApplicationContextUtil.getObject();
+=================================================================================================================
+
+6.Prepare Test App
+--------------------------
+*The main intension is to activate container from spring f/w and allows to create bean objects by getting beans details from spring configuration file 
+and to use Bean objects  in our application as per the req.
+
+*There are two types of containers in Spring f/w
+	1.BeanFactory
+	2.ApplicationContext
+ApplicationContect is an interface provided by spring f/w and one its implementation is "ClassPathXmlApplicationContext"
+
+*To create ApplicationContext container use following code
+ApplicationContext context =new ClassPathXmlApplicationContext("/com/durgasoft/resources/applicationContext.xml");
+a)ApplicationContext container will take name and location of spring confg file
+b)ApplicationContext container will load spring confg file to  memory
+c)ApplicationContext container will parse spring confg file
+d)ApplicationContext container will read beans confg details from spring from spring confg file.
+e)ApplicationContext container will create bean class objects and maintain bean class objects.
+
+*Get Bean object from ApplicationContext container on the basis of id
+public Object getBean(String id);   //<bean id="---">
+HelloBean hb=(HelloBean)context.getBean("helloBean");
+
+=================================================================================================================
+1.Download spring f/w 
+2.create java project in Eclipse IDE with spring library(user define library)
+3.prepare pojo class
+4.prepare spring config file 
+5.prepare Test App
+
+
+=================================================================================================================
+HelloBean.java
+--------------------
+package com.durgasoft.beans;
+public class HelloBean {
+	public String sayHello() {
+		return "Hello user....";
+	}
+}
+
+applicationContext.xml
+---------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        <bean id="helloBean" class="com.durgasoft.beans.HelloBean"/>
+ </beans>
+
+Test.java
+------------
+package com.durgasoft.test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import com.durgasoft.beans.HelloBean;
+public class Test {
+	public static void main(String[] args) throws Exception {
+		ApplicationContext context =new ClassPathXmlApplicationContext("applicationContext.xml");
+		HelloBean hello=(HelloBean) context.getBean("helloBean");
+		System.out.println(hello.sayHello());
+	}
+
+}
+
+
+
+ 
+
+=============================================================================================================

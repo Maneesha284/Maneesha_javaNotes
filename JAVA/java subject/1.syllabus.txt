@@ -1,0 +1,15 @@
+HTML
+CSS
+JavaScript
+Logical
+Aptitude
+SQL
+Self Introduction
+Core Java
+JDBC
+JSP
+Servlet
+Spring core
+Projects
+MVC
+Data structure

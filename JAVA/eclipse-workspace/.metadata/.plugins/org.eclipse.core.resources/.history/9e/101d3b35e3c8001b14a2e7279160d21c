@@ -1,0 +1,27 @@
+import java.io.*;
+
+public class SequanceInput_Ouput_Stream {
+
+	public static void main(String[] args) {
+		try {
+			FileInputStream fis1=new FileInputStream("abc.txt");
+			FileInputStream fis2=new FileInputStream("Employee.txt");
+			FileOutputStream fos= new FileOutputStream("result.txt");
+			sequanceInputStream sis = new sequanceInputStream(fis1,fis2);
+			int i=0;
+			while((i= sis.read()) != -1) {
+				fos.write((char)i);
+				System.out.print((char)i);
+				
+			}
+			fos.close();
+			fis.close();
+			
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+
+	}
+
+}

@@ -1,0 +1,16 @@
+package collection;
+
+import java.util.TreeSet;
+
+public class TreeSet1 {
+
+	public static void main(String[] args) {
+		TreeSet<String> ts=new TreeSet<String>();
+		ts.add("ramu");
+		ts.add("madhu");
+		ts.add("ramu");
+		ts.add(null);
+		System.out.println(ts);
+	}
+
+}

@@ -1,0 +1,319 @@
+Map:-
+====
+					Map(I)(1.2)
+
+										Dictionary(1.0)
+										          |
+HashMap(1.2)	IdentityHashMap(1.4)		WeakHashMap(1.2)	SortedMap(1.2)		Hashtable(1.0)	(Legacy classes)
+
+	|						           |			          |
+LinkedHashMap(1.4)						NavigableMap(1.6)		Properties(1.0)
+							            |
+							TreeMap(1.2)
+
+Map:-
+
+
+*Map is "not child" interface of collection.
+*If u want to represent a group objects as key value pair then we should go for map
+key	value
+==============
+101	tfgf
+102	kjj
+103	jhk
+
+*Both keys and values are objects only.Duplicates keys are not allowed, but values can be duplcated.
+*Each key value pair is called "Entry". Hence Map is consider as a collection of Entry objects.
+
+Map interface methods:-
+
+1.Object put(Object key,Object value)
+To add one key value pair to the map.
+If the key is already present then old value will be replaced with new value and returns old value
+m.put(101,"durga"); ---->null
+m.put(102,"ganga"); ---->null
+m.put(101,"siva");   ---->durga    (101-durga got replace with siva)
+
+2.void putAll(Map m):- 
+
+3.Object get(Object key):-Returns the value associated with specified key
+
+4.Object remove(Object key):-removes entry associated with specified key
+
+5.boolean containsKey(Object key):-To check paritcular key is there or not
+
+6.5.boolean containsValue(Object value):-To check paritcular value is there or not
+
+7.boolean isEmpty():-To Check Map is empty or not
+
+8.int size():-How many key-value pairs are there
+
+9.void clear() :-All key-value pairs will be removed
+
+Collection view of Map:-
+set keySet()--------To view all keys
+Collection values()--------To view all values
+Set entrySet()--------To view entry set
+
+Entry(I):-
+A Map is a group of key value pairs and each key value pair is called an Entry
+Hence Map is considered as a collection of /entry Objects.
+Without Existing Map object there is no chance of Existing Entry Object
+Hence Entry interfce is define inside Map Interface
+
+interface Map {
+	interface Entry {
+		//Entry specific methods and we can apply only on Entry Object
+		Object getKey();
+		Object getValue();
+		Object setValue(Object newObj);  --->return old value
+	}
+}
+************************************************************************************************************************************
+HashMap:-
+=======
+1.The underlying DS is Hashtable
+2.Insertion order is not preserved and it is based on hashCode of Keys
+3.Duplicates keys are not allowed, but values can be duplicated.
+4.Hetrogeneous objects are allowed for both key and value
+5.null is allowed for key(only once).null is allowed for values(any no.of times).
+6.HashMap implements serializable and clonable interfaces but not RandomAccess
+7.HashMap is the best choice is search operation
+
+Constructor of HashMap:-
+==================
+1.HashMap hm=new HashMap();   //default--16--->0.75(default fill ratio)
+HashMap creates an empty HashMap object with default initailcapacity 16 and default fill ratio 0.75 
+2.HashMap hm=new HashMap(int initialcapacity);
+creates an empty HashMap object with specified initailcapacity and default fill ratio 0.75 
+3.HashMap hm=new HashMap(int initialcapacity,float fillratio);
+4.HashMap hm=new HashMap(Map m);
+
+import java.util.HashMap;
+import java.util.Set;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Iterator;
+class HashMap1 {
+	public static void main(String args[]) {
+		HashMap hm=new HashMap(); 
+		hm.put("anu",300);
+		hm.put("renu",400);
+		hm.put("mani",200);
+		System.out.println("hm:  "+hm);
+		//hm:  {anu=300, mani=300, renu=300}
+		System.out.println("hm:    "+hm.put("anu",800));
+		//300
+		Set s=hm.keySet();
+		System.out.println("s-keys:  "+s);
+		//s-keys:  [anu, mani, renu]
+		Collection c=hm.values();
+		System.out.println("c-values:  "+c);
+		//c-values:  [800, 200, 400]
+		Set s1=hm.entrySet();
+		System.out.println("s1-entrySet:  "+s1);
+		//s1-entrySet:  [anu=800, mani=200, renu=400]
+		Iterator itr=s1.iterator();
+		while(itr.hasNext()) {
+			Map.Entry e=(Map.Entry)itr.next();
+			System.out.println(e.getKey()+"-----"+e.getValue());
+			/*after printing we changed value
+			anu-----800
+			mani-----200
+			renu-----400*/
+			if(e.getKey().equals("renu")) {
+				e.setValue(1000);
+			}
+		}	
+		System.out.println("s1-entrySet:  "+s1);
+		//s1-entrySet:  [anu=800, mani=200, renu=1000]	
+	}
+}
+
+Difference b/w HashMap and Hashtable:-
+=============================
+HashMap
+=======
+1.Evey Method present in HashMap is Not sysnchronized
+2.It is allows multiple threads, not thread safe
+3.performance is high
+4.5.null is allowed for key(only once).null is allowed for values(any no.of times).
+5.It is not legacy(1.2v)
+
+Hashtable
+=======
+1.Evey Method present in Hashtable is sysnchronized
+2.It is allows only one thread, thread safe
+3.performance is low
+4.null is not allowed both key and value. If is enter NPE
+5.It is legacy(1.2v)
+
+How to get synchronized version of HashMap Object:-
+======================================
+By default HashMap is Not sysnchronized, but we can get synchronized version of HashMap by using SynchronizedMap() of Collectons class
+HashMap hm=new HashMap();
+Map m1=Collections.SynchronizedMap(hm);
+
+hm---->Not Synchronized
+m1---->Sychrinized
+************************************************************************************************************************************
+LinkedHashMap:-
+============
+HashMap
+  /\
+   |
+LinkedHashMap
+
+*It is the child class HashMap
+*It is exactly same as HashMap(including Method and construtors also) except following diff
+HashMap:-
+1.The underlying DS is Hahtable
+2.Insertion order not preserved and it is based on Hashcode of keys
+3.introduced(1.2v)
+LinkedHashMap:-
+1.The underlying DS is combination of LinkedList and Hashtable(hybrid DS)
+2.Insertion order is preserved 
+3.introduced(1.4v)
+
+import java.util.LinkedHashMap;
+class LinkedHashMap1 {
+	public static void main(String args[]) {
+		LinkedHashMap lhm=new LinkedHashMap(); 
+		lhm.put("anu",300);
+		lhm.put("renu",400);
+		lhm.put("mani",200);
+		System.out.println("lhm:  "+lhm);
+		//lhm:  {anu=300, renu=400, mani=200}
+	}
+}
+
+NOTE:-LinkedHashSet and LinkedHashMap are commonly used for developing cache based applications.
+
+Integer i1=new Integer(10);
+Integer i1=new Integer(10);
+Sopln(i1==i2);  //false
+Sopln(i1.equals(i2));  //true
+************************************************************************************************************************************
+IdentityHashMap:-
+============
+*It is the child class Map
+*It is exactly same as HashMap(including Method and construtors also) except following diff
+HashMap:-
+JVM will use .equals() to identityfy duplicate keys which is ment for content comparision
+IdentityHashMap:-
+JVM will use == operator  to identityfy duplicate keys which is ment for refernce/address comparision
+import java.util.HashMap;
+import java.util.IdentityHashMap;
+class IdentityHashMap1 {
+	public static void main(String args[]) {
+		//JVM will use .equals()---------->HashMap   j1.equals(j2) ----->true
+		HashMap hm=new HashMap(); 
+		Integer j1=new Integer(20);
+		Integer j2=new Integer(20);
+		hm.put(j1,"renuka");
+		hm.put(j2,"nani");       
+		System.out.println("hm:  "+hm);    //hm:  {20=nani} 
+
+		//JVM will use == operator--------->IdentityHashMap    i1==i2----->false
+		IdentityHashMap ihm=new IdentityHashMap(); 
+		Integer i1=new Integer(20);
+		Integer i2=new Integer(20);
+		ihm.put(i1,"renuka");
+		ihm.put(i2,"nani");
+		System.out.println("ihm:  "+ihm);	      //ihm:  {20=renuka, 20=nani}
+	}
+}
+************************************************************************************************************************************
+WeakHashMap:-
+============
+*It is exactly same as HashMap(including Method and construtors also) except following diff
+HashMap:-
+Even though Object doesn't have any reference it is not eligible for gc If it is associated with HashMap. i.e; HashMap dominates Garbage Collector
+WeakHashMap:-
+If Object  doesn't have any reference it is eligible for gc Even though associated with WeakHashMap. i.e; Garbage Collector dominates WeakHashMap
+
+import java.util.WeakHashMap;
+class WeakHashMap1{
+	public static void main(String args[]) {
+		WeakHashMap hm=new WeakHashMap(); 
+		Temp t=new Temp();
+		hm.put(t,"apple");
+		System.out.println("hm:  "+hm);
+		t=null; 
+		System.gc();
+		//Thread.sleep(1000);
+		System.out.println("hm:  "+hm);
+	}
+}
+class Temp {
+	public String toString() {
+		return "temp";
+	}
+	public void finalize() {
+		System.out.println("finalize method.......");
+	}
+}
+In the above example temp object eligible for gc because it is associted with WeakHashMap
+o/p:-
+hm:  {temp=apple}
+hm:  {}
+finalize method.......
+
+import java.util.HashMap;
+class WeakHashMap1{
+	public static void main(String args[]) {
+		HashMap hm=new HashMap(); 
+		Temp t=new Temp();
+		hm.put(t,"apple");
+		System.out.println("hm:  "+hm);
+		t=null; 
+		System.gc();
+		//Thread.sleep(1000);
+		System.out.println("hm:  "+hm);
+	}
+}
+class Temp {
+	public String toString() {
+		return "temp";
+	}
+	public void finalize() {
+		System.out.println("finalize method.......");
+	}
+}
+In the above example temp object not eligible for gc because it is associted with HashMap
+o/p:-
+hm:  {temp=apple}
+hm:  {temp=apple}
+************************************************************************************************************************************
+SortedMap(1.2):-
+=============
+*It is the child interface of Map
+*If u want to represnet a group of key value pairs according to some sorting order of keys then we should go for SortedMap
+*Sorting is based on the key but not based on the value
+
+SortedMap following specific methods:-
+============================
+101---A
+103---B
+104---C
+107---D
+125---E
+136---F
+Object firstKey()------>101
+Object lastKey()------>136
+SortedMap headMap(Object key)------>SortedMap headMap(107)------>{101=A,103=B,104=C}
+SortedMap tailMap(Object key)------>SortedMap tailMap(107)-------->{107=D,125=E,136=F}
+SortedMap subMap(Object key1,Object key2)------>SortedMap subMap(103,125)------->{103=B,104=C,107=D}
+Comparator comparator()------>null
+************************************************************************************************************************************
+TreeMap:-
+========
+*The underlying DS is RED-BLACK Tree
+*Insertion order not preserved, and it is based on some Sorting order of keys.
+*Duplicate keys are not allowed but values can be duplicated
+*If we are depending on default natural sorting order then keys should be homogeneous and comparable other wise we will get RE: saying ClassCastException
+*If we are defining our own sorting by comparator then Keys need not be homogeneous and comparable. we can take hetrogeneous non comprable objects also.
+*Whether we are depending on  default natural sorting order or customized sorting order there are no restruction for "values" we can take  hetrogeneous non 
+comprable objects also.
+
+null accetance

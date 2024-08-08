@@ -1,0 +1,69 @@
+JOIN clause is used to combine rows from two or more tables based on a related column between them. 
+----------------------------------------------------------------------------------------------------------------------------
+INNER JOIN: Returns records that have matching values in both tables.
+Only includes rows that have matching values in both tables. If there's no match, the row is not returned.
+
+SELECT employees.name, departments.department_name
+FROM employees
+INNER JOIN departments
+ON employees.department_id = departments.department_id;
+----------------------------------------------------------------------------------------------------------------------------
+LEFT (OUTER) JOIN: Returns all records from the left table, and the matched records from the right table. The result is NULL 
+from the right side if there is no match.
+Includes all rows from the left table and matched rows from the right table. If no match, NULLs are used for 
+columns from the right table.
+
+SELECT employees.name, departments.department_name
+FROM employees
+LEFT JOIN departments
+ON employees.department_id = departments.department_id;
+----------------------------------------------------------------------------------------------------------------------------
+RIGHT (OUTER) JOIN: Returns all records from the right table, and the matched records from the left table. The result is NULL 
+from the left side when there is no match.
+Includes all rows from the right table and matched rows from the left table. If no match, NULLs are used for 
+columns from the left table.
+
+SELECT employees.name, departments.department_name
+FROM employees
+RIGHT JOIN departments
+ON employees.department_id = departments.department_id;
+----------------------------------------------------------------------------------------------------------------------------
+FULL (OUTER) JOIN: Returns all records when there is a match in either left or right table. Records that do not match in both 
+tables are also included, with NULL values where there is no match.
+ Combines the results of both LEFT and RIGHT joins. Includes rows that have a match in one of the tables. 
+If there's no match, NULLs are used for columns from the table without a match.
+
+SELECT employees.name, departments.department_name
+FROM employees
+FULL OUTER JOIN departments
+ON employees.department_id = departments.department_id;
+----------------------------------------------------------------------------------------------------------------------------
+CROSS JOIN: Returns the Cartesian product of the two tables, i.e., all possible combinations of rows.
+Produces a set of records that combines each row of the first table with each row of the second table.
+
+SELECT employees.name, departments.department_name
+FROM employees
+CROSS JOIN departments;
+----------------------------------------------------------------------------------------------------------------------------
+SELF JOIN: A regular join but the table is joined with itself.
+Allows you to join a table with itself, which can be useful for hierarchical or adjacency list data.
+
+SELECT A.name AS EmployeeName, B.name AS ManagerName
+FROM employees A, employees B
+WHERE A.manager_id = B.employee_id;
+----------------------------------------------------------------------------------------------------------------------------
+
+Notes
+Joins can be combined and nested to form complex queries.
+Always ensure that the join conditions are appropriately defined to avoid Cartesian products (unintentional CROSS JOIN results).
+Performance can vary significantly depending on the join type and the size of the tables, so it's essential to optimize joins 
+and indexes appropriately.
+By understanding these types of joins and their use cases, you can effectively query relational databases to retrieve 
+meaningful data across multiple tables.
+----------------------------------------------------------------------------------------------------------------------------
+3 tables combination 
+
+SELECT columns
+FROM table1
+INNER JOIN table2 ON table1.common_column = table2.common_column
+INNER JOIN table3 ON table2.common_column = table3.common_column;

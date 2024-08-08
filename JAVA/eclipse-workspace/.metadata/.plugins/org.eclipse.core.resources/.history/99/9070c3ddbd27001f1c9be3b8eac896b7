@@ -1,0 +1,44 @@
+import java.util.List;
+
+public class BinarySearchNew {
+
+	public static void main(String[] args) {
+		int list[] = {4,7,3,2,5,8,6,1,9};
+	
+		int se=3;
+		
+		for(int i=0;i<list.length;i++) {
+			for(int j=i+1;j<list.length;j++) {
+				if(list[i]>=list[j]) {
+					int temp = list[i];
+					list[i]=list[j];
+					list[j]=temp;
+				}
+			}
+		}
+		System.out.println("sotred list");
+		for(int i=0;i<list.length;i++) {
+			System.out.print(list[i]+" ");
+		}
+		
+		int low=0,high=list.length-1,mid=0,flag=0;
+		
+		while(low<=high) {
+			mid=(low+high)/2;
+			if(list[mid]==se) {
+				flag=1;
+				break;
+			}
+			else if(list[mid] > se) {  //5>3  //1 2 3 4 5 6 7 8 9
+				high=mid-1;
+			}
+			else if(list[mid]<se) { //5<3
+				low=mid+1;
+			}
+		}
+		if(flag==1) {
+			System.out.println(se+" fond position at "+list[mid]);
+		}
+	}
+
+}

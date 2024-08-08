@@ -1,0 +1,131 @@
+MongoDB
+
+Extermely large: huge a Humongous building humongous amounts of data
+Vendor: MongoDB
+https://www.mongodb.com/
+Atals: fully manages colud DB
+
+where we can use MongoDB:
+we can use anywhere (desktop app, mobile app, web app,..)
+stack: to develop app muliple technologies required
+
+The most popular stacks:
+MEAN stack 
+MERN stack  
+[ frontend framework(Angular,React),[backend framework(Express), server side runtime env(Node.js)], DB(MongoDB) ]
+M - MongoDB
+E - Express
+A - Angular JS
+R - React JS
+N - Node js
+
+By using MEAN and MERN stacks we can build JS based web application
+Angular JS React JS Node js is based on java script  
+Advantage: MongoDB is also based on java script, No Schema High performance (Fast retrving data)
+MongoDB internally used Mozilla's Spider monkey java script engine
+
+what is the type of  MongoDB?
+we have 2 types DB's(Relation DB/SQL DB, Documnet DB/NoSQL DB)
+
+Relation DB/SQL DB:
+Fixed scheme(Employee(eno,ename,...)
+Data will be stored in tables has realtionships(1-M,M-M,M-1) 
+joins required for fetching data from muliple tables
+ex: oracle,MySQL
+
+Documnet DB/NoSQL DB:
+Data will be stored in sperate documents, Each document independent of others 
+there is no Fixed scheme
+Database-->(Collections-->(Documents-->(Record)))
+DB contains multiple Collections 
+Each Collection contains documents
+Each document contains record 
+
+MongoDB Structure:
+MongoDB physical contain serveral logical Data bases
+MongoDB(DB1,DB2,DB3...)
+Each DB contains serveral multiple Collections)
+Collection is something like table in relatinal database.
+Each Collection contains serveral documents
+Document is something like record/row in relatinal database.
+Each document 
+
+How data represented in MongoDB?
+in JSON format (it is a key/value pair)
+JSON: java script object notation
+BSON: Binary JSON
+
+Example:
+Database: shopping card database
+Collections: customer, products, orders
+Customer Collection: contains serveral documents
+document 1: 
+	{
+		"name":"abc",
+		"age":20,
+		"salary":2000
+	}
+document 2: 
+	{
+		"name":"pqr"
+	}
+document 3: 
+	{
+		"name":"xyz",
+		"age":20,
+		"address":
+			{
+				"city":"hyd"
+			}
+		"hobbies":[
+					{
+						"name":"cricket",
+					},
+					{
+						"name":"swiming",
+					}
+				  ]
+				  
+	}
+
+Database Engine: JSON convert to BSON and BSON convert to JSON
+
+key characterstics of MongoDB :
+1.All information related to a document will be stored in a single place.
+2.To retrive data, it is not required to perform join operations and hence retrieval is very fast.
+3. Documents are independent of each other and and no schema. hence we can store unstructured data like 
+videos audio files etc.
+4.we can perform operations like update existing document, delete document, insert new document versy easily
+5.Retrive data in the form of JSON which can be understandable by any programming language without any conversion
+6.we can store very huge amount of data and hence scalability is more.
+
+
+Install MonogoDB:
+=================
+MongoDB shell and MongoDB server
+---------------------------------
+Java script based application. 
+MongoDB server is responsible to store our data in DB
+MongoDB shell is responsible to Manage server
+by using this shell we can perform all required CURD operations
+MongoDB server can be either local or remote
+
+To start MongoDB sever -> "mongod" command
+To start MongoDB shell -> "mongo" command
+
+GUI support is also there there for MongoDB shell
+1.Compass
+2.Robo T3
+etc...
+
+MongoDB Driver:
+---------------
+From application if we want to communicate with DB, driver software required 
+
+It's free(community version) and paid(commercial Enterpise version)
+Diff b/w Enterprice and community versions ? 
+extra features in Enterprice version
+
+Install MonogoDB as a service If u start our system automatically service will be start 
+otherwise Need to start 
+

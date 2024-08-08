@@ -1,0 +1,27 @@
+const car=[];
+car.push(10);
+car.push(90);
+car.push(30);
+car.forEach((x)=>{
+  console.log(x);
+})
+console.log("==============")
+car.sort();
+car.forEach((x)=>{
+  console.log(x);
+})
+console.log("==============");
+car.pop();
+car.forEach((x)=>{
+  console.log(x);
+})
+console.log("==============");
+const num1=[2,4,6,8];
+const num2=num1.map(myFunction);
+
+function myFunction(value){
+  return value*2;
+}
+num2.forEach(x=>{
+  console.log(x);
+})

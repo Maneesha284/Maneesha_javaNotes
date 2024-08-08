@@ -1,0 +1,47 @@
+package collection;
+
+import java.util.Scanner;
+import java.util.Vector;
+
+public class PrimeNumbers {
+
+	static int size = 0;
+
+	public static Vector<Integer> rangePrimeNumbers(int startNum, int endNum) {
+		result = Vector<Integer>();
+		System.out.println("Enter elements in array");
+		for (int i = startNum; i < endNum; i++) {
+			int flag = 0;
+			int j = 2;
+			while (j < i) {
+				if (i % j == 0) {
+					flag++;
+				}
+				j++;
+
+			}
+
+			if (flag == 0) {
+				result += startNum;
+				size++;
+			}
+		}
+
+		return result;
+	}
+
+	public static void main(String[] args) {
+		Scanner sr = new Scanner(System.in);
+		System.out.println("Enter startNum ");
+		int startNum = sr.nextInt();
+		System.out.println("Enter endNum");
+		int endNum = sr.nextInt();
+		Vector<Integer> v = new Vector<Integer>();
+
+		v = rangePrimeNumbers(startNum, endNum);
+
+		System.out.println(v);
+
+	}
+
+}

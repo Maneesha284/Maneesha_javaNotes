@@ -1,0 +1,69 @@
+JDBC(Java DataBase Connection):- 
+========================                                                                                                          
+                                                                                                                                        Req(SQL query)   
+                                                                                                                                    [STATEMENT OBJECT]                  [RESULT SET]
+JAVA APPLICATION-----------------To connevert java calls into JDBC calls---------------------------------------------------DATABASE
+                                                           and JDBC calls into java calls                            [CONNECTION]
+                                                           [DRIVER SOFTWARE]                                        Network Socket
+
+Basic Components of JDBC Application:-
+============================
+1)DRIVER SOFTWARE
+2)CONNECTION
+3)STATEMENT OBJECT
+4)RESULT SET
+
+1)DRIVER SOFTWARE:-(4.0v optional)
+=================
+To connevert java calls into DB specific calls and DB specific calls into java calls  
+Arrange a "translator" 
+class.forName("oracle.jdbc.oracleDriver");
+To load JDBC class in our java application.
+classPath(OJDBC6.jar oracle 11g)
+
+2)CONNECTION:-
+=============
+Connection object can be To communicate with DB from Java app
+Establish the connection "Route" (Network Socket)
+Connection con=Drivermanager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","scott","tiger");
+@localhost----oracle running machine
+1521-----------port number
+XE--------------system ID
+
+3)STATEMENT OBJECT:-
+==================
+To send our sql query to the DataBase and to bring result from DataBase to java app
+prepare statement "Vehicle"
+Statement st=con.createStatement();
+
+4)RESULT SET:-
+============
+Result set holds results of sql query "Box"
+Java App can get results of sql query from Result set only
+To send our query with the statement execute that query and bring the in the form result
+Resultset rs=st.execteQuery("select * from emp");
+while(rs.next())
+{
+  sopln(rs.getString("eno")+".........."+rs.getInt("ename"));
+}
+
+close connection:-
+============
+con.close();
+
+import java.sql.*;
+public class jdbcdemo
+{
+  public stattic void main(String args[])
+  {
+    //class.forName("oracle.jdbc.oracleDriver");
+    connection con=Drivermanager.getConnection("jdbc:oracle:thin:@localhost:1521::XE","off","off");
+    statement st=con.createStatement();
+    Resultset rs=st.exexcuteQuery("select * frm emp");
+    while(rs.next());
+    {
+      Sopln(rs.getInt("eno")+"......."+rs.getString("ename"));
+    }
+    con.close();
+ }
+}

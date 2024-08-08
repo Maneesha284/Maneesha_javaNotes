@@ -1,0 +1,14 @@
+1.write a java program to prime numbers in fibonacci series with in given range?
+input : 500
+output:2 3 5 13 89.....
+
+2.Write a Java Program  to achieve the Following Scenario
+Enter name and adhar Number(length should be 16 digits)
+Enter Date of Birth(calculate age based on DOB) 
+If age is greater than 60  print Name and More Priority for vaccine
+If age is in between 45 to 60 print Name and Second most Priority for vaccination
+If age is less tha 45 print Name and Least priority for vaccination
+
+
+
+

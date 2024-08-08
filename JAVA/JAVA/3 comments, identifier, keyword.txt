@@ -1,0 +1,152 @@
+instanceof: Java instanceof keyword is used to check whether the object is an instance of the specified class or implements an interface.
+
+native: Java native keyword is used to specify that a method is implemented in native code using JNI (Java Native Interface).
+
+strictfp: Java strictfp is used to restrict the "floating-point calculations" to ensure portability.
+
+this: Java this keyword can be used to refer the current object in a method or constructor.
+
+throw: The Java throw keyword is used to explicitly throw an exception. The throw keyword is mainly used to throw custom exception. 
+It is followed by an instance.
+
+throws: The Java throws keyword is used to declare an exception. Checked exception can be propagated with throws.
+
+transient: Java transient keyword is used in serialization. If you define any data member as transient, it will not be serialized.
+
+volatile: Java volatile keyword is used to indicate that a variable may change asynchronously.
+
+Comments:-
+========
+Def:-A "description" about a basic programming elements is called comments.
+1.single line comment         //
+2.multiline comment          /*       */
+3.Document comment        /**      */
+
+Example:-
+//Addition.java                                                      //single line comment
+/**This program shows adding  2 no.s               //Document comment
+   *@version:1.8
+   *@date:30-11-2019
+   */
+public class Addition
+{
+    /*This method takes two integer                //multiline comment
+        numbers return result */
+         void add(int a,int b)
+         {
+            return a+b;
+         }
+}
+
+Identifier and rules:-
+==============
+Def:- Identifier is a name of the basic programming elements
+class [Addition]                                                      //class name
+{
+   public static void [main](String[] [args])         //main,args
+   {
+       System.[out].[println]("hi");                         //out,println
+    }
+}
+
+1.Identifier should only contains Alphabets(A to Z,a to z), Digits(0 to 9), special characters( _ or $)
+2.Identifier should not start with  a digit
+    1stStudent (No)
+     Student1(Yes)
+3.Identifier should not contain special characters the only  _ or $
+      Student#abc (No)
+      Student_abc(Yes)
+4.Identifier should not contain space in the middle words.using with_connector symbol
+    FirstProgram (Yes)
+    First Program (No)
+    First_Program (Yes)
+5.Identifier is case sensitive (a!=A)
+6.keywords can not be used as user defined identifier
+    class static    (No)
+     {
+    }
+Keywords:-
+=======
+Def:-keyword is a predefined identifier availavle directly JVM
+Rulse:-
+1.It can't be used as variable, method or class names
+2.All characters must be lower case
+*Class is not a keyword
+
+In JAVA we have 50 keywords. 47 keywords introduced in 1.0v
+In JAVA 1.2v new keyword "strictfp" was added
+In JAVA 1.4v new keyword "assert" was added
+In JAVA 5v new keyword "enum" was added
+
+Among 50 keywords 2 keywords are reserved words can't be used in java program "const, goto"
+
+i. java files(3)
+                                          1.class
+                                          2.interface
+                                          3.enum
+ii. Data types(8+1)
+                                          4.byte
+                                          5.short
+                                          6.int
+                                          7.long
+                                          8.float
+                                          9.double
+                                          10.char
+                                          11.boolean
+                                          12.void
+iii. memory location(2)
+                                          13.static
+                                          14.new
+iv. control stmt(11)
+             conditional          15.if
+                                          16.else
+                                          17.switch
+                                          18.case
+                                          19.default
+             loop                      20.while
+                                          21.do                                          
+                                          22.for
+            transfer                 23.break
+                                          24.continue
+                                          25.return
+v.Access modifiers
+                                          26.private
+                                          27.protected
+                                          28.public
+vi. modifiers
+                                          29.static
+                                          30.final
+                                          31.abstract
+                                          32.native
+                                          33.transient
+                                          34.volatile
+                                          35.sychronized
+                                          36.strictfp
+vii.Inheritance
+                                          37.extends
+                      
+                    38.implements
+viii.object representation
+                                          39.this
+                                          38.super
+                                          40.instanceof
+ix.package
+                                          41.package
+                                          42.import
+x.Exception handling
+                                          43.try
+                                          44.catch
+                                          45.finally
+                                          46.throw
+                                          47.throws
+                                          48.assert
+xi. Unused keyword
+                                          49.const
+                                          50.goto
+
+Default literals
+1.referenced literal
+      -->null
+2.boolean  literals   
+      -->true
+      -->false                                      

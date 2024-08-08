@@ -1,0 +1,100 @@
+In the class we can create two types of variables
+
+1.Static variable
+2.Non-static variable/instance variable
+
+Static variable: It is a class variable.
+When program gets loaded into the memory for static variable memory get allocated.
+Memory will be allocated only one time.
+Default value for static variable is ). Static variables retains its values during program execution.
+same copy for all objects of the class.
+The data which is common for all objects can be represented as static.
+SV can be accessed by using 3 ways
+1.with object
+2.without object
+3.with class name
+
+Instance varible:-
+1.with object
+
+----------------------------------------------------------------------------------------
+Example:-
+==========
+Non-static variable/instance variable:-
+eno
+ename
+salary
+desgination
+DOJ
+Static variable:-
+companyName
+----------------------------------------------------------------------------------------
+Non-static variable/instance variable:-
+It is an associated with object
+Non-static variable memory will be allocated every object
+Non-static variable available as long as the object available.
+NSV we can access only one way
+1.with object
+----------------------------------------------------------------------------------------
+Static method:-
+*SM If a method preceeded with static keyword
+*SM can access only SV
+*There are 3 ways to access SM
+1.with object
+2.without object
+3.with class name 
+----------------------------------------------------------------------------------------
+Non static method:-
+*SM If a method preceede without static keyword
+*SM can access SV and NSV
+* you can access only one way 
+1.with object
+
+----------------------------------------------------------------------------------------
+Static Block:-
+============
+We can initaited SV in the static block
+It will be executed when program gets loaded into the memory
+That mean alwys it exceutes before main method.
+static {
+}
+----------------------------------------------------------------------------------------
+Non static Block:-
+==================
+We can initailize SV and NSV. It is similar to constructor.
+NSB get executed whwnever you create an object of the class.
+In the program, i have default constructor, and instance initailizer.
+First instance initailizer and the default constructor.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

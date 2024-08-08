@@ -1,0 +1,208 @@
+
+Ther are 2 types of relations can exist b/w classes in the application
+1.Composition
+2.Inheritance
+
+*Realationship in java makes us to understand to get the featutres of one clas  into another class.
+There are...
+1.HAS-A======>Composition
+2.IS-A======>Inheritance(Agreegation)
+3.USES-A
+
+*is-a relationship is one in which there exists one class will get the features of another class through the concept
+of inheritance by using extends keyword.
+class A{
+}
+class B extends A{
+}
+
+*has-a is one in which an object of one class is created as a data member in another class
+class A{
+}
+class B{
+A obj=new B();
+}
+
+*uses-a is one in which a method of one class is using an object of another class a data member
+class A{
+}
+class B{
+	void display(){
+		A obj=new B();
+	}
+}
+
+The mechanisam of obtaining data members from one class to another class is known inheritance 
+The class which is giving data members to another class is known as base class
+The class which is getting data members from base class is known as derived class
+
+Base class		Derived class
+-----------------------------------------
+int x=10;
+int y=20;
+public void sum(){}	sum();
+public void sub(){}	sub();
+
+
+Advantages of inheritance:-
+-----------------------------
+1.Application development time is less
+2.Application memory space is less
+3.Reduce code is missed
+4.we are able to get of java write once use whereever you want
+
+Types of inheritance:-
+----------------------
+1.single inheritance
+2.multilevel inheritance
+3.hierarchical inheritance
+4.multiple inheritance
+5.hybrid inheritance
+
+1.single inheritance:-
+Single inheritance is one in ehich there exist single base class single derived class
+
+Base class
+  /\
+  ||
+  ||
+Derived class
+
+
+2.multilevel inheritance:-
+In which there exist single base class, single derived class and multiple intermedaite base classes
+Intermedaite base class is one, in the context it acts as base class and in other context same class act as derived class
+
+In multilevel inheritance in execute by defalut base class constructor is invoked
+output like top to bottom
+
+Base class
+  /\
+  ||
+  ||
+Derived class/Base class
+  /\
+  ||
+  ||
+Derived class
+
+
+3.hierarchical inheritance:-
+In which there exist single base class and multiple dervived classes
+		Base class
+  /\  		/\		/\
+  ||		||		||
+  ||		||		||
+Derived class  Derived class	Derived class
+ 
+
+4.multiple inheritance:-
+Multiple inheritance is one which there exist multiple base classes and single dervied class
+Base class	Base class	Base class
+  /\  		/\		/\
+  ||		||		||
+  ||		||		||
+		Derived class	
+
+5.hybrid inheritance:-
+Cobination of any inheritance types
+		Base class
+		  /\
+		  ||
+		  ||
+		Derived class/Base class
+ 		 /\
+		 ||
+ 		 ||
+		Base class
+  /\  		/\		/\
+  ||		||		||
+  ||		||		||
+Derived class  Derived class	Derived class
+
+=======================================================================================================
+
+IS-A relationship:-
+-------------------
+Also known as inheritance
+By using "extends" keyword we can implements IS-A relationship
+The main advantage if is-a relationship is reusability.
+
+	is-a
+person<---------Employee
+
+Advantages of inheritance:-
+*Inheritance helps to acheive runtime polymorphism for method overloading.
+*Inheritance facilities with code reusability.
+*Inheritance decrease the line of codes in java program.
+*Inheritance minimizes the amount of dulpicate code by sharing the standard code amongs several subclasses
+*Inheritance facilities with data hiding feature. 
+The base class can decide to keep some data private so that the derived class can not alter it.
+
+syntax: class <sub-class> extends <super-class>
+class Student{
+	int sno;
+	String name;
+	Student(int sno, String name){
+
+	}
+	void display(){}
+}
+class Marks extends Student{
+	Marks(int sno, String name, int m1, int m2){
+		super();
+	}
+	void display(){}
+}
+
+subclass regarding attributes:-
+*The inherited attribues can be used directly, just like any other attributes.
+*You can declare new attributes in the subclass that are not in the super class.
+*You can declare an attribute in the subclass with the same name as the one in the super class, thus hiding it
+*A subclass does not inherit the private members of its parent class. However, if the
+superclass has public or protected methods for accessing private fields, these can also be applied by the subclass.
+
+subclass regarding methods:-
+*The inherit methods can be used directly as they are.
+*You can declare new methods in the subclass that are not in the super class.
+*You can write a new instance method in the subclass that has the same signature as the one in the super class, 
+thus overriding it.
+
+super():-You can call super class constructor from sub class constructor.
+============================================================================================================================
+Diff b/w abstart class and interface:-
+Abstarct class:-
+---------------
+An abstract class is a class that cannot be instantiated on its own and typically contains one or more abstract methods.
+Can only contain method signatures, default methods (with a default implementation), static methods, constants (public static 
+final), and nested types (like classes and interfaces). Can participate in the hierarchy of inheritance.
+*we can create abstract class without abstract method
+
+abstract class Animal {
+    // Abstract method (no implementation)
+    public abstract void makeSound();
+    
+    // Concrete method (with implementation)
+    public void sleep() {
+        System.out.println("Zzz");
+    }
+}
+
+Interface:-
+-----------
+In an interface, all methods are implicitly public and abstract unless they are default or static methods.
+An interface in Java is a reference type, similar to a class, that can contain only constants, method signatures,
+default methods, static methods, and nested types.
+Purpose: It specifies a set of methods that a class must implement. It defines a contract for what the implementing class 
+can do, but not how it does it.
+Can only contain method signatures, default methods (with a default implementation), static methods, constants 
+(public static final), and nested types (like classes and interfaces).
+Cannot have instance fields (variables) or constructors.
+Classes can implement multiple interfaces.
+
+interface Animal {
+    // Method signatures (implicitly public and abstract)
+    void makeSound();
+    void eat();
+}
+

@@ -1,0 +1,88 @@
+Polymorphism:-
+==============
+Poly means many morphism means forms
+The ability to exist in diff forms is called Polymorphism
+
+1.compiletime/static Polymorphism:
+2.Runtime/dynamiic Polymorphism:
+Method overloading:-
+====================
+*compiler takes decision at compiletime which method executes based on parameter list
+*Method name is same with diff parameters, return type may same or may not same, multiple time
+if method is overloaded to performs different tasks is called MOL
+
+* java compiler decides at compile to execute this method based on the parameter you passed.
+
+void sum(){
+	task1
+}
+
+void sum(int a, int b){
+	task2
+}
+double sum(double a, double b, double c){
+	task3
+}
+
+NOTE: static final private method can be overloaded.
+
+Method Overriding:-
+===================
+*The polymorphism exibited at runtime is called dynamic polymorphism it means when a method is called, method call
+bound to the method body at the time of running the program.
+
+*Java compiler does not know which method is called at the time of compilation.
+
+*Only JVM knows as runtime which method is executed.
+
+*Method overriding can be implemented in the inheritance.
+
+*When we inherit from super class to sub clas, all member of the super class will be inherited to subclass.
+If you modify super class method in the sub class to meet the requirment of the sub class is known as method overriding.
+
+*In the single inheritance super class and sub class method names and their signature(method no.of parameters, types of parameters, sequance of parameters and return type is same).
+
+*When you call that method, It executes only subclass method. Here super class method explicitely we should super.MethodName();
+
+*Using super class object you can call sub class method. When you call subclass method binding is happing at runtime.
+Therefore it is called Method Overriding
+
+*static final private methods can not be overriden 
+
+*Overriden method in the subclass should have same or more visibility of the superclass method. otherwise we get comipile tile error.
+
+
+
+Variable Overriding:-
+In the superclass and subclass are having same variable names with different data. 
+When you access that variable it prints only sublass variable it prints only subclass variable.
+Here super class va
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,118 @@
+ 1. Data Defination Language:-
+=====================
+create:-It is used to create Databse objects like tables, views, indexes, synonyms
+SQL>create table std(sno number(10),sname varchar2(20),phno number(4));
+Table created.
+TRUNCATE to delete data from the table.
+SQL>truncate table emp2;
+
+DROP to drop a table.
+SQL>drop table student;
+
+RENAME to rename a table.
+SQL>rename emp3 to yadav;
+
+2.DML:-
+INSERT:– insert data into a table.
+>insert into std values(101,'anu',5367);
+insert into std( values(101,'anu',5367);
+
+>insert into std values(&sno,'&sname',&phno);
+
+UPDATE – updates existing data within a table.
+>update std set sname='uma' where sno=101;
+
+DELETE – deletes all records from a table, the space for the records remain.
+>delete std where eno=103; (1 row deleted)
+>delete std; (all rows deleted)
+
+MERGE – UPSERT operation (insert or update)
+
+DQL :-
+SELECT – retrieve data from the a database.
+>select * from emp;
+
+TCL:-
+Commit:- commit a Transacion.
+Rollback:- rollbacks a transaction in case of any error occurs.
+Save point:- Sets a savepoint with in a transaction.
+
+DCL:-
+Grant and Revoke which mainly deals with the rights,
+permissions and other controls of database system
+Data contol language
+Grant:-Gives users access privileges to database
+Revoke:-Withdraw users access privilleges given by using the grant command.
+
+alter:-
+(alter add,alter modify, alter drop)
+
+alter add:-add columns into the existing table
+SQL>alter table std add(percentage number(2));
+alter modify:change column datatype or change datatype size
+SQL>alter table std modify(phno number(5));
+
+SQL>alter table std modify(percentage varchar2(2));
+
+alter drop:remove the column from table.
+droping columns  oracle provided following 2 commands
+
+method1:-To remove single column
+SQL>alter table std drop column percentage;
+
+method2:-To remove single or multiple columns
+SQL> alter table std drop(sname,phno);
+
+drop:-
+=====
+It is used to remove database  objects from database.
+SQL>drop table tablename;
+SQL>drop index indexname;
+*It is used to drop cmd oracle 2.0 to oracle 9i perminently removed from database
+*It is used to drop cmd oracle 10g, 11g, 12c(EE) to store in recycle bin.
+*Get if back table from recycle bin
+SQL>flashback table <tablename> to before drop;
+*To drop table perminently
+SQL>drop table <tablename> purge;
+
+rename:-It is used to renamining table name
+sql>rename std to student;
+
+column rename:-
+sql>alter table student rename column  sno to snumber;
+
+truncate:-This command is used to delete all rows pemenently from a table.
+sql>truncate table student;
+
+delete:-
+=====
+It is used to delete all rows or particular row
+To delete all rows
+----------------------
+SQL> delete from  student;
+
+Diff  b/w delete and truncate:-
+-----------------------------------
+*Whenever we are using delete from <tablename>; or truncate table <tablename>; then delete records 
+*In oracle Whenever we are using delete from <tablename>; then delete records "internally stored" in a buffer we can also get it back this buffer data into the
+table by using "rollback" cmd.
+*In oracle Whenever we are using truncate table <tablename>; and all rows are "permenently deleted" from table thats why "we cann't get it back" this deleted
+rows by using rollback cmd also 
+
+merge:-
+=====
+The MERGE statement was introduced in Oracle 9i to conditionally insert or update data depending on its presence, a process 
+also known as an "upsert". 
+The MERGE statement reduces table scans and can perform the operation in parallel if required.
+
+select:-
+1.select all columns and all rows.
+
+2.select all coumns and particular rows(Where condition).
+SQL> select * from student where sno=103;
+
+3.select particular columns(col1, col2) and all rows.
+SQL> select sname,phno from student;
+
+4.select particular columns and particular rows.
+SQL> select sname,phno from student where sno=101;

@@ -1,0 +1,461 @@
+Servlet:-
+======(JDK installation, Server installation)
+*Servlet is JEE Web Technology to developed Web Applications for providing response to multiple endusers.
+*JEE Web Technology uses single instance multi threading model(singleton design pattern)
+*JEE Web Technology providing Rules/specifications to develop web and app server
+*JEE Web Technology providing our own web app
+javax.Servlet.
+1)implememts Servlet
+2)extends GenericServlet
+3)extends HttpServlet
+
+To develop web app in java 2 ways
+By using JSP Technology.
+By using Servlet Technology.
+
+By using both servlet and jsp technologies developer developing project handover to server. Server internally uses Servlet Container(Servelet Programs) and
+ JSP Container(JSP Programs) to run our Project.
+
+===============================================================================================================
+ServletResponse:-
+--------------------
+ServletContainer creates ServletResponse object.
+In the servicing phase calls service(ServletRequest req, ServletResponse res)
+service method response will generate and given by the ServletResponse object.
+
+PrintWriter:-
+---------------- 
+java compiler not aware about html tag. ServletContainer after taking
+servletResponse. This response handover to PrintWriter object through response object 
+we will write getWriter() After we want to write tags on out.println()
+ This tags write within double quotes
+PrinteWriter out=response.getWriter();
+	  out.println("<html>");
+==============================================================================================================
+LifeCycle Phases :-
+---------------------
+Life cycle phases:-
+Loading Phase------------->(SV,SB,SM)
+Initailization phase------------->(NSV,NSB,NSM,CON)
+Instanatiom phase------------->init(ServletConfig)
+Servicing phase------------->service(SReq,SRes)
+Destroy phase------------->destroy()
+
+Loading phase:-servlet  taken by the end user request and servlet loading server class byte code
+In the bytecode Thread static variable, static method and static block exceuted
+
+Intantiation Phase:-servlet class Non static variable, non static method, non static block and 
+consrtuctor executed
+
+ Instailization phase:-servletcontainer reading values in web.xml file and creates ServletConfig object
+calling init(ServletConfig) method
+
+service Phase:-ServletContainer creates ServletRequest, ServletResponse objects 
+service(ServletRequest req, ServletResponse res) executes depending on our requirments
+by passing request and response object by using servlet
+
+destroy phase:-destroy phase servlet object valling destroy method
+this method executes only one time at the dispatched of server application
+
+Life cycle methods:-
+--------------------------
+This methods automatically executing by ServletContainer 
+init(ServletConfig) method executes only one time The initailization phase calls init method
+service(ServletRequest req, ServletResponse res) executes depending on our requirments
+destroy():-destroy method executes only one time at the dispatched of server application
+==============================================================================================================
+Apache Tomcat server:-
+=================
+Browser--req1-->[2(server)]-->Http implementation classes--3-->ServletContainer<-----4----->Servlet implementation classes
+
+(Servlet Container)
+               |
+              \/
+ServletContext(5)
+stack(6)---->(SV,SB,SM)(11)
+ServletRequest(7)
+ServletResponse(8)
+PrintWriter (9)
+ServletConfig(10)
+Loading Phase(11)+
+Instantiation phase(12(NSV,NSB,NSM,CON))----------->(Object for class)(singleton)
+Intailigation phase------------->init(ServletConfig)
+Servicing phase------------->service(SReq,SRes)
+Destroy phase------------->destroy()
+
+ServletContainer----->web.xml(It contains servlet name and its interacts alias/url-pattern name)-------->Life cycle servlet
+
+From we are unable to communicate with servlet name we are using alternative name/alias name due to security reason 
+<web-app>
+	<sevlet>
+		<sevlet-name>life</sevlet-name>
+		<servlet-class>com.ncare.LifeServlet</sevlet-class>
+	</servlet>
+	<sevlet-mapping>
+		<sevlet-name>life</sevlet-name>
+		<url-pattern>/li</url-pattern>
+	</servlet-mapping>
+</web-app>
+
+http:\\abc-----<servlet-mapping>---<url-pattern>---<servlet-name>----<servlet>-----<servlet-name>-----<servlet-class>
+
+javax.Servlet.GenericServlet
+====================
+GenericServlet is an abstract class. 
+It is mainly implements three interfaces java.io.Serializable, javax.servlet.Servlet, javax.servlet.ServletConfig. 
+It is provides implementations for ServletConfig, Servlet interface methods.
+GenericServlet contains init(), log(-), log(-,-)
+Servlet contains init(ServletConfig),service(-,-),destroy(),getServletConfig(). getServletInfo()
+ServletConfig contains getInitParameter(-), getInitParameterNames(-), getServletContext(-), getServletName(-)
+
+In Servlet we can able to write 2 types of logics like
+a) java code 
+b)HTML tags
+
+java compiler not aware about HTML tags and SQL queries
+
+If we want to write any tags, logic queries which are not related java, we should write those type of syntaxs with in double quotes.
+That means we should those types of Syntaxs is the string format.
+
+DateProject:-
+Date d=new Date();
+SimpleDateFormat sdf=new SimpleDateFormat("dd/mmmm/yyyy hh:mm:ss");
+String s=sdf.format(d);
+
+Servlet follows two methods:-
+Single instance-single threaded model:- 
+One Servlet Object will give response to only one request.
+[ServletContainer]--creates--->O(ServletObj1)------>chrome
+	           | --creates--->O(ServletObj2)------->safari
+	           |--creates--->O(ServletObj3)------->Mozilla
+	            
+single instance-multi threaded model:-
+One Servlet Object will give response to multiple requests.
+[ServletContainer]--creates--->O(ServletObj)------>chrome
+	           		                 |------->safari
+	            		                 |------->Mozilla 
+==============================================================================================================
+ServletConfig:-
+===========
+*Servlet container creates these object, It is useful for holding initailization values.
+*There values(key-value pair) are mention in web.xml file under <servlet> tag.
+*we are required tag like <init-param> tag contains <param-name> <param-value>
+*This key-value pair combination are always stored in ServletConfig in the form of java.util.Map
+<web-app>
+	<servlet>
+		<servlet-name>OneServ</servlet-name>
+		<servlet-class>----<servlet-class>
+		<init-param>
+			<param-name>  </param-name> 
+			<param-value>  </param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>    </servlet-mapping>
+
+	<servlet>
+		<servlet-name>twoServ</servlet-name>
+		<servlet-class>----<servlet-class>
+		<init-param>
+			<param-name>  </param-name> 
+			<param-value>  </param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>    </servlet-mapping>
+</web-app>
+
+*Servlet container creates only one servletConfig object per one servlet, That means as many servlet classes are there those many servletConfig objects creates
+*one Servlet associated ServletConfig object details not shared another servlet.
+==============================================================================================================
+init() :-
+=====
+*It is the best suitable for reading initParameter values from web.xml file
+*init() is convience method to call the GenericServlet class init(ServletConfig) to initailize the ServletConfig  object.
+*If we overriden only init() in our program. Internally our controle goes to GenericServlet class init(ServletConfig) and initailize ServletConfig object and
+calling init() from our servlet class.
+	@Override
+	public void init(ServletConfig sc) {
+		fno=sc.getInitParameter("fno");
+		sno=sc.getInitParameter("sno");
+		scg=sc;
+	}
+--------------------------------------------------------------------------------
+		String fn=getServletConfig().getInitParameter("fno");
+		String sn=getServletConfig().getInitParameter("sno");
+
+<servlet>
+		<servlet-name>add</servlet-name>
+		<servlet-class>com.nacre.cal.AdditionServlet</servlet-class>
+		<init-param>
+			<param-name>fno</param-name>
+			<param-value>150</param-value>
+		</init-param>
+		<init-param>
+			<param-name>sno</param-name>
+			<param-value>250</param-value>
+		</init-param>
+</servlet>
+==============================================================================================================
+ServletContext:-
+============
+*We have drawback <init-param> tag . we are always write <init-param> tag under <servlet> tag individually.
+*So we have to write <servlet> tag only one time then we should go for <context-param>
+*Servlet container creates only one servletContext object and holds values which we mention in web.xml file in the form of <context-param> tag.
+*one Servlet associated ServletContext object details shared another servlet.
+*To get ServletContext Object from Servlet classes we have one basic method calls getServletContext()
+------------------------------------------------------------------------------------------
+		ServletContext sct=this.getServletContext();
+		String fname=sct.getInitParameter("faculty");
+		String sname=sct.getInitParameter("student");
+
+	<context-param>
+		<param-name>faculty</param-name>
+		<param-value>Ram</param-value>
+	</context-param>
+	<context-param>
+		<param-name>student</param-name>
+		<param-value>Krish</param-value>
+	</context-param>
+----------------------------------------------------------------------------------
+
+<web-app>
+	<context-param>
+		<param-name>  </param-name> 
+		<param-value>  </param-value>
+	</context-param>
+	<context-param>
+		<param-name>  </param-name> 
+		<param-value>  </param-value>
+	</context-param>
+
+	<servlet>
+		<servlet-name>oneServ</servlet-name>
+		<servlet-class>----<servlet-class>
+	</servlet>
+	<servlet-mapping>---------</servlet-mapping>
+
+	<servlet>
+		<servlet-name>twoServ</servlet-name>
+		<servlet-class>----<servlet-class>
+	</servlet>
+	<servlet-mapping>---------</servlet-mapping>
+</web-app>
+==============================================================================================================
+<load-on-startup> tag:-
+=================
+*Whenever enduser sends request to server first servletContainer executing 4 phases and give response to enduser
+but from second request onwards servletContainer will executing only 1 phase and give response to enduser
+That means there is "time" difference in 1st response to second response
+
+*To overcome this problem we should use <load-on-startup> tag.
+With the support of <load-on-startup> tag we can execute first 3 phases before sending request only.
+<load-on-startup> tag under the <servlet> tag in web.xml file.
+
+*That meanwhile of deploying our project into server automatically servletContainer will executes 3 phases by seing <load-on-startup> tag
+<load-on-startup> tag allows only integer(+ve,-ve,zero) values but not float,boolean, char, String.
+If we are taking other than integral server wont be starts.
+
+*If we are giving -ve value in <load-on-startup> tag ServletContainer wont execute 3 phases. whenever make a request to ThirdServlert  then only executes
+ 4 phases.
+*+ve(1) value will loads first.
+*FirstServlet(1) and SecondServlet(0) ServletContainer will loads SecondServlet
+*Both values are same Then ServletContainer take a decision pick any one
+
+<web-app>
+	<Servlet>
+		<Servlet-name>	</Servlet-name>
+		<Servlet-class>	</Servlet-class>
+		<load-on-startup>+ve/0/-ve</load-on-startup>
+	</Servlet>
+	<Servlet-mapping>
+		<Servlet-name>	</Servlet-name>
+		<url-pattern>	</url-pattern>
+	</Servlet-mapping>
+</web-app>
+==============================================================================================================
+<welcome-file-list> tag:-
+==================
+http://localhost:9098/pname/as
+From above url one problem. Enduser not aware about alias name to comm with servlet.
+To overcome this problem we should provides "welcome pages" to enduser directly.
+This process we can do with support of <w-f-l>  tag. It is directly sub tag of <web-app>
+Advtg:-Welcome files is we providing flexibility to enduser to interacting with web app.
+
+Servlet first It will check <w-f-l> tag in web.xml file or not
+<welcome-file> tag available then container will give preference <w-f-l> file(.html, .jsp, .java)
+
+Wehenever we deploy the our project into server ServletContainer to verify "index.html" file
+If existed index.html file response will gives to welcome-file/enduser
+If not existed ServletContainer verify index.jsp available or not
+If available index.jsp file response will gives welcome-file/enduser
+If not available It will shows page not found to enduser.
+If both .html .jsp file available ServletContainer only gives .html file response to enduser/welocme-file
+
+We can write multiple <welcome-file> tags in <welcome-file-list>
+<welcome-file-list>
+	<welcome-file>file1.html</welcome-file>
+	<welcome-file>file2.jsp</welcome-file>
+<welcome-file-list>
+//here only one file response
+NOTE:-servlet <url-pattern> and <welcome-file> tag both then servlet container will give prefernce to only servlet not html file 
+==============================================================================================================
+<url-pattern> tag:-
+=============
+*If we are expose technology or language related information in web there may be chane to hack our code. So we are using some alternative process that is
+ url-pattern name.
+*The name which is helpfull for communicating with servlet, and security.
+3 types of <url-pattern> names:-
+1.Exact match url-pattern name
+/alphabates/number/special	` symbol combination
+/ws
+/123
+/as12
+/as123$
+
+2.Directory url-pattern
+starts with / and ends with *
+* replace with empty or any special name
+/as12/*
+/as12/ram
+/as12/123
+/ws/python
+
+3.Extension url-pattern
+start with * (* replace with empty or any special name) but extension should be .net
+/.net
+/as12/abc.net
+/as123/net(invalid)
+==============================================================================================================
+HTML and Servlet communication:-
+=========================
+*If we don't know about url-pattern name we can't comm with Servlet.
+*In real world enduser not aware about url-pattern name.
+*we are providing flexibility to enduser directly navigating with our application.
+*Whenever enduser wants to send about the request syntax.
+protocolname://serverlocation:portnumber/.proname/u-pname?fno=10&sno=20
+*Enduser will uses the above syntax to communicate with our servlet Enduser not knowing.
+*To avoid this problem we should use this html file
+
+*ServletRequest object in the form of java.util.Map object
+
+	http://localhost:9078/.pro1/as?fno=10&sno=20---------->Map63
+		result=30				fno 10
+		         /|\				sno 20 (servletRequest)
+		AddServlet<-------------------------------------------|
+		fno=10		request.getParameter(-)
+		sno=20
+==============================================================================================================
+<form> tag:-
+=========
+<from> tag contains mapping details about servlet.To mention mapping details we required action attribute contains ./url-pattern mapping name
+  "."  ---->replace with path upto projectName.
+<form action="./as">
+
+add.html:-
+========
+<html>
+	<form action="./as">
+		<input type="text" name="fno">
+		<input type="text" name="sno">
+		<input type="submit" value="add">
+	</form>
+</html>
+
+In the above program (one limit) click on back arrow button.
+To overcome problem add anchor tag.
+<a href="./add.html">previous</a>
+some enduser not intersted to clicks on hyperlink.
+
+RequestDispathcer dispatcher=request.getRequestDispather("./add.html");
+dispatcher.include(request, response);
+
+If you want to display old values add code in AddServlet.java
+out.println("<form action='./as'>");
+out.println("<input type='text' name='fno' value='"+i"'>");
+out.println("<input type='text' name='sno' value='"+j"'>");
+out.println("<input type='submit' value='add'>");
+out.println("</form>");
+
+enduser not enter values from browser we get NFE To overcome this problem we have to write customized logic add.html, web.xml 
+<input type='text' required name='fno'>
+<input type='text' required name='sno'>
+if(fno==null || sno==null) {
+	out.println("pls enter value");	
+}
+==============================================================================================================
+Servlet communication:-
+=================
+*The process of  "forwarding the control/making a relation between/calling/sending request/" one sevlet to another servlet.
+*Creating servlet class Object in another servlet class and calling service method by injecting ServletRequest and ServletResponse. 
+
+			LoginServlet.java
+			----------------------
+DisplayServlet.java--------->DisplayServlet ds=new DisplayServlet();
+----------------------	          ds.service(request, response);
+
+We use this approach ServletContainer won't create ServletConfig Object which is associated with DisplayServlet.
+==============================================================================================================
+RequestDiapatcher:-
+==============
+RequestDispactcher is useful for making communication b/w servlet(.java) to .jsp/.html/.txt/.java file in 2 ways
+a)forward():- forward() method sends request from servlet to another resource.
+b)include():-include() method takes the from another resources in the servlet response.
+
+To request object can created by using follow method
+request.getRequestDispatcher(filename);
+
+RequestDispathcer dispatcher=request.getRequestDispather("./add.html");
+dispatcher.include(request, response);
+==============================================================================================================
+Scope object in servlet:-
+================
+Sending control from one sevlet to another servlet by RequestDiapatcher.
+If u want to carry data one sevlet to another servlet we required some special object
+a)request [ServletRequest]
+b)session [HttpSession]
+c)context [ServletContext]
+
+setAttribute(-,-):-placing our data into scope objects in the form key-value pair combination.
+getAttribute(-):-Reading data from scope object by giving appropriate key.
+removeAttribute(-):-Deleting data from scope object by giving appropriate key.
+
+ScopeObject.setAttribute("faculty","ram");
+String name=scopeObject.getAttribute("faculty");
+
+request.setAttribute("password",password);
+String pswd=(String)request.getAttribute("password");
+
+*Once response handover to browser request object is going to destroyed.
+*The Scope of request Object only one request-response cycle.
+************************************************************************************
+1)How many times ServletContext object created by ServletContainer?
+A)one time
+
+2)How many times ServletConfig object created by ServletContainer?
+A)How many servlet classes have those many times servlet config objects created
+
+3)How many times Service phase will execute by ServletContainer?
+A)Depending on our application request
+
+4)How many times Initailzation phase will execute by ServletContainer?
+A)one time
+
+5)what is scope objects and usage?
+A)Scope object is used to our data carry the one servlet to another servlet by using
+three methods setAttribute(key,value), getAttribute(key), removeAttribute(key)
+
+6)What is the RequestDispatcher
+A)RequestDispatcher is used to making communacation b/w servlet to html and jp file
+
+7)What are diff b/w RequestDispatcher and sendRedirect?
+RequestDispatcher is used to making communacation b/w one servlet to another servlet with in same project same server
+sendRedirect is used to making communacation b/w one servlet to another servlet diff project diff server
+
+8)What are diff b/w doGet() and doPost()
+A)doGet():-
+doGet() method used to reading data from server
+Request data attached to url and visible to enduser
+we can send limited data only characters
+doPost():-
+doPost() method used to uploading data from server
+Request data not attached to url and not visible to enduser
+we can send unlimited data any type.

@@ -1,0 +1,316 @@
+Polymorphism:-
+===========
+poly means many, morphs means forms.
+overloading(method name is same and different arguments), overriding(method name is same and different implementations) example of polymorphism.
+
+2 types of Polymorphism:-
+==================
+1)static/compile time/early binding:-
+example of compile time "overloading" and "method hiding"
+(method name is same and different arguments)
+
+2)dynamic/run time/late binding:-
+example of run time "overriding" (same method same arguments but parent and child different implementation)
+
+Method signature:-
+=============
+only method name followed by type of arguments.
+public int m1(int i,float f)
+return type int
+
+class abc
+{
+   public void m1(int i)
+   {}
+   public int m2(int j)    //missing the return statement(int expecting return type)
+   {}
+}
+class Test18
+{
+  public static void main(String args[])
+  {
+    abc a=new abc();
+     a.m1(10);                  
+   }
+}
+CE:missing the return statement
+
+class Test
+{
+   public void m1(int i)
+   {}
+   public int m1(int j)
+   {}
+}
+class main1
+{
+  public static void main(String args[])
+  {
+    Test t=new Test();
+     t.m1(10);                  //CE:method m1(int) is already defined in class Test
+   }
+}
+
+Method overloading(compiler/static polymorphism):-
+====================================
+In overloading method resolution always takes care by compiler based on reference type.
+
+1. Number of parameters.
+add(int, int)
+add(int, int, int)
+
+2. Data type of parameters.
+add(int, int)
+add(int, float)
+
+3. Sequence of Data type of parameters.
+add(int, float)
+add(float, int)
+
+4.No parameters
+m1()
+
+class Test3
+{
+   public void m1()
+   {
+      System.out.println("no arg");
+   }
+   public void m1(int i)
+   {
+      System.out.println("int arg");
+   }
+   public void m1(double d)
+   {
+      System.out.println("double arg");
+    }
+  public static void main(String[] args)
+  {
+    Test3 t=new Test3();
+     t.m1();    //no arg    
+     t.m1(10); //int arg    
+     t.m1(10.5);   //double arg     
+   }
+}
+
+class Test4
+{
+   public void m1(int i)
+   {
+      System.out.println("int arg");
+   }
+   public void m1(double d)
+   {
+      System.out.println("double arg");
+    }
+  public static void main(String[] args)
+  {
+    Test4 t=new Test4();       
+     t.m1(10); //int arg    
+     t.m1(10.5f);   //double arg 
+     t.m1('a');    //int arg
+   }
+}
+Automatic promotion chart
+
+byte--->short---->int--->long--->float--->double
+
+char---->int--->long--->float--->double
+
+class Test5
+{
+   public void m1(object o)
+   {
+      System.out.println("object version");
+   }
+   public void m1(String s)
+   {
+      System.out.println("String version");
+    }
+  public static void main(String[] args)
+  {
+    Test5 t=new Test5();       
+     t.m1(new object());   //object version
+     t.m1("maneesha");  //String version
+     t.m1(null);   //String version  (object PC and String CC)
+   }
+}
+
+class Test6
+{
+   public void m1(String s)
+   {
+      System.out.println("String version");
+    }
+    public void m1(StringBuffer sb)
+   {
+      System.out.println("String buffer version");
+   }
+  public static void main(String[] args)
+  {
+    Test6 t=new Test6();       
+     t.m1("maneesha");  //String version
+     t.m1(new StringBuffer("maneesha"));  //String buffer version
+     //t.m1(null);   //CE: reference to m1 ambiguous bcz Both methods are matched(CC))
+   }
+}
+
+case 5:change argument types order
+class Test7
+{
+   public void m1(int i,float f)
+   {
+      System.out.println("int ,float version");
+    }
+    public void m1(float f,int i)
+   {
+      System.out.println("float,int  version");
+   }
+  public static void main(String[] args)
+  {
+    Test7 t=new Test7();       
+     t.m1(10.5f,52);  // float,int  version
+      t.m1(10,10.5f);  // int ,float version
+   }
+}
+
+case:compiler reference type only
+class Animal
+{
+ }
+class monkey extends Animal
+{
+}
+class Test9
+{
+  public void m1(Animal a)
+{
+  System.out.println("Animal  version");
+}
+public void m1(monkey m)
+{
+  System.out.println("monkey  version");
+}
+public static void main(String[] args)
+  {
+    Test9 t=new Test9();    
+     Animal a=new Animal();   
+     t.m1(a);  //animal   version
+      monkey m=new monkey();
+      t.m1(m);  // monkey version
+      Animal a1=new monkey();   //only refernce type(compiler)
+     t.m1(a1);  //animal   version
+   }
+}
+
+Example:-
+class Box
+{
+	int a,b,c;
+	Box()
+	{
+		a=1;
+		b=2;
+		c=3;
+	}
+	Box(int x,int y, int z)
+	{
+		a=x;
+		b=y;
+		c=z;
+	}	
+	void volume()
+	{
+		System.out.println(a*b*c);
+	}
+}
+class Coverload 
+{
+	public static void main(String[] args) 
+	{
+		Box b1=new Box();
+		Box b2=new Box(2,3,4);
+        b1.volume();
+        b2.volume();
+	}
+}
+output:-
+6
+24
+
+Overriding:-
+========
+When a method in a subclass has the same name, same parameters or signature and same return type(or sub-type) as a method in its super-class
+Method in the subclass is said to override the method in the super-class.
+class P
+{
+  public void m1()
+   {
+      System.out.println("abc");
+   }
+   public void m2()     //overriden
+   {
+      System.out.println("pqr");
+   }
+}
+class C extends P
+{
+   public void m2()       //overriding
+   {
+      System.out.println("xyz");
+   }
+}
+class Testt19
+{
+    public static void main(String args[])
+    {
+       Testt19  t=new Testt19();
+         P p=new P();
+         p.m1();    //abc
+         p.m2();    //pqr        
+        C c=new C();
+        c.m1();     //abc
+        c.m2();     //xyz
+         P p1=new C();      //parent object refernce----------->object methods displayed
+         p1.m2();    //xyz 
+         C c2=(C)p1;
+         c2.m2();     //xyz
+
+        //C c1=new P();    //P cannot be converted to C
+       //c1.m1();
+   }
+}
+
+Example2:-
+========
+class A
+{
+    void m1()
+    {
+        System.out.println("parent class");
+     }
+}
+class B extends A
+{
+    void m1()              //m1() in B can't be overriden m1() in A
+    {
+      System.out.println("child class");
+   }
+}
+class Test11
+{
+   public static void main(String args[])
+   {
+      A obj1=new A();  //parent class
+      B obj2=new B();  //child class
+      A obj3=new B();  //child class   parent object refernce----------->object methods displayed
+     //B obj1=new A();   //A cannot converted to B
+    obj1.m1();
+    obj2.m1();
+   obj3.m1();
+  }
+}
+o/p:-
+parent class
+child class
+child class  

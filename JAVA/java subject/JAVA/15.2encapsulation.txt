@@ -1,0 +1,104 @@
+Encapsulation:-
+===========
+The process of grouping Data members and corresponding methods into single unit.
+"hiding data behand methods"
+encapsulation=data hiding+abstraction
+
+Data hiding:-
+========
+Hiding of data. Our internal data should not go out directly
+out side person should not access internal data directly we have hide data.
+Advantage:-
+Data hiding is security.
+class Account
+{
+    private double balance;
+      {
+            public double getBalance();
+            {
+                if valid
+                     return balance;
+               else
+                  no return;
+             }
+        }
+}
+Advantage:-
+=======
+1)Security
+2)Enhancement(if we can any changes with out effecting end user)
+3)Maintainbility of the application
+Disadvantage:-
+==========
+Every data member we requier provide setter and getter
+Every time validation must be require. increases length of the code slows down execution
+
+class student
+{
+   String name;
+   int rollno;
+      // +
+   read(){}  
+   write(){}
+}
+
+
+class Account
+{
+    private double balance;
+     public double getBalance()
+     {
+         if valid
+        return balance;
+      }
+      public void setBalance(double amount)
+     {
+        //validation
+        this.balance=this.balance+amount;
+    }
+}
+
+Tightly Encapsulated Class:-
+===================
+Iff "Every variable present inside that class is private". such type that class Tightly Encapsulated Class
+
+public class Account
+{
+    private double balance;      //Tightly Encapsulated Class
+        
+     public double getBalance()
+     {
+         if valid
+        return balance;
+      }
+}
+
+class A
+{
+    private int x=10;            //Tightly Encapsulated Class
+}
+
+class B extends A
+{
+    int y=20;                         //Not Tightly Encapsulated Class
+}
+
+class C extends A
+{
+    private int z=30;               //Tightly Encapsulated Class
+}
+
+class A
+{
+    int x=10;            //not Tightly Encapsulated Class
+}
+class B extends A
+{
+    private int y=20;            //not Tightly Encapsulated Class
+}
+class C extends A
+{
+    private int z=30;               //not Tightly Encapsulated Class
+}
+
+        

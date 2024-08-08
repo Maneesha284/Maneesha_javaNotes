@@ -1,0 +1,1521 @@
+Exception:-
+=======
+Exception is an object which is instance of  java.lang.throwable sub classes
+Exception(terminating)
+Exception Handling(stop the terminating)
+try-catch:-stopping abnormal termination.........try(try used for Exception causing stmt)
+catch:-catch block raised exception on try block
+checked exception:-checking by compliler(Direct sub classes of exception)
+unchecked exception:-unchecking by compliler(Runtime exception)
+
+class Ex1 {
+	public static void main(String args[]) {
+		try {
+			System.out.println(10/0);
+		}
+		catch(Exception e) {
+			e.printStackTrace(); //"Name of Exception : description followed by StackTrace" java.lang.ArithmeticException:
+				 / by zero at Exec4.main(Exec4.java:4)
+			System.out.println(e);//java.lang.ArithmeticException: / by zero    "Name of Exception : description"
+			System.out.println(e.toString());//java.lang.ArithmeticException: / by zero    "Name of Exception : description"
+			System.out.println(e.getMessage());// by zero    "description"
+		}
+	}
+}
+           
+class Ex1 {
+	public static void main(String args[]) {
+		try {
+			int a=10, b=0, c;
+			System.out.println("a:"+a);
+			System.out.println("b:"+b);
+			c=a/b;		//Exception
+			System.out.println("c:"+c);    //remaining lines not execute
+			System.out.println("hi");
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
+
+1.Introduction
+2.Runtime stack mechanism
+3.Default Exception handling in java
+4.(imp)Exception hierarchy(checked exception,unchecked exception)
+5.Customized Exception Handling by using try and catch 
+6.Control flow inside try catch
+7.Methods to print Exception information
+8.try with multiple catch blocks
+9.finally block
+10.(imp)Diff b/w final(keyword) finally(block) and finalize(method)
+11.Various possible combination of try-catch-finally(25)
+12.Control flow in try-catch-finally
+13.Control flow in nested try-catch-finally
+14.throw keyword
+15.throws keyword
+16.Exception Handling keywords summary
+17.Various possible compile time errors in Exception Handling
+18.Cousomized or user defined Exception
+19.Top 10 Exceptions
+20.1.7 version Enhancements
+       i.try with resources 
+       ii.multi-catch block
+
+1.Introduction Exception Handling:-
+=========================
+What is an Exception:-
+An Unwanted or unexpected event the disturbance normal flow of program is called Exception.
+May be system problem or internet connectivity problem.
+Ex:-Read data from remote file locating at london.   [FileNotfoundException]
+
+Purpose of Exception Handling:-
+Gracefull termination of the program
+Open DB connection
+read data-->SQLException(The program terminated abnoramally)(un necessary one DB connection is going to be wasted)
+close DB connection
+
+Meaning of Exception Handling:-
+Defining alternative way to continue rest of the program  noramlly is nothing but  Exception Handling
+a)Read data from reomte file locating at london and use that data
+b)Read data from reomte file locating at london.If london file is not available use local file use that data.
+
+syntax:-
+try
+{
+   Read data from reomte file locating at london
+}
+catch(FileNotfoundException e)
+{
+   use local file and continue rest of the program  noramlly
+}
+
+2.Runtime stack mechanism:-
+====================
+For every thread JVM will creates seperate stack.
+For Every method call performed by thread creates one entry will be stored in the corresponding stack.
+once method execution completed the corresponding entry will be removed after all methods calls now become stack is empty before terminating thread JVM
+ will  destory the corresponding stack.
+Each entry is called stack Frame or Activation record.
+t1----->method
+|             |
+|             |
+|______|
+|method |------>stack Frame or Activation record
+|______|
+  stack
+JVM destroy after complition
+
+class Exec11 {
+       public static void main(String[] args) {
+			   System.out.println("hello1");
+		   	   m1();
+		}
+        public static void m1() {
+		 	System.out.println("hello2");
+             m2();
+       }
+       public static void m2() {
+              System.out.println("hello3");
+       }
+}
+output:-
+hello1
+hello2
+hello3
+
+|______|
+|   m2()  |
+|______|
+|   m1()  |
+|______|
+|main()  |------>stack Frame or Activation record
+|______|
+ runtime stack
+of main thread
+All methods are completed destroy all methods by JVM
+
+3.Default Exception Handling in java:-   
+==========================
+Example1:-
+========
+class Exec2
+{
+       public static void main(String[] args)          //JVM terminates abnormally remove method corresponding stack(3)
+     {
+         m1();
+          System.out.println("what");
+         System.out.println(10/0);
+         System.out.println("when");
+     }
+        public static void m1()         
+       {
+             m2();
+             System.out.println("hi");          
+             
+       }
+       public static void m2()         
+       {
+    	   System.out.println("hello");    
+       }
+}
+output:
+hello
+hi
+what
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+        at Exec2.main(Exec2.java:6)
+==========================================================================================================
+class Exec2
+{
+       public static void main(String[] args)          //JVM terminates abnormally remove method corresponding stack(3)
+     {
+         m1();
+     }
+        public static void m1()         //JVM terminates abnormally remove method corresponding stack(2)
+       {
+             m2();
+       }
+       public static void m2()         //JVM terminates abnormally remove method corresponding stack(1)
+       {
+              System.out.println(10/0);
+       }
+}
+o/p:-
+Exception object: handover to the JVM
+Name:AithmeticException
+Description:division by zero
+stack frame/location:m2() m1() main()
+JVM assistant:-Default Exception Handler
+o/p:-
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+	at Exec2.m2(Exec2.java:14)
+	at Exec2.m1(Exec2.java:9)
+	at Exec2.main(Exec2.java:5)
+
+
+Example 2:-
+========
+class Exec2
+{
+       public static void main(String[] args)          //JVM terminates abnormally remove method corresponding stack(2)
+     {
+         m1();
+     }
+        public static void m1()         //JVM terminates abnormally remove method corresponding stack(1)
+       {
+             m2();
+             System.out.println(10/0);
+       }
+       public static void m2()         
+       {
+              System.out.println("hello");        //hello
+       }
+}
+o/p:-
+hello
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+	at Exec2.m1(Exec2.java:10)
+	at Exec2.main(Exec2.java:5)
+
+|______|
+|   m2()  | --->hello
+|______|
+|   m1()  |
+|______|
+|main()  |
+|______|
+   stack
+
+Example3:-
+=======
+class Exec3
+{
+       public static void main(String[] args)          //JVM terminates abnormally remove method corresponding stack(1)
+     {
+         m1();
+         System.out.println(10/0);
+     }
+        public static void m1()         
+       {
+             m2();
+             System.out.println("hi");      //hi       
+       }
+       public static void m2()         
+       {
+              System.out.println("hello");    //hello
+       }
+}
+o/p:-
+hello
+hi
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+	at Exec2.main(Exec2.java:6)
+
+4.Exception hierarchy(checked exception,unchecked exception):-
+============================================
+                                                                         Throwable(PartiallyChecked)
+                                                                                    |
+                                      -----------------------------------------------------------------------------------------
+                                      |                                                                                                                             |
+                              Exception(PartiallyChecked)                                                                         Error (UnChecked ) 
+                                      |                                                                                                                             |
+          -------------------------------------------------------------------------------------------                     --------------------------------------------------------------------------------------------------                      
+              |(UnChecked)                 | (FCE)              |(FCE)                                  |(FCE)                                      | (UCE)                            |(UCE)               | (UCE)                    |(UCE)
+RuntimeException            IOException          InterruptedException        RemoteException         VirtualMemoryError           LinkageError      AssertionError        ExceptionInIntailizeError
+   |-AirthmaticE                   |-EOFE                                                                                                                         |                            |                                        |
+   |-NPE                               |-FNFE                                                                                                   StackOverflowError   OutOfMemoryError         VerifyError
+   |-CCE
+   |-IOOBE
+         |-AIOOBE 
+         |-StringIOOBE  
+   |-IllegalArgumentE
+          |-NFE    
+UnChecked     
+                                                                                                      
+Exception:-Exception are caused by our program only(Exception are recoverble) 
+try
+{
+   Read data from reomte file locating at london
+}
+catch(FileNotfoundException e)
+{
+   use local file and continue rest of the program  noramlly
+}
+
+Error:-Error are not caused by our program(non recoverble) 
+Errors are caused by due to lack of system resources(may be memory problem,virus problem,harddisk problem).
+
+Checked Exception vs UnChecked Exception:-(always Run time only)
+================================
+Checked Exception(throws):-(Runtime exception and its child classes and Error and its child classes are unchecked except all this things are checked Exception)
+The Exception which are checked by compiler for smooth execution of the program at rum time whether programmer handle or not
+Checked Exception should be handled by programmer(try,catch,throws.......)
+Example: FileNotFoundException
+
+import java.io.*;
+import java.io.*;
+public class FileReader1 {
+
+	public static void main(String[] args) {
+	try {
+		FileReader fr = new FileReader("abc.txt");
+		fr.close();
+		
+	}
+	catch(Exception e) {
+		System.out.println(e);
+	}
+
+	}
+
+}
+CE:unreported exception FileNotFoundException
+
+class Exec4
+{
+   public static void main(String[] args)
+   {
+      System.out.println("hello");
+      Thread.sleep(1000);
+   }
+}
+CE:unreported exception InterruptedException	
+
+UnChecked Exception(coustmized exception):-(Runtime exception and its child classes and Error and its child classes)
+Compiler won't check such type of Exception are UnChecked Exception
+class Exec4
+{
+   public static void main(String[] args)
+   {
+      System.out.println(10/0);
+   }
+}
+CE:Exception in thread "main" java.lang.ArithmeticException: / by zero
+
+Error:-
+Error are not caused by our program(non recoverble) 
+Errors are caused by due to lack of system resources(may be memory problem,virus problem,harddisk problem).
+All errors are UnChecked
+
+FullyCheckedException:-
+IOException, InterruptedException and RemoteException its child classes 
+
+1.IOException--------------------------------->(FullyChecked)FCE
+2.InterruptedException------------------------>(FullyChecked)FCE
+9.FileNotFoundException-------------------->(FullyChecked)FCE
+10.RemoteException-------------------------->(FullyChecked)FCE
+
+5.Throwable------------------------------------>(Partially)PCE
+8.Exception------------------------------------->(Partially)PCE
+
+2.RuntimeException-------------------------->UCE
+4.Error------------------------------------------>UCE
+6.AirthmeticException------------------------>UCE
+7.NullPointerException----------------------->UCE
+
+5.Customized Exception handling by using try-catch:-
+====================================
+without try-catch:-
+class Exec5
+{
+   public static void main(String[] args)
+   {
+      System.out.println("stmt1");
+      System.out.println(10/0);
+      System.out.println("stmt3");
+    }
+}
+o/p:-
+stmt1
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+	at Exec5.main(Exec5.java:6)
+with try-catch:-
+try
+{
+   --Risky code
+}
+catch(Exception e)
+{
+  --Handling code
+}
+
+class Exec5
+{
+   public static void main(String[] args)
+   {
+      System.out.println("stmt1");
+        try
+         {
+            System.out.println(10/0);
+          }
+        catch(ArithmeticException e)
+        {
+           System.out.println(10/2);
+        }
+      System.out.println("stmt3");
+    }
+}
+o/p:-
+stmt1
+5
+stmt3
+
+6.Control flow inside try-catch:-
+======================
+If any stmt which raises an exception outside of try block then catch block or not responsible it is always abnormally termination
+try
+{
+   stmt1;
+   stmt2;
+   stmt3;
+}
+catch(Exception e)
+{
+  stmt4;
+}
+stmt5;
+
+case 1:-If there is no exception
+             1,2,3 executed normally
+             4 won't be executed
+             5 executed normally
+case 2:-If an exception raised stmt2 and corresponding catch block matched
+             1 executed normally after 4 will be executed, 5 executed normally
+case 3:-If an exception raised stmt2 and corresponding catch block not matched
+             1 executed normally, abnormally termination(stoped
+case 4:-If an exception raised stmt4 or stmt5
+             1,2,3 executed normally
+             4 won't be executed
+             5 Abnormally Termination
+
+7.Method to print Exception information:-
+===========================
+These are 3 ways to print exception information to the console. These are available inside Throwable
+1.e.printStackTrace()
+2.e.toString()
+   System.out.println(e);  (or)   System.out.println(e.toString());
+3.System.out.println(e.getMessage());
+------------------------------------------------------
+4.user friendly msg
+System.out.println("Exception in try block");
+------------------------------------------------------
+
+class Exce4
+{
+   public static void main(String[] args)
+   {
+        try
+         {
+            System.out.println(10/0);
+          }
+        catch(ArithmeticException e)
+        {
+
+           e.printStackTrace();                    //"Name of Exception : description followed by StackTrace" java.lang.ArithmeticException: / by zero at Exec4.main(Exec4.java:7)
+           System.out.println(e);                      //java.lang.ArithmeticException: / by zero    "Name of Exception : description"
+           System.out.println(e.toString());       //java.lang.ArithmeticException: / by zero     "Name of Exception : description"
+           System.out.println(e.getMessage());        /// by zero    "description"
+        }
+}             
+NOTE:-Sopln() stmt internally printStackTrace method contain --->e.printStackTrace(); 
+
+8.try with multiple catch blocks:-
+======================   
+For every exception the way of handling is different. Thats why For every exception type we have to write seperate catch block must be required.
+In try with multiple catch blocks order of catch blocks very importent comp we have to take child to parent but not parent to child 
+//Not recomended this approach
+try
+{  
+   AE
+   FNFE
+   SQLE
+}
+catch(Exception e)    
+{
+  
+}   
+
+//Highly recomended this approach
+try
+{  
+   AE
+   FNFE
+   SQLE
+}
+catch(ArithmeticException e)
+{
+  //perform AE operation
+}  
+catch(FileNotFoundException e)
+{
+   //use local file instead of remote file
+}  
+catch(SQLException e)
+{ 
+  //use oracle DB instead of my sql DB 
+}               
+catch(Exception e)
+{ 
+  //default handling code 
+}    
+Example:-
+import java.io.*;
+class Ex1{
+   	public static void main(String[] args){
+   		   System.out.println("stmt1");
+   		  try{  
+  			 System.out.println("stmt2");
+			System.out.println("stmt31");
+			 PrintWriter pw=new PrintWriter("lkj.txt");
+     			 pw.println("hello");
+			System.out.println("stmt32");
+			System.out.println(10/0);
+		}
+		 catch(ArithmeticException e){
+			System.out.println("stmt5");
+			   //use local file instead of remote file
+		} 
+		catch(FileNotFoundException e){
+			System.out.println("stmt5");
+			   //use local file instead of remote file
+		}                 
+		catch(Exception e){ 
+			System.out.println("stmt7");
+ 			 //default handling code 
+		}    
+    		  System.out.println("stmt8");
+    	}
+}
+
+*In try with multiple catch blocks order of catch blocks very importent comp we have to take child to parent but not parent to child 
+case1:-  (NO)
+=====
+import java.io.*;
+class Ex1{
+   	public static void main(String[] args){
+   		   System.out.println("stmt1");
+   		  try{  
+			System.out.println(10/0);
+		}
+		catch(Exception e){ 				 //parent class
+			System.out.println("stmt7");
+ 			 //default handling code 
+		}  
+		 catch(ArithmeticException e){		                             //child class
+			System.out.println("stmt5");
+			   //use local file instead of remote file
+		}                
+    		  System.out.println("stmt8");
+    	}
+}        
+CE: Unreachable catch block for ArithmeticException. It is already handled by the catch block for Exception
+case2:-  (YES)
+=====             
+try
+{  
+   System.out.println(10/0);
+}                  
+catch(ArithmeticException e)                                //child class
+{
+  System.out.println("ArithmeticException");
+}  
+catch(Exception e)                                                 //parent class
+{ 
+  System.out.println("Exception");
+}             
+o/p:-ArithmeticException
+
+case3:-  (NO)
+=====
+try
+{  
+   System.out.println(10/0);
+}                  
+catch(ArithmeticException e)                                //child class
+{
+  System.out.println("ArithmeticException");
+}  
+catch(ArithmeticException e)                                //child class
+{
+  System.out.println("ArithmeticException");
+}  
+CE:Unreachable catch block for ArithmeticException. It is already handled by the catch block for ArithmeticException
+
+9.finally block:-
+===========
+To maintain cleanup code resource deallocation code
+spec:-It will be executed always whether exception raised not raised handled or not handled 
+
+case1:-try never ment for clean up code     (NO)
+try
+{  
+    open DB connection
+    Read data     //excepion
+    close DB connection     //not execute
+ }             
+ catch(Exception e)                                                 
+{  
+   ------  
+} 
+case2:-catch never ment for clean up code       (NO)
+try
+{  
+    open DB connection
+    Read data        //no exception
+ }             
+ catch(Exception e)                                                 
+{ 
+   close DB connection     //not execute
+ } 
+
+case3:-finally block inside clean up code                 (YES)
+To maintain cleanup code resource deallocation code
+spec:-It will be executed always whether exception raised not raised handled or not handled 
+try
+{  
+    open DB connection
+    Read data        //exception  or not
+ }             
+ catch(Exception e)                                                 
+{ 
+   handling code
+ } 
+finally
+{
+    close DB connection     //It is always execute
+}
+example:-
+try
+{  
+   Risky code   //exception  or not
+ }             
+ catch(Exception e)                                                 
+{ 
+   handling code
+ } 
+finally
+{
+    cleanup code     //It is always execute
+}
+
+case i:-  If there is no Exception.
+try
+		{  
+		   System.out.println("try");
+		 }             
+		 catch(Exception e)          //catch block won't be executed                                         
+		{ 
+			 System.out.println("catch");
+		 } 
+		finally
+		{
+			System.out.println("finally");
+		}
+o/p:-
+try
+finally
+
+case ii:-  If an Exception raised and handled
+try
+{  
+   System.out.println("try");
+   System.out.println(10/0);
+ }             
+ catch(ArithmeticException e)          
+{
+ System.out.println("catch");
+ } 
+finally
+{
+System.out.println("finally");
+}
+o/p:-
+try
+catch
+finally
+
+case iii:-  If an Exception raised but not handled
+try
+{  
+   System.out.println("try");
+   System.out.println(10/0);
+ }             
+ catch(NullPointerException e)          //CE   
+{
+ System.out.println("catch");
+ } 
+finally
+{
+System.out.println("finally");
+}
+o/p:-
+try
+finally 
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+	at Exec7.main(Exec7.java:34)
+
+Finally vs return statement:-
+===================
+First finally will be executed after that only return stmt will be consider Thats why
+finally block will get more priority then return stmt. finally block dominates return stmt.
+class Exce8
+{
+   public static void main(String[] args)
+   {
+        try
+    {  
+      System.out.println("try");
+     return;
+   }             
+      catch(Exception e)          
+    {
+      System.out.println("catch");
+    } 
+     finally
+    {
+      System.out.println("finally");
+    }
+  }
+}
+o/p:-
+try
+finally
+
+class Exec9
+{
+   public static void main(String[] args)
+   {
+      System.out.println(m1());
+    }
+    public static int m1()
+    {
+        try
+    {        
+     return 111;
+   }             
+      catch(Exception e)          
+    {
+      return 222;
+    } 
+     finally
+    {
+      return 333;
+    }
+  } 
+}
+o/p:-
+333
+finally vs System.exit(0):-
+=================
+JVM itself is shutdown In this particular case finally block won't be executed
+class Exec10
+{
+   public static void main(String[] args)
+   {
+       try
+    {     
+       System.out.println("try");   
+      System.exit(0);                     //[It is termination] JVM it self shutdown In this particular case finally block won't be executed
+      System.exit(10//non zero);     //[It is abnoramal termination] same output
+    }
+      catch(Exception e)          
+    {
+      System.out.println("catch");
+    } 
+     finally
+    {
+      System.out.println("finally");
+    }
+  } 
+}
+o/p:-
+try
+
+12.Control flow in try-catch-finally:-
+=========================
+ try
+  {     
+     stmt-1;
+     stmt-2;
+     stmt-3;
+  }
+    catch(Exception e)          
+   {
+      stmt-4;      
+   } 
+    finally
+   {
+     stmt-5;
+  }
+    stmt-6;
+
+case 1:-If there is no exception
+             1,2,3 executed normally
+             4 won't be executed
+             5 executed
+             6 executed normal termination
+case 2:-If an exception raised stmt2 and corresponding catch block matched
+             1 executed normally after 4 will be executed, 5 executed, 6 executed normal termination
+case 3:-If an exception raised at stmt2 and corresponding catch block not matched
+             1 executed normally, 5 executed, abnormal termination(stopped)
+case 4:-If an exception raised stmt4
+             1,2,3 executed normally
+             5 executed. Abnormal Termination. before that finally block will be executed
+case 5:-If an exception raised stmt5
+              1,2,3 executed normally
+             Abnormal Termination.
+                              
+13.Control flow in nested try-catch-:-
+==========================
+ try
+  {     
+     stmt-1;
+                                  try
+                                {     
+                                   stmt-1;
+                                }
+                                  catch(Exception e)          
+                                 {
+                                    stmt-4;      
+                                 } 
+     stmt-3;
+  }
+    catch(Exception e)          
+   {
+      stmt-4;      
+   } 
+    finally
+   {
+     stmt-5;
+  }
+
+example1:-
+class Exec11
+{
+   public static void main(String[] args)
+   {
+ try
+  {     
+    System.out.println("outside try");      //1
+                                  try
+                                {     
+                                   System.out.println("inside try");     //2
+                                    System.out.println(10/0);
+                                }
+                                  catch(ArithmeticException e)          
+                                 {
+                                    System.out.println("inside catch");     //3      
+                                 } 
+    System.out.println("outside try");       //4
+  }
+    catch(Exception e)          
+   {
+      System.out.println("outside catch");       
+   } 
+    finally
+   {
+     System.out.println("outside final");       //5
+   }
+ }
+}
+o/p:-
+outside try
+inside try
+inside catch
+outside try
+outside final
+
+example2:-
+class Exec11
+{
+   public static void main(String[] args)
+   {
+ try
+	     {     
+	       System.out.println("outside try");      //1
+	                                     try
+	                                   {     
+	                                      System.out.println("inside try");     //2
+	                                       System.out.println(10/0);
+	                                   }
+	                                     catch(NullPointerException e)          
+	                                    {
+	                                       System.out.println("inside catch");          
+	                                    } 
+	       System.out.println("outside try");      
+	     }
+	       catch(Exception e)          
+	      {
+	         System.out.println("outside catch");   //3     
+	      } 
+	       finally
+	      {
+	        System.out.println("outside final");        //4
+	      } 
+     }
+}
+o/p:-
+outside try
+inside try
+outside catch
+outside final
+
+Control flow in nested try-catch-finally:-
+============================
+ try
+  {     
+     stmt-1;
+     stmt-2;
+     stmt-3;
+                                  try
+                                {     
+                                   stmt-4;
+                                   stmt-5;
+                                   stmt-6;
+                                }
+                                  catch(Exception e)          
+                                 {
+                                    stmt-7;      
+                                 } 
+                                  finally
+                                  {
+                                      stmt-8;
+                                   }
+     stmt-9;
+  }
+    catch(Exception e)          
+   {
+      stmt-10;      
+   } 
+    finally
+   {
+     stmt-11;
+  }
+   stmt-12;
+
+case 1:-If there is no exception
+             1,2,3,4,5,6,8,9,11,12 executed normally  NT
+             except catch blocks(7,10) won't be executed
+case 2:-If an exception raised at stmt2 and corresponding catch block matched
+             1,10,11,12 executed normally NT
+             If you didn't enter try block finally won't be executed
+case 3:-If an exception raised at stmt2 and corresponding catch block not matched
+             1,11 executed, AT(stopped)
+case 4:-If an exception raised at stmt5 and corresponding inner catch block matched
+             1,2,3,4,7,8,9,11,12 executed NT
+case 5:-If an exception raised stmt5 and corresponding inner catch block matched
+              1,2,3,4,8,10,11,12 executed normally NT
+case 6:-If an exception raised stmt5 and both inner and out catch block not matched 
+              1,2,3,4,8,11 exceuted AT            
+case 7:-If an exception raised at stmt7 and corresponding catch block matched
+             123XXX8101112 NT
+case 8:-If an exception raised at stmt7 and corresponding catch block not matched
+             123XXX811 AT
+case 9:-If an exception raised at stmt8 and corresponding catch block matched
+             123XXXX101112 NT
+case 10:-If an exception raised at stmt8 and corresponding catch block not matched
+               123XXXX11AT
+case 11:-If an exception raised at stmt9 and corresponding catch block matched
+               1,2,3,X,X,X,X,8,10,11,12,NT
+case 12:-If an exception raised at stmt9 and corresponding catch block not matched
+                1,2,3,X,X,X,X,8,11,AT
+case 13:-If an exception raised at stmt10 
+                1,2,3,X,X,X,X,8,9,11,AT, but before that final block excecuted
+case 13:-If an exception raised at stmt11 or stmt12
+                1,2,3,X,X,X,X,8,9,AT
+
+Example:
+class Ex1
+{
+   public static void main(String[] args)
+   {
+ try
+  {     
+    System.out.println("outside try");      //1
+                                  try
+                                {     
+                                   System.out.println("inside try1");     //2
+                                    System.out.println(10/0);
+                                   System.out.println("inside try2");     //2
+                                }
+                                  catch(ArithmeticException e)          
+                                 {
+                                    System.out.println("inside catch");     //3      
+                                 } 
+		finally
+   		{
+  			   System.out.println(10/0);       //5
+			     System.out.println("inside final"); 
+  		 }
+    System.out.println("outside try");       //4
+  }
+    catch(Exception e)          
+   {
+      System.out.println("outside catch");       
+   } 
+    finally
+   {
+     System.out.println("outside final");       //5
+   }
+ }
+}
+ 
+Various possible combination of try-catch-final
+=================================
+-----------------
+try           (YES)
+{
+}
+catch(x e)
+{
+}
+-------------------------
+try           (YES)
+{
+}
+catch(x e)
+{
+}
+catch(y e)
+{
+}
+-------------------------
+try           (NO)
+{
+}
+catch(x e)
+{
+}
+catch(x e)
+{
+}
+CE:exception x hs already been caught
+-------------------------
+try           (YES)
+{
+}
+catch(x e)
+{
+}
+finally
+{
+}
+-------------------------
+try           (YES)
+{
+}
+catch(x e)
+{
+}
+finally {
+}
+try          
+{
+}
+catch(x e)
+{
+}
+finally {
+}
+-------------------------
+try           (YES)
+{
+}
+finally
+{
+}
+-------------------------
+try           (NO)
+{
+}
+CE:try without catch of finally
+-------------------------
+catch(x e)          (NO)
+{
+}
+CE:catch without try
+--------------------------
+finally          (NO)
+{
+}
+CE:finally without try
+-------------------------
+try          (NO)
+{
+}
+finally
+{
+}
+catch(x e)
+{
+}
+CE:catch without try
+-------------------------
+try          (NO)
+{
+}
+try          
+{
+}
+catch(x e)
+{
+}
+finally
+{
+}
+CE:try without catch of finally
+-------------------------
+try              (YES)         
+{
+}
+catch(x e)
+{
+}
+catch(y e)
+{
+}
+finally
+{
+}
+----------------------------
+try              (NO)         
+{
+}
+catch(x e)
+{
+}
+finally
+{
+}
+finally
+{
+}
+CE:finally without try
+------------------------------
+try              (NO)         //try-catch and catch-catch and catch-finally independent stmt we can't take try-catch-stmt
+{
+}
+System.out.println("hello");
+catch(x e)
+{
+}
+CE1:try without catch of finally
+CE2:catch without try
+------------------------------
+try              (NO)         
+{
+}
+catch(x e)
+{
+}
+System.out.println("hello");
+catch(y e)
+{
+}
+CE:catch without try
+------------------------------
+try              (NO)         
+{
+}
+catch(x e)
+{
+}
+System.out.println("hello");
+finally
+{
+}
+CE:finally without try
+------------------------------
+try              (YES)         
+{
+           try                     
+             {
+              }
+             catch(x e)
+             {
+              }
+}
+catch(y e)
+{
+}
+------------------------------
+try              (YES)         
+{
+           try                     
+             {
+              }
+             catch(x e)
+             {
+              }
+}
+catch(x e)
+{
+}
+------------------------------
+try                    (NO)         
+{
+           try                     
+             {
+              }
+}
+catch(x e)
+{
+}
+CE:try without catch or finally
+------------------------------
+try              (YES)         
+{
+}
+catch(x e)
+{
+           try                     
+             {
+              }
+             catch(x e)
+             {
+              }
+}
+------------------------------
+try              (YES)         
+{
+}
+catch(x e)
+{
+}
+finally
+{
+           try                     
+             {
+              }
+             catch(x e)
+             {
+              }
+              finally
+               {
+                }
+}
+------------------------------
+try                    (NO)             //try,  catch, finally blocks curally bracktes{} manadatory
+System.out.println("try");
+catch(x e)
+{
+   System.out.println("catch");
+}
+-------------------------------
+try                    (NO)
+{                  
+System.out.println("try");
+}
+catch(x e)
+   System.out.println("catch");
+-------------------------------
+try                    (NO)
+{
+}
+catch
+{
+}
+finally
+System.out.println("finally");
+-------------------------------
+Examples:-
+class Ex1
+{
+   public static void main(String[] args)
+   {
+                                  try
+                                {     
+                                   System.out.println("outside try ");     //2
+                                   System.out.println(10/0);
+                                }
+		catch(Exception ae)  {
+			System.out.println("outside catch"); 
+		}
+finally
+   		{	  
+			     System.out.println("outside final"); 
+				try
+                               			 {     
+                               			    System.out.println("inside try ");     //2
+                             			      System.out.println(10/0);
+                            			    }
+				catch(Exception e)  {
+					System.out.println("inside catch"); 
+				}
+				finally{
+			    		 System.out.println("inside final"); 
+  				 }
+  		 }  
+}
+}
+
+/*class Ex1
+{
+   public static void main(String[] args)
+   {
+                                  try
+                                {     
+                                   System.out.println("outside try ");     //2
+                                   System.out.println(10/0);
+                                }
+		catch(Exception ae)  {
+			System.out.println("outside catch"); 
+			  try
+                               			 {     
+                               			    System.out.println("inside try ");     //2
+                             			      System.out.println(10/0);
+                            			    }
+				catch(Exception e)  {
+					System.out.println("inside catch"); 
+				}
+				finally{
+			    		 System.out.println("inside final"); 
+  				 }
+		}
+finally
+   		{	  
+			     System.out.println("outside final"); 
+  		 }  
+}
+}
+*/
+=============================================================================================================
+14."throw" keyword:
+===============
+To hand-over our created exception object to the JVM manually for that purpose we can use throw keyword.
+To indicate something goes wrong i'm stopping program by raising some exception we have such requirment best duty throw keyword
+Need of  "throw" keyword:-
+===================
+withdraw(double amount)
+{
+   if(amount>balance)
+   {
+      throw new InSufficientFundsException;     //in built exception not predefined exception
+   }
+}
+
+without "throw" keyword:-
+class Test
+{
+  psvm()
+  {
+    sopln(10/0);
+  }
+}
+Exception thread main j.l.AE: / by zero 
+at Test.main()
+
+with "throw" keyword:-
+class Test13
+{
+  public static void main(String[] args) 
+  {
+    throw new ArithmeticException("/ by zero explicitly.........");    //creation of exception object explicitly
+  }
+}
+Exception in thread main j.l.AE: / by zero  explicitly........
+ at Test.main()
+
+case1:-
+class Test14
+{
+  static ArithmeticException e=new ArithmeticException();
+  public static void main(String[] args) 
+  {
+    throw e;
+  }
+}
+Exception in thread main j.l.ArithmeticException
+
+class Test14
+{
+  static ArithmeticException e;
+  public static void main(String[] args) 
+  {
+    throw e;    //if e refers null
+  }
+}
+Exception in thread main j.l.NullPointerException
+
+case2:-
+class Test15
+{
+   public static void main(String[] args) 
+  {
+    System.out.println(10/0);
+    System.out.println("Hello");
+  }
+}
+RE: ArithmeticException: / by zero
+
+class Test15
+{
+   public static void main(String[] args) 
+  {
+    throw new ArithmeticException("/ by zero ");    //after throw stmt we can't write stmt directly
+    System.out.println("Hello");
+  }
+}
+CE: Unreachable statement
+    System.out.println("Hello");
+
+case3:-
+class Test15
+{
+   public static void main(String[] args) 
+  {
+    throw new Test15();           //throw keyword we can use only throwable keywords(exception,error)
+  }
+}
+CE:incomptable type :Test15 cannot be converted to throwable
+
+class Test15 extends RuntimeException
+{
+   public static void main(String[] args) 
+  {
+    throw new Test15();           
+  }
+}
+RE:Exception in thread "main" Test15
+
+15."throws" keyword:-
+================
+1)we can use throws keyword delegate responsibility of exception handling to the caller (JVM or Another method)
+2)It is required only for checked Exception and for Unchecked Exception there is no use
+3)It is required only  to continue compiler and its usage does not prevent abnormal termination of the program
+we can use only to convence to  but try-catch recommended
+
+import java.io.*;
+class Test15 
+{
+   public static void main(String[] args) 
+  {
+    PrintWriter pw=new PrintWriter("abc.txt");
+    pw.println("hello");
+  }
+}
+CE:unreported exception FileNotFoundException; must be caught or declared to be thrown
+
+class Test15
+{
+   public static void main(String[] args) 
+  {
+     Thread.sleep(1000);
+      System.out.println("---------");
+  }
+}
+CE:unreported exception InterruptedException; must be caught or declared to be thrown
+       Thread.sleep(1000);
+
+1.By using try-catch:-
+class Test15
+{
+   public static void main(String[] args) 
+  {
+    try
+     {
+       Thread.sleep(1000);
+     }
+     catch(InterruptedException e)
+    {
+       System.out.println("InterruptedException");
+  }      
+}
+o/p:-
+After one second immediately stopped
+
+2.By using throws keyword:-
+class Test15 
+{
+   public static void main(String[] args) throws InterruptedException
+  {
+     Thread.sleep(1000);
+  }
+}
+
+Example:-
+class Test15 
+{
+   public static void main(String[] args)  throws InterruptedException
+  {
+    m1();
+   }
+   public static void m1()  throws InterruptedException
+   {
+    m2();
+   }
+    public static void m2() throws InterruptedException
+   {
+    Thread.sleep(1000);
+   }
+ }
+
+CE:unreported exception InterruptedException; must be caught or declared to be thrown
+       Thread.sleep(1000);      //public static void m2()
+CE:unreported exception InterruptedException; must be caught or declared to be thrown
+       Thread.sleep(1000);
+           m2();                       //public static void m1() 
+CE:unreported exception InterruptedException; must be caught or declared to be thrown
+       Thread.sleep(1000);
+           m1();                               //public static void main(String[] args)
+otherwise no Exception
+
+ case1:-
+class Test15 //throws Exception --for class usage of throws keyword is meaning less
+{
+   Test15() throws Exception  //we can use throws keyword construcor and method
+   {
+    }
+    public void m1()  throws Exception
+   {
+   }
+}
+case2:-
+class Test15 
+{
+   public static void main(String[] args)  throws Test15
+  {
+  }
+}
+CE:incompatible types:Test15 cannot be converted to throwable

@@ -1,0 +1,139 @@
+Encapsulation:-
+===========
+class Account
+{
+    private double balance;
+     public double getBalance()
+     {
+         if valid
+        return balance;
+      }
+      public void setBalance(double amount)
+     {
+        //validation
+        this.balance=this.balance+amount;
+    }
+}
+
+inheritance:-
+
+class P 
+{
+	public void m1()
+	{
+		System.out.println("parent");
+	}
+}
+class C extends P
+{
+	public void m2()
+	{
+		System.out.println("child");
+	}
+}
+class Inheritance1
+{
+	public static void main(String[] args) 
+	{
+		P obj1=new P();
+		obj1.m1();
+		//obj1.m2(); not child to parent
+
+        C obj2=new C();  //parent all members available in child class
+		obj2.m1();
+		obj2.m2();
+
+		P obj3=new C();    //parent reference can be used to hold child class object
+		obj3.m1();         //only methods availabe in parent class
+		//obj3.m2();     but by using refernce cann't call child specific methods 
+
+		//C obj4=new P();     child reference cann't be hold parent class
+		
+		C obj5=(C)obj3;
+		obj5.m1();
+		obj5.m2();
+
+	}
+}
+
+polymorphism:-
+
+meethod overloading:-
+class Test3
+{
+   public void m1()
+   {
+      System.out.println("no arg");
+   }
+   public void m1(int i)
+   {
+      System.out.println("int arg");
+   }
+   public void m1(double d)
+   {
+      System.out.println("double arg");
+    }
+  public static void main(String[] args)
+  {
+    Test3 t=new Test3();
+     t.m1();    //no arg    
+     t.m1(10); //int arg    
+     t.m1(10.5);   //double arg     
+   }
+}
+
+method overriding:-
+class A
+{
+    void m1()
+    {
+        System.out.println("parent class");
+     }
+}
+class B extends A
+{
+    void m1()              //m1() in B can't be overriden m1() in A
+    {
+      System.out.println("child class");
+   }
+}
+class Test11
+{
+   public static void main(String args[])
+   {
+      A obj1=new A();  //parent class
+      B obj2=new B();  //child class
+      A obj3=new B();  //child class   parent object refernce----------->object methods displayed
+     //B obj1=new A();   //A cannot converted to B
+    obj1.m1();
+    obj2.m1();
+   obj3.m1();
+  }
+}
+
+Abstraction class:-
+abstract class animal
+{
+      abstract void sound();
+        void display()
+     {
+	System.out.println("display method");
+     }
+    animal()
+    {
+ 	System.out.println("consructor");
+    }
+}
+class dog extends animal
+{
+       void sound()
+       {
+	System.out.println("overriden");
+        }
+         public static void main(String[] args)
+        {
+	animal d=new dog();
+	d.sound();
+	d.display();
+        }
+}

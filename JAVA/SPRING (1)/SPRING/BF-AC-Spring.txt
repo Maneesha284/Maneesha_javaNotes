@@ -1,0 +1,325 @@
+Explanation of spring Test application code:-
+----------------------------------------------------
+XmlBeanFactory(class)
+BeanFactory(interface)
+XmlBeanFactory implemets BeanFactory
+Resource resource=new ClassPathResource("hello.xml");
+BeanFactory beanFactory=new XmlBeanFactory(resource);
+//BeanFactory beanFactory = new XmlBeanFactory(new FileSystemResource("src/hello.xml"));
+=>In the above code, the BeanFactory instance is created using the XmlBeanFactory class, by loading hello.xml using FileSystemResource class.
+
+=>getBean() method is used to get a particular bean object by specifying its id("helloBean").
+
+HelloBean bean=(HelloBean) beanFactory.getBean("helloBean");         //upto 2.0v
+In the above code getBean("helloBean") is used to get the HelloBean object.
+=>public object getBean(String name)
+Above method returns Object, but to get our bean object(HelloBean) we need to perform type casting.
+
+Object getBean("--") method to get the bean object
+There are multiple Overloaded getBean(-) methods to get the bean object.
+
+HelloBean bean=beanFactory.getBean("helloBean",HelloBean.class);   //3.0v
+//<T> T getBean(String name, class<T> requiredType) throws BeanException
+
+=>HelloBean bean=(HelloBean)object;
+If there is no bean defination in the configuration file it throws NoSuchBeanDefinationException.
+
+=>HelloBean helloBean=beanFactory.getBean("helloBean",HelloBean.class);
+It returns directly our pojo class object(HelloBean) and we wont perform type casting.
+===================================================================================
+Spring container:-
+---------------------
+The central component of a spring application is the containers
+Spring container creates the spring bean objects and it manages the bean life cycle.
+The Spring container reponsibilties is for providing dependency injection.
+It acts as repository for all the configured beans.
+Two types of Spring container
+
+1.BeanFactory container:-
+---------------------------------
+It is an interface defined in org.springframework.beans.factory package.
+It is basic container of the Spring.
+BeanFactory container creates the beans and provides dependency injection.
+XmlBeanFactory implements BeanFactory interface.
+
+   BeanFactory(I)
+          |
+XmlBeanFactory(c)
+
+XmlBeanFactory is a class defined in org.springframework.beans.factory.xml package
+It reads the bean definations from an xml file and instantiates beans.
+XmlBeanFactory loads the configuration file using different classes that implements org...io.Resource interface
+Resource interface is the base interface for all the classes that provide to access the spring configuration fiel.
+org.springframework.core.io.FileSystemResource
+org.springframework.core.io.ClassPathResource
+
+Resource(I)
+FileSystemResource(C)
+ClassPathResource(C)
+Resource r=new FileSystemResource("src/.xml");     // full path
+Resource r=new ClassPathResource(".xml");	//no need full path
+
+FileSystemResource:-
+---------------------------
+loads the spring cinfiguration fiel the specified path using
+
+BeanFactory beanFactory=new XmlBeanFactory(new FileSystemResource("D:/work/springcore/hello.xml");
+HelloBean helloBean=factory.getBean("helloBean",HelloBean.class);
+
+In  the above example FileSystemResource is taking complete System path.
+So in future if we change location of the project then agian we need to change the location of spring configuration file in the
+program. That's why it is not recomended to use FileSystemResource
+
+Using XmlBeanFactory with ClassPathResource 
+-------------------------------------------------------------
+BeanFactory beanFactory=new XmlBeanFactory(new ClassPathResource("D:/work/springcore/hello.xml");
+HelloBean helloBean=factory.getBean("helloBean",HelloBean.class);
+
+In  the above example container reading the configuration file from class path. but we are not specifying complete class path.
+So it is recomended to use ClassPathResource instead of FileSystemResource
+
+BeanFactory is lazy container, Whcih means BeanFactory instamtiates the beans when the getBean() method is called.
+If the configuration file contains 10 beans, each bean object is created only when the user calls the getBean() method by specifying the "id" of the bean.
+The BeanFacory container is usually used in stand alone app. BeanFactory is not recomended to use in the realworld app.
+===================================================================================
+2.ApplicationContext container
+----------------------------------------
+ApplicationContext is an interface in org.springframework.context package
+It is child interface of BeanFactory interface
+ApplicationContext having all the features of BeanFactory container/active container. //by default calling default constructor and calling setmessage method and (container activated)
+It instantiates all the configured beans when the appliaction is launched and before calling getBean().
+Means the ApplicationContext is created it creates all tthe configured beans.
+When we call getBean() by specifying teh bean id just returns the object.
+
+The Advantages of active creation of beans by ApplicationContext is the handling of exception.
+If an exception is thrown while creating a bean, It can be handeled during the start up of the application.
+
+following classes are implements ApplicationContext interface.
+org.springframework.context.support.FileSystemXmlApplicationContext
+org.springframework.context.support.ClassPathXmlApplicationContext
+org.springframework.context.support.XmlWebApplicationContext
+Ex:
+FileSystemXmlApplicationContext:
+-------------------------------------------
+ApplicationContext applicationContext=new FileSystemXmlApplicationContext("D:/work/springcore/hello.xml");
+HelloBean bean=context.getBean("helloBean",HelloBean.class);
+
+In  the above example FileSystemXmlApplicationContext is taking complete System path.
+So in future if we change location of the project then agian we need to change the location of spring configuration file in the
+program. That's why it is not recomended to use FileSystemXmlApplicationContext.
+
+
+ClassPathXmlApplicationContext:
+-------------------------------------------
+ApplicationContext applicationContext=new ClassPathXmlApplicationContext("hello.xml");
+HelloBean bean=context.getBean("helloBean",HelloBean.class);
+
+In the above example container reading the configuration file from class path, but we are not specifying complete class path.
+So it is recomended to use ClassPathXmlApplicationContext instead of FileSystemXmlApplicationContext
+
+XmlWebApplicationContext:
+------------------------------------
+ApplicationContext applicationContext=new XmlWebApplicationContext("");
+This is used in spring webMVC module. This container object created by web container internally.. So no nedd to create object by the developer.
+ApplicationContext based container provides all the features on BeanFactory.
+In addition them it provides the following features also..
+1.Event-handling support
+2.Internationalization support
+3.Remoting
+4.EJB integration
+5.Scheduling
+ 6.JNDI lookup.. etc.
+
+NOTE: RealWorld application uses ApplicationContext container
+To work with ApplicationContext we have to use following extra jars in the class path.
+org.springframework.context-3.0.5.RELEASE.jar
+org.springframework.asm-3.0.5.RELEASE.jar
+org.springframework.expression-3.0.5.RELEASE.jar
+
+
+
+Activation of ApplicationContext is nothing but creation of ApplicationContext implementation classes objects.
+It provided by spring f/w and one its implementation is "ClassPathXmlApplicationContext"
+
+*To create ApplicationContext container use following code
+ApplicationContext context =new ClassPathXmlApplicationContext("/com/durgasoft/resources/applicationContext.xml");
+a)ApplicationContext container will take name and location of spring confg file
+b)ApplicationContext container will load spring confg file to  memory
+c)ApplicationContext container will parse spring confg file
+d)ApplicationContext container will read beans confg details from spring from spring confg file.
+e)ApplicationContext container will create bean class objects and maintain bean class objects.
+
+*getBean object from ApplicationContext container on the basis of id
+public Object getBean(String id);   //<bean id="---">
+HelloBean hb=(HelloBean)context.getBean("helloBean");
+=========================================================
+prmitive datatype, String, Wrapper classes===== <value> tag value attribute
+class, interface, Bean(pojo)===== <ref> or ref attribue
+java.util.List===== <list>
+java.util.Set===== <set>
+
+java.util.Map(key, value pair)===== <map>
+(key, value pair are any type like prmitive datatype, String, Wrapper class, object type)
+<map><entry key="" value=""></entry></map>
+
+java.util.Properties(key, value pair)===== <props>
+(key, value pair are only String type)
+<props><prop key="">100</prop></props>
+
+Array===== <array> or <list>
+null===== <null/>
+=========================================================
+Injecting java.util package related classes i.e; List, Set, Map and properties
+---------------------------------------------------------------------------------------
+If the property types java.util.List use <list> tag in xml to configuration property.
+If the property types java.util.Set use <set> tag in xml to configuration property.
+If the property types java.util.Map use <map> tag in xml to configuration property.
+Default cons:
+-------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        <bean id="std" class="com.mani.app.Student">
+        <property name="id" value="199"></property> 
+        
+ 		<property name="sname" value="maneesha"></property>    
+ 		   
+        <property name="courses">
+        <list>
+        <value>CJ</value>
+        <value>AJ</value>
+        <value>SPRING</value>
+        </list>
+        </property>
+        
+        <property name="mobileNos">
+        <set>
+        <value>8935064688</value>
+        <value>9603564518</value>
+        <value>7535064458</value>
+        </set>
+        </property>
+        
+        <property name="feeDetails">
+        <map>
+        <entry key="cj" value="5000"></entry>
+        <entry key="aj" value="9200"></entry>
+        <entry key="spring" value="6000"></entry>
+        </map>
+        </property>
+        
+        <property name="properties">
+        <props>
+        <prop key="CJ">1200</prop>
+        <prop key="AJ">1200</prop>
+        <prop key="SPRING">1200</prop>
+        </props>
+        </property>
+        </bean>
+ </beans>
+
+Parameterized cons:
+-------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        <bean id="std1" class="com.mani.app.Student">
+        
+        
+        <constructor-arg name="id" value="888"></constructor-arg> 
+        
+ 		<constructor-arg name="sname" value="manisha"></constructor-arg>    
+ 		   
+        <constructor-arg name="courses">
+        <list>
+        <value>CJ</value>
+        <value>AJ</value>
+        <value>SPRING</value>
+        </list>
+        </constructor-arg>
+        
+        <constructor-arg name="mobileNos">
+        <set>
+        <value>8935064688</value>
+        <value>9603564518</value>
+        <value>7535064458</value>
+        </set>
+        </constructor-arg>
+        
+        <constructor-arg name="feeDetails">
+        <map>
+        <entry key="cj" value="5000"></entry>
+        <entry key="aj" value="9200"></entry>
+        <entry key="spring" value="6000"></entry>
+        </map>
+        </constructor-arg>
+        
+        <constructor-arg name="properties">
+        <props>
+        <prop key="CJ">1200</prop>
+        <prop key="AJ">1200</prop>
+        <prop key="SPRING">1200</prop>
+        </props>
+        </constructor-arg>
+        </bean>
+ </beans>
+
+=========================================================
+Injecting null and empty String values:-
+----------------------------------------------------
+If you need to pass an empty String("") as a vlaue then you can pass it as follows:
+
+<bean id="id1" class="HelloBean">
+<property name="message" value=""/>
+</bean>
+
+The preceding example equivalent java code is=obj.setMessage("")
+
+If you need to pass null a vlaue then you can pass it as follows:
+
+<bean id="id1" class="HelloBean">
+<property name="message">
+	<null></null>  or  <null/>
+</property>
+</bean>
+
+NOTE: If the property type is <Array> or <list> of th e bean configuration file.
+EX:
+<beans>
+<bean id="std" class="com.mani.app.Student">
+<property name="courses">
+<array>
+	<value>CJ</value>
+	<value>CJ</value>
+	<value>CJ</value>
+</array>
+</properties>
+</bean>
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

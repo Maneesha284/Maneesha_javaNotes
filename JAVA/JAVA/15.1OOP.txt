@@ -1,0 +1,45 @@
+OOP:-
+
+1)Class:- 
+A class is a Blueprint or template of an object.
+
+2)Object:-
+Object is the physical reality of a class. An instance of a class
+object characteristics 1)State(object properties)
+                                   2)Behaviour(operations of object) 
+                                   3)Identity(Identity of object)
+
+3)Encapsulation[protecting data]:-
+The proess of creating a class by "hiding internal data" from the outside world; 
+and "accessing only through publicly exposed methods (setter, getter)" is konwn as data encasulation / data hiding.
+
+wrapping the data (variables) and code acting on the data (methods) together as a single unit. In encapsulation, the variables of a 
+class will be hidden from other classes, and can be accessed only through the methods of their current class.
+
+4)Inheritance[reusing data]:-
+The process of creating a class to "reuse exited class members using own class name or object reference" is called inheritance.
+
+5)Abstraction[hiding and removing information]:-
+The process of defining a class by "hiding the implementation details from the user, only the functionality will be provided to the user".
+
+6)Polymorphism[having multiple forms]:-
+It is a process of "defining method with multiple implementations to exibit different behaviours" is called polymorphism.
+
+7)Message Passing:-
+What, why use?
+Message Passing in terms of computers is communication between processes. It is a form of communication used in object-oriented programming as well as 
+parallel programming. Message passing in Java is like sending an object i.e. message from one thread to another thread. It is used when threads do not have 
+shared memory and are unable to share monitors or semaphores or any other shared variables to communicate.
+putMessage() which will call form run() method of Producer and add message in Vector whereas getMessage()
+
+8)a.)Static Binding:-
+The binding which can be resolved at compile time by compiler is known as static or early binding. Binding of all the static, private and final methods is done
+ at compile-time .
+
+Why binding of static, final and private methods is always a static binding? 
+Static binding is better performance wise (no extra overhead is required). Compiler knows that all such methods cannot be overridden and will always be 
+accessed by object of local class. 
+
+b.)Dynamic Binding:-
+In Dynamic binding compiler doesn’t decide the method to be called. Overriding is a perfect example of dynamic binding. In overriding both parent and child 
+classes have same method . 

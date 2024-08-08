@@ -1,0 +1,821 @@
+java 1.8 new Features(2014):-
+------------------------------------
+*concise code(less code) just because of enabling functional programming
+Lambda Expressions To enalbe functional programming
+Lambda function can handle just like object
+
+//Sqrt program
+import java.util.function.Function;
+public class FuntionEx1 {
+	public static void main(String args[]) {
+		Function<Integer,Integer> f=i->i*i;  //i->i*i(Lambda function)
+		System.out.println("The 30 sqrt value: "+f.apply(30));
+		System.out.println("The 20 sqrt value: "+f.apply(20));
+	}
+}
+
+//even or not
+import java.util.function.Predicate;
+public class FunctionEx2 {
+	public static void main(String args[]) {
+		Predicate<Integer> p=i->i%2==0;
+		System.out.println("The 3 is even: "+p.test(3));  //false
+		System.out.println("The 2 is even: "+p.test(2));  //true
+	}
+}
+
+
+1.Lambda Expression
+2.Functional Interface
+3.Default methods and static methods
+4.Predefined Functional Interfaces
+*Predicate, Function, Consumer, Supplier etc
+5.Double colon Operator (::)
+*Method reference, constructor reference
+6.Streams
+7.Date and Time API
+8.Optional class
+9.Nashorn JavaScript Engine etc
+===========================================================================================================================
+1.Lambda Expressions:-
+-----------------------------
+*Lambda Expressions available in many lang. The main Objective of  LE is to bring benefits of functional functional programming into java.
+*It is an anonymous function=nameless/without return type/without modifiers
+
+//single line no need {} and multiple lines need{} no need datatype,return,method name,modifiers
+()-> System.out.println("Hi");	   //LE
+
+()->{			   	//LE
+	System.out.println("Hi");
+	System.out.println("Hello");
+ }
+
+public void m1(int a,int b) {
+	System.out.println(a+b);
+}
+
+(a,b)->System.out.println(a+b);      //LE
+
+public int m1(int n) {
+	return n*n;
+}
+
+n->{ return n*n; };   //LE
+n->n*n;   //LE
+
+Note:-Without {} we cannot use return keyword    //n->n*n;
+within {} If we want to return some value complsary we should use return stmt  //n->{ return n*n; };
+
+Finf length of string
+public void m1(String s) {
+	retun s.length();
+}
+
+s->s.length();   //LE
+===========================================================================================================================
+2.FunctionalInterface:-
+---------------------------
+FI=FunctionalInterface
+*A Functional Interface have only one single Abstract Method 
+*LE only applicable for only Functional Interface
+*FunctionalInterface are only Comparable and Comparator case(Sorting)
+To implement sorting then go for LE
+//Exapmle Runnable run() // Comparable compareTo() //Comparator compare() // Callable call()
+
+Lambda Expression with Functional Interfaces:-
+-------------------------------------------------------
+*A Functional Interface have only one single Abstract Method 
+It used to If we want to invoke LE to need Functional Interface must be required
+
+*Inside Functional Interface allows both static and default methods also and only one abstract mehod but not write multiple abstract methods.
+@FunctionalInterface
+interface Inter1{
+	public static void m1() {}
+	public void m2();   //manadatory
+	void m3() {}	
+}
+
+@FunctionalInterface is used If we doing any mistake immedaitely alert the complier . It is optional.
+
+//VALID
+@FunctionalInterface
+interface A{
+	public void m1();
+}
+@FunctionalInterface
+interface B extends A{
+}
+
+//VALID
+@FunctionalInterface
+interface A{
+	public void m1();
+}
+@FunctionalInterface
+interface B extends A{
+	public void m1();     //Override
+}
+
+//INVALID
+@FunctionalInterface
+interface A{
+	public void m1();
+}
+@FunctionalInterface
+interface B extends A{
+	public void m2();    //2 abstract methods
+}
+
+//VALID
+@FunctionalInterface
+interface A{
+	public void m1();
+}
+interface B extends A{
+	public void m2();    //normal interface
+}
+
+//Normal java code
+/*interface I1{
+	public void m1();
+}
+class Demo implements I1 {
+	public void m1(){
+		System.out.println("hi...");
+	}
+}
+public class LE_Ex1 {
+	public static void main(String[] args) {
+		Demo i=new Demo();
+		i.m1();
+	}
+}*/
+//Java 8
+@FunctionalInterface
+interface I1{
+	public void m1();
+}
+public class LE_Ex1 {
+	public static void main(String[] args) {
+		I1 i=()->System.out.println("hi...by lambda expression");
+		i.m1();
+		i.m1();
+	}
+}
+
+//Java 8
+@FunctionalInterface
+interface I2{
+	public abstract void add(int a,int b); 
+}
+public class LE_Ex2 {
+	public static void main(String[] args) {
+		I2 i=(a,b)->System.out.println("Add two number by LE: "+(a+b));
+		i.add(10, 20);	//30
+		i.add(30, 10);	//40
+	}
+}
+
+//java 8
+@FunctionalInterface
+interface I3{
+	public int sqrt(int n);
+}
+public class LE_Ex3 {
+	public static void main(String[] args) {
+		//I3 i=n->n*n;   //valid
+		I3 i=n->{ return n*n; };   //valid
+		System.out.println("Square root value by LE:  "+i.sqrt(10));
+		System.out.println("Square root value by LE:  "+i.sqrt(4));
+	}
+}
+NOTE: LE wont be seperate .class files generated
+
+Runnable //run()
+------------
+//Java8 (Implementing Runnable interface by LE)
+public class LE_Thread1 {
+	public static void main(String[] args) {
+		Runnable r=()->{
+			for(int i=0;i<5;i++){
+				System.out.println("child Thread "+i);
+			}
+		};
+		Thread t=new Thread(r);
+		t.start();
+		for(int i=0;i<5;i++){
+			System.out.println("Main Thread "+i);
+		}
+	}
+}
+
+Comparator  //compare()
+--------------
+int compare(Object obj1,Object obj2)
+returns -ve iff obj1 has to come before obj2
+returns +ve iff obj1 has to come after obj2
+returns 0 iff obj1 and obj2 are equal
+
+//java 1.8 Comparator by LE
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+public class LE_Collection1 {
+	public static void main(String[] args) {
+		ArrayList<Integer> al=new ArrayList<Integer>();
+		al.add(10);
+		al.add(70);
+		al.add(40);
+		al.add(80);
+		al.add(20);
+		al.add(60);
+		System.out.println(al);
+		//Comparator<Integer> c=(i1,i2)->{return (i1<i2)?-1:(i1>i2)?1:0;};   //valid
+		Comparator<Integer> c=(i1,i2)->(i1<i2)?-1:(i1>i2)?1:0;
+		Collections.sort(al,c);
+		System.out.println(al);
+		//al.stream().forEach(System.out::println);  //To print values one by one //  ::(It is called method reference)
+		/*
+		List<Integer> al2=al.stream().filter(i->i%2==0).collect(Collectors.toList());
+		System.out.println(al2);
+		*/
+	}
+}
+
+/*
+import java.util.*;
+class MyComparator implements Comparator<Integer>{
+	public int compare(Integer i1,Integer i2) {
+		return (i1<i2)?-1:(i1>i2)?1:0;
+		/*
+		if(i1<i2) 
+			return -1;
+		else if(i1>i2) 
+			return +1;
+		else
+			return 0;
+		*/
+	}
+}
+public class LE_Collection1 {
+	public static void main(String[] args) {
+		ArrayList<Integer> al=new ArrayList<Integer>();
+		al.add(10);
+		al.add(70);
+		al.add(40);
+		al.add(90);
+		al.add(20);
+		al.add(60);
+		System.out.println(al);
+		Collections.sort(al,new MyComparator());
+		System.out.println(al);
+	}
+}
+*/
+
+===========================================================================================================================
+Comparator
+compare(Object obj1,Object obj2)
+sorting Ascending order based on emp id
+(e1,e2)->(e1.id>e2.id)?-1:(e1.id<e2.id)?1:0
+
+sorting Ascending order based on emp name
+(e1,e2)->e1.name.compareTo(e2.name)
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+class Employee {
+	String name;
+	int id;
+	public Employee(String ename, int eid){
+		this.name=ename;
+		this.id=eid;
+	}
+	public String toString(){
+		return name+" "+id;
+	}
+}
+public class LE_Employee1 {
+
+	public static void main(String[] args) {
+		ArrayList<Employee> al=new ArrayList<Employee>();
+		al.add(new Employee("anu",151));
+		al.add(new Employee("renu",132));
+		al.add(new Employee("manu",143));
+		al.add(new Employee("chanu",194));
+		al.add(new Employee("anusha",181));
+		Collections.sort(al,(e1,e2)->(e1.id<e2.id)?-1:(e1.id>e2.id)?+1:0);
+		System.out.println("sorting order by id: "+al);
+		
+		Collections.sort(al,(e1,e2)->e1.name.compareTo(e2.name));
+		System.out.println("sorting order by name: "+al);
+	}
+}
+/*class Employee {
+	String name;
+	int id;
+	public Employee(String ename, int eid){
+		this.name=ename;
+		this.id=eid;
+	}
+	public String toString(){
+		return name+" "+id;
+	}
+}
+public class LE_Employee1 {
+
+	public static void main(String[] args) {
+		Employee e=new Employee("maneesha",204);
+		System.out.println(e);
+	}
+}
+*/
+
+================================================================================================================================
+Anonymous inner classes VS Lambda Expression:
+-----------------------------------------------------------
+[If employee class has employee id and salary then how to find 2nd highest salary based on eid]
+Ex:-
+Thread t= new Thread() {
+	..........
+}; //Creating child class that extends Thread class
+
+Runnable r=new Runnable() {
+   ........
+}//Creating child class that implements Runnable interface
+
+*Anonymous inner class is powerfull then LE. So both are not equal.
+*If Anonymous inner class implements an interface that contains single abstract method then only we can replace that Anonymous inner class with LE.
+*If Anonymous inner class implements an interface that contains smore than on abstract method then we should use Anonymous inner class without LE 
+Ex:
+interface A{
+	public void m1();
+	public void m2();
+}
+A a=new A() {
+	public void m1() {
+	}
+	public void m2(){
+	}	
+};
+*Anonymous inner classe can extend a normal class
+*Anonymous inner classes can extend an abstract class
+*Anonymous inner classes can implement an interface which contains any no.of abstract methods
+*LE can implement an interface which contains single abstract method(FI)
+================================================================================================================================
+Default methods:-
+---------------------
+public abstract methods(1.7v)
+default methods and static methods allowed(1.8v)
+private methods(1.9v)
+
+public static final variables(upto new version-no enhancment)
+
+Without effecting implementation classes if u want to add new method to the inteface(extending interface functionality)------>Default method
+
+Default method should take in interface but not write inside a class
+
+Object class methods we can't implement default method
+Ex:
+interface I {
+	default void m1(){
+		System.out.println("Default method...in interface");
+	}
+	public void m2();
+	//default int hashCode(){  //Object class method
+	//	return 1;
+	//}
+}
+class A1 implements I{
+	public void m1(){
+		System.out.println("Override Default method... in class");	
+	}
+	public void m2(){
+		System.out.println("m2-A...");	
+	}
+}
+class B1 implements I{
+	public void m2(){
+		System.out.println("m2-B...");
+	}
+}
+public class DefaultMethod1 {
+	public static void main(String[] args) {
+		System.out.println("main method...");
+		new A1().m1();
+		new B1().m2();
+	}
+}
+
+
+//Multiple inheritance with default method
+interface I {
+	default void m1(){
+		System.out.println("Default method...in interface I");
+	}
+}
+interface J{
+	default void m1(){
+		System.out.println("Default method...in interface J");
+	}
+	
+}
+class A1 implements I, J{
+	public void m1(){	
+		I.super.m1();
+		J.super.m1();
+		System.out.println("Override Default method... in class");
+	}
+}
+public class DefaultMethod1 {
+	public static void main(String[] args) {
+		System.out.println("main method...");
+		new A1().m1();
+	}
+}
+===========================================================================================================================
+Static methods(1.8v):-
+-----------------------
+From 1.8 intreface also contains Static methods Becaue static methods no way related to object
+
+1.8 onwards main method to write in interface:-
+public interface Interface1 {
+	public static void main(String args[]) {
+		System.out.println("Interface static main method...");
+	}
+}
+
+General utility methods inside interface with static:-
+add(), sub() , product()
+public interface Interface1 {
+	public static void add(int a,int b){
+		System.out.println("add:  "+(a+b));
+	}
+	public static void sub(int a,int b){
+		System.out.println("sub:  "+(a-b));
+	}
+	public static void main(String args[]) {
+		System.out.println("Interface static main method...");
+		add(10,20);
+		sub(80,30);
+	}
+}
+
+interface Interf1 {
+	public static void m1(){
+		System.out.println("Interface static method...");
+	}
+}
+public class StaticMethod1 {// implements Interf1  {
+	public static void main(String args[]) {
+		Interf1.m1();     //only one way to call static methods inside interface
+		//m1();
+		//StaticMethod1.m1();
+	   	 //StaticMethod1 obj=new StaticMethod1();
+		//obj.m1();
+	}
+}
+===========================================================================================================================
+Predefine FunctionalInterfaces:-
+-------------------------------------
+Predicate-->tes() 
+Function-->apply()  
+Consumer--->accept()  
+Supplier--->get()
+
+Predicate(I):
+--------------
+conditional cheks with LE use Predicate, It contains only one abstract method i.e; test().
+It is returns boolean TRUE/FALSE or conditional results . like number is even or not/ esal >10000 (e.salary>10000) and (e.name.length()>5)
+
+Ex1:-
+import java.util.function.Predicate;
+class Employee1 {
+	int salary;
+	String name;
+	public Employee1(String ename, int esal){
+		this.name=ename;
+		this.salary=esal;
+	}
+	public String toString(){
+		return name+" "+salary;
+	}
+}
+public class Predicate1 {
+	public static void main(String[] args) {
+	Predicate<Employee1> p1=e->(e.salary>10000) && (e.name.length()>5);
+		System.out.println(p1.test(new Employee1("mani",18000)));
+		System.out.println(p1.test(new Employee1("nani",9000)));
+		System.out.println(p1.test(new Employee1("kalyani",15000)));
+	}
+}
+
+
+Ex2:-
+import java.util.function.Predicate;
+public class Predicate2 {
+	public static void main(String[] args) {
+		String[] s={"abcdef","nani","lalitha","funny"};
+		Predicate<String> p1=s1->s1.length()>5;
+		for(int i=0;i<s.length;i++){
+			if(p1.test(s[i])){
+				System.out.println(s[i]);
+			}
+		}
+	}
+}
+
+import java.util.ArrayList;
+import java.util.function.Predicate;
+class Employee2 {
+	int salary;
+	String name;
+	public Employee2(String ename, int esal){
+		this.name=ename;
+		this.salary=esal;
+	}
+	public String toString(){
+		return name+" "+salary;
+	}
+}
+public class Predicate3 {
+	public static void main(String[] args) {
+		ArrayList<Employee2> al=new ArrayList<Employee2>();
+		al.add(new Employee2("anu",2000));
+		al.add(new Employee2("renu",2500));
+		al.add(new Employee2("manu",1000));
+		al.add(new Employee2("chanu",1500));
+		al.add(new Employee2("anusha",3000));
+		al.add(new Employee2("sirisha",2500));
+		Predicate<Employee2> p1=e->e.salary>2000;
+		for(Employee2 e1: al){
+			if(p1.test(e1)) {
+				System.out.println(e1.name+":   "+e1.salary);
+			}
+		}
+	}
+}
+Input:perform some operations and produce result
+outpu:The result need not be boolean when should go for functions
+===========================================================================================================================
+Functions:-
+------------
+i->i*i;
+input===>int type and return ===> int type
+Function<(inputtype),(returntype)>
+
+Function<Integer,Integer> f=i->i*i; 
+
+import java.util.function.Function;
+public class Function1 {
+
+	public static void main(String[] args) {
+			Function<Integer,Integer> f=i->i*i;
+			System.out.println(f.apply(5));
+			
+			Function<String,Integer> f1=s->s.length();
+			System.out.println(f1.apply("maneesha"));
+			
+			Function<String,String> f2=s1->s1.toUpperCase();
+			System.out.println(f2.apply("maneesha"));
+	}
+}
+
+import java.util.function.Function;
+class Student{
+	String name;
+	int marks;
+	public Student(String sname,int marks){
+		this.name=sname;
+		this.marks=marks;
+	}
+	public String toString(){
+		return name+":  "+marks;
+	}	
+}
+public class Function2 {
+	public static void main(String[] args) {
+		Function<Student,String> f=s->{
+			String grade="";
+			if(s.marks>80) 
+				grade="first class";
+			else if(s.marks>60) 
+				grade="secondclass";
+			else if(s.marks>35) 
+				grade="third class";
+			else
+				grade="failed";
+			return grade;
+		};
+		Student s[]={
+			new Student("anusha",55),
+			new Student("manisha",85),
+			new Student("pony",65),
+			new Student("renu",15),
+			new Student("sirisha",95)
+		};
+		for(Student s1:s){
+			System.out.println(s1.name+"  "+s1.marks+"   "+f.apply(s1));
+		}
+	}
+}
+
+
+Function chaining:
+---------------------
+f1.andThen(f2).apply(i)   //first f1 followed by f2
+f1.compose(f2).apply(i)  //first f2 and then f1
+
+import java.util.function.Function;
+public class Function1 {
+			Function<Integer,Integer> f3=i->i*2;
+			Function<Integer,Integer> f4=i->i*i*i;
+			System.out.println(f3.andThen(f4).apply(2));   //2*2=4 4*4*4=64
+			System.out.println(f3.compose(f4).apply(2));	//2*2*2=8 8*8=16
+		}
+}
+
+===========================================================================================================================
+Consumer:
+--------------
+input===>int type and doesn't return anything If u want to strore a data in database
+Consumer<(inputtype)>---->void return type
+
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+class Student1{
+	String name;
+	int marks;
+	public Student1(String sname,int marks){
+		this.name=sname;
+		this.marks=marks;
+	}
+	public String toString(){
+		return name+":  "+marks;
+	}	
+}
+public class Consumer1 {
+	public static void main(String[] args) {
+		/*
+		Consumer<String> c=s->System.out.println(s);
+		c.accept("maneesha");*/
+		
+		Consumer<Student1> c=s->{
+			System.out.println(s.name+"  "+s.marks);
+		};
+		Predicate<Integer> p=i->i%2==0;
+		Student1 s[]={
+				new Student1("anusha",54),
+				new Student1("manisha",85),
+				new Student1("pony",62),
+				new Student1("renu",15),
+				new Student1("sirisha",92)
+			};
+			for(Student1 s1:s){
+				if(p.test(s1.marks)) {
+					c.accept(s1);
+				}
+			}
+	}
+}
+Consumer chaining:
+-----------------------
+import java.util.function.Consumer;
+class Subject{
+	String name;
+	public Subject(String sname){
+		this.name=sname;
+	}
+	public String toString(){
+		return name;
+	}
+}
+public class Consumer2 {
+	public static void main(String[] args) {
+		Consumer<Subject> c1=s->System.out.println(s.name+" good ");
+		Consumer<Subject> c2=s->System.out.println(s.name+"  Average ");
+		Consumer<Subject> c3=s->System.out.println(s.name+" very good ");
+		
+		Consumer<Subject> cc=c1.andThen(c2).andThen(c3);
+		
+		Subject s=new Subject("core java");
+		//c1.accept(s);
+		cc.accept(s);
+	}
+
+}
+
+================================================================================================================================
+Supplier:
+-----------
+Just supply my required objects and it wont take input
+
+interface Supplier<Return type> {
+	public Returntype get();
+}
+
+import java.util.Date;
+import java.util.function.Supplier;
+public class Supplier1 {
+	public static void main(String[] args) {
+		Supplier<Date> s=()->new Date();
+		System.out.println(s.get());
+		
+		//Random OTP
+		Supplier<String> s1=()->{
+			String otp="";
+			for(int i=0;i<6;i++){
+				otp=otp+(int)(Math.random()*10);
+			}
+			return otp;
+		};
+		System.out.println(s1.get());
+	}
+}
+
+=================================================================================================================================
+Two argument Predefine FunctionalInterfaces:
+-------------------------------------------------------
+BiPredicate
+BiFunction
+BiConsumer
+
+Primitive FunctionalInterfaces:-
+-------------------------------------
+IntPrediacte
+IntFunction
+IntConsumer
+.......................
+......................and so on
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+===========================================================================================================================
+Streams:-
+=======
+IOStream(data)
+Collection-Stream(object)
+Diff b/w collection and streams:
+--------------------------------------
+To represent group of objects as a single entity(Collection)
+If we want to process objects from the collection(Collection-Stream
+
+If we want get the stream:-
+Stream s=col.stream();
+java.util.stream package
+===========================================================================================================================
+
+
+
+
+
+
+
+Subject :04 April 2021 status
+
+Hi Anil,
+
+Good evening...
+
+First half:  I attended Communication session at morning
+Learning different interfaces like Predicate, Function Consumer, Supplier in Predefine Functional Interfaces in java 8 features through youtube videos.
+
+Second half: I practiced on Predicate, Function Consumer and Supplier example programs in java 8 features
+
+
+
+
+
+
+
+
+
+
+
+
+

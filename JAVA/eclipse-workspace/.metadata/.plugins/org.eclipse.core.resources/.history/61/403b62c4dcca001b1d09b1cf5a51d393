@@ -1,0 +1,15 @@
+
+public class Main2 {
+
+	public static void main(String[] args) {
+		Integer x=0, y=x--/--x;
+		if(x==y)
+			System.out.println(x+y);
+		else if(y==x)
+			System.out.println(x-y);
+		else
+			System.out.println("hi : "+2*x+y);
+
+	}
+
+}

@@ -1,0 +1,110 @@
+Garbage Collection:-
+===============
+1.Introduction:-
+============
+In old languages like c++ programmer is responsible to create new object and destory useless objects usually programmer taking very much care 
+while creating object and neglecting destraction object because of is neglectance at certain point for creation of new object subcent memory may not be available.
+Because total memory filled with useless objects only and total application will down with memory problems hence out of memory error is very 
+common problem in old languges like c ++
+
+But in JAVA programmer is resposible only for creation of object and programmer not resposible to destroy useless objects.
+sun people provided one assistant to destroy useless objects. this assistant is always running in the background(Deamon Thread) and destroy useless objects.
+Just because of this assistant the chance of failing java program with memory problem is very low.
+This assistant is nothing but Garbage Collector.
+Hence the main objective of Garbage Collector is to destroy useless objects.
+
+2.The ways to make an object eligible for GC:-
+================================
+*Eventhough programmer is not responsible to destroy useless objects It is highly recomended to make an object eligible for GC if it is no longer requier.
+*An object is said to be eligible for GC iff it doesn't contain any reference variable
+
+The following are various ways to make an object eligible for GC:-
+==============================================
+1)Nullifying the reference variable
+No one object eligible for GC:-
+Student s1=new Student();   
+Student s2=new Student();
+Two objects eligible for GC:-
+s1=null;
+s2=null;
+
+2)Reassigning the reference variable
+No one object eligible for GC:-
+Student s1=new Student();   
+Student s2=new Student();
+one object eligible for GC:- 
+s1=new Student();   
+Two objects eligible for GC:-
+s1=s2;
+
+3)Objects created inside a method:-
+once m1() complete local variables gone. This objects eligible for GC
+Two objects eligible for GC:-
+class Test
+{
+  public static void main()
+  {
+     m1();
+  }
+  public static void m1()
+  {
+    Student s1=new Student();   
+     Student s2=new Student();
+   }
+}
+
+one object eligible for GC:- 
+class Test
+{
+  public static void main()
+  {
+    Student s=m1();   //new reference variable
+  }
+  public static student m1()
+  {
+    Student s1=new Student();   //not eligible for GC(new reference variable)
+     Student s2=new Student();  //eligible for GC
+     return s1;
+   }
+}
+
+Two objects eligible for GC:-
+class Test
+{
+  public static void main()
+  {
+    m1();   
+  }
+  public static student m1()
+  {
+    Student s1=new Student();   
+     Student s2=new Student();
+     return s1;
+   }
+}
+
+one object eligible for GC:- 
+class Test
+{
+   static Student s;
+     public static void main()
+  {
+    m1();   
+  }
+  public static void m1()
+  {
+     s=new Student();     //static variable(not eligible for GC)
+     Student s1=new Student();  //eligible for GC
+   }
+}
+
+4)Island of Isolation:-
+
+    
+
+
+
+
+3.The methods for requesting JVM to run GC
+4.Finalization
+

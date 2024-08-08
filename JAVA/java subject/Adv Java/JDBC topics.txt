@@ -1,0 +1,886 @@
+JDBC:-
+Some times java component required to communicate with db
+(Java<---->db) Then we should go for JDBC
+
+1.Java Standard Edition (J2SE / JSE)---------->core java+JDBC
+2.Java Enterprise Edition (J2EE / JEE)-------->Servlets+JSPs
+3.Java Micro Edition (J2ME / JME)------------>To develop mobile/embeded app
+
+JDBC---->4.3V
+Servlets--->3.1V
+JSPs------->2.3V
+
+JDBC topics:-
+==========
+1.Introduction to ADV JAVA
+2.JDBC in simple way
+3.Storage Areas
+          LEVEL-1
+4.Introduction to JDBC/(ODBC JDBC Diff)
+5.JDBC Architecture
+6.JDBC API
+7.Driver Interfaces vs Driver class vs Driver Software
+**8.Types of Drivers
+**9.Standard steps to develope JDBC Application
+10.Working with Type-1 Driver
+11.Working with Type-2 Driver
+12.Working with Type-3 Driver
+13.Working with Type-4 Driver
+14.Working with Type-5 Driver
+15.Summary of all 5 JDBC Drivers
+16.Program for create and drop tables
+17.How to read dynamic input from the keyboard
+18.How to form SQL queries with dynamic input
+19.Program for  CRUD operations(25 Programs)
+             LEVEL-2
+20.Real time coding standards for JDBC Application
+21.How to develop and run JDBC Application with IDE's like eclipse
+22.Working with Mysql database
+              LEVEL-3
+23.Life cycle of SQL query execution 
+24.PreparedStatement and how to work PreparedStatement
+**25.Diff b/w Statement and PreparedStatement
+26.SQL Injection Attack(simple stmt bu not PreparedStatement)
+               LEVEL-4
+27.Stored procedure
+28. CallableStatement 
+29.Cursors
+30.Functions
+31.Statement vs  PreparedStatement vs CallableStatement 
+32.Batch Updates
+**33.exceuteQuery() vs exceuteUpdate() vs exceute() vs exceuteBatch()
+               LEVEL-5
+34.Insert and Retrive Date values
+35.BLOB(Binary large object) and CLOB(Character large object) Introduction 
+36.Insert and Retrive BLOB Type
+37.Insert and Retrive CLOB Type
+38.ConnectionPooling
+39.Working with properties
+40.Different ways to get Connection object 
+                LEVEL-6 
+**41.Transaction Management
+42.Savepoint
+43.Transaction Concurrency problems and Isolation levels
+                LEVEL-7
+44.MetaData
+      1.DatabaseMetaData
+      2.ResultSetMetaData
+      3.ParameterMetaData
+45.JDBC with non-traditional Database like Excel
+                LEVEL-8
+46.ResultSet Types
+     1.Forward only and Scrollable
+     2.Scroll Sensitive and Scroll Insensitive
+     3.Read only Updatable
+47.ResultSet Holdability
+48.RowSets vs ResultSet
+49.Working with all RowSets
+50.Miscellaneous topics like RowId etc...
+***********************************************************************************************************************************
+93.	What is JDBC Driver?
+94.	What are the steps to connect to the database in java?
+95.	What are the JDBC statements?
+96.	What is the role of the JDBC DriverManager class?
+97.	What does the JDBC ResultSet interface?
+***********************************************************************************************************************************
+98.	What is the use of Class.forName() method?
+java.lang.Class.forName(String name,boolean intailizer, ClassLoader load) method returns class object communicate with class or interface with given string 
+name using given class loader.
+class loader is used to load the class or interface, if parameter loader is "null" class is loaded the BootStrap class loader
+The class initailized only if the initalize paramater is true.	
+public static Class<?> forName(String name, boolean initialize, ClassLoader loader) throws ClassNotFoundException
+name - This is the fully qualified name of the desired class.
+initialize - This shows whether the class must be initialized.
+loader - This is the class loader from which the class must be loaded
+***********************************************************************************************************************************
+99.	What are the differences between Statement and PreparedStatement interface?
+100.	What are the differences between execute, executeQuery, and executeUpdate?
+101.	How can we execute stored procedures using CallableStatement?
+102.	What does the JDBC ResultSetMetaData interface?
+103.	What are CLOB and BLOB data types in JDBC?
+
+***********************************************************************************************************************************
+***********************************************************************************************************************************
+JDBC:-
+Java DataBase connectivity(JSE).
+JDBC is a java API to connect and execute query with the database
+JDBC API uses jdbc driver to connect with database
+JDBC API
+The JDBC provides the various methods and interface for easy communication between Java application and database.
+(JDBC) API provides universal data access from the Java programming language.
+Purpose of JDBC API:-
+To access tables and its data from relation database.
+To send queries and update statement to database.
+Obtain and modify the results to and from a JDBC application.
+Find the metadata of the table.
+Performing different operations on a database, like creating table, querying data, updating data, inserting data from a Java application.
+
+Java Database Connectivity(JDBC) is an application programming interface (API) that helps Java program to communicate with databases and manipulates 
+their data. The JDBC API provides the methods that can be used to send SQL and PL/SQL statements to almost any relational database. 
+
+Two-tier Architecture:-
+Two-tier Architecture provides direct communication between Java applications to the database. It requires a JDBC driver that can help to communicate 
+with the particular database.
+
+Three-tier Architecture:-
+In the three-tier model, commands are sent by the HTML browser to middle services i.e. Java application which can send the commands to the particular database.
+The middle tier has been written in C or C++ languages. It can also provide better performance.
+***********************************************************************************************************************************
+Persistance:-Store our data permanently
+Persistance data:-which data Store permanently in Persistance Store.
+Persistance Store:-The palce which is useful for store our data permanently
+Persistance logic:-The logic which is useful for store our persistance data
+Percistance technology:-The rules/specification which is useful for develop implementation for store our data permanently 
+Two persistance stores from JSE Appn:-
+a. Files
+b. Database
+Limitation of files:-
+limited users access, no security, data redundancy, data retriving problem, limited data to store, not supported any query language
+To Overcome this limitations we should prefer Database management system
+***********************************************************************************************************************************
+They are 4 types of drivers
+1.jdbc-odbc bridge driver
+2.Native-API driver(partially java driver)
+3.Network protocol driver(fully java driver)
+4.Thin Driver(fully java driver)
+
+1.jdbc-odbc bridge driver:-(in java8 removed)
+This driver converts jdbc method calls into odbc function calls. This is now discouraged because of thin driver.
+jdbc API
+      /\
+       |
+java app-----jdbc odbc driver------odbc driver------vendor databaseLibrary---->DB
+
+2.Native-API driver(partially java driver):-
+This driver uses client-side library of the DB. This driver converted jdbc method calls into native calls of database API. It is not written entirly in java
+jdbc API
+      /\
+       |
+java app-----Native API driver------vendor databaseLibrary---->DB
+
+3.Network protocol driver(fully java driver)
+This driver uses middelware(application server). This driver converted jdbc method calls directly or indirectly into vendor specific database protocol.
+It is fully written java.
+jdbc API
+      /\
+       |
+java app-----Network protocol driver-------->Middleware(serverside)---->DB
+
+4.Thin Driver(fully java driver):-
+This driver converted jdbc method calls directly into vendor specific database protocol. It is fully written java.
+*Better performance than all other drivers.
+*No s/w required client and server side.
+jdbc API
+      /\
+       |
+java app-----Thin Driver---->DB
+
+***********************************************************************************************************************************
+JDBC(Java DataBase Connection):- 
+========================                                                                                                          
+                                                                                                                                        Req(SQL query)   
+                                                                                                                                    [STATEMENT OBJECT]                  [RESULT SET]
+Java app-------->JDBC API--------->To connevert java calls into JDBC calls---------------------------------------------------DATABASE
+                                                           and JDBC calls into java calls                            [CONNECTION]
+                                                           [DRIVER SOFTWARE]                                        Network Socket
+
+Basic Components of JDBC Application:-
+============================
+1)DRIVER SOFTWARE
+2)CONNECTION
+3)STATEMENT OBJECT
+4)RESULT SET
+
+1)DRIVER SOFTWARE:-(4.0v optional)
+=================
+To conevert java calls into DB specific calls and DB specific calls into java calls  
+Arrange a "translator" 
+class.forName("oracle.jdbc.OracleDriver");
+To load JDBC class in our java application.
+classPath(OJDBC6.jar oracle 11g) 
+
+2)CONNECTION:-
+=============
+Connection object can be To communicate with DB from Java app
+Establish the connection "Route" (Network Socket)
+Connection con=Drivermanager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","scott","tiger");
+@localhost----oracle running machine
+1521-----------port number
+XE--------------system ID
+
+3)STATEMENT OBJECT:-
+==================
+To send our sql query to the DataBase and to bring result from DataBase to java app
+prepare statement "Vehicle"
+Statement st=con.createStatement();
+
+4)RESULT SET:-
+============
+Result set holds results of sql query 
+Java App can get results of sql query from Result set only
+To send our query with the statement execute that query and bring the in the form result
+Resultset rs=st.execteQuery("select * from emp");
+while(rs.next())
+{
+  sopln(rs.getString("eno")+".........."+rs.getInt("ename"));
+}
+
+close connection:-
+============
+con.close();
+
+import java.sql.*;
+public class jdbcdemo
+{
+  public stattic void main(String args[])
+  {
+    //class.forName("oracle.jdbc.oracleDriver");
+    connection con=Drivermanager.getConnection("jdbc:oracle:thin:@localhost:1521::XE","off","off");
+    statement st=con.createStatement();
+    Resultset rs=st.exexcuteQuery("select * frm emp");
+    while(rs.next());
+    {
+      Sopln(rs.getInt("eno")+"......."+rs.getString("ename"));
+    }
+    con.close();
+ }
+}
+***********************************************************************************************************************************
+There are following five steps to create the database connection with Java application:
+1. Register the Driver
+Class.forName("oracle.jdbc.driver.OracleDriver");
+This method is used to dynamically load the driver class.
+
+2. Create Connection
+getConnection() of DriverManager class is used to establish the connection
+Connection con=DriverManager.getConnection(  
+"jdbc:oracle:thin:@localhost:1521:xe","system","password");  
+
+3. Create SQL Statement
+createStatement() of connection interface is used to create statement object.
+This object is responsibilty of execute query with DB
+Statement st=con.createStatement();
+
+4. Execute SQL Queries
+executeQuery() of Statement interface is used to execute query of DB.
+This method is returns the object of ResultSet to get all the records of table. 
+ResultSet rs=st.executeQuery("==");
+
+5. Close the Connection
+close() of connection interface is used to close the connection
+con.close();
+***********************************************************************************************************************************
+JDBC Architecture:-
+=============
+                                                                                          Java Application
+                                                                                                     |
+                                                               rt.jar-------->JDBC API(java s/w)(java.sql, javax.sql)
+                                                                                                     |
+                                                                                         Driver Software/Manager(Technology Based s/w)
+                                                 |-------------------------------------| -------------------------------------------|                                                         
+                                                 |                                                    |                                                             |
+
+                           Driver software for oracle driver                  Driver s/w for mysql driver             Driver sotware for DB2 driver
+                                                 |                                                    |                                                             |
+                                                 |                                                    |                                                             |
+                              Oracle DataBase                                 MySql DataBase                                    DB2 DataBase
+* java s/w provide rules not only for third party vendor but also java application developer 
+
+*JDBC API provides Driver manager to Java application.
+
+*Java application can communicate with any database with the help of driver manager and database specific Driver software.
+
+Driver Manager:-
+===========
+*It is the key component in JDBC architecture.
+
+*It is a class present in java sql package.
+
+*It is responsible to "manage all database drivers".
+
+*It is responsible to register a new database driver and unregister a existing database driver.
+                       DriverManager.registerDriver(driver);
+                       DriverManager.unregisterDriver(driver);
+
+*It is responsible to esablish connection to the database with the help of driver software.
+   Connection con=DriverManager.getConnection(jdbcurl,usrname,pswd);
+
+Database Driver:-
+============
+*It is very imporatant component of JDBC architecture.
+
+*Without Driver software, we can't touch Database.
+
+*It is responsible to convert java calls into database specific calls and database specific calls into java calls.                              
+***********************************************************************************************************************************
+db.properties:-
+drivername=oracle.driver.OracleDriver
+urlname=jdbc:oracle:thin:@localhost:1521:XE
+username=system
+password=pswd
+--------------------------------------------------------------
+File f=new File("db.properties");
+FileInputStream fis=new FileInputStream(f);
+Properties p=new Properties();
+p.load(fis);
+String driver=p.getProperty(drivername);
+String url=p.getProperty(urlname);
+String user=p.getProperty(uername);
+String pswd=p.getProperty(password);
+class.forName(driver);
+----
+***********************************************************************************************************************************
+java.util.ResourceBundle;
+ResourceBundle rb=ResourceBundle.getBundle("db");
+String driver=rb.getString(drivername);
+String url=rb.getString(urlname);
+String user=rb.getString(uername);
+---
+class.forName(driver);
+----
+Auto Loading:-
+From jdbc 4.0 OracleDriver automatically loading by JVM.
+oracle.jdbc.OracleDriver
+oracle.jdbc.driver.OracleDriver
+***********************************************************************************************************************************
+import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.sql.ResultSet;
+
+Class.forName("oracle.jdbc.driver.OracleDriver");
+Connection con=DriverManager.getConnection("jdbc:oracle:thin:off/off@localhost:1521:XE");
+Statement st=con.createStatement();
+ResultSet rs=st.executQuery("select * from emp");
+***********************************************************************************************************************************
+ResultSet:-By default ResultSet pointing to non recordable area
+How many ways can we able to read data:-
+2 ways
+1.index value
+2.column name
+select * from emp;
+rs.getString(1)  //no order preserved
+rs.gerString("ename")  //no order preserved
+select eid,ename,esal from emp;
+rs.getString(1)  //order preserved
+rs.gerString("ename")  //no order preserved
+***********************************************************************************************************************************
+Build plan:-
+1.Verify whether our query is valid or not.
+2. Verify whether table is existed or not
+3. Verify whether cloumns existed or not
+4. Query is converting into c-language.
+5. C-Language will compile
+6. C-langauge will execute and generate create the reponse
+7. Finally reponse handover to java Appn.
+Once reponse handover to java appn build plan will destroyd.
+***********************************************************************************************************************************
+There are 3 ways to place query into statement Object.
+
+Method name       		 pupose	             Return type
+---------------------------------------------------------------------------------
+executeQuery()		select(DRL)            ResultSet
+
+exceuteUpdate()		DML	            int
+		      insert,update,delete
+execute()				             boolean  //query starts with select then return true otherwise false
+
+ResultSet rs=st.executeQuery("select * from emp");
+
+int count=st.executeUpdate("update emp set ename='anusha' where eid=110");
+Sopln(count+" recodrs inserted");
+
+boolean b=st.execute("alter table emp add(epincode number(6))");
+Sopln("b:"+b);  //false
+boolean b=st.execute("select * from emp");
+Sopln("b:"+b);  //true
+
+execute() to convert getResultSet(), getUpdateCount():-
+boolean flag=st.execute("select * from emp");   //true
+boolean b=st.execute("alter table emp add(epincode number(6))");   //false
+if(flag) {
+	ResultSet rs=st.getResultSet();
+	while(rs.next) {
+		Sopln("rs.getInt(1)"+.........);
+	}
+}
+else {
+	int count=st.getUpdateCount();
+	Sopln(count+" recodrs inserted");
+}
+
+***********************************************************************************************************************************
+DataBaseMetaData:-(JDBCDemo25)
+ResultSetMetaData always gives information about table columns and their types based on query result.
+
+Eid	Ename --->ResultSetMetaData
+---------------------
+101	mani------>ResultSet
+
+DataBaseMetaData dmd=con.getMetaData();
+dmd.getDatabaseMaiorVersion();
+dmd.getDatabaseProductName();
+etc
+ResultSetMetaData rmd=rs.getMetaData();
+rmd.getColumnCount();
+rmd.getPrecision(1);
+***********************************************************************************************************************************
+Type of Stetement Objects:-
+To carry the our query java app to Database
+1.java.sql.Statement
+2.java.sql.PreparedStatement
+3.java.sql.CallableStatement
+
+1.java.sql.Statement
+==============
+Statement st=con.createStatement();
+int count=st.executeUpdate("insert into emp values(101,'anu','kkd')");
+
+In the above code executed only one record is inserted into table
+If u want to execute same code duplicate records inserted.
+To avoiding above problem we create a table using unique constraint.
+sql>create table emp1(edi number(3) constraint eid unique,ename varchar2(10));
+>commit;
+
+Statement st=con.createStatement();
+int count=st.executeUpdate("insert into emp1 values(101,'anu')");
+In the above code executed only one record is inserted into table
+If u want to execute same code to get Runtime exception 
+To overcome this problem using try and catch block
+
+try {
+	Statement st=con.createStatement();
+	int count=st.executeUpdate("insert into emp1 values(101,'anu')");
+}
+catch(Exception e) {
+	Sopln("already record inserted");
+}
+In the above code avoid run time exception and one more problem is static values inserted.
+ but we want to insert new record into a table and dynamical values inserting
+
+Statement Object with dynamic values:-
+Statement st=con.createStatement();
+Scanner sr=new Scanner(System.in);
+Sopln("enter eid");
+int id=sr.nextInt();
+Sopln("enter ename");
+String name=sr.next();
+int count=st.executeUpdate(insert into emp values("+id",' "+name" '));
+*Above program is suitable for work with multiple values.
+But writing query dynamic vlues little bit difficult.
+
+*While working with java.sql.Statement object every time Build plan Recreated. 
+It will effected to performance application.
+
+*To avoiding 2 problems we should prefer java.sql.PreparedStatement object
+***********************************************************************************************************************************
+2)java.sql.PreparedStatement:-
+*It is sub interface of java.sql.Statement
+*It is useful sending our query java app to database.
+*It is best suitable for sending dynamic values.
+
+Statement st=con.createStatement();
+st.executeUpdate(query);
+Example:-
+Statement st=con.createStatement();
+ResultSet rs=st.executeQuery("select * from emp");
+int count=st.executeUpdate("delete from emp where eid=101");
+After creating Statement Object we are sending query through methods, So Statement Object we can able to use for working "multiple types of quesries".
+
+PreparedStatement ps=con.prepareStatement("select * from emp");
+ResultSer rs=ps.executeQuery();
+while(rs.next()) {  }
+From above code we can understandable PreparedStatement can useful working with only one type of query. 
+
+*While creating prepareStatement we should give query. That means one PreparedStatement can suitable for sending "only one type query".
+*To send dynamic values through PrepareStatement Object we use placeholder these are representing with ?.
+*Placeholders index always counting left to right.
+*To values to placeholder in prepareStatement we have setXxx(-,-)
+*PreparedStatement is best suitable to working with CLOB, and BLOB datatypes.
+*According to Build plane If u want to execute a query one time is prefer Statement Object.
+Execute query multiple times then prefer PreparedStatedment Object.
+
+PreparedStatement ps=con.prepareStatement("insert into emp values(?,?,?)");
+Scanner sr=new Sacnner(System.in);
+int id=sr.nextInt();
+String name=sr.next();
+String add=sr.next();
+int count=ps.executeUpdate();
+Sopln(count+"records inserted");
+
+	java.sql.Statement 			java.sql.PreparedStatement
+-----------------------------------------------------------------------------------------------------------------------
+1.It is a root interface				1.It is a sub interface of Statement
+
+2.It is suitable for static Query			2.It is suitable for dynamic query
+
+3.While creating object we are not given qurery	3.while creating object we are giving query
+we are always query while using method
+
+4.single object suitable for multiple types of query	4.singe object suitable for only one type query
+
+5.Build plan always Recreated			5.Build plan created only one.
+	
+6.Execute multiple types of queries  		6.Execute query muliple times
+
+7.It is not supported BLOB, CLOB datatypes		7.It is best suitable for work with BLOB and CLOB
+***********************************************************************************************************************************
+CLOB:-
+======
+>create table empclob(eid number,ename varchar2,einfo clob);
+
+PreparedStatement ps=con.prepareStatement("insert into emp values(?,?,?)");
+------
+------
+Sopln("Enter info path");
+String path=sr.next();
+File f=new File(path);
+FileReader fr=new FileReader(f);
+int FileSize=(int)f.length();
+ps.setCharacterStream(3,fr,FileSize);
+int count=ps.executeUpdate();
+---------------------------------------------------------------------------------
+while(rs.next()) {
+Reader r=rs.getCharacterStream(3);
+File f=new File("c:\\users\\mani\\"+filename+".txt");
+FileWriter fw=new FileWriter(f);
+int i=0;
+while((i=r.read())!=-1) {
+	fw.write();
+}
+fw.close();
+}
+***********************************************************************************************************************************
+BLOB:-
+======
+>create table empblob(eid number,ename varchar2,ephoto blob);
+
+PreparedStatement ps=con.prepareStatement("insert into emp values(?,?,?)");
+-----
+------
+Sopln("Enter image path");
+String path=sr.next();
+File f=new File(path);
+FileInputStream fis=new FileInputStream(f);
+int FileSize=(int)f.length();
+ps.(setBinaryStream(3,fis,FileSize));
+int count=ps.executeUpdate();
+---------------------------------------------------------------------------------------------------------
+While(rs.next()) {
+InputStream is=rs.getBinaryStream(3);
+File f=new File("c:\\users\\mani\\"+imgname+".jpg");
+FileOutputStream fos=new FileOutputStream(f);
+int i=0;
+while((i=is.read())!=-1) {
+	fos.write();
+}
+}
+***********************************************************************************************************************************
+java.sql.CallableStatement
+===================
+CallableStatement is an interface is used to store procedure and functions that will make the performace these are precomplie
+We have to use business logic on the database
+For example we want to get age of an employee based on DOB.
+Date as the input and return age of employee as the output.
+
+	Procedure				 Function
+----------------------------------------------------------------------------------------------
+1.Procedure is used to perform Business logic		1.Function is used to perform Calculations
+
+2.Must not have return type			2.Must have return type  
+
+3.return 0 or more values			3.returns only one value
+
+4.we can call function from procedure		4.we can't call procedure from function
+
+5.Procedure supports intput, output parameter		5.Function only input parameter
+
+6.try-catch block can be used in stored procedure	6.try-catch block can not be used in user define function. 
+
+prepareCall() method of Connection interface returns the instance of CallableStatement
+CallableStatement cst=con.prepareCall();
+Procedure:-
+========
+insert or replace procedure "procedure1"
+(id in number
+name in varchar2)
+is begin
+insert into user1 values(id, name);
+end
+/
+
+CallableStement cst=con.prepareCall("{call procedure1(?,?)}");
+cst.setInt();
+cst.execute();
+
+Function:-
+=======
+create replace function fun1 
+(n1 in number, n2 in number)
+return number
+is 
+temp number(8);
+begin
+temp := n1+n2;
+return temp;
+end;
+/
+
+CallableStatement cst=con.prepareCall("{?= call fun1(?,?)}");
+cst.setInt(2,10);
+cst.execute();
+***********************************************************************************************************************************
+Working with Array type:-
+==================
+SQL> create type subnum as varray(3) of number;
+Type created.
+SQL> create table banu(ename varchar2(5),numbers subnum);
+Table created.
+SQL> desc banu;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ENAME                                              VARCHAR2(5)
+ NUMBERS                                            SUBNUM
+SQL> insert into banu values('anush',subnum(101,102,103));
+1 row created.
+SQL> select * from banu;
+
+ENAME     NUMBERS
+--------------------------------------------------------------------------------
+anush          SUBNUM(101, 102, 103)
+
+ResultSet rs=st.executeQuery("select * from banu");
+while(rs.next())  {
+	Sopln(rs.getString+"\t");
+	Array obj=rs.getArray(2);
+	ResultSer rs1=obj.getResultSet();
+	while(rs1.next())  {
+		Sopln(rs1.getInt(2)+"\t");
+	}
+	Sopln();
+}
+How to send array object type from the table:-
+String ename=sr.next();
+int[] numbers=new int[3];
+for(int i=0;i<numbers.lengh;++i) {
+	numbers[i]=sr.nextInt();
+}
+***********************************************************************************************************************************
+Working with DATE type:-
+==================
+SQL> create table keerthi(ename varchar2(5),edob date);
+SQL> desc keerthi
+ Name                                      Null?    Type
+ ----------------------------------------- -------- --------------------------
+ ENAME                                              VARCHAR2(5)
+ EDOB                                               DATE
+SQL> insert into keerthi values('mani','28-apr-1996');
+SQL> select * from keerthi;
+
+ENAME 	EDOB
+----- 	---------
+mani 	 28-APR-96
+
+Statement st=con.createStatement();
+int count=st.executeUpdate("insert into keerthi values('mani','28-apr-1996')");
+
+PreparedStatement ps=con.prepareStatement("insert into keerthi values(?,?)");
+Sopln("Enter name");
+String name=sr.next();
+Sopln("Enter DOB");
+java.util.Date ud=new java.util.Date();
+java.sql.Date sd=new java.sql.Date(ud.getDate());
+ps.setString(1,name);
+ps.setDate(2,sd);
+int count=ps.executeUpdate();
+**********************************************************************************************************************************
+Scrollble ResultSet:-
+This Object ResultSet maintains cursor pointing to row of a table.
+By default ResultSet to read left to right.
+But we can make this object to move forward and backward direction by passing either TYPE_SCROLL_SENSITIVE or TYPE_SCROLL_INSENSITIVE
+
+Statement st=con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+ResultSet rs=st.executeQuery("select * from emp4");
+
+Commonly used methods in ResultSet:-
+1) public boolean next():	is used to move the cursor to the one row next from the current position.
+2) public boolean previous():	is used to move the cursor to the one row previous from the current position.
+3) public boolean first():	is used to move the cursor to the first row in result set object.
+4) public boolean last():	is used to move the cursor to the last row in result set object.
+5) public boolean absolute(int row):	is used to move the cursor to the specified row number in the ResultSet object.
+6) public boolean relative(int row):	is used to move the cursor to the relative row number in the ResultSet object, it may be positive or negative.
+
+import java.io.*;
+import java.sql.*;
+public class JDBCDemo18 {
+	public static void main(String args[]) throws SQLException, ClassNotFoundException ,FileNotFoundException, IOException {
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		Connection con=DriverManager.getConnection("jdbc:oracle:thin:off/off@localhost:1521:xe");
+		Statement st=con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+		ResultSet rs=st.executeQuery("select * from emp4");
+		System.out.println(rs.isBeforeFirst());   //true
+		rs.first();
+		System.out.println(rs.isBeforeFirst());		//false
+		System.out.println(rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getInt(3)+"\t"+rs.getString(4));
+		//101	akhi	4000	hyd
+		rs.last();
+		System.out.println(rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getInt(3)+"\t"+rs.getString(4));
+		//106	nisha	4000	rjy
+		rs.next();
+		System.out.println(rs.isAfterLast());   //true
+		//System.out.println(rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getInt(3)+"\t"+rs.getString(4));
+		rs.beforeFirst();
+		System.out.println(rs.isBeforeFirst());   //true		
+		rs.first();
+		System.out.println(rs.isBeforeFirst());  //false
+		System.out.println(rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getInt(3)+"\t"+rs.getString(4));
+		//101	akhi	4000	hyd
+		rs.afterLast();
+		System.out.println(rs.isAfterLast());  //true
+	}
+}
+**********************************************************************************************************************************
+How to close the connection with database manually:-
+=====================================
+By using method like con.close();
+upto 1.6 writing the logic for closing connection.
+But 1.7 onwards every thing will take care about java s/w in the form of try with resource block
+try with resource block:-
+
+try(Connection con=DriverManager.getConnection("jdbc:oracle:thin:off/off@localhost:1521:XE");
+Statement st=con.createStatement();
+ResultSet rs=st.executQuery("select * from emp");
+) {
+	while(rs.next()) {
+		sopln(----);
+	}
+}
+
+jdk 9.0:-
+========
+Connection con=DriverManager.getConnection("jdbc:oracle:thin:off/off@localhost:1521:XE");
+Statement st=con.createStatement();
+ResultSet rs=st.executQuery("select * from emp");
+try(con;st;rs) {
+	while(rs.next()) {
+		sopln(----);
+	}
+}
+**********************************************************************************************************************************
+Connection pooling:-
+===============
+Connection poolManager<--------->Connection pool(con1, con2 etc...)<-------->database
+/\        	/\
+ |	|	
+con1	con2
+java app1	java app2 ..............
+
+Connection pool is used to direct jdbc calls within the application.
+When the request is satisfied and the response is returned to the user
+The resource returns the connection to the connection pool for "reuse".
+**********************************************************************************************************************************
+Transaction Management:-
+===================
+The process of changing database position from one state to another state  either completely or none.
+Apply all queries results on table either completly or none.
+All transaction management appliacble for(insert/update/delete)(DML)
+
+By Default our connection created "auto commit" mode like true.
+con.setAutoCommit(true);
+If u want to disable auto commit mode we should like below logic
+con.setAutoCommit(false);
+ If u want to use commit result of query into table
+con.commit();
+
+Savepoint sp=new Savepoint();
+con.rollback(sp);
+con.commit();
+["If u want to use Thread.sleep(1000); method by throws InterruptedException also working."]
+**********************************************************************************************************************************
+Batch Updates:-
+===========
+This is support only DML commands otherwise runtime exception occurs.
+st.addBatch(query1);
+st.addBatch(query2);
+st.addBatch(query3);
+st.addBatch(query4);
+st.addBatch(query5);
+st.executeBatch();
+java appn to Database no.of round trips increased at query executing.
+*The process of executing multiple updatable(I,U,D) queries based on some dependencies is called batch updates.
+*To execute each and every query our control is moving from java appn to database and come to java appn, Thst means no.of hits increased.
+*It will leads to performance problem, This we can able overcome with support of batch updates.
+
+String query1="insert .....";
+String query2="update .....";
+String query3="delete .....";
+st.addBatch(query1);
+st.addBatch(query2);
+st.addBatch(query3);
+int[] x=st.executeBatch();
+Sopln(x[1]+" record inserted");
+Sopln(x[2]+" record inserted");
+Sopln(x[3]+" record inserted");
+**********************************************************************************************************************************
+MySql database:-
+============
+How to create our own database in MySql databsae
+create database manifs20;
+How to use our own database;
+use manifs20;
+**********************************************************************************************************************************
+Limitation of ResultSet:-
+=================
+*ResultSer doesn't implements java.lang.serializable interface
+*By default ResultSet is forward read only.
+*To work with ResultSet as a program should write logic to loading driver, and creating connection object, and Statement Object
+*It is developed on top bean mechanisam.
+To Overcome above problems we should go for RowSet.
+
+RowSet:-
+=======
+RowSet is the sub interface of ResultSet.
+
+		ResultSet
+		      /\
+		       |
+		RowSet
+	         |		            |
+	JdbcRowSet 	CachedRowSet
+			         |
+			WebRowSet
+		         |		       |
+		FilterRowSet	JoinRowSet
+RowSet is java bean component beacuse it has properties and java bean notification mechanisam
+It is the wrapper of ResultSet. It holds tabular data like ResultSet. It is easy and flexible to use
+It is scrollable and updatable by default
+JDBCRowSet:-
+==========
+1.It is connected RowSet
+2.By dafault it is scrollable, updatable
+3.By default it is implements java.io.Serailizable
+4.To work with JDBCRowSet no need to load the driverclass, create connection object, and statement object
+5.It is developed bean mechanism
+
+OracleJDBCRowSet ojr=new OracleJDBCRowSet();
+ojr.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
+ojr.setUsername("off");
+ojr.setPassword("off");
+ojr.setCommand("select * from emp");
+ojr.execute();
+while(ojr.next())  {
+	sopln(ojr.getInt()+"\t"..............);
+} 
+CachedRowSet:-
+===========
+CachedRowSet crs=RowSetProvider.newFactory().createCachedRowSet();
+crs.setUrl("");
+crs.setUsername("off");
+crs.setPassword("off");
+crs.setCommand("select * from emp");
+crs.execute();
+while(crs.next()) {
+	Sopln(crs.getInt()+"\t"+................);
+}
+**********************************************************************************************************************************

@@ -1,0 +1,33 @@
+import java.util.*;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Scanner sr = new Scanner(System.in);
+		System.out.println("Enter no.of arrays");
+		int noOfArrays = sr.nextInt();
+		List<String> inputByLine = new ArrayList<String>(noOfArrays);
+		System.out.println("Enter array's sizes");
+		for (int i = 0; i < noOfArrays; i++) {
+			inputByLine.add(sr.next());
+		}
+		List<Integer> newList = new ArrayList<Integer>(inputByLine.size()) ;
+        for (String newValue : inputByLine) 
+        { 
+          newList.add(Integer.valueOf(newValue)); 
+        }
+        System.out.println(newList);
+        System.out.println("Enter elements into an array's");
+        for (int i = 1; i < newList.size() ; i++) {
+        		for(int j=0;j<newList.get(i);j++) {
+        			System.out.println(j+" hi");
+        		}
+        }
+
+        
+        
+        
+
+	}
+
+}

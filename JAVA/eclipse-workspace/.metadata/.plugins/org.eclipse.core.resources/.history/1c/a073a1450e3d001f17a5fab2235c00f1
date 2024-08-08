@@ -1,0 +1,13 @@
+package Now08072024;
+@FunctionalInterface
+interface LambdaExpInterf {
+	void print();
+}
+public class LambdaExp1	{
+	public static void main(String[] args) {
+		LambdaExpInterf name=()->System.out.println("maneesha");
+		name.print();
+
+	}
+
+}

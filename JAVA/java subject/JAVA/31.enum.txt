@@ -1,0 +1,287 @@
+enum(enumeration):-
+==============
+*If you want represent a group of named constant then we should go for enum.
+byte:- -128 to +127 =256 (IN BUILT IN JAVA)
+
+enum Month
+{
+   JAN,FEB,MAR......DEC;  //; is optional
+}
+
+*The main objective of enum is to define our own datatypes(enumerated dataype)
+*enum concept introduced in 1.5v when compared with old language enum java enum is more powerfull
+
+Internal implementation of enum:-
+========================
+*Every enum internally implemented by using class concept
+*Every enum constant is always public static final
+*Every enum constant represent an object of the type enum
+enum Date
+{
+   day,month,week;
+}
+
+class Date
+{
+   public static final Date day=new Date();
+   public static final Date month=new Date();
+   public static final Date week=new Date();
+}
+
+enum declaration and usage:-
+====================
+*Every enum constant is always public static final and hence we can access enum constant by using enum name.
+Example1:-
+enum Date
+{
+   day,month,week;
+}
+class Test16
+{
+   public static void main(String[] args) 
+   {
+     Date d=Date.day;
+      System.out.println(d);   //day
+      Date m=Date.month;
+      System.out.println(m);   //month
+   }
+}
+NOTE:-Inside enum toString() method internally implemented to return name of the constant.
+
+*we can declare enum either with in the class outside of class but not inside a method
+*If u r trying to declare inside method then we will get CE saying enum types must not be local
+Example2:-
+class Test16
+{
+	enum Date
+{
+   day,month,week;
+}
+   public static void main(String[] args) 
+   {
+     Date d=Date.day;
+      System.out.println(d);   //day
+	  Date m=Date.month;
+      System.out.println(m);   //month
+   }
+}
+
+Example3:-
+class Test16
+{
+   public static void main(String[] args) 
+   {
+	   enum Date
+		{
+			day,month,week;
+		}
+     Date d=Date.day;
+      System.out.println(d);   //day
+	  Date m=Date.month;
+      System.out.println(m);   //month
+   }
+}
+CE:enum types must not be local
+
+enum x   //YES
+{
+}
+class y
+{
+}
+
+class y     //YES
+{
+enum x
+{
+}
+}
+
+class y     //NO
+{
+pvm1()
+{
+enum x
+{
+}
+}
+CE:enum types must not be local
+}
+
+If we declare enum outside of the class the applicable modifiers are public(not working), <default>, strictfp are allowed in below
+strictfp enum Month {
+	jan,feb
+}
+class Exenum3 {		
+	public static void main(String args[]) {
+		Month j=Month.jan;
+		Month f=Month.feb;
+	
+		System.out.println(j);
+		System.out.println(f);
+	}
+}
+
+every enum is always final but we are not allowed declare final, abstract
+enum x
+{
+}
+class y
+{
+}
+
+If we declare enum inside a class the applicable modifiers are public, <default>, strictfp, private, protected, static are allowed in below(correct)
+class X
+{
+	enum Y   //inside a class
+	{
+	}
+}
+
+enum vs switch():-
+============
+switch(x)
+{
+}
+until 1.4V the allowed argument data type for the switch stmt are byte short char int 
+but from 1.5V onwards corresponding Wrapper classes and enum types are allowed. [Byte Short Character Integer enum]
+from 1.7V onwards 'String' type allowes
+Hence from 1.5V onwards we can pass enum type as argument to switch stmt
+If we pass enum type arg to switch stmt then every case lable should be valid enum constant otherwise we will get compile time error
+Example4:-
+class Exenum4 {	
+	static enum Month {
+		jan,feb,mar
+	}	
+	public static void main(String args[]) {
+		Month j=Month.jan;
+		Month f=Month.feb;
+		switch(f) {
+			case jan:
+			           System.out.println("january month");
+			           break;
+			case feb:
+			           System.out.println("febuary month");
+			           break;
+			case mar:
+			           System.out.println("march month");
+			           break;
+			/*default:			
+			           System.out.println("not valid");*/ //no use
+		}
+	}
+}
+
+output:-
+febuary month
+
+Example4:-
+enum Date
+{
+   day,month,week;
+}
+class Test16
+{
+   public static void main(String[] args) 
+   {
+     //Date d=Date.day;
+	 Date m=Date.month;
+      switch(m)
+      {
+         case day:
+              System.out.println("It is day");
+              break;
+         case week:
+              System.out.println("It is week");
+              break;
+         case month:
+              System.out.println("It is month");
+              break;
+        case year:                       //CE:an enum switch case label must be the unqualified name of an enumaration constant case year;
+              System.out.println("It is year");
+              break;         
+         }
+   }
+}
+
+enum vs inheritance:-
+===============
+*Every enum is always direct child class java.lang.enum and 
+  Hence our enum can't extended any other enum(Because java won't provide support for multiple inheritance)
+*Every enum is always is always final implicitly and Hence for our enum enum can't create child enum B
+*Because of our conclude inheritance concept not applicable for enum explicitly and we can't use extends keyword for enum
+For Example................
+Example1:
+enum x              (NO)
+{
+}
+enum y extends x
+{
+}
+
+Example2:
+enum extends java.lang.Enum           (NO)
+{
+}
+
+Example3:
+class x              (NO)
+{
+}
+enum y extends x
+{
+}
+
+Example4:
+enum x              (NO)
+{
+}
+class y extends x
+{
+}
+CE1:cannot inherit from final x
+CE2:enum types are not extendable
+
+interface x                (YES)
+{
+}
+enum y implements x
+{
+}
+Note:Any enum can imp any no.of interfaces 
+interface I {
+}
+enum Month implements I{
+	jan,feb,mar
+}
+class Exenum5 {		
+	public static void main(String args[]) {
+		Month j=Month.jan;
+		Month f=Month.feb;
+		switch(j) {
+			case jan:
+			           System.out.println("january month");
+			           break;
+			case feb:
+			           System.out.println("febuary month");
+			           break;
+			case mar:
+			           System.out.println("march month");
+			           break;
+		}
+	}
+}
+o/p:-
+january month
+
+java.lang.Enum
+===========
+>javap java.lang.Enum
+     object
+          /\
+           |
+           |
+   java.lang.Enum (serializable and comparable)
+*Every enum in java is direct child class of java.lang.Enum and Hence this class access of  base class for all java enums
+*It is an abstract class and it is direct child class of object
+*It implement serializable and comparable interfaces.

@@ -1,0 +1,481 @@
+1
+/*Working with the java bean in .jsp file by using jsp:useBean and jsp:setProperty and jsp:getProperty tags
+==================================================================================*/
+Student.java
+==========
+package com.nacre.fs20;
+import java.io.Serializable;
+public class Student implements Serializable{
+	public Student() {
+		System.out.println("student constructor");
+	}
+	private int sid;	private String sname;	private int sage;
+
+	public int getSid()			 {		return sid;			}
+	public void setSid(int sid)  {		this.sid = sid;		}
+	public String getSname() 	 {		return sname;		}
+	public void setSname(String sname) {this.sname = sname;	}
+	public int getSage() 		 {		return sage;		}
+	public void setSage(int sage){		this.sage = sage;	}
+}
+
+//giving values to java bean variables programatically
+test.jsp
+=====
+<%@page import="com.nacre.fs20.Student"%>
+<body bgcolor='cyan'>
+	<h2>
+		HERE TEST.JSP FILE STARTS<br/>
+		<jsp:useBean class='com.nacre.fs20.Student' id='student' />
+		
+		<jsp:setProperty property='sid' value='102' name='student'/>
+		<jsp:setProperty property='sname' value='Ram' name='student'/>
+		<jsp:setProperty property='sage' value='32' name='student'/>
+		
+		Student Id: <jsp:getProperty property="sid" name="student"/><br/>
+		Student Name: <jsp:getProperty property="sname" name="student"/><br/>
+		Student Age: <jsp:getProperty property="sage" name="student"/><br/>
+		
+		
+	</h2>
+		
+	<h2>HERE TEST.JSP FILE ENDS<br/>
+	</h2>
+</body>
+=======================================================================================================
+2
+/*Working with the java bean in .jsp file by using jsp:useBean and jsp:setProperty and jsp:getProperty tags
+==================================================================================*/
+Student.java
+=========
+Same as previous program
+
+student.html:
+==========
+<html>
+	<body bgcolor='cyan'>
+		<form action='./test.jsp'>
+			<table border='6'>
+				<tr><td>Sid:</td><td><input type='text' name='sid'/></td></tr>  
+				<tr><td>Sname:</td><td><input type='text' name='sname'/></td></tr>
+				<tr><td>Sage:</td><td><input type='text' name='sage'/></td></tr>
+				<tr><td><input type='submit' value='Register'/></td></tr>
+			</table>
+		</form>
+	</body>
+</html>
+
+//Giving values to javabean variables dynamically
+test.jsp:
+======
+<%@page import="com.nacre.fs20.Student"%>
+<body bgcolor='cyan'>
+	<%
+		int id = Integer.parseInt(request.getParameter("sid"));
+		String name = request.getParameter("sname");
+		int age = Integer.parseInt(request.getParameter("sage"));	
+	%>
+	<h2>
+		HERE TEST.JSP FILE STARTS<br/>
+		
+		<jsp:useBean class='com.nacre.fs20.Student' id='student' />
+		<jsp:setProperty property='sid' value='<%=id %>' name='student'/>
+		<jsp:setProperty property='sname' value='<%=name %>' name='student'/>
+		<jsp:setProperty property='sage' value='<%=age %>' name='student'/>
+		Student Id: <jsp:getProperty property="sid" name="student"/><br/>
+		Student Name: <jsp:getProperty property="sname" name="student"/><br/>
+		Student Age: <jsp:getProperty property="sage" name="student"/><br/>
+	</h2>
+	<h2>HERE TEST.JSP FILE ENDS<br/>
+	</h2>
+</body>
+==========================================================================================================
+3
+/*Working with the java bean in .jsp file by using jsp:useBean and jsp:setProperty and jsp:getProperty tags
+==================================================================================*/
+Student.java, student.html
+====================
+same as previous program
+
+//Giving values to javabean variables dynamically
+test.jsp:
+======
+<%@page import="com.nacre.fs20.Student"%>
+<body bgcolor='cyan'>
+	<h2>
+		HERE TEST.JSP FILE STARTS<br/>
+		
+		<jsp:useBean class='com.nacre.fs20.Student' id='student' />
+		<jsp:setProperty property='sid' value='<%=Integer.parseInt(request.getParameter("sid")) %>'
+				 name='student'/>
+		<jsp:setProperty property='sname' value='<%=request.getParameter("sname") %>' name='student'/> 
+		<jsp:setProperty property='sage' value='<%= Integer.parseInt(request.getParameter("sage")) %>' name='student'/>
+		Student Id: <jsp:getProperty property="sid" name="student"/><br/>
+		Student Name: <jsp:getProperty property="sname" name="student"/><br/>
+		Student Age: <jsp:getProperty property="sage" name="student"/><br/>
+	</h2>
+	<h2>HERE TEST.JSP FILE ENDS<br/>
+	</h2>
+</body>
+===========================================================================================================
+4
+/*Working with the java bean in .jsp file by using jsp:useBean and jsp:setProperty and jsp:getProperty tags
+==================================================================================*/
+Student.java, student.html
+====================
+same as previous program
+
+//Giving values to javabean variables dynamically 
+// IF THE TEXT FIELDS NAMES OFF HTML ARE SAME AS BEAN CLASS PROPERTIES NAMES THEN NO NEED WRITE
+// A SEPARATE setProperty TAG FOR INDIVIDUAL PROPERTIES OF BEAN CLASS
+//WE CAN ABLE TO THE FOLLOWING CODE
+
+<%@page import="com.nacre.fs20.Student"%>
+<body bgcolor='cyan'>
+	<h2>
+		HERE TEST.JSP FILE STARTS<br/>
+		
+		<jsp:useBean class='com.nacre.fs20.Student' id='student' />
+
+		<jsp:setProperty property="*" name="student"/>
+
+		Student Id: <jsp:getProperty property="sid" name="student"/><br/>
+		Student Name: <jsp:getProperty property="sname" name="student"/><br/>
+		Student Age: <jsp:getProperty property="sage" name="student"/><br/>
+	</h2>
+	<h2>HERE TEST.JSP FILE ENDS<br/>
+	</h2>
+</body>
+==========================================================================================================
+communication between jsp and database:
+================================
+empdetails.html:
+============
+<html>
+	<body bgcolor='yellow'>
+		<form action='./empinfo.jsp'>
+			Enter Employee Id:<input type='text' name='eid'/><br/>
+			<input type='submit' value='SUBMIT'/>
+		</form>
+	</body>
+</html>
+
+empinfo.jsp:
+==========
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<html>
+	<body bgcolor='cyan'>
+		<h2>
+			<%
+				String id = request.getParameter("eid");
+				int eid = Integer.parseInt(id);
+			%>
+			<%
+				
+				try{
+					Class.forName("oracle.jdbc.driver.OracleDriver");
+					Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe",
+							"system","ram");
+					PreparedStatement ps = con.prepareStatement("select * from employee where eid=?");
+					ps.setInt(1,eid);
+					ResultSet rs = ps.executeQuery();
+					while(rs.next()){
+						out.println(rs.getInt(1)+".."+rs.getString(2)+".."+
+							rs.getString(3)+".."+rs.getInt(4)+".."+rs.getInt(5));
+					}
+				}
+				catch(ClassNotFoundException e){
+					System.out.println("-------------");
+					e.printStackTrace();
+				}
+			%>
+		</h2>
+	</body>
+</html>
+============================================================================================================
+communication between jsp and database by handle errors in separate jsp file by using isErrorPage and errorPage attributes of @page
+directive tag.
+
+empdetails.html
+============
+same as previous program
+
+empinfo.html:
+==========
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<%@page errorPage="error.jsp" %>
+<html>
+	<body bgcolor='cyan'>
+	
+		<h2>
+			<%
+				String id = request.getParameter("eid");
+				int eid = Integer.parseInt(id);
+					Class.forName("oracle.jdbc.driver.OracleDriver");
+					Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe",
+							"system","ram");
+					PreparedStatement ps = con.prepareStatement("select * from employee where eid=?");
+					ps.setInt(1,eid);
+					ResultSet rs = ps.executeQuery();
+					while(rs.next()){
+						out.println(rs.getInt(1)+".."+rs.getString(2)+".."+
+							rs.getString(3)+".."+rs.getInt(4)+".."+rs.getInt(5));
+					}
+				
+			%>
+		</h2>
+	</body>
+</html>
+
+error.jsp
+===========
+<html>
+<body bgcolor='cyan'>
+<%@page isErrorPage="true" %>
+<h2>
+<%
+	try{
+		throw exception;
+	}
+	catch(Throwable e){
+		out.println("Sorry Problem At Server Side.......");
+		System.out.println("****************");
+		e.printStackTrace();
+	}
+%>
+</h2>
+</body>
+</html>
+============================================================================================================
+communication between jsp and database by handle errors in separate jsp file by using isErrorPage and errorPage attributes of @page
+directive tag.
+
+empdetails.html and error.jsp 
+=======================
+both are same as previous program
+
+web.xml
+=======
+<web-app>
+	<servlet>
+		<servlet-name>rs</servlet-name>
+		<jsp-file>/empinfo.jsp</jsp-file>
+		<init-param>
+			<param-name>driver</param-name>
+			<param-value>oracle.jdbc.driver.OracleDriver</param-value>
+		</init-param>
+		<init-param>
+			<param-name>url</param-name>
+			<param-value>jdbc:oracle:thin:@localhost:1521:xe</param-value>
+		</init-param>
+		<init-param>
+			<param-name>user</param-name>
+			<param-value>system</param-value>
+		</init-param>
+		<init-param>
+			<param-name>password</param-name>
+			<param-value>ram</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>rs</servlet-name>
+		<url-pattern>/empinfo.jsp</url-pattern>
+	</servlet-mapping>
+</web-app>
+
+empinfo.jsp
+=========
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<%@page errorPage="error.jsp" %>
+<html>
+	<body bgcolor='cyan'>
+	
+		<h2>
+			<%
+				String driver = config.getInitParameter("driver");
+			String url = config.getInitParameter("url");
+			String user = config.getInitParameter("user");
+			String password = config.getInitParameter("password");
+			%>
+			<%
+				String id = request.getParameter("eid");
+				int eid = Integer.parseInt(id);
+					Class.forName(driver);
+					Connection con = DriverManager.getConnection(url,user,password);
+					PreparedStatement ps = con.prepareStatement("select * from employee where eid=?");
+					ps.setInt(1,eid);
+					ResultSet rs = ps.executeQuery();
+					while(rs.next()){
+						out.println(rs.getInt(1)+".."+rs.getString(2)+".."+
+							rs.getString(3)+".."+rs.getInt(4)+".."+rs.getInt(5));
+					}
+			%>
+		</h2>
+	</body>
+</html>
+=======================================================================================================
+
+write program to communicating with database from multiple jsp files:
+
+empdetails.html:
+=============
+<html>
+	<body bgcolor='yellow'>
+		<form action='./empinfo.jsp'>
+			Enter Employee Id:<input type='text' name='eid'/><br/>
+			<input type='submit' value='SUBMIT'/>
+		</form>
+		<form action='./updateemp.jsp'>
+			Enter Employee Id:<input type='text' name='eid'/><br/>
+			Enter Employee Update Salary:<input type='text' name='esal'/><br/>
+			<input type='submit' value='UPDATE'/>
+		</form>
+	</body>
+</html>
+
+error.jsp:
+=======
+same as previous program
+
+empinfo.jsp
+=========
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<%@page errorPage="error.jsp" %>
+<html>
+	<body bgcolor='cyan'>
+	
+		<h2>
+			<%
+				String driver = application.getInitParameter("driver");
+			String url = application.getInitParameter("url");
+			String user = application.getInitParameter("user");
+			String password = application.getInitParameter("password");
+			%>
+			<%
+				String id = request.getParameter("eid");
+				int eid = Integer.parseInt(id);
+					Class.forName(driver);
+					Connection con = DriverManager.getConnection(url,user,password);
+					PreparedStatement ps = con.prepareStatement("select * from employee where eid=?");
+					ps.setInt(1,eid);
+					ResultSet rs = ps.executeQuery();
+					while(rs.next()){
+						out.println(rs.getInt(1)+".."+rs.getString(2)+".."+
+							rs.getString(3)+".."+rs.getInt(4)+".."+rs.getInt(5));
+					}
+			%>
+		</h2>
+	</body>
+</html>
+
+updateemp.jsp:
+============
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<%@page errorPage="error.jsp" %>
+<html>
+	<body bgcolor='cyan'>
+	
+		<h2>
+			<%
+				String driver = application.getInitParameter("driver");
+			String url = application.getInitParameter("url");
+			String user = application.getInitParameter("user");
+			String password = application.getInitParameter("password");
+			%>
+			<%
+				String id = request.getParameter("eid");
+				String sal = request.getParameter("esal");
+				
+				int eid = Integer.parseInt(id);
+				int incsal = Integer.parseInt(sal);
+					Class.forName(driver);
+					Connection con = DriverManager.getConnection(url,user,password);
+				PreparedStatement ps = con.prepareStatement("update employee set esal=esal+? where feid=?");
+					ps.setInt(1,incsal);
+					ps.setInt(2,eid);
+					int rs = ps.executeUpdate();
+					out.println("<h2>Employee Salary Is Updated......</h2>");
+			%>
+		</h2>
+	</body>
+</html>
+
+web.xml
+=======
+<web-app>
+		<context-param>
+			<param-name>driver</param-name>
+			<param-value>oracle.jdbc.driver.OracleDriver</param-value>
+		</context-param>
+		<context-param>
+			<param-name>url</param-name>
+			<param-value>jdbc:oracle:thin:@localhost:1521:xe</param-value>
+		</context-param>
+		<context-param>
+			<param-name>user</param-name>
+			<param-value>system</param-value>
+		</context-param>
+		<context-param>
+			<param-name>password</param-name>
+			<param-value>ram</param-value>
+		</context-param>
+	<servlet>
+		<servlet-name>rs</servlet-name>
+		<jsp-file>/empinfo.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>rs</servlet-name>
+		<url-pattern>/empinfo.jsp</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>us</servlet-name>
+		<jsp-file>/updateemp.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>us</servlet-name>
+		<url-pattern>/updateemp.jsp</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>empdetails.html</welcome-file>
+	</welcome-file-list>
+</web-app>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

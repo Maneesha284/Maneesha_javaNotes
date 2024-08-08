@@ -1,0 +1,358 @@
+import java.util.Scanner;
+
+enum ShirtMterial {
+	COTTON, LINEN, POLYSTER;
+}
+
+class Shirt {
+
+	private float collarSize;
+	private float length;
+	private ShirtMterial material;
+
+	public Shirt() {
+
+		this.collarSize = 0;
+		this.length = 0;
+		this.material = ShirtMterial.COTTON;
+	}
+
+	public Shirt(float collarSize, float length, ShirtMterial material) {
+		this.collarSize = collarSize;
+		this.length = length;
+		this.material = material;
+	}
+
+	public float getCollarSize() {
+		return collarSize;
+	}
+
+	public void setCollarSize(float collarSize) {
+		this.collarSize = collarSize;
+	}
+
+	public float getLength() {
+		return length;
+	}
+
+	public void setLength(float length) {
+		this.length = length;
+	}
+
+	public ShirtMterial getMaterial() {
+		return material;
+	}
+
+	public void setMaterial(ShirtMterial material) {
+		this.material = material;
+	}
+
+	public void displayDetails() {
+		System.out.println("Shirt [collarSize=" + collarSize + ", length=" + length + ", material=" + material + "]");
+	}
+}
+
+public class ShirtTester {
+	public static void main(String[] args) {
+
+		Shirt sh = new Shirt();
+		sh.displayDetails();
+
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter Shirt collarSize and length.....");
+		Shirt sh1 = new Shirt(sc.nextFloat(), sc.nextFloat(), ShirtMterial.POLYSTER);
+		sh1.displayDetails();
+
+	}
+}
+
+
+enum ManagerType{
+​​​​​​​
+    HR, SALES
+}
+
+class Employees {
+	​String name;
+	int id;
+	double salary;
+
+	public Employees() {​​​​​​​
+        super();
+  }
+	public Employees(String name, int id, double salary) {​​​​​​​
+        super();
+        this.name = name;
+        this.id = id;
+        this.salary = salary;
+    }​ ​ ​ ​ ​ ​ ​
+
+	public String getName() {​​​​​​​
+        return name;
+    }​ ​ ​ ​ ​ ​ ​
+
+	public void setName(String name) {​​​​​​​
+        this.name = name;
+    }​ ​ ​ ​ ​ ​ ​
+
+	public int getId() {​​​​​​​
+        return id;
+    }​ ​ ​ ​ ​ ​ ​
+
+	public void setId(int id) {​​​​​​​
+        this.id = id;
+    }​ ​ ​ ​ ​ ​ ​
+
+	public double getSalary() {​​​​​​​
+        return salary;
+    }​ ​ ​ ​ ​ ​ ​
+
+	public void setSalary(double salary) {​​​​​​​
+        this.salary = salary;
+    }​ ​ ​ ​ ​ ​ ​
+}​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​
+
+class Manager extends Employees {
+	​ ​ ​ ​ ​ ​ ​
+	ManagerType type;
+
+	public Manager() {​​​​​​​
+        super();
+	}​ ​ ​ ​ ​ ​ ​
+
+	public Manager(String name, int id, double salary, ManagerType type) {​​​​​​​
+        super(name, id, salary);
+        this.type = type;
+    }​ ​ ​ ​ ​ ​ ​
+
+	public ManagerType getType() {​​​​​​​
+        return type;
+    }​ ​ ​ ​ ​ ​ ​
+
+	public void setType(ManagerType type) {​​​​​​​
+        this.type = type;
+    }​ ​ ​ ​ ​ ​ ​
+
+	String setSalary() {​​​​​​​
+        String res = "";
+        switch (type) {​​​​​​​
+        case HR:
+            res = "Total salary : " + (salary + 1000);
+            break;
+        case SALES:
+            res = "Total salary : " + (salary + 5000);
+            break;
+        }​​​​​​​
+        return res;
+    }​ ​ ​ ​ ​ ​ ​
+
+	@Override
+    public String toString() {​​​​​​​
+        return "Manager [type=" + type + ", name=" + name + ", id=" + id + ", salary=" + salary + "]";
+    }​ ​ ​ ​ ​ ​ ​
+
+}​ ​ ​ ​ ​ ​ ​
+
+class Clerk extends Employees {
+	​ ​ ​ ​ ​ ​ ​
+	int speed;
+	int accuracy;
+
+	public Clerk() {​​​​​​​
+        super();
+   }​ ​ ​ ​ ​ ​ ​
+
+	public Clerk(String name, int id, double salary, int speed, int accuracy) {​​​​​​​
+        super(name, id, salary);
+        this.speed = speed;
+        this.accuracy = accuracy;
+
+
+    }​ ​ ​ ​ ​ ​ ​
+
+	public int getSpeed() {​​​​​​​
+        return speed;
+    }​ ​ ​ ​ ​ ​ ​
+
+	public void setSpeed(int speed) {​​​​​​​
+        this.speed = speed;
+    }​ ​ ​ ​ ​ ​ ​
+
+	public int getAccuracy() {​​​​​​​
+        return accuracy;
+    }​ ​ ​ ​ ​ ​ ​
+
+	public void setAccuracy(int accuracy) {​​​​​​​
+        this.accuracy = accuracy;
+    }​ ​ ​ ​ ​ ​ ​
+
+	double setSalary() {​​​​​​​
+        double res = 0;
+        if (speed > 70 && accuracy > 80) {​​​​​​​
+            res = salary + 1000;
+        }​​​​​​​ else {​​​​​​​
+            res = salary;
+        }​​​​​​​
+        return res;
+    }​ ​ ​ ​ ​ ​ ​
+
+	@Override
+    public String toString() {​​​​​​​
+        return "Clerk [speed=" + speed + ", accuracy=" + accuracy + ", name=" + name + ", id=" + id + ", salary="
+                + setSalary() + "]";
+    }​ ​ ​ ​ ​ ​ ​
+
+}​
+
+public class ManagerTester {​
+	public static void main(String[] args) {​​​​​​​
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the name,id salary");
+        Manager m1 = new Manager(scanner.next(), scanner.nextInt(), scanner.nextDouble(), ManagerType.HR);
+        System.out.println("The salary is : " + m1.setSalary());
+        System.out.println(m1);
+        System.out.println("Enter the name,id salary,speed,Accuracy");
+        Clerk c1 = new Clerk(scanner.next(), scanner.nextInt(), scanner.nextDouble(), scanner.nextInt(),
+                scanner.nextInt());
+        System.out.println("The salary : " + c1.setSalary());
+        System.out.println(c1);
+
+
+        scanner.close();
+ }​ ​ ​ ​ ​ ​
+	​}​ ​ ​ ​ ​ ​ ​
+
+================================
+import java.util.*;
+class Student1{
+	int studentId;
+	String name;
+	double examFee;
+	double totalFee;
+	
+	Student1(){
+		this.studentId = 1;
+		this.name = null;
+		this.examFee = 0;
+	}
+
+	public Student1(int studentId, String name, double examFee) {
+		this.studentId = studentId;
+		this.name = name;
+		this.examFee = examFee;
+	}
+
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public double getExamFee() {
+		return examFee;
+	}
+
+	public void setExamFee(double examFee) {
+		this.examFee = examFee;
+	}
+	
+	public double payFee(double amount) {
+		examFee -= amount;
+		return examFee;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", name=" + name + ", Exam Fee=" + examFee + "]";
+	}
+	
+	public String display() {
+		return this.toString();
+	}
+	
+}
+
+class DayScholar extends Student1{
+	double transportFee;
+
+	public DayScholar() {
+		this.transportFee = 0;
+	}
+	
+	public DayScholar(int studentId, String name, double examFee, double transportFee) {
+		super(studentId, name, examFee);
+		this.transportFee = transportFee;
+		totalFee = super.examFee + transportFee;
+	}
+	
+	public double payFee(double amount) {
+		super.totalFee -= amount;
+		return totalFee;
+	}
+
+	@Override
+	public String toString() {
+		return "DayScholar [transportFee=" + transportFee + ", studentId=" + studentId + ", name=" + name + ", examFee="
+				+ examFee + " Total Fee: " + totalFee + "]";
+	}
+
+	public String display() {
+		return this.toString();
+	}
+}
+
+class Hosteller extends Student1{
+	double hostelFee;
+	
+	public Hosteller() {
+		this.hostelFee = 0;
+	}
+
+	public Hosteller(int studentId, String name, double examFee, double hostelFee) {
+		super(studentId, name, examFee);
+		this.hostelFee = hostelFee;
+		totalFee = super.examFee + hostelFee; 
+	}
+	
+	public double payFee(double amount) {
+		super.totalFee -= amount;
+		return totalFee;
+	}
+
+	@Override
+	public String toString() {
+		return "Hosteller [hostelFee=" + hostelFee + ", studentId=" + studentId + ", name=" + name + ", examFee="
+				+ examFee + " Total Fee: " + totalFee + "]";
+	}
+
+	public String display() {
+		return this.toString();
+	}
+}
+
+public class InheritanceStudent {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter StudentId, name, examfee, transportfee");
+		DayScholar ds = new DayScholar(sc.nextInt(), sc.next(), sc.nextDouble(), sc.nextDouble());
+		ds.payFee(1000);
+		System.out.println(ds);
+		
+		System.out.println("Enter StudentId, name, examfee, transportfee");
+        Hosteller h = new Hosteller(sc.nextInt(), sc.next(), sc.nextDouble(), sc.nextDouble());
+        h.payFee(2000);
+        System.out.println(h);
+	}
+
+}

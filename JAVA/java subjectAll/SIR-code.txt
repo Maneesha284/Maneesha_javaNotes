@@ -1,0 +1,207 @@
+YmA9L9l%1}XJ
+
+YmA9L91%|}XJ
+
+localhost:9984/subLocations/addSubLocation
+
+
+//	public Map<Date, String> getAttendanceInformation(Long userId, String month, String year) {
+//		Map<Date, String> dateAndStatusAttendanceInfo = new HashMap<Date, String>();
+//		List<CheckInCheckOut> checkInCheckOuts = checkInCheckOutRepository.findByUserId(userId);
+//		Optional<User> userOptional = userRepository.findById(userId);
+//		if (userOptional.isPresent()) {
+//			User user = userOptional.get();
+//			String status[] = { "present", "absent", "weekoff" };
+//			
+//			Date date=new Date(userId);
+//			if (user.getCheckInTime() != null && user.getCheckOutTime() != null) {
+//				LocalDateTime getInTime = user.getCheckInTime();
+//				LocalDateTime gatOutTime = user.getCheckOutTime();
+//
+//				LocalDate currentDateIn = getInTime.toLocalDate();
+//				LocalDate currentDateOut = gatOutTime.toLocalDate();
+//				if (currentDateIn.equals(currentDateOut)) {
+//					Duration duration = Duration.between(getInTime, gatOutTime);
+//					long diffInHours = duration.toHours();
+//					if (diffInHours >= 8) {
+//						dateAndStatusAttendanceInfo.put(date, status[0]);		               
+//		            } else {
+//		            	dateAndStatusAttendanceInfo.put(date, status[1]); 
+//		            }
+//				} else {
+//					dateAndStatusAttendanceInfo.put(date, status[1]);
+//				}
+//			} else {
+//				dateAndStatusAttendanceInfo.put(date, status[1]);
+//			}
+//
+//			return dateAndStatusAttendanceInfo;
+//		} else {
+//			dateAndStatusAttendanceInfo.put(null, "User not found");
+//			return dateAndStatusAttendanceInfo;
+//		}
+//	}
+	
+//	public Map<LocalDate, String> getAttendanceInformation(Long userId, String month, String year) {
+//	    Map<LocalDate, String> dateAndStatusAttendanceInfo = new HashMap<>();
+//	    List<CheckInCheckOut> checkInCheckOuts = checkInCheckOutRepository.findByUserId(userId);
+//	    Optional<User> userOptional = userRepository.findById(userId);
+//	    
+//	    if (userOptional.isPresent()) {
+//	        User user = userOptional.get();
+//	        String[] status = {"Present", "Absent", "WeekOff"};
+//	        
+//	        YearMonth yearMonth = YearMonth.of(Integer.parseInt(year), Integer.parseInt(month));
+//	        LocalDate startDate = yearMonth.atDay(1);
+//	        LocalDate endDate = yearMonth.atEndOfMonth();
+//	        
+//	        // Initialize all dates in the month as absent
+//	        for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
+//	            dateAndStatusAttendanceInfo.put(date, status[1]);
+//	        }
+//	        
+//	        for (CheckInCheckOut checkInCheckOut : checkInCheckOuts) {
+//	            LocalDateTime checkInTime = checkInCheckOut.getCheckInTime();
+//	            LocalDateTime checkOutTime = checkInCheckOut.getCheckOutTime();
+//	            
+//	            if (checkInTime != null && checkOutTime != null) {
+//	                LocalDate checkInDate = checkInTime.toLocalDate();
+//	                LocalDate checkOutDate = checkOutTime.toLocalDate();
+//	                
+//	                if (checkInDate.equals(checkOutDate) && !checkInDate.isBefore(startDate) && !checkInDate.isAfter(endDate)) {
+//	                    Duration duration = Duration.between(checkInTime, checkOutTime);
+//	                    long diffInHours = duration.toHours();
+//	                    
+//	                    if (diffInHours >= 8) {
+//	                        dateAndStatusAttendanceInfo.put(checkInDate, status[0]);
+//	                    } else {
+//	                        dateAndStatusAttendanceInfo.put(checkInDate, status[1]);
+//	                    }
+//	                }
+//	            }
+//	        }
+//	        
+//	        // Weekends as weekoff
+//	        for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
+//	            if (date.getDayOfWeek() == DayOfWeek.SUNDAY) {
+//	                dateAndStatusAttendanceInfo.put(date, status[2]);
+//	            }
+//	        }
+//
+//	        return dateAndStatusAttendanceInfo;
+//	    } else {
+//	        dateAndStatusAttendanceInfo.put(null, "User not found");
+//	        return dateAndStatusAttendanceInfo;
+//	    }
+//	}
+
+
+public Map<LocalDate, String> getAttendanceInformation(Long userId, String month, String year) {
+		Map<LocalDate, String> dateAndStatusAttendanceInfo = new HashMap<>();
+		Optional<User> userOptional = userRepository.findById(userId);
+
+		if (userOptional.isPresent()) {
+			User user = userOptional.get();
+			String[] status = { "present", "absent", "weekoff" };
+
+			YearMonth yearMonth = YearMonth.of(Integer.parseInt(year), Integer.parseInt(month));
+			LocalDate startDate = yearMonth.atDay(1);
+			LocalDate endDate = yearMonth.atEndOfMonth();
+
+			// Initialize all dates in the month as absent
+			for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
+				if (date.getDayOfWeek() == DayOfWeek.SUNDAY) {
+					dateAndStatusAttendanceInfo.put(date, status[2]);
+				} else {
+					LocalDateTime checkInTime = user.getCheckInTime();
+					LocalDateTime checkOutTime = user.getCheckOutTime();
+
+					if (checkInTime != null && checkOutTime != null) {
+						LocalDate checkInDate = checkInTime.toLocalDate();
+						LocalDate checkOutDate = checkOutTime.toLocalDate();
+
+						if (checkInDate.equals(checkOutDate) && !checkInDate.isBefore(startDate)
+								&& !checkInDate.isAfter(endDate)) {
+							Duration duration = Duration.between(checkInTime, checkOutTime);
+							long diffInHours = duration.toHours();
+
+							if (diffInHours >= 8) {
+								dateAndStatusAttendanceInfo.put(checkInDate, status[0]);
+							} else {
+								dateAndStatusAttendanceInfo.put(checkInDate, status[1]);
+							}
+						}
+					}
+					else {
+						dateAndStatusAttendanceInfo.put(date, status[1]);
+					}
+				}
+			}
+			return dateAndStatusAttendanceInfo;
+		} else {
+			dateAndStatusAttendanceInfo.put(null, "User not found");
+			return dateAndStatusAttendanceInfo;
+		}
+	}
+	
+	=========================================================================================================================
+	
+public Map<LocalDate, String> getAttendanceInformation(Long userId, String month, String year) {
+		Map<LocalDate, String> dateAndStatusAttendanceInfo = new HashMap<>();
+//		Optional<User> userOptional = userRepository.findById(userId);
+		List<CheckInCheckOut> userOptional = checkInCheckOutRepository.findByUserId(userId);
+
+		if (userOptional.isEmpty()) {
+			for (int i = 0; i < userOptional.size(); i++) {
+//			User user = userOptional.get();
+				CheckInCheckOut user = userOptional.get(i);
+				String[] status = { "Present", "Absent", "WeekOff", "" };
+
+				YearMonth yearMonth = YearMonth.of(Integer.parseInt(year), Integer.parseInt(month));
+				LocalDate startDate = yearMonth.atDay(1);
+				LocalDate endDate = yearMonth.atEndOfMonth();
+				LocalDate today = LocalDate.now();
+
+				for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
+					if (date.isAfter(today)) {
+						dateAndStatusAttendanceInfo.put(date, status[3]);
+					} else {
+						dateAndStatusAttendanceInfo.put(date, status[1]);
+					}
+				}
+
+				for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
+					if (date.getDayOfWeek() == DayOfWeek.SUNDAY) {
+						dateAndStatusAttendanceInfo.put(date, status[2]);
+					} else {
+						LocalDateTime checkInTime = user.getCheckInTime();
+						LocalDateTime checkOutTime = user.getCheckOutTime();
+
+						if (checkInTime != null && checkOutTime != null) {
+							LocalDate checkInDate = checkInTime.toLocalDate();
+							LocalDate checkOutDate = checkOutTime.toLocalDate();
+
+							if (checkInDate.equals(checkOutDate) && !checkInDate.isBefore(startDate)
+									&& !checkInDate.isAfter(endDate)) {
+								Duration duration = Duration.between(checkInTime, checkOutTime);
+								long diffInHours = duration.toHours();
+
+								if (diffInHours >= 8) {
+									dateAndStatusAttendanceInfo.put(checkInDate, status[0]);
+								} else {
+									dateAndStatusAttendanceInfo.put(checkInDate, status[1]);
+								}
+							}
+						} else {
+							dateAndStatusAttendanceInfo.put(date, status[1]);
+						}
+					}
+				}
+			}
+			return dateAndStatusAttendanceInfo;
+
+		} else {
+			dateAndStatusAttendanceInfo.put(null, "User not found");
+			return dateAndStatusAttendanceInfo;
+		}
+	}

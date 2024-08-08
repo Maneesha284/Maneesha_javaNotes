@@ -1,0 +1,17 @@
+package collection;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+class Employee {
+	
+}
+public class ArrayListMenu {
+
+	public static void main(String[] args) {
+		Scanner sr=new Scanner(System.in);
+		
+		int ch=sr.nextInt();
+
+	}
+
+}

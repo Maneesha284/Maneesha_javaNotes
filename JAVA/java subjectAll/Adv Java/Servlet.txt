@@ -1,0 +1,36 @@
+1)How many times ServletContext object created by ServletContainer?
+A)one time
+
+2)How many times ServletConfig object created by ServletContainer?
+A)How many servlet classes have those many times servlet config objects created
+
+3)How many times Service phase will execute by ServletContainer?
+A)Depending on our application request
+
+4)How many times Initailzation phase will execute by ServletContainer?
+A)one time
+
+5)what is scope objects and usage?
+A)Scope object is used to our data carry the one servlet to another servlet by using
+three methods setAttribute(key,value), getAttribute(key), removeAttribute(key)
+
+6)What is the RequestDispatcher
+A)RequestDispatcher is used to making communacation b/w servlet to html and jp file
+
+7)What are diff b/w RequestDispatcher and sendRedirect?
+RequestDispatcher is used to making communacation b/w one servlet to another servlet with in same project same server
+sendRedirect is used to making communacation b/w one servlet to another servlet diff project diff server
+
+8)What are diff b/w doGet() and doPost()
+A)doGet():-
+doGet() method used to reading data from server
+Request data attached to url and visible to enduser
+we can send limited data only characters
+doPost():-
+doPost() method used to uploading data from server
+Request data not attached to url and not visible to enduser
+we can send unlimited data any type
+
+
+
+	

@@ -1,0 +1,41 @@
+selection sort:-
+selecting the smallest element from the unsorted portion of the list and moving it to the sorted portion 
+of the list. 
+
+63 76 22 66 27 92 32
+
+step1: first it will check min element 22 from whiole list and move to first position of the list
+22 76 63 66 27 92 32
+
+here "22" -->sorted array
+
+"76 63 66 27 92 32"--->unsorted array
+
+step2: next it will check min element from unsored array and move to second posiotion into sorrted array
+22 32 63 66 27 92 76
+
+here "22 32" -->sorted array
+
+"76 63 66 27 92"--->unsorted array
+
+step 3: same process
+
+Bubble sort:
+step1: find the largest element from list it's place into the correct postion into array
+
+6 0 3 5
+0 6 3 5
+0 3 6 5
+0 3 5 6
+
+here "22" -->sorted array
+
+"76 63 66 27 92 32"--->unsorted array
+
+step2: find the second largest element from list it's place into the correct postion into array
+
+0 3 5 6
+0 3 5 6
+0 3 5 6
+
+step 3: same process

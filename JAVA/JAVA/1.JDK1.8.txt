@@ -1,0 +1,127 @@
+JDK 1.8 Features:-
+==============
+*This was added in java in the year march-2014
+*The main intention of JDK 1.8 write the code in less code and providing more predefine code.
+*JDK 1.8 provides more flexibility to work with interfaces.
+
+Types of interfaces:-
+1.marker interface:-marker interface doens't have abstract methods. 
+EX:-Serializabel,Clonabe,RandomAccess
+public interface Serializabel{}
+public interface Clonabe{}
+public interface RandomAccess{}
+
+2.Functional inteface:-
+*This interface contains only one abstract method.
+@FunctionalInterface
+interface I{
+	public abstract void m1();
+}
+*This interface contains only one abstract method.may contains multiple defalut and static methods and may contains java.lang.Object class
+methods as a abstract method in interface I
+*Functionalinterface can be particpeted in inheritance either with other functional interface or normal interface.
+Example:-
+
+@FunctionalInterface
+interface I{
+	public abstract void m1();
+	public default void m2(){}
+	public default void m3(){}
+	public static void m4(){}
+	public static void m5(){}
+	public abstarct boolean equals(Object o);
+}
+
+3.General interface:-This interface contains one or more abastract methods.
+interface I{
+	public abstract void m1();
+}
+interface J{
+	public abstract void m1();
+	public abstract void m2();
+	public abstract void m3();
+}
+
+Adapter class:-
+=========
+A class which is only empty impelementation is called Adapter class.
+Example
+interface I{
+	public abstract void m1();
+	public abstract void m2();
+	public abstract void m3();  //newly added
+}
+class Main implements I{
+	public void m1(){}
+	public void m2(){}
+}
+After adding new specification create one "adapter class" and provide empty implememtation.
+abstract class AC implements I{
+	public void m3(){}
+}
+In the above classes code we should write "extends AC implements I"(little bit of code change)
+
+why shoud we add default and static method in interface(1.8)  private method(1.9):-
+==========================================================
+*without doing any small modifications in all implementation classes, If we want provide logic in inteface.
+defaultmethod in interface(1.8):-
+======================
+interface I {
+	public default void m1(){}
+}
+*default method can be participated in method ovrriding.
+*we can't write private and protected combimely with default, but we can write multiple default methods.
+*these methods always executable through implementation class memory.
+*default method not a treated as concrete method.
+*not override toString() method
+
+static method in interface(1.8):-
+=====================
+* If we want provide any logic to inteface without any requierments of implementation class.
+*The main intention of static method is developing utility methods.
+
+@FunctionalInterface
+interface I{
+	public abstract void m1();
+	public static void m2(){
+		System.out.println("=======");
+	}
+	public static void m3(){
+		System.out.println("=======");
+	}
+}
+
+private method in interface(1.9):-
+=======================
+*These are useful adding logic to interface.
+*Thsese methods are avoiding duplicate that means execute common logic in all methods
+*private methods either static or non-static.
+@FunctionalInterface
+interface I{
+	private default void m1() {
+		//common logic
+	}
+	private default void m2(){
+		//common logic
+	}
+	private default void m3(){
+		//common logic
+	}
+}
+
+NOTE:-If we want to add body type method in interface, That method should be contains default, static and private. 
+
+Lambda Expression:-
+==============
+*It is a function or expression which is provide fast and lesscode implementation for Functional interface/SAMI/one method inteface.
+*It is an annonymous function.
+*It is best suitable for working with collection object for reading, searching and navigating so on.
+*Lamda expression don't have .class file
+*It is design for developing functional programming in java
+*The process of sending one function as inputt
+another function parameter is called is functional programming.
+
+
+
+
+

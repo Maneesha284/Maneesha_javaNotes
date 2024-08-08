@@ -1,0 +1,154 @@
+Spring 
+*Spring is an open-source lightweight framework that allows Java EE 7 developers to build simple, reliable, and scalable 
+enterprise applications. It helps you manage your business objects. 
+*it will use Aspect-Oriented Programming(AOP), Entity class and VO classe and DI
+*The Spring framework can be considered as Spring AOP, Spring ORM and Spring Web MVC. 
+You can use any of these modules separately while constructing a Web application.
+
+Spring Boot 
+*Spring Boot is a microservice-based framework and makes a production-ready application in very less time.
+*It provides all the features of spring and is easier to use than spring. 
+*In Spring Boot everything is auto configured. We just need to use proper configuration for utilizing a particular functionality
+*It is useful if we want to develop REST API. 
+
+=============================================================================================================================
+Pagination in Hibernate:-
+------------------------
+Pagination is a technique used to divide a large dataset into smaller pages, making it easier to handle and display.
+you can implement pagination in various ways depending on the data source, such as 
+1.in-memory collections 
+2.database queries.
+
+1. Pagination with In-Memory Collections
+It's like a ArrayList you can create a metohd and return a specific page based on page number and page size.
+(page-1)*pagesize
+page=3 pagesize=10
+(3-1)*10 = 2*10 =20
+
+2. Pagination with Database Queries:
+Pagination is usually handles by a Database queries itself
+Example: SQL, you can use LIMIT and OFFSET clauses for pagination. Below is an example using JDBC to fetch a specific page 
+of results from a database.
+int page = 2;
+int pageSize = 10;
+String sql = "SELECT * FROM your_table LIMIT ? OFFSET ?";
+preparedStatement.setInt(1, pageSize);
+preparedStatement.setInt(2, (page - 1) * pageSize);
+ResultSet resultSet = preparedStatement.executeQuery();
+
+3. Pagination with Spring Data JPA
+Spring Data JPA provides a built-in way to handle pagination through the Pageable interface. 
+public Page<User> getUsers(int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
+        return userRepository.findAll(pageable);
+    }
+	
+public interface UserRepository extends JpaRepository<User, Long> {
+    Page<User> findAll(Pageable pageable);
+}
+
+@GetMapping("/users")
+public Page<User> getUsers(@RequestParam(defaultValue = "1") int page,
+                               @RequestParam(defaultValue = "10") int pageSize) {
+        return userService.getUsers(page, pageSize);
+}
+===============================================================================================================================
+Hibernate in Pagination:
+Pagination in Hibernate can be implemented using the Query or Criteria API. Pagination allows you to limit the number of
+results returned by a query, which is useful when dealing with large datasets.
+
+Why Use Pagination?
+Performance Optimization: Fetching large datasets in one go can lead to high memory consumption and slower response times. 
+Pagination breaks the dataset into manageable chunks.
+
+User Experience: In web applications, paginated results enhance user experience by allowing users to navigate through data 
+without overwhelming them with too much information at once.
+
+Network Efficiency: Smaller payloads reduce the amount of data transferred over the network, improving performance and reducing 
+bandwidth usage.
+
+Pagination Concepts
+Page Number: This indicates which page of the result set to retrieve. Page numbers typically start from 1.
+
+Page Size: This defines the number of records per page. For instance, a page size of 10 means each page will contain 10 records.
+
+Offset: This is the starting position of the records to fetch for a particular page. 
+
+It is calculated as (pageNumber - 1) * pageSize.
+
+Implementation in Hibernate
+Using HQL (Hibernate Query Language)
+HQL is similar to SQL but works with Hibernate’s entity objects instead of database tables.
+Query Object: Create a query object using HQL.
+
+Pagination Methods:
+setFirstResult(int startPosition): Sets the offset.
+setMaxResults(int maxResults): Sets the maximum number of records to fetch (page size).
+
+Example:
+Query query = session.createQuery("FROM YourEntity");
+query.setFirstResult((pageNumber - 1) * pageSize);
+query.setMaxResults(pageSize);
+List<YourEntity> results = query.list();
+Using Criteria API
+The Criteria API provides an object-oriented approach to querying the database.
+
+Criteria Object: Create a criteria object for the entity class.
+Pagination Methods:
+setFirstResult(int startPosition): Sets the offset.
+setMaxResults(int maxResults): Sets the page size.
+
+===============================================================================================================================
+first level cache and second level cache OR Level-1 and Level-2 cache in java 
+
+In Java, particularly in the context of Hibernate, a popular Object-Relational Mapping (ORM) framework, caching mechanisms
+play a crucial role in improving performance by reducing the number of database accesses.
+Hibernate provides two levels of caching: Level-1 (L1) cache and Level-2 (L2) cache.
+
+Level-1 Cache:
+*Associated with Session object 
+*Each session has it's own cache
+*Objects are stored into L1 cache for the duraction of session. once session is closed then cache cleared 
+*when you load entity, first it will check L1 cache, if found it's return without asking DB, if not found HQL the DB and stores 
+entity in the L1 chache for future use with in the same session.
+*L1 cache enabled by default, cannot be disabled.
+*Reduce DB aaccess during a session where the same entity might be requested multiple times.
+
+Level-2 Cache:
+*Associated with Session factory object 
+*Session factory shared among all sessions careted with a particular session factory.
+*Objects are stored even ession is closed cache can be configured to store multilple entities across multiple sessions.
+*Here first it will check L1-cahche, if not found it will check L2-cache, still if not found enity store into L1-cache or
+L2-cache.
+*L2 cache not enabled by default, you need configure explicitly 
+'hibernate.cfg.xml'
+
+Configuration Example
+To enable and configure L2 caching in Hibernate, you would typically modify the hibernate.cfg.xml file and specify the
+cache provider and cacheable entities
+
+<hibernate-configuration>
+    <session-factory>
+        <!-- Other configuration properties -->
+
+        <!-- Enable second-level cache -->
+        <property name="hibernate.cache.use_second_level_cache">true</property>
+        
+        <!-- Specify cache provider -->
+        <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+        
+        <!-- Enable query cache (optional) -->
+        <property name="hibernate.cache.use_query_cache">true</property>
+
+        <!-- Configure cacheable entities -->
+        <mapping class="com.example.MyEntity">
+            <cache usage="read-write" />
+        </mapping>
+    </session-factory>
+</hibernate-configuration>
+
+===============================================================================================================================
+
+Entity Graphs:
+--------------
+ 

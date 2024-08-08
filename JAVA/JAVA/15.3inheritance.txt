@@ -1,0 +1,271 @@
+Inheritance:-
+========
+*Inheritance is a relationship
+*Advt:- Code Reusability
+*We can implement using extends keyword
+
+Example:
+class P 
+{
+	public void m1()
+	{
+		System.out.println("parent");
+	}
+}
+class C extends P
+{
+	public void m2()
+	{
+		System.out.println("child");
+	}
+}
+class Inheritance1
+{
+	public static void main(String[] args) 
+	{
+		P obj1=new P();
+		obj1.m1();
+		//obj1.m2(); not child to parent
+
+        C obj2=new C();  //parent all members available in child class
+		obj2.m1();
+		obj2.m2();
+
+		P obj3=new C();    //parent reference can be used to hold child class object
+		obj3.m1();         //only methods availabe in parent class
+		//obj3.m2();     but by using refernce cann't call child specific methods 
+
+		//C obj4=new P();     child reference cann't be hold parent class
+		
+		C obj5=(C)obj3;
+		obj5.m1();
+		obj5.m2();
+
+	}
+}
+output:-
+parent
+parent 
+child
+parent
+parent 
+child
+
+In Real time example(advantages):-
+=======================
+without inheritance:-
+class HLoan                                      
+{
+    300methods
+}
+class PLoan
+{
+    300methods
+}
+class VLoan
+{
+    300methods
+}
+900 methods(during 90hours)
+
+with inheritance:-
+class Loan
+{
+   250 common methods
+}
+class HLoan extends Loan
+{
+    50 HLoan specific methods 
+}
+class PLoan extends Loan
+{
+    50 PLoan specific methods 
+}
+class VLoan extends Loan
+{
+    50 VLoan specific methods 
+}
+400 methods(during 40hours)
+
+Advtg:- less code and reduce devpt time
+
+Importance of inheritance:-
+==================
+                                                                   Object(Root)
+           ---------------------------------------------|-----------------------------------------------
+           |                             |                     |                      |                                               |
+   String                    StringBuffer    Number       Math                                     Throwable
+                                                                                                                 --------------|----------------
+                                                                                                                 |                                          |
+                                                                                                       Exception                              Error
+
+
+*Object class contain most commonly Required methods for all java classes.
+4300+(pre defined classes)
+*Parent class contains common methods
+*Child class contains specific methods
+*Child require Parent methods
+
+Types of Inheritance:-
+==============
+1)Single Inheritance:-
+==============
+Single child class extends Object class by default
+Object
+    ^
+     |
+class A
+
+class A
+{
+}
+
+2)Multilevel Inheritance:-
+=================
+class A
+    ^
+     |
+class B
+    ^
+     |
+class C
+
+class A
+{
+A
+}
+class B extends A
+{
+A+B
+}
+class C extends B
+{
+A+B+C
+}
+
+3)Hierarchical Inheritance:-
+==================
+                  class A
+                        |
+      |--------------|---------------|
+class B       class C            class D
+
+class A
+{
+A
+}
+class B extends A
+{
+A+B
+}
+class C extends A
+{
+A+C
+}
+class D extends A
+{
+A+D
+}
+
+4)Multiple Inheritance:-
+===============
+*Java provide support for Multiple Inheritance in interfaces but not classes(Ambiguity problem or Diamond Access problem).
+*Beacause interface have only declaration but not defination.
+*In even deafault methods and static methods supported to Java 8V in Multiple Inheritance.
+*In Python support for Multiple Inheritance.
+
+class A     classB
+      |---------|
+            |
+        class C
+
+class A
+{
+}
+class B
+{
+}
+class C extends A, B    //compile time ERROR
+{
+}
+
+Example:
+class p1
+{
+public void m1()
+{
+System.out.println("p1 m1");
+}
+}
+class p2
+{
+public void m1()
+{
+System.out.println("p2 m1");
+}
+}
+class C extends p1,p2    //compile time ERROR
+{
+C obj=new C();    //Ambiguity problem or Diamond Access problem
+obj.m1();
+}
+
+Python example:
+============
+class p1:
+    def m1(self):
+          print("p1 m1")
+class p2:
+    def m2(self):
+          print("p2 m1")
+class c(p1,p2):
+       pass
+    obj=c()
+    obj.m1()
+
+
+5)Hybrid Inheritance:-
+===============
+*Java not supported Hybrid Inheritance.
+(Single Inheritance+Multilvel Inheritance+Hierarchical Inheritance+Multiple Inheritance)
+           class A
+               ^
+                |
+           class B
+               ^
+                |
+           class C
+                |
+      |------------------|
+class D              classE
+      |------------------|
+                  |
+            class F
+
+6)Cyclic Inheritance:-
+===============
+*Java not supported Hybrid Inheritance, Python also...
+Already available inside A
+class A
+    ^
+     |
+class A
+
+class A
+{
+}
+class A extends A
+{
+}
+
+class  A
+   ^   |
+    |   \/
+class B
+
+class A extends B
+{
+}
+class B extends A
+{
+}

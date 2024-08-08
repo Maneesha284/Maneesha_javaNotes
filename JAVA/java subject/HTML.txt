@@ -1,0 +1,104 @@
+To become a web developer to required HTML, CSS, JavaScript, Bootstrap
+They are availavle versions...........
+HTML 4V
+HTML 5V
+
+CSS 2V
+CSS 3V
+
+JavaScript 5V
+JavaScript 6V
+JavaScript 7V
+
+Bootstrap 4V
+
+Client side(Angular JS)-----------------------server side(JAVA/not understand html)
+
+one organization-----W3C(WWW Consortium)(parepare standard for rules for internet browsres, servers)
+
+HTML(hyper text markup language)(developed by "Tim Berners Lee")
+=========================
+*hyper text means a text representation that can contains refernces to another text.
+*A document can have references to another document which is able to hyperlink
+*Whenever webpage can contains references to another webpage that text  behind this webpage is called as hypertext
+*"markup language" means contains tag some particular word mentioned inside < and >
+*"markup language" which syntax will be in the form of tags.
+HTML can be executed by browser
+browser:-
+It is a s/w that can read, understand, execute html also display output(web page) to the user.
+HTML Versions:-
+HTML 1.0 :  NOV 1991
+HTML 2.0 :  MAR 1995
+HTML 3.0 :  JAN1997
+HTML 4.01 :  DEC 1997
+HTML 5.0 :  OCT 2014
+HTML 5.1 :  NOV 2016
+HTML 5.2 :  DEC 2017
+
+List of imp browsers:-
+1.Google Chrome
+2.Mozila Firefox
+3.Safari
+4.Opera
+5.Microsoft Internet Explorer(MSIE) [discontinued]
+6.Microsoft Edge
+
+Browsers are required to run web page and to show to the user.
+
+File extentions:
+html lang                .html
+css lang                   .css
+javascript lang        .js
+
+*tag is  command/instrucions is nothing but browser to display some specific output.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

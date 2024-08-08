@@ -1,0 +1,73 @@
+Packages:-
+=======
+*A package name suggests as groupof classes, group of interfaces and other sub packages.
+*We use packages to organize our classes and inerfeaces.
+*2 types 1)Built-in packages/pre-defined packages
+               2)User-defined packages
+
+1)Built-in packages/pre-defined packages:-
+They are 3 types
+a)core packages:           java.util.*;    java lang.*;   java.io.*;
+b)extended packages:   javax.swing.*;      javax.sql.*;
+c)Third party(vendor):  (To built in organization as a company wish) 
+
+2)User-defined packages:-
+creating package:-          package pack1;
+
+package pack1;
+class packagedemo1
+{
+	public static void main(String[] args) 
+	{
+		System.out.println("welcome to package");
+	}
+}
+save:  packagedemo1.java
+compile: javac  -d d: packagedemo1.java
+(Automatically creating folder with pack1 name in package to create .class file)
+Run:   [d:>java <packagename>.<classname>]      d:>java pack1.packagedemo1
+
+creating sub package:-   package1.package2.package3;
+
+package package1.package2.package3;
+class packagedemo2
+{
+    public static void main(String[] args)
+    {
+          System.out.println("welcome to sub package");
+     }
+}
+
+save:  packagedemo2.java
+compile: javac  -d d: packagedemo2.java
+(Automatically creating sub-sub folder with package1 name in su-sub package to create .class file)
+Run:   [d:>java <packagename>. <packagename>. <packagename>.<classname>]      
+d:>java package1.package2.package3.packagedemo1
+
+How to use package:-
+===============
+package pack1;
+public class packagedemo1
+{
+    public void m1()
+     {
+           System.out.println("m1 method package");
+     }
+	public static void main(String[] args) 
+	{
+		System.out.println("welcome to package");
+	}
+}
+
+import pack1.*;
+class abcd
+{
+   public static void main(String args[])
+   {
+      packagedemo1  p=new packagedemo1();
+      p.m1();
+      System.out.println("hello");
+    }
+}
+ 
+

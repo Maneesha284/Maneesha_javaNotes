@@ -1,0 +1,321 @@
+1)Armstrong number:-
+===============
+import java.util.*;
+public class armstrong 
+{
+	public static void main(String[] args) 
+	{
+		int n,temp,sum=0,r;
+		System.out.println("enter n value");
+		Scanner sr=new Scanner(System.in);
+		n=sr.nextInt();
+		temp=n;
+		while(n>0)
+		{
+			r=n%10;
+			sum=sum+(r*r*r);
+			n=n/10;
+		}
+		if(sum==temp)
+		
+			System.out.println("armstrong number");
+		else
+			System.out.println("not armstrong number");	
+	}
+}
+output1:
+enter n value
+153
+armstrong number
+output2:
+enter n value
+120
+not armstrong number
+
+Armstrong number to given no.of digits:-
+=============================
+import java.util.*;
+public class Armstrong1 
+{
+	public static void main(String[] args) 
+	{
+		int n,temp,r,count=0;
+		double sum=0;
+		System.out.println("enter n value");
+		Scanner sr=new Scanner(System.in);
+		n=sr.nextInt();
+		temp=n;
+		while(temp!=0)
+		{
+			  count=count+1;
+ 			  temp=temp/10;
+		}
+		temp=n;
+		while(n>0)
+		{
+			r=n%10;
+			sum=sum+Math.pow(r,count);
+			n=n/10;
+		}
+		if(sum==temp)
+		System.out.println("armstrong number");
+		else
+		System.out.println("not armstrong number");	
+	}
+}
+output:-
+enter n value
+8208
+armstrong number
+
+2)Fibonacci series:-
+==============
+import java.util.*;
+public class fibonacci 
+{
+	public static void main(String[] args)
+	{
+		int f1=0,f2=1,f3,c=3,n;
+		System.out.println("enter range");
+		Scanner s=new Scanner(System.in);
+		n=s.nextInt();
+		System.out.println();
+		System.out.println(f1);
+		System.out.println(f2);
+		while(c<=n)
+		{
+			f3=f1+f2;
+			System.out.println(f3);
+			f1=f2;
+			f2=f3;
+			c++;
+		}
+	}
+}
+enter range
+10
+
+0
+1
+1
+2
+3
+5
+8
+13
+21
+34
+
+3)Reverse String:-
+=============
+import java.util.*;
+class reversestring
+{
+	public static void main(String args[])
+	{
+		String s;
+		System.out.println("Enter string");
+		Scanner sr=new Scanner(System.in);
+		s=sr.next();
+		char ch[]=s.toCharArray();
+		int l=s.length();
+		for(int i=l-1;i>=0;i--)
+		{
+			System.out.print(ch[i]);
+		}
+	}
+}
+
+Enter string
+hello
+olleh
+
+4)String Palindrome:-
+===============
+import java.util.*;
+class palindrome
+{
+	String str;
+	int l,i,j,flag=0;
+	public void read()
+	{
+		System.out.println("Enter string");
+		Scanner sr=new Scanner(System.in);
+		str=sr.next();
+	}
+	public void palin()
+	{
+		char str1[]=new char[20];
+		char str2[]=new char[20];
+		str1=str.toCharArray();
+		l=str.length();
+		for(i=l-1,j=0;i>=0;i--,j++)
+		{
+			str2[j]=str1[i];
+		}
+		for(i=0;i<l;i++)
+		{
+			if(str1[i]==str2[i])
+			flag++;
+		}
+		if(flag==l)
+				System.out.println("given string is palindrome");
+			else
+				System.out.println("given string is not palindrome");
+	} 
+}
+public class palindome_string
+{
+	public static void main(String[] args) 
+	{
+		palindrome obj=new palindrome();
+		obj.read();
+		obj.palin();
+	}
+}
+output:-
+Enter string
+malayalam
+given string is palindrome
+
+5)Matrix multiplication:-
+=================
+import java.io.*;
+import java.util.*;
+public class matrixmul 
+{
+	public static void main(String[] args)
+	{
+		int r1,c1,r2,c2;
+		System.out.println("Enter no.of rows,columns 1st matrix");
+		Scanner sr=new Scanner(System.in);
+		r1=sr.nextInt();
+		c1=sr.nextInt();
+		System.out.println("Enter no.of rows,columns 2nd matrix");
+		r2=sr.nextInt();
+		c2=sr.nextInt();
+		int i,j,k;
+		int a[][]=new int[r1][c1];
+		int b[][]=new int[r2][c2];
+		if(c1==r2)
+		{
+			System.out.println("Enter elements 1st matrix");
+			for(i=0;i<r1;i++)
+			{
+				for(j=0;j<c1;j++)
+				{
+					a[i][j]=sr.nextInt();
+					
+				}
+			}
+			System.out.println("Enter elements 2nd matrix");
+			for(i=0;i<r2;i++)
+			{
+				for(j=0;j<c2;j++)
+				{
+					b[i][j]=sr.nextInt();
+					
+				}
+			}
+		}
+		int c[][]=new int[r1][c2];
+		for(i=0;i<r1;i++)
+		{
+			for(j=0;j<c2;j++)
+			{
+				c[i][j]=0;
+				for(k=0;k<c1;k++)
+				{
+					c[i][j]=c[i][j]+(a[i][j]*b[i][j]);
+					
+				}
+			}
+			
+		}
+		System.out.println("result matrix");
+		for(i=0;i<r1;i++)
+		{
+			for(j=0;j<c2;j++)
+			{
+				System.out.println(c[i][j]+"");
+				
+			}
+			System.out.println();
+	}
+
+          }
+}
+output:-
+Enter no.of rows,columns 1st matrix
+2
+2
+Enter no.of rows,columns 2nd matrix
+2
+2
+Enter elements 1st matrix
+2
+4
+1
+3
+Enter elements 2nd matrix
+1
+2
+3
+2
+result matrix
+4
+16
+
+6
+12
+
+
+// Java program to print prime numbers  present in Fibonacci series. 
+class PrimeAndFib  
+{ 
+// Function to check perfect square 
+Boolean isSquare(int n) 
+{ 
+    int sr = (int)Math.sqrt(n); 
+    return (sr * sr == n); 
+} 
+// Prints all numbers less than or equal to n that are both Prime and Fibonacci. 
+static void printPrimeAndFib(int n) 
+{ 
+    // Using Sieve to generate all  primes less than or equal to n. 
+    Boolean[] prime = new Boolean[n + 1];       
+    // memset(prime, true, sizeof(prime)); 
+    for (int p = 0; p <= n; p++)  
+    prime[p] = true; 
+    for (int p = 2; p * p <= n; p++)
+   {  
+        // If prime[p] is not changed, then it is a prime 
+        if (prime[p] == true) 
+       {   
+            // Update all multiples of p 
+            for (int i = p * 2; i <= n; i += p) 
+                prime[i] = false; 
+        } 
+    } 
+    // Now traverse through the range and print numbers that are both prime  and Fibonacci. 
+    for (int i=2; i<=n; i++)
+    {  
+        double sqrt = Math.sqrt(5 * i * i + 4); 
+        double sqrt1 = Math.sqrt(5 * i * i - 4);   
+        int x = (int) sqrt; 
+        int y = (int) sqrt1; 
+  
+    if (prime[i]==true && (Math.pow(sqrt,2) == Math.pow(x,2) || Math.pow(sqrt1,2) ==  Math.pow(y,2))) 
+        System.out.print(i+" "); 
+    } 
+}  
+// main method
+public static void main(String s[]) 
+{ 
+    int n = 30; 
+    printPrimeAndFib(n); 
+} 
+} 
+  
+
+

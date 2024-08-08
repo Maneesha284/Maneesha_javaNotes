@@ -1,0 +1,557 @@
+JSP:-
+To develop View Component of JSP(presentation logic to display something for end user)
+			JSP(Java server pages)
+************************************************************************************************************************************
+
+What are Java Server Pages?
+*JSP is a tag based web technology
+*tag means a instrucion to jsp container to develop web app
+*Jsp tech provides specification to third party vendors to develop servers. 
+*Jsp tech provides static and dynamic response to all endusers symoultaneously
+*Compare to servlet, jsp tech to develop app with in less time.
+
+printing msg in servlet:-
+creating our own package
+import interfaces and classes
+creating class and impl servlet or extends GS HS
+override service/doGet/doPost methods by giving appropriate exception
+creating PrintWriter object and writing logic to msg on browser
+
+printing msg in JSP:-
+<%= "hello" %>
+Jsp is alternative way to developing web app
+Jsp file it becomes again Servlet Instead of writing code by us.
+
+Servlet(java code, html tags)
+JSP(java code(processing request) , html tags(presentation), jsp tags(processing request))
+
+*java code to wite out side of jsp tags, java code treated as html code(printing).
+<% java code %>		//Scripting tag
+
+HTML Comments:-<!--   -->
+JSP coments <%--   --%>
+Advantages:-
+fast development
+Automatic complie
+Automatic reload
+No need of project structure
+No need of web.xml file
+good presentation logic
+************************************************************************************************************************************
+
+Life cycle methods of JSP:-
+===================
+	  JSP Container
+test.jsp  -->Verification phase
+test_jsp.java  --->Transalation phase(PageImplementationClass)
+test_jsp.class  -->Compilation phase
+
+        	Configaration phase	
+	
+	Servlet Conatiner
+SV, SM, SB --->Loading phase
+NSV, NSB, NSM, Con  --->Instantiation phase
+jspInit()  --->Initailization phase
+_jspService() ---->Translation phase
+jspDestroy()  --->Destroy phase
+
+Every Jsp is one servlet, That means after compilation of translation phase jsp becomes servlet.
+The class(test_jsp.class) which is created by container respective of given jsp, That class we are calling page implementation class.
+
+jspInit()  -->Initailization phase
+_jspService()  -->servicing phase
+jspDestroy()   -->destroy phase
+************************************************************************************************************************************
+
+HttpJspBase.....implements.......>HttpJspPage(_jspService(-,-))___extends__>jspPage(jspInit(), jspDestroy())
+Tomcat follow rules of servlet and jsp whcih are given by JEE.
+Tomcat server provides one class
+i.e; HttpJspBase
+            |
+           \/
+inti(){} --->jspInit(){}
+service(){} --->_jspService(){}
+destroy(){} --->jspDestroy(){}
+************************************************************************************************************************************
+
+There are 5 types of tags in jsp
+=====================
+1.Scripting tag:-
+============
+Scripting tag (java code):-
+The tags which are useful for writing java code in .jsp file for processing request 
+Three scripting tags
+
+a)Declaration tag:-   <%! %>
+Declaration tag support the logic which is suitable to write class level(V,M,B,Con) outSide of _jspService(-,-)
+So it is doesn't get memory at each request
+*whatever programming elements(V,M,B,Con) can we able to write within class level in declaration tag.
+publi final class test_jsp extends HttpJspBase {
+//writing java code outside of _jspService() means within class level we have one tag i.e; Declaration tag
+	public void _jspService(-,-) {
+	}
+}
+To wite java code with in _jspService()
+
+b)scriptlet tag:-   <% %>
+*whatever programming elements and logic we can able to write with in _jspService() method
+*We can't reusable this code
+
+c)expression tag:-  <%= %>
+printin information on browser
+************************************************************************************************************************************
+
+2.Directive tag:-
+===========
+Directive tag:-
+test.jsp------jspcontainer------->test_jsp.java(PIC)(Translation phase)
+mean while of translation phase jsp container takes some steps to create PIC
+1)import only servlet and jsp relats packages
+2)By default session object is active mode
+HttpSession session=pageContext.getSession();
+3)we are unabel to work "exception" implicit object direclty.
+4)PIC always subclass of HsttpJspBase
+5)By default PIC is not thread safe
+6)Response[MIME] type always "text/html".
+Three types directive tags   [<%@   %>]
+
+1)page :- import classes and interfacse, work with exception , disable session, thread safe, 
+change repose type <%@ page attribute=values %>
+<%@ page import="java.util.ArrayLis,----"   %>
+
+2)taglib :- It is a directive tag which talks about tag prefix and location of tag.
+<%@ taglib prefix="nit" uri="customtags">
+
+3)include :-one jsp file includes another .jsp/.html/.text file
+<%@  include file="one.jsp" %>
+<%@  include file="one.html" %>
+<%@  include file="one.txt" %>
+
+A directive element in a JSP page provides global information about a particular JSP page and is of three types.
+page directive
+taglib
+include
+syntax
+<%@ directive attribute-list %>
+
+page Directive:-
+Defining attribute that notify the web container about the general settings of a JSP page
+<%@ page import="java.util.ArrayLis,----"   %>
+
+The following attributes supported the page directive
+language:- Defines the scripting language of the JSP page.
+extends:- Defines the extended parent class of the JSP generated servlet.
+import:- Imports the list of packages, classes or interfaces into the generated servlet
+session:- Specifies if the generated servlet can access the session or not. An implicit object, session, is generated if the value is set to true. 
+The default value of session
+buffer:- Specifies the size of the out buffer. If size is set to none, no buffering is performed. The default value of buffer size is 8 KB.
+autoFlush:- Speifies that the out buffer be flushed automatically if the value is set to true. If the value is set to false, an exception is raised 
+when the buffer is full. The default value of autoFlush attribute is true.
+isThreadSafe:- Specifies whether a JSP page is thread safe or not.
+erroePage:- Specifies that any un-handled exception generated will be directed to the URL.
+isErrorPAge:- Specifies that the current JSP page is an erroe page, If the attribute value is set to true. The default value of isErrorPage attribute 
+is false.
+contentType:- Defines the Multipurpose internal Mail Extension
+
+<%@ page isELIgnored="false"%>
+
+************************************************************************************************************************************
+
+3.Action tag:-
+================
+Explain JSP Action Tags?
+This tag giving instruction to container to perform some operations. This tag main intension is "avoiding java code" from .jsp file.
+writing jsp tags foreground
+executing java code background
+Two types of tags Action tag
+a)Standad Action tag:-
+-------------------------
+This tags are given by jsp technology to perform some operations.This tag is "avoiding java code" from .jsp file.
+These tags are start with prefix jsp:
+like method calling stmt for giving
+method calling stmt for reading
+<jsp:include>[Standad Action tag]
+<jsp:forward>
+<jsp:param>
+<jsp:getProperty>
+Retives the property of a bean
+name 
+property
+<jsp:setProperty>
+
+<jsp:useBean>:-
+Invokes and searching for an existing bean
+attributes:- 
+id :-
+class:-
+scopeName:-
+
+************************************************************************************************************************************
+1.We can not use implicit object in jsp page
+2.To call user define methods we don't have predefine action
+3.If we write any code in scriplet tage we cann't re use
+4.we can't debub this JSP code
+
+If any tag is created by the programmer in custom tag.
+
+4.Custom/Userdefine tag:-
+=========================
+*To reduce scriptlet tag.
+*Cusom tag look like html tag and it perform specific action.
+.tld //tag lib directive -->group of tags
+
+
+taglib directive collection of tags.
+Typres of tage:
+1.Empty tag.
+2.Tag with Attribute.
+3.Tag with body
+4.Nested tags.
+
+*TagHanler means java class
+				In the webServer
+		  		Web container							
+client-----sample.jsp------>JSPEngine----locates--->TLD------calls------>TagHandler
+   /\			     |	/\						 |
+   |			     |  |						 |
+    ---------output-----------	--------------------------------------------------
+
+sample.jsp
+<%@taglib uri="web-INF/hello.tld" prefix="td">
+<td:sayHello/>  <----(emptytag)
+
+Tag is associated with java class---->Tag Handler
+Functionality of the tag is present.
+
+Require packages to create Taghandler
+javax.servlet.jsp.tagext.Tag
+TagSupport---->
+BodyTagSupport------>
+
+creating a custom tag:-
+To develop a custom tag, you need to perform following steps
+1.Develop a tag handler
+2.Develop the tag library descriptor(TLD) file
+3.include the tag libtary in a jsp page
+4.Deploy the application.
+
+*JSP API provides library support for custom tag development package javax.servlet.jsp.tagext
+*To Develop a custom tag and irs associated action
+*There are2 imporatant things we need to do
+1.Write the tag handler and copy it into the classes directory.
+2.Write the tag library descriptor 
+
+Tag library Descriptor:- 
+It is an xml file with tld extension, in this file we define our own custom tags, specify their Properties and perform mapping between the 
+our own associated tag handler
+
+Tag hanler:-
+Defining a tag is not sufficient to perform an action. Every tag we definr should have a java class
+associated with it to provide custom functionality.
+The java class that provides the functionality for the custom tag is known as the tag handler
+According to the jsp specification any java become a tag handler if it implements javax.servlet.jsp.tagext.Tag interface directly or indirectly.
+
+
+	JspTag
+	  /\
+	   |
+	   |
+	  Tag
+	  /\
+	   |
+	   |
+	IterationTag
+	/\	/\
+	 |	 |
+	 |	 |
+	BodyTag	TagSupport
+
+	  /\
+	   |
+	   |
+	Body Tag support
+
+
+b)custom/userdefine Action tag
+This tag is instruction to container to perfrom some operations at run time(servicing phase according to our requirment)
+These tags are start with prefix ourown:
+<nit:date> [custom Action tag]
+
+What are the JSP custom tag components?
+Atrributes in custom tag:-
+web.xml
+ourtaglib.tld 
+GreetingHandler.java
+
+This interface provides life cylce methods for the tag handler. container manages the life cycle of the tag handler and calls methods on the tag handler instance.
+Tag interface provides the following important life cycle methods.
+setPageContext(pageContext pageContext)
+doStartTag()
+doEndTag()
+Release()
+
+setPageConext():-
+JSP container after instanciating the tag handler calles this method by supporting teh pageContext object as argument by supplying this object, the container
+makes the tag handler aware of the environment in thcich, its associated tag runs, pageContext gives us all the implicit objects required in the tag handler
+
+doStartTag():-
+Container calls this life cycle method on the tag handler instance when the start tag is encountered in the jsp. we write custom action code
+in this method.
+
+Tag.SKIP_BODY
+Tag.EVAL_BODY_INCLUDE
+
+This first constant instructs the container to ignore the body of the tag.
+The second constant indicates to the container that the body of the tag has to be evaluetd.
+
+doEndTag():-
+Container calls this method when it encounters end tag in the jsp. This method is called irrespective or whenher the custom 
+
+Tag.SKIP_PAGE
+Tag.EVAL_PAGE
+
+The first constant indicates that the rest of the page after this tag should not be evaluated.
+The second constant indicates taht the rest of the page should be evaluated
+
+Release():-This method is called by the container
+Just before the tag handler instance is garbage collected. Tgis method is used by the progammer to release any resource.
+
+<taglib>
+<tlib-version>1.0</tlib-version>
+<jsp-version>1.2</jsp-version>
+<short-name>simple</short-name>
+<uri>http://org-ojas/heelo-taglib</uri>
+<tag>
+<name>sy</name>
+<tag-class>com.hello.HelloHandler</tag-class>
+</tag>
+</taglib>
+
+HelloHandler.java:-
+==================
+public class HelloHandlerextends TagSupport{
+	public int doStartTagg() {
+		tyr{
+			JSPWriter pw=pageContext.getOut();
+			pw.println("Date: "+new Date().toString());
+
+		}
+		catch(Exception e){}
+	}
+	return  Tag.EVAL_BODY_INCLUDE;
+}
+
+CustomHello.jsp:-
+===========
+<%@taglib  uri="com.hello.HelloHandler" prefix="td"%>
+<td:say wish="hi">
+welcome
+</td:say>
+
+
+
+************************************************************************************************************************************
+
+5.JSTL tag:-
+=========
+(JAVA STANDATRD TAG LIBRARY)
+JSP tags:-(jstl.jar file required)
+
+Fast development
+Avoiding scripting tags
+Code reusability
+To reduce scriptlet tags.
+
+a)core tags:-working variables
+The section presents a few of the tags from the core tag library in JSTL.
+b)formation tags:-print date info in different format.
+c)functoinal tags:-working string
+d)sql tags:-working tags
+e)xml tags:-working xml
+
+Set Tag:-
+
+Handling Errors and Exceptions in servlets:-
+*A status code is the information that the application server to the client about the success of failure of a cllient request.
+The application server sends to the client about the success or failure of a client request.
+The status codes are logically grouped into following five categories:
+
+Inforamtion: Reprsents messages about the 
+
+Categories of status codes:
+Client error: Represents a client error, which indicates that the request has some error and cannot be serviced.
+Server error: Represents a server error, 
+
+
+sample.jsp:
+-------------
+
+<%@taglib ur="http://java.sun.com/jstl/core" prefix="c"%>
+<c:set var="a" value="welcome"></c:set>
+<h1>${a}</h1>
+************************************************************************************************************************************
+
+What is JSP Expression Language?
+JSP EL is makes it possible to easily access application to store data in javabeans component
+JSP EL allows to create expressions both airthmetic and logical you can use integer, float, string boolean and number
+<jsp:setProperty name = "box" property = "perimeter" value = "100"/>
+
+************************************************************************************************************************************
+
+JSP implicit Objects and their types:-
+==========================
+The objects which rae created and managed by both jsp and servlet container are called Implicit object
+request ------->  javax.servlet.ServletRequest 
+//Represents the response object of HttpServletRequest. Its is used to retrive 
+
+response ------->  javax.servlet.http.HttpServletResponse 
+//Represents the response object of HttpServletResponse that is used to send an HTML output to the client.
+
+config  ------->  javax.servlet.SetvletConfig  
+//Represents the object of a servletConfig class
+
+application  ------->  javax.servlet.ServletContext 
+//This application objevt defines a web application. Usually, it is the application in the current web context.
+
+session ------->  javax.servlet.http.HttpSettion 
+//Represents a session object of a HttpSession
+
+page ------->  java.lang.Object  //Reprsents the current instance of the JSP that is used to refer to the current instance of the generated servlet.
+out ------->  javax.servlet.JspWriter //Reprsents the object of JSPWriter to send response to the client. JSPWriter extends the PrintWriter class and is used by JSP page to send client reponses.
+exception ------->  java.lang.Throwable //Reprsents the Throwable exception in a JSP page.
+pageContext ------->  pageContext
+These objects are we have to write only in  _jspService(-,-) but not jspInit() and jspDestroy()
+That means we can write scriplet tag<%  %> and expression tag<%= %> but not declaration tag<%!  %>
+
+*we have to write application and config objects  in jspInit() and jspDestroy() but not directly, by using factory methods like
+ServletConfig scg=getServletConfig();
+ServletContext sct=getServletContext();
+
+*We have to create userdefined variables names as implicit object name in jspInit() and jspDestroy() but not in _jspService(-,-) 
+
+<body bgcolor="cyan">
+<%@ page isErrorPage="true" %>
+	<h2>
+		Request: <%= request.hashCode() %> <br>
+		Response: <%= response.hashCode() %> <br>
+		session: <%= session.hashCode() %> <br>
+		config: <%= config.hashCode() %> <br>
+		application: <%= application.hashCode() %> <br>
+		out: <%= out.hashCode() %> <br>
+		page: <%= page.hashCode() %> <br>
+		pageContext: <%= pageContext.hashCode() %> <br>
+		<%-- <exception: <% exception %> --%>
+	</h2>
+</body>
+<!-- Request: 1707059093
+Response: 1266992418
+session: 890576289
+config: 1010435363
+application: 606182974
+out: 1239540301
+page: 1409550021
+pageContext: 947585659 -->
+
+
+*Pre-define variables that can be included in jsp expression and scriptlets.
+*Implemented from servlet classes and interfaces.
+
+************************************************************************************************************************************
+pageContext:-
+==========
+*pageContext object is an implicit object, which is useful to hold all other implicit objects.
+*It is useful to storing, deleting and retriving data from scope objects.
+*It is useful for making communication between .jsp to another .jsp or .java or .html or .text files.
+pageContext.include("/one.html");
+pageContext.forward("./as");
+
+------------------------------------------
+|Request: 1707059093		|
+|Response: 1266992418	|
+|session: 890576289		|
+|config: 1010435363		|
+|application: 606182974	|
+|out: 1239540301		|
+|page: 1409550021		|
+------------------------------------------
+          pageContext: 947585659
+************************************************************************************************************************************
+Scope object in JSP:-
+===============
+The object is useful storing data as well as sharing data.
+These implicit objects are created and maintained by container.
+4 scope objects:-
+1.page:-page scope object data can sharable only with in same .jsp file but not another .jsp file. Every .jsp fi;e have their own page scope object.
+
+2.request:-request scope object data can sharable with multiple .jsp files before response commited to browser.
+	 request scope object have more accessbilties compare page scope object.
+
+3.session:-session scope object inforamtion are always sharable b/w multiple request with in same browser multiple windows.
+	each and every browser having their own session scope object. One browser session context doesn't share another browser.
+
+4.application:-application scope object information sharable with multiple pages.
+Some information is needed by multiple pages independent of who the current user is. JSP supports access to this type of shared information through the
+application scope.Information saved in the application scope by one page can later be accessed by another page, even if the two pages were requested by 
+different users.
+
+with the help of pageContext object we can store/read/remove from above scope objects.
+
+setAttribute(-,-) :-It is always stores data in page scope object.
+
+setAttribute(-,-,-) :-It is stores data in specific scope object
+
+getAttribute(-) :-It is read data from page scope object
+
+getAttribute(-,-) :-It is read data from specific scope object.
+
+findAttribue(-) :-It is read data first page object if not available request object if not available session object if not avaliable application object. 
+
+removeAttribute(-) :-It is delete data from all scope objects
+
+removeAttribute(-,-) :-It is delete data from specific scope object.
+************************************************************************************************************************************
+Java Bean:-
+=========
+follows rules
+1.class should be public
+2.class should be implements java.io.Serializable or java.io.Externizable
+3.class should be contains public zero/default constructor.
+4.class properties/state/variables should private.
+5.class methods should be public
+************************************************************************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

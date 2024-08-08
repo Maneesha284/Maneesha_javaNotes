@@ -1,0 +1,671 @@
+String:-
+=====
+Questions:-
+=======
+1)Diff  b/w String and StringBuffer
+StringBuffer:  Mutability (change)
+String:  Immutability (cann't change)
+
+2)String object creation:: Heap area, String control pool
+
+3)imp of String control pool
+
+4)Imp FAQs on String and StringBufffer
+
+5)Imp constructors of String class
+
+6)Imp methods  of String class::
+charAt()               concat()               equals()                       equalsIgnorecase()
+isEmpty()            length()                replace()                      subString()
+indexOf()            lastIndexOf()       toLowerCase()            toUpperCase()                 trim()
+
+7)Imp conculsion about String immutability
+
+8)creation of our own immutability class
+
+9)Final vs immutability
+
+10)Need of StringBuffer
+
+11)StringBuffer class constructors
+
+12)Imp methods  of StringBuffer
+length()                      charAt()                  capacity()                           setCharAt() 
+append()                     insert()                   delete()                               deleteCharAt() 
+reverse()                    setLength()             ensureCapacity()                trimtoSize()
+
+13)Need of StringBuilder
+
+14)Diff b/w StringBuffer and StringBuilder
+
+15)String   vs     StringBuffer       vs        StringBuilder
+
+16)Method chaining
+
+String:-
+Any application(project) using only String objects.
+1000-obj
+>900 -String obj
+<100-non String obj
+
+case 1:-
+=====
+public class stringcon1
+{
+	public static void main(String[] args)
+	{
+		String st1=new String("manee");
+		st1.concat("sha");
+		System.out.println(st1);                                          //manee
+		StringBuffer st2=new StringBuffer("manee");
+		st2.append("sha");
+		System.out.println(st2);                                          //maneesha
+	}
+}
+
+case 2:-
+                        Object(Root)
+                                 |
+           ---------------------------------------------------------------------
+           |                                                                                                |                    
+   String                                                                                       StringBuffer   
+equals()--always content comparsion                                       equals()--reference comparsion
+(overriden)                                                                                 (not overriden)   
+                                         
+public class stringcon2
+{
+	public static void main(String[] args)
+	{
+		String s1=new String("manee");
+		String s2=new String("manee");
+		System.out.println(s1==s2);                                   //False
+		System.out.println(s1.equals(s2));                         //True
+		StringBuffer sb1=new StringBuffer("manee");
+		StringBuffer sb2=new StringBuffer("manee");
+		System.out.println(sb1==sb2);                                  //False
+		System.out.println(sb1.equals(sb2));                        //False
+	}
+}
+
+Heap Area & String constant pool(scp):-
+*Jvm first will be check object---->scp
+String s1=new String("manee"); (2 objects will be created)-------(HeapArea & String constant pool)
+String s1="manee";  (1 obj will be created)--------(String constant pool)
+
+ex1:-
+String obj=new String("manee");       //manee
+obj.concat("sha");                               //string cann't be change
+obj1=obj.concat("rayudu");                //assign
+System.out.println(obj1);                     //maneerayudu
+
+ex2:-
+String obj1=new String("spring");
+obj1.concat("fall");
+String obj2=obj1.concat("winter");
+obj2.concat("summer");
+System.out.println(obj1);            //spring
+System.out.println(obj2);           //springwinter
+
+ex3:-
+String s1=new String("you cannot change me");
+String s2=new String("you cannot change me");
+System.out.println(s1==s2);                  //false
+String s3="you cannot change me";
+System.out.println(s1==s3);                  //false
+String s4="you cannot change me";
+System.out.println(s3==s4);                  //true
+String s5="you cannot"+"change me";
+System.out.println(s4==s5);                  //true
+String s6="you cannot";
+String s7=s6+"change me";                    
+System.out.println(s4==s7);                 //false(run time)
+final String s8="you cannot";
+String s9=s8+"change me";
+System.out.println(s4==s9);                 //true(s8-final compile time)
+
+imp of Scp:-
+*same object can be referenced with multiple references
+*same object reusability
+*memory utalization improved
+voter registration form Name phno  city (v1,v2,v3.......1crore)
+city name common to 5000 people
+SCP reusability memory
+
+disadvt of SCP:-
+v3(hyd)-change city name to vjy to effected in 5000 people
+solve this problem using "immutability concept". 
+new obj created(v3--->vjy)
+
+Importance of FAQs:-
+==============
+1)why scp concept is available only for string object but not for StringBuffer?
+string:-same object can be reused multiple times.
+stringBuffer:-Every time separate object created.
+2)Why String objects immutable where as stringBuffer objects are immutable?
+string:-same object can be reused multiple times.
+stringBuffer:-Every time separate object created.
+3)Inaddition to string objects any other objects are immutable in java?
+All warpper class objects also immutable
+Byte 
+Short
+Integer
+Long
+Float
+Double
+Character
+Boolean
+
+Important constructors of string class:-
+==========================
+1)String s=new String();//creates an empty string object
+
+2)String s=new String(Sting literal);//store heap area
+
+3)String s=new String(StringBuffer sb);//equalence StringBuffer to String object
+
+4)String s=new String(StringBuilder sb);//equalence StringBuilder to String object
+
+5)String s=new String(char[] ch);//equalence char array to string object
+char[] ch={'j','a','v','a'};
+String s=new String(ch);
+sopln(s);  //java
+
+6)String s=new String(byte[] b);
+byte range= -128 to +127
+byte[] b={65,90,97,98};
+String s=new String(b);
+sopln(s); //AZab
+
+Importat methods of string class:-
+=======================
+1)public char charAt(int index)
+String s="maneesha";
+sopln(s.charAt(6));      //h
+sopln(s.charAt(20));    //StringIndexOutOfBoundsException
+
+2)public string concat(String s)
+String s="Maneesha";
+s=s.concat("Rayudu");    //s=s+"Rayudu";  s+="Rayudu";
+System.out.println(s);   //ManeeshaRayudu
+
+3)public boolean equals(Object o)
+To check equality of string object. overriding version
+String s="maneesha";
+System.out.println(s.equals("MANEESHA"); //false
+
+4)public boolean equalsIgnoreCase(String s)
+String s="maneesha";
+System.out.println(s.equalsIgnoreCase("MANEESHA"); //true
+3 & 4 best example username[equalsIgnoreCase()]--->case not imp 
+                                  password[equals()]--->case imp 
+
+5)public boolean isEmpty()
+String s="";
+String s1="maneesha";
+System.out.println(s.isEmpty());  //true
+System.out.println(s1.isEmpty());   //false
+
+6)public int length()
+String s="maneesha";
+System.out.println(s.length());  //8 length() method applicable for string concept
+int[] x={10,20,30,40}
+System.out.println(s.length); //4   length variable applicable for array concept
+
+7)public String replace(oldchar, newchar)
+String s="abab";
+System.out.println(s.replace('a','b'));  //bbbb
+
+8)public String substring(intbegin)
+from begin index to end of string
+String s="abcdefg";
+System.out.println(s.substring(3));   //defg
+
+9)public String substring(intbegin,intend)
+from begin index to end-1 index
+String s="abcdefg";
+System.out.println(s.substring(3,6));   //def (3 to 6-1)
+
+10)public int indexOf(charch)
+String s="maneesha";
+System.out.println(s.indexOf('n'));   //2
+System.out.println(s.indexOf('e'));   //3(first time occurance index)
+System.out.println(s.indexOf('z'));   //-1
+
+11)public int lastIndexOf(charch)
+String s="maneesha";
+System.out.println(s.lastIndexOf('e'));  //4
+
+12)public string toLowerCase()
+13)public string toUpperCase()
+String s="Maneesha";
+System.out.println(s.toLowerCase());  //maneesha
+System.out.println(s.toUpperCase());  //MANEESHA
+
+14)trim():- To remove leftside spaces of string and rightside spaces of string.But not remove middle spaces of string
+import java.util.*;
+class Test1
+{
+   public static void main(String args[])
+   {
+      Scanner sc=new Scanner(System.in);
+      System.out.println("Enter ur city name");
+      //String name=sc.nextLine();
+       String name=sc.nextLine().toLowerCase().trim();
+      if(name.equals("hyderabad"))
+       {
+             System.out.println("hello hyd");  
+        }
+       else if(name.equals("chennai"))
+       {
+             System.out.println("hello chennai");  
+        } 
+       else if(name.equals("bangalore"))
+       {
+             System.out.println("hello bangalore");  
+        } 
+         else      
+       {
+             System.out.println("Enter valid name");  
+        } 
+   }
+}
+output:-
+Enter ur city name
+  HYderabad
+hello hyd
+
+String s="maneesha rayudu";
+ System.out.println(s.length());     //15
+ System.out.println(s.trim().length());   //15
+
+Conclusion of immutability:-
+====================    
+No change content(lower case or upper case)  
+String s1=new String("maneesha");      //maneesha(s1)
+String s2=s1.toUpperCase();     //MANEESHA(s2)
+String s3=s1.toLowerCase();     //maneesha(s1 & s3)
+System.out.println(s1==s2);  //false
+System.out.println(s1==s3);   //true
+
+String s1="maneesha";      //maneesha(s1)
+String s2=s1.toString();      //maneesha(s2) 
+String s3=s1.toLowerCase();      //maneesha(s3)
+String s4=s1.toUpperCase();      //MANEESHA(s4)
+System.out.println(s1==s2);    //true  
+System.out.println(s1==s3);   //true
+System.out.println(s1==s4);  //false
+
+
+class Test2
+{
+   private int i;
+   Test2(int i)
+    {
+       this.i=i;
+    }
+    public Test2 modify(int i)
+    {
+       if(this.i==i)
+        {
+           return this;
+        }
+        else
+        {
+             return new Test2(i);
+        }
+    }
+   public static void main(String args)
+  {
+    Test2 t1=new Test2(10);
+     Test2 t2=t1.modify(100);
+    Test2 t3=t1.modify(10);
+     System.out.println(t1==t2);    //false  
+     System.out.println(t1==t3);    //true
+  }
+}
+
+Final vs immutability:-
+================
+Final(reference variable)
+immutable(object)
+
+final StringBuffer sb=new StringBuffer("maneesha");
+sb.append("rayudu");
+ System.out.println(sb);  //maneesharayudu
+sb=new StringBuffer("mani");   //cannot assign a value to final variable sb
+ 
+Which of the following are meaningfull?
+1)final variable(yes)
+2)final object(no)
+3)Immutable variable(no)
+4)Immutable object(yes)
+
+public class Test
+{
+  public static void main(String args[])
+  {
+ String ta="A";
+     ta=ta.concat("B");
+      System.out.println(ta); 
+     String tb="C";
+     ta=ta.concat(tb);
+      System.out.println(ta); 
+      ta=ta.replace('C','D');
+      System.out.println(ta); 
+     ta=ta.concat(tb);
+      System.out.println(ta);  //ABDC
+  }
+}
+  
+String str=" ";
+str.trim();
+System.out.println(str.equals("")+"    "+str.isEmpty());  //false   false
+
+String str="Rayudu Maneesha";
+int len=str.trim().length();
+System.out.println(len);   //15
+
+String str="Rayudu Maneesha";
+str.trim();
+int i1=str.indexOf(" ");
+System.out.println(i1);     //6
+
+public class Test
+{
+  public static void main(String args[])
+  {
+     String s1="Java";
+     String s2=new String("java");
+     if(------------)                            //B option
+     {
+        System.out.println("equal");
+      }
+       else
+      {
+        System.out.println("not equal");
+      }
+  }
+}
+A)String s3=s2
+     if(s1==s3)
+B)if(s1.equalsIgnoreCase(s2))  //yes
+C)String s3=s2;
+    if(s1.equals(s3))
+D)if(s1.toLowerCase()==s2.toLowerCase())
+
+*******************************************************************************************
+
+StringBuffer:-
+=========
+[[Content keep on changing never recommended to use String.
+s=maneesha
+s.concat("rayudu")    //maneesharayudu  //new object
+s.concat("mca")        //maneesharayudumca    //new object ]]
+
+All required changes will be performed in existing object(same object) only to use StringBuffer.
+sb=maneesha
+sb.concat("rayudu")    //maneesharayudu  //existing object
+sb.concat("mca")       //maneesharayudumca    //existing object
+
+Importent constructor of StringBuffer:-
+===========================
+capacity():-
+========
+StringBuffer sb=new StringBuffer("maneesha"); 
+System.out.println(sb.capacity());
+
+1)String s=new String("maneesha");
+s----->maneesha    //length=8 capacity=8  (same)
+StringBuffer sb=new StringBuffer("maneesha");
+sb----->maneesha       //length=8 capacity=   (different)
+StringBuffer sb=new StringBuffer();   
+default capacity=16 once capacity is full 16+17(sb)
+New Capacity=(current capacity(16)+1)*2=34
+New Capacity=(current capacity(34)+1)*2=70
+StringBuffer sb=new StringBuffer(); 
+System.out.println(sb.capacity());     //16
+sb.append("abcdefghijklmnop");
+System.out.println(sb.capacity());       //16
+sb.append("q");             
+System.out.println(sb.capacity());       //34
+sb.append("abcdefghijklmnopabcdefghijklmnopabcdefghijklmnop");
+System.out.println(sb.capacity());         //70
+next------------>142
+next------------>286
+
+2)StringBuffer sb=new StringBuffer(int intailizeCapacity()); 
+StringBuffer sb=new StringBuffer(1000); 
+System.out.println(sb.capacity());
+
+3)StringBuffer sb=new StringBuffer(String s); 
+StringBuffer sb=new StringBuffer("maneesha"); 
+System.out.println(sb.capacity());     //capacity=s.length()+16  8+16=24
+
+Importent methods of StringBuffer:-
+=========================
+1)public int length()
+2)public int capacity()
+
+3)public char charAt(int index)
+StringBuffer sb=new StringBuffer("maneesha");   //(0 to 7)
+System.out.println(sb.charAt(2));
+System.out.println(sb.charAt(20));    //StringIndexOutOfBoundsException
+
+4)public void setCharAt(int index,char new char);
+StringBuffer sb=new StringBuffer("maneesha");   (0 to 7)
+sb.setCharAt(4,'z');   
+System.out.println(sb);     //manezsha
+
+StringBuffer sb=new StringBuffer("maneesha");   (0 to 7)
+sb.setCharAt(9,z);   
+System.out.println(sb);     //StringIndexOutOfBoundsException
+
+5)append():-To add string to last index position
+public StringBuffer append(String s)  //overloaded methods(multiple append methods)
+public StringBuffer append(byte b)
+public StringBuffer append(int i)
+public StringBuffer append(long l)
+public StringBuffer append(float f)
+public StringBuffer append(double d)
+public StringBuffer append(boolean b)
+
+StringBuffer sb=new StringBuffer();
+sb.append("pi value is");
+sb.append(3.14);
+sb.append(true);
+System.out.println(sb);    //pi value is3.14true
+
+6)public StringBuffer insert(int index,String s)  //(multiple insert methods)
+public StringBuffer insert(int index,double d)
+public StringBuffer insert(int index,boolean b)
+public StringBuffer insert(int index,char c)
+public StringBuffer insert(int index,int i)
+public StringBuffer insert(int index,float f)
+
+StringBuffer sb=new StringBuffer("maneesha");
+sb.insert(5,"HAI");
+System.out.println(sb);    //maneeHAIsha
+
+StringBuffer sb=new StringBuffer("abcdefghijklmnopabcdefghijklmnopqrstuvwxyz");
+sb.insert(2,8);
+sb.insert(4,8.5f);
+sb.insert(10,8.56);
+sb.insert(15,"HAI");
+sb.insert(19,true);
+sb.insert(20,'a');
+System.out.println(sb);  
+
+7)I want to delete group of character
+public StringBuffer delete(int begin,int end)
+It delete characters to from begin index to end-1 index
+StringBuffer sb=new StringBuffer("maneesha");
+sb.delete(2,4);      //2 to 4-1   2 to 3
+System.out.println(sb);    //maesha
+
+I want to delete single character
+public StringBuffer deleteCharAt(int index)
+StringBuffer sb=new StringBuffer("maneesha");
+sb.deleteCharAt(5);   
+System.out.println(sb);     //maneeha
+
+8)public StringBuffer reverse()
+StringBuffer sb=new StringBuffer("maneesha");
+sb.reverse();
+System.out.println(sb);       //ahseenam
+
+1)public void setLength(int length)
+StringBuffer sb=new StringBuffer("maneeshanithya");
+sb.setLength(8);
+System.out.println(sb);    //maneesha
+
+2)public void ensureCapacity(int capacity)    //To increasing capacity based on our requitrment
+StringBuffer sb=new StringBuffer();
+System.out.println(sb.capacity());  //16
+sb.ensureCapacity(800);
+System.out.println(sb.capacity());  //800
+
+3)public void trimToSize()      //To remove unless capacity size 
+StringBuffer sb=new StringBuffer(1000);
+sb.append("ABC");
+System.out.println(sb.capacity());     //1000
+sb.trimToSize();
+System.out.println(sb.capacity());     //3
+
+**********************************************************************
+
+StringBuilder(1.5v):-
+==========
+Every method present inside StringBuffer is synchronized(only one thread performance very less)
+D:\>javap java.lang.StringBuffer
+
+In 1.5v introduced StringBuilder.To overcome this problem introduce javap java.lang.StringBuffer.
+StringBuffer all constructors,method same applicable for StringBuilder.only 
+
+Difference between  StringBuilder and  StringBuffer:-
+======================================
+Buffer--repalced with--->Builder(non-synchronized)(StringBuffer.java save to StringBuilder.java)
+Non synchronized version in StringBuilder
+synchronized version in StringBuffer
+
+StringBuffer (synchronized)                                  
+1)Most of the methods present inside StringBuffer are synchronized 
+ 2)At a time only one thread is allowed operate on StringBuffer object and hence it is thread-safe
+3)Thread are required to wait to operate on StringBuffer object and hence relatively pefromance is low
+4)Introduced 1.0v
+
+StringBuilder(non-synchronized)
+1)No methods present inside StringBuilder are sync
+2)At a time multiple thread is allowed operate on StringBuilder object and hence it is not thread-safe
+3)Thread are not required to wait to operate on StringBuilder object and hence relatively pefromance is high
+4)Introduced 1.5v
+
+String:-
+======
+Memory utilization imporment performance improvement
+Content is fixed won't changed frequently
+All immutable objects default Thread safe
+
+StringBuffer:-
+=========
+Content is not fixed keep on changing but thread safty is required at a time only one thread allow to operand
+Every method present inside synchronized
+
+StringBuilder:-
+=========
+Content is not fixed keep on changing if you don't want thread safty multiple threads are allow to operand simultneously
+
+Method Chaining(StringBuffer and StringBuilder):-
+==================================
+StringBuider  append()
+StringBuider reverse()
+StringBuider insert()
+StringBuider delete()
+
+StringBuider sb=new StringBuider();
+sb.m1().m2().m3()..................  is called Method Chaining
+
+StringBuider sb=new StringBuider();
+sb.append("maneesha").append("rayudu").reverse().insert(8,xyz).delete(4,7);
+System.out.println(sb);
+
+StringBuider sb=new StringBuider();
+sb.append("durga").append("solution").reverse().insert(2,xyz).delete(4,7);
+System.out.println(sb);   //uduyhxyzseenam
+******************************************************************************
+Strings :-
+=====
+Strings are defined as "an array of characters". The difference between a character array and a string is the string is terminated with a special character ‘\0’.
+Syntax:
+<String_Type>  <string_variable> = “<sequence_of_string>”;
+Example: String str = "Geeks";
+
+Memory allotment of String:-
+===================
+Whenever a String Object is created, two objects will be created- one in the Heap Area and one in the String constant pool and the String object reference always
+ points to heap area object.
+For example: String str = "Geeks";
+
+import java.lang.*;   
+class Test 
+{ 
+    public static void main(String[] args) 
+    { 
+        // Declare String without using new operator 
+        String s = "GeeksforGeeks"; 
+        System.out.println("String s = " + s);   
+        // Declare String using new operator 
+        String s1 = new String("GeeksforGeeks"); 
+        System.out.println("String s1 = " + s1); 
+    } 
+} 
+Output:
+String s = GeeksforGeeks
+String s1 = GeeksforGeeks
+
+Interfaces and Classes in Strings in Java:-
+============================
+1)CharBuffer:-
+--------------
+This class implements the CharSequence interface. This class is used to allow character buffers to be used in place of CharSequences. An example of such usage 
+is the regular-expression package java.util.regex.
+
+2)String:-
+---------
+String is a sequence of characters. In java, objects of String are immutable which means a constant and cannot be changed once created.
+There are two ways to create string in Java:
+String literal
+String s = “GeeksforGeeks”;
+Using new keyword
+String s = new String(“GeeksforGeeks”);
+
+3)StringBuffer:-
+---------------
+StringBuffer is a peer class of String that provides much of the functionality of strings. String represents fixed-length, immutable character sequences while
+StringBuffer represents growable and writable character sequences.
+Syntax:
+StringBuffer s = new StringBuffer("GeeksforGeeks");
+
+4)StringBuilder:-
+----------------
+The StringBuilder in Java represents a mutable sequence of characters. Since the String Class in Java creates and immutable sequence of characters, 
+the StringBuilder class provides an alternate to String Class, as it creates a mutable sequence of characters.
+Syntax:
+StringBuilder str = new StringBuilder();
+str.append("GFG");
+
+5)StringTokenizer:-
+-------------------
+StringTokenizer class in Java is used to break a string into tokens.
+Example:
+stringtokenizer
+A StringTokenizer object internally maintains a current position within the string to be tokenized. Some operations advance this current position past the 
+characters processed.
+A token is returned by taking a substring of the string that was used to create the StringTokenizer object.
+
+6)StringJoiner:-
+---------------
+StringJoiner is a class in java.util package which is used to construct a sequence of characters(strings) separated by a delimiter and optionally starting with a 
+supplied prefix and ending with a supplied suffix. Though this can also be with the help of StringBuilder class to append delimiter after each string, StringJoiner
+provides an easy way to do that without much code to write.
+Syntax:
+public StringJoiner(CharSequence delimiter)

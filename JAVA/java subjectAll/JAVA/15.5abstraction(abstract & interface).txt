@@ -1,0 +1,206 @@
+Abstraction:-
+========
+*Abstraction is a process of  "hiding the implementation details from the user, only the functionality will be provided to the user"
+*In java, abstraction is achieving using abstract classes and interfaces.
+
+Advantage:-
+=======
+Security
+Enhancement(if we can any changes with out effecting end user)
+Maintainbility of the application
+
+Abstract:-
+=======
+                                                        abstarct class (constructor, concrete method & abstract method)
+                                                                         |
+                                                        abstract method (olnly declarartion)
+                                                                         |
+                                                        concrete class (Each and every method concrete methods(only))
+                                                                         |
+                                                        concrete method (declaration & defination)
+Concrete method:-
+============
+declaration & defination(with body), return type, method name with parameters or without parameters
+void m1()    //declaration
+{                   //defination
+    -------
+ }
+
+Concrete class:-
+===========
+Each and every method concrete methods(only)
+Psvm()
+{
+  void m1()
+  {
+     -------
+  }
+  void m2()
+  {
+    --------
+  }
+}
+
+Abstract Method:-
+============
+*Olnly declarartion no defination (without body) using abstract keyword return type, method name with parameters or without parameters always end with ;
+*Abstarct method declaration class must have Abstract class or interface.
+*It must be overriden. An abstract class must be extended and in a same way abstract method must be overriden.
+*A class has to be declared abstract to have abstract methods.
+*Abstract Method must be called in child class(must be overriden).
+*Abstract Method using keywords [abstract & final] not allowed at a time.
+*Abstract Method using keywords [abstract & static] not allowed at a time.
+
+abstract void m1();
+
+Abstract class:-
+==========
+*It is using abstract keyword. It can have concrete methods as well as abstract methods
+*An abstract class can not be instantiated, which means not allowed to create object to overriden a PC to CC.
+*A class derived from abstract class must implements all those methods (i.e; parent class)
+*It can have constructors and static methods also.
+*Reference of an abstract class can point to obects of its sub-classes there by achieving run-time polymorphism.
+*Abstract class using keywords [abstract & Final] not allowed at a time.
+*Without abstract method to create abstract class as possible.
+
+abstract class student
+{
+  //constructor, concrete method & abstract method
+}
+
+Example:-
+=======
+abstract class animal
+{
+      abstract void sound();
+        void display()
+     {
+	System.out.println("display method");
+     }
+    animal()
+    {
+ 	System.out.println("consructor");
+    }
+}
+class dog extends animal
+{
+       void sound()
+       {
+	System.out.println("overriden");
+        }
+         public static void main(String[] args)
+        {
+	animal d=new dog();
+	d.sound();
+	d.display();
+        }
+}
+output:
+consructor
+overriden
+display method
+
+ERRORS:
+animal a=new animal();
+abstract final void sound();
+abstract static void sound();
+abstract final class animal 
+{
+}
+
+Interface:-( 2 different applications using interface example java application and .Net application-------->using interface)
+=======
+*An interface is a collection of "only abstract methods".
+*An interface can contains both variables(but default public static final) and methods and cann't create construcor. 
+*An interface can not be instantiated(cann't create object)
+*In order to access the members of interface we need to inherit the interface into a class using implements keyword.
+*In the sub class we have to override all abstract methods. If the subclass is overriden all the methods of an interface.
+*A class can implement any no.of interfaces.
+*interfaces multiple inheritance method names are same(No problem)
+
+interface-------------->class---------->implements(any no.of interfaces)
+interface--------->interface---------->extends(any no.of interfaces)
+class-------------->class-------------->extends(single class)
+
+EXAMPLE:-
+========
+interface Myinterface1
+{
+	int x=15;                    //by default public static final
+	public abstract void m1();   //abstract method
+}
+interface Myinterface2
+{
+	int y=16;                    //by default public static final
+	void m2();   //by default public abstract
+}
+/*interface Myinterface2 extends Myinterface1
+{
+	int y=16;                    
+	public abstract void m2();   
+}
+interface Myinterface3 extends Myinterface1, Myinterface1
+{
+	int Z=17;                    
+	public abstract void m3();   
+}
+*/
+class interfacedemo implements Myinterface1, Myinterface2
+{
+	public void m1()
+	{
+		System.out.println("overriden1");
+    } 
+	public void m2()
+	{
+		System.out.println("overriden2");
+    } 
+	/*public void m3()
+	{
+		System.out.println("overriden3");
+    } */
+	public static void main(String[] args) 
+	{
+		//Myinterface1 id=new Myinterface1();     //It is also correct only first interface
+		interfacedemo id=new interfacedemo();
+		id.m1();
+		//x=x+5;                    //x is automataically public static final
+		System.out.println(id.x);
+		id.m2();
+		System.out.println(y);
+	}
+}
+
+In interface java 8V(doesnn't override abstract method by using default keyword)
+=======================================================
+ interface Myinterface
+ {
+    default void m1()
+    {
+         System.out.println("from default");  //doesnn't overrdide(from default)
+     }
+ }
+class example implements Myinterface
+{
+  public void m1()
+  {
+      System.out.println("from class"); //override(from class)
+  }
+}
+
+In interface java 9V(static keyword)
+==========================
+interface Myinterface
+ {
+    static void m1()
+    {
+         System.out.println("from static");  
+     }
+ }
+class example implements Myinterface
+{
+  psvm() 
+  {
+     Myinterface.m1();  //from static
+  }
+}

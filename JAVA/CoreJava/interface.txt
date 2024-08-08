@@ -1,0 +1,25 @@
+Interface:-
+===========
+1.It is a kind of class.
+2.It is specification from which you can create a class.
+3.Bydefault all variables in the interface is public static final variables.
+4.Bydefault all methods are the interface is public abstract methods
+5. implements keyword.
+
+interface <interface_name> {
+	public static datatype variable_name;
+	public abstract datatype method_name(---);
+} 
+
+6.We can acheive multiple inheritance using interface.
+7.We can't creta object to the interface. but we can create reference variable.
+8.In case of abstract methods we must override in the subclass.
+
+class-----extends-------class
+abstract class-----extends-------class
+abstract class-----extends-------abstract class
+interface------implements-------class
+interface-----extends-------interface
+
+Functional interface:-
+=====================

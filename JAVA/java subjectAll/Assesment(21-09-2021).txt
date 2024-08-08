@@ -1,0 +1,143 @@
+1.Write short notes on bean factory and applicationContext.
+Ans:- 
+BeanFactory is a spring IOC container and Spring IOC Container will do create object for POJO classes 
+and they can manage life cycle pojo classes. Pojo classes we can do Dependency injection.
+It is a root interface. 
+It is suitable to develop standalone applications. 
+BeanFactory  wait for getBean()to create a bean.
+It doesn't support I-18 and AOP.
+BeanFactory will support XML file and Anntations.
+AppliacionContext:-
+AppliacionContext is a spring IOC container.
+BeanFactory child interface is ApplicationContext.
+It is suitable to develop web, Enterprise level and Distributed applications.
+While loading configuration file it will create bean.
+It is support I-18 and AOP.
+
+2.Write about InternalResourceviewresolver.
+InternalResourceviewresolver used in Web MVC application.
+ViewResolver take the request from DispatcherServlet(front controller) and ViewResolver to identifies view pages.
+Send response to DispatcherServlet(front controller).
+It is mapping between web pages(like .jsp pages) and controller by using annotation.
+Like @PostMapping, @GetMapping, @DeleteMapping, @RequestMapping 
+In Anntotion we have to write URI(Uniform Resource Identifier) like @PostMapping("/add")
+
+Example:-
+@Controller
+@RequestMappin("/abc")
+public class ExampleController{
+	@GetMapping("/add")	
+	public String insert(){
+		return "abc";
+	}	
+}
+]
+abc is a .jsp file(abc.jsp)
+
+
+3.Why do we use AbstractAnnotationApplicationContext
+
+
+4.What are the differences between XML based and Java based configuration.
+XML based configuration:-
+XML based configuration to configure the class by using xml file.
+First we need to create ApplicationContext object and by using ClassPathXmlApplicationContext() method to configure xml file and creating bean id.
+And crearting object by using pojo class after that calling getBean() through context object  and configure bean id.
+After that If we want to mapping between we should mathch POJO class field name with xml file property name. 
+
+Example:-
+=========
+POJO class:-
+class Student {
+int sid;
+String sname;
+//Getter and setter methods
+}
+
+App.java:-
+class App {
+psvm(String[] args) {
+ApplicationContext ctx = new ClassPathXmlApplicationContext("ConfigFile.xml");
+Student obj = (Student) ctx.getBean("beanid");
+System.out.println(obj);
+}
+}
+
+ConfigFile.xml:-
+<beans>
+-----------------
+<bean class="autowire.xml.Student" id="beanid">
+<property name="sid" value="2323"></property>
+<property name="sname" value="kalyani"></property>
+</bean>
+</beans>
+
+Java based configuration:-
+Java based configuration combination of annotations and java files.
+First we need to create ApplicationContext object and by using ClassPathXmlApplicationContext() method to configure java file and wriring @Bean annotation.
+And crearting object by using pojo class after that calling getBean() through context object and configure POJO class.
+After that If we want to mapping between we should match POJO class constructor with java file return type object. 
+
+Example:-
+========
+class Customer {
+int cid;
+String cname;
+//Constructor 
+}
+
+class App {
+psvm(String[] args) {
+AnnotationConfigApplicationContext obj=new AnnotationConfigApplicationContext(ConfigurationFile.class);
+Customer c1=obj.getBean(Customer.class);
+System.out.println(c1);
+}
+
+class ConfigurationFile {
+@Bean
+Customer m1() {
+return new Customer(1,"abc");
+}
+}
+
+
+5.What is Security?How spring provides security to application.
+Ans.
+Spring security provide authorization and authentication to spring MVC and Spring Boot Application like web, Enterprise level and Distributed applications.
+It is secure from hackers and attackers by using authorization and authentication like username, password and OTP genearation.
+
+
+
+6.what are different types of security?Explain URL based security.
+Ans.
+Spring Security operates on two major places that is Authentication and Authorization.
+Authentication is a while accessing appliaction the user It will check the user is right person or not.
+There are two processes to make sure that the user is authentication like identification and verification. 
+For example A user is authenticated through their username and password and OTP.
+
+Authorization is a users to use the application some areas like login with Authentication, but user doesn't access restricted resources.
+For eample a user is allowed to access only those parts of the resource that to rigth user only. 
+But, ADMIN user has unlimited access like admin to access all areas. Admin able to application properties and opeartions and can changethem
+May be it is good or not.
+But a normal user, on the other hand, has more controlled access and does not
+
+7.How do you provide security based on Roles?Explain its importance.
+Ans.
+Role-based security is a guideline given by appliuaction developers create a one application.
+Developer give the access and restrict operations according to a user, admin, employee based on their organization.
+
+8.Explain the role of filters in Spring Security.What are different filters used in spring security.
+Ans.
+Web browser send request to Filer. In filter to filter the our requests by using authorization and authentication.
+After that these request sends to front controller(DispatcherServlet). DispatcherServlet handle to all operation and
+to pass to request to contoller and contoller reponse to send back.
+
+
+9.Explain Spring Security Archtecture.
+Ans.
+1.Creating a project and add dependencies like spring-boot-devtools, spring security and spring web.
+2.Creating one class and extends with WebSecurityConfigurerAdapter
+3.we need to call default method  that is configure(AuthenticationManagerBuilder auth)
+
+
+10.Write a sample security application in maven.

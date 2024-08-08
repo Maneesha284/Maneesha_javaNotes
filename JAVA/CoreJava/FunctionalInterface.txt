@@ -1,0 +1,26 @@
+Functional interface:-
+============================
+If interface has only one abstract method that interface is called Functional interface(SAM)
+
+java 1.8: Lambda Expression: 
+Lambda Expression implementation of Functional interface.
+It is Function , less code, no name to the method
+
+@FunctionalInterface
+interface <interface-name> {
+	datatype methodname(parameters....);
+}
+main() {
+	<interface-name> obj = (args)-> {
+
+	};
+}
+
+1.ArgumentList: with parameters or without parameters
+2.Arrow: -> It is link b/w arguments and body
+3.Body: Expression stattement
+
+java 1.8 they have introduced java method references.
+1.Reference to a static method
+2.Reference to an instance method
+3.Reference to a constructor

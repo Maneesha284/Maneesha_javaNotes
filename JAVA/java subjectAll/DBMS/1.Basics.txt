@@ -1,0 +1,33 @@
+                                              	      	                   Data types
+				                   	=======
+char:- 
+====
+Alpha numeric data in bytes.
+to store upto 2000 bytes
+varchar:-
+ANSI standard datatype
+to store upto 2000 bytes
+varchar2:-
+oracle datatype
+to store upto 4000 bytes
+
+number(p,s):-
+=========
+p=(precision)total no.of digits
+s=(scale)after decimal point no.of digits 
+ex:- sno number(7,2);   //12345.67
+date:-
+====
+ORACLE 12C is latest version
+
+It is actually software
+
+oracle
+    |
+   \/
+database
+    |
+   \/
+To store data perminently in secondary storage device in "harddisk"
+
+*It doesn't store random collection of data

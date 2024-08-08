@@ -1,0 +1,18 @@
+package collection;
+
+interface calculator{
+	void sum(int a, int b);
+}
+public class Example3 {
+	static void saySum(int a,int b) {
+		System.out.println("sum: "+(a+b));
+	}
+
+	public static void main(String[] args) {
+		Example3 e=new Example3();
+		calculator ref=e::saySum;
+		ref.sum(10, 20);
+
+	}
+
+}

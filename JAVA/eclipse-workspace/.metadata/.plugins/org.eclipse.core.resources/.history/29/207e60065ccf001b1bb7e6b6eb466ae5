@@ -1,0 +1,17 @@
+package collection;
+interface Interface1{
+	public void add(int a,int b);
+}
+public class Example1{
+	int x=10, y=20;
+
+	public static void main(String[] args) {
+		
+		Interface1 i=(x,y)->System.out.println("Addition of 2 numbers"+(x+y));
+	}
+
+	
+
+	
+
+}

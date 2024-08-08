@@ -1,0 +1,29 @@
+Abstraction is the process of seperating ideas from the implementation.
+Idea we can define idea in one class and implemntation will be defined in another class.
+Abstraction can be implemented by using Abstract class and interfaces.
+
+*Esentail details and functionality will show to user, but non esential implementation details can't show to user.
+
+Abstract method:-
+================
+*A method without implemntation is called abstract method.
+
+
+*Abstract methods must be overriden in the sub classes. 
+
+*In case of concrete method that is our wish to overriden or not.
+
+Abstract class:-
+================
+*If a class contains atleast one abstract method that class will be called as abstract class.
+
+*A abstract class contains concrete methods as well as abstract methods.
+
+
+*we can not create object for abstract class. only we can create reference variable. That reference variable can refer any 
+subclass object.
+
+*static method doesn't create in abstract class. 
+
+*When you call a method of the subclass by using super class reference variable the binding is happening at runtime . 
+Therefore this process is called Runtime polymorphism or Dynamic dispatcher.

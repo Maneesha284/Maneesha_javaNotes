@@ -1,0 +1,147 @@
+ATM Transaction:
+================
+start
+
+insert card
+-------------if not authorized---->Exception
+Enter pin
+-------------if not valid---->Exception
+Enter amount-------------low balance---->Exception
+
+program
+========
+statement1
+statement2
+statement3--10/0
+statement5
+statement6
+statement7
+
+Error:  Java virtual machine (JVM) running out of memory, memory leaks, stack overflow errors, library incompatibility, 
+infinite recursion, etc. Errors are usually beyond the control of the programmer, and we should not try to handle errors.
+
+program compiles successfully event. that occures during program execution and disturbs the normal flow of program.
+It is runtime error . Bcz of an exception, the program compiles successfully but gives error at runtime. 
+therefore all the statements before exception 
+it will execute but rest of the statements in the program will be skipped.
+Overcome this problem java software people introduced Exception Handling mechanisam.
+In that, they have introduced 5 keywords.
+1.try
+2.catch
+3.throw
+4.throws.
+5.finally
+
+*An Exception can be defined as an abnormal event that occurs during program execution and disturbs the normal flow of
+ instruction.
+*Errors in ajava program are categorized into two groups
+1.Compile time error
+2.Run time error
+*The unexpected situtions that occur during program execution are
+1.Running out of memory
+2.--------
+
+
+Exception Handling:
+To design the program in a way that even there is an exception, all operations should perform before termination of the program
+The code is responsible 
+
+try-catch:-
+try block encloses stmt that might raise an exception within it and defines the scope of the exception Handlers associated with 
+it catch block is the  exception handler. you enclose the code that you want to monitor inside the 
+
+try{
+	//stmt the cause an exception
+}
+catch(Exception e){
+	//error handling code
+}
+
+1.Built in exception: predefined
+	a.Checked Exception
+	b.UnChecked Exception:
+2.USer define exception: 
+	a.printStackTrace()   
+	catch(AE e){
+		e.printStackTrace(); //java.lang.ArithmeticException: / by zero -->name and defination
+								at GFG.main(File.java:10)  -->stack trace
+	}
+	b.toString()			
+	catch(AE e){
+		Sopln(e.toString);  //java.lang.ArithmeticException: / by zero   -->name and defination
+	}
+
+Checked Exception:
+These are all subclasses of exception except Runtime exception.These will be checked at compile time. 
+Means without programmer involvment the program will not comiple programmer should handle these exception by using try catch 
+or throws keywords.
+Ex: IOException
+
+Checked Exception:
+ClassNotFoundException:- Occurs when the java run time system is unable to find the class referred.
+
+IllegalAccessException:-  Occurs when you want to refer a class that is not accessible.
+
+InstantiationException:-  Occurs when you try to create object of an abstract class  or interface
+
+NoSuchMethodException:-  Occurs when you call a method that does not exist
+
+
+UnChecked Exception:
+These are all subclasses of Runtime exception.
+Means without programmer involvment the program will be comipled successfully 
+But it gives error at runtime 
+we can handle them by using try catch keywords.
+Ex: ArithmeticException
+
+
+UnCheckedException:-
+ArithmeticException:-  Occurs when you make an atithmetic error
+
+AIOBException:-  Occurs when an attempt is maed to access an array element beyond the index of the array.
+
+ArrayStoreException:-  Occurs when you assign an elements to an array that is not compitable with the data type of that array
+
+ClassCastException:-  Occurs when you assign a reference variable of a class to an incompitable reference variable of another 
+class
+
+IllegalArgumentException:-  Occurs when you pass an arguement of incompitable data type to a method.
+
+NegativeArraySizeException:-  Occurs when you create an array with negative size.
+
+NullPoinerException:-  Occurs when an application tries to use an object without allocating memory to it or calls a method of 
+a null object.
+
+NumberFormatException:-  Occurs when you want to convert a String in an incorrect format.
+
+Using multiple catch blocks:-
+=============================
+*A single try block can have many catch blocks.
+*This is necessary when the try block has stmt that raise the different types of exception.
+*The multiple catch blocks generate unreachable code error. If the first catch block contain the exception class object 
+then the subsequent catch blocks are never executed.
+*The exception class being the superclass of all the exception classes catches various types of exceptions. 
+The java compiler gives an error
+
+*Using finally block is used to process certain statemenets, no matter whether exception is raised or not
+
+
+throw :-
+=======
+*We can throw predefined exception when your enterded wrong input.
+syntax:-
+throw new <predefinedException()>;
+
+*We can create our own exception, that can be thrown when user enters wrong input to the program.
+*To create user defined exception, the class must extends from Exception.
+syntax:-
+throw new <user/customDefinedException()>;
+
+throws:-
+=========
+The throws stmt is used by the method to specify the types of exceptions the method throws.
+*If a method 
+
+Error:-
+========
+programmer error, User not given proper input

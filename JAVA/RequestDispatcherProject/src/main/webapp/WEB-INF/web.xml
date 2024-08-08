@@ -1,0 +1,22 @@
+<web-app>
+	<servlet>
+		<servlet-name>FirstServlet1</servlet-name>
+		<servlet-class>com.req.FirstServlet1</servlet-class>
+	</servlet>
+	<servlet>
+		
+		<servlet-name>SecondServlet1</servlet-name>
+		<servlet-class>com.req.SecondServlet1</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FirstServlet1</servlet-name>
+		<url-pattern>/FirstServlet1</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SecondServlet1</servlet-name>
+		<url-pattern>/SecondServlet1</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>login1.html</welcome-file>
+	</welcome-file-list>
+</web-app>

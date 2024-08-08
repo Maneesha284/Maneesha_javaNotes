@@ -1,0 +1,46 @@
+import java.util.Scanner;
+
+public class SumOfModifiedArrayElements {
+
+	static int[] getSumOfModifiedElements(int[] arr) {
+		int result[] = new int[arr.length];
+		int temp = 0;
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] % 2 == 0) {
+				result[i] = (arr[i] * 2);
+
+			} 
+			else {
+				result[i] = temp;
+				temp++;
+			}
+		}
+
+		return result;
+	}
+
+	public static void main(String[] args) {
+
+		Scanner sr = new Scanner(System.in);
+		System.out.println("Enter array size");
+		int size = sr.nextInt();
+		int arr[] = new int[size];
+
+		System.out.println("Enter elements in array");
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = sr.nextInt();
+		}
+
+		arr = getSumOfModifiedElements(arr);
+		for (int i = 0; i < arr.length; i++) {
+			System.out.print(arr[i] + " ");
+		}
+		
+		int sum = 0;
+		for (int i = 0; i < arr.length; i++) {
+			sum += arr[i];
+		}
+		System.out.println("\nSum Of Modified Array Elements: " + sum);
+
+	}
+}

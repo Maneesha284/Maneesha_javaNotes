@@ -1,0 +1,123 @@
+Data structure:-
+---------------
+Sorting:
+1.Bubble sort
+2.Insertion sort
+3.Merge
+4.Quick
+5.counting
+6.Radix
+7.Bucket
+8.Heap
+9.shell
+10.selection
+
+Searching:
+1.Linear
+2.Binary 
+
+Bubble sort:-
+------------
+Bubble sort is simple sorting algorithm taht works by repeatdly swapping the adjacent elements if they are
+in wrong order.
+
+Consider the array elements
+Before sorting:
+20 2 1 24 15
+
+pass1:
+2 20 1 24 15
+
+2 1 20 24 15
+
+2 1 20 15 24
+
+After pass1:
+2 1 20 15 24
+
+pass2:
+1 2 20 15 24
+
+1 2 15 20 24
+
+pass3:
+1 2 15 20 24
+
+After sorting:
+1 2 15 20 24
+
+bubble sort:-
+-------------
+import java.util.Scanner;
+public class BubbleSort {
+	static int size;
+	static void sortArray(int arr[]) {
+		for(int i=0;i<size;i++) {
+			for(int j=i + 1;j<size;j++) {
+				if(arr[i] > arr[j]) {
+					int temp=arr[i];
+					arr[i]=arr[j];
+					arr[j]=temp;
+				}
+			}
+		}
+	}
+	public static void main(String[] args) {
+		Scanner sr=new Scanner(System.in);
+		System.out.println("Enter Array size");
+		size=sr.nextInt();
+		System.out.println("Enter Array elements");
+		int arr[]=new int[size];
+		for(int i=0;i<size;i++) {
+			arr[i]=sr.nextInt();
+		}
+		sortArray(new int[size]);
+		System.out.println("After sorting elements in array");
+		for(int i=0;i<size;i++) {
+			System.out.print(arr[i] +" ");
+		}
+	}
+}
+
+
+Selection sort:
+---------------
+The Selection sort algorithm sorts an array by repeatdly finding the min ele(considering ascending oder) from
+unsorted part and putting it at the beginning.
+The algorithm maintains 2 subarray in a given array.
+1.The subarray which is already sorted.
+2.Remaining subarray which is unsorted.
+In every iteration of selection sort, The min ele from the unsorted subarray is picked and moved to the sorted subarray.
+
+Consider the array elements
+Before sorting:
+15 2 13 8 1
+
+pass1:
+1 2 13 8 15
+
+After pass1:
+1 2 13 8 15
+
+pass2:
+1 2 13 8 15
+
+After pass2:
+1 2 13 8 15
+
+pass3:
+1 2 8 13 15
+
+For selection sort there will be N-1 passes, where as N is the number of elements.
+
+
+
+
+
+
+
+
+
+
+
+

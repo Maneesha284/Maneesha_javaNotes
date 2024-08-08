@@ -1,0 +1,49 @@
+import java.util.*;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Scanner sr = new Scanner(System.in);
+		System.out.println("Enter no.of arrays");
+		int noOfArrays = sr.nextInt();
+		List<String> inputByLine = new ArrayList<String>(noOfArrays);
+		System.out.println("Enter array's sizes");
+		for (int i = 0; i < noOfArrays; i++) {
+			inputByLine.add(sr.next());
+		}
+		List<Integer> newList = new ArrayList<Integer>(inputByLine.size());
+		for (String newValue : inputByLine) {
+			newList.add(Integer.valueOf(newValue));
+		}
+		System.out.println(newList);
+
+		System.out.println("Enter elements into an array's");
+		for (int i = 0; i < newList.size(); i++) {
+			int arr[] = new int[newList.get(i)];
+			System.out.println("Enter elements into an array");
+			for (int j = 0; j < newList.get(i); j++) {
+				arr[j] = sr.nextInt();
+			}
+			System.out.println("=================");
+			int even=0, odd=0;
+			for (int j = 0; j < newList.get(0); j++) {
+				
+				if(arr[j] %2 ==0) {
+					System.out.print(arr[j]+"  ");
+					even++;
+				}
+			}
+			for (int j = 0; j < newList.get(1); j++) {
+				
+				if(arr[j] %2 !=0) {
+					System.out.print(arr[j]+"  ");
+					odd++;
+				}
+			}
+			
+		}
+		
+
+	}
+
+}

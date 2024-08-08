@@ -1,0 +1,94 @@
+Java inner class:-
+*Inner class or nested inner class which is declared inside the class or interface
+Advtg:-
+*Inner class can access all the data members and methods of outer class including private.
+*Logically group of classes and interfaces in one place So It is develop more readable and maintainble(easy to understand relation b/w one class to other class)
+*I requires less code write
+*code optimization.
+
+Non-static inner class:-
+1.Member inner class:-A class is ctreated within class outside method
+2.Anonymous inner class:-A class is created for implemetnts interface or extends class. This name name decided by jvm compiler
+3.Local inner class:-A class is created within the method.
+Static inner class:-
+4.nested interface:-An interface created in class or interface.
+5.Static inner class:- A static class is created inside class
+
+1.Member inner class:-A class is ctreated within class outside method
+=================================================
+class TestMemberOuter1{  
+ private int data=30;  
+ class Inner{  
+  void msg(){System.out.println("data is "+data);}  
+ }  
+ public static void main(String args[]){  
+  TestMemberOuter1 obj=new TestMemberOuter1();  
+  TestMemberOuter1.Inner in=obj.new Inner();  
+  in.msg();  
+ }  
+}  
+
+2.Anonymous inner class:-A class is created for implemetnts interface or extends class. This name name decided by jvm compiler
+=========================================================================================
+interface Eatable{  
+	 void eat();  
+}  
+class TestAnnonymousInner1{  
+	 public static void main(String args[]){  
+		 Eatable e=new Eatable(){  
+  			public void eat(){
+				System.out.println("nice fruits");
+			}  
+		 };  
+	 e.eat();  
+ 	}  
+}  
+3.Local inner class:-A class is created within the method.
+=======================================
+public class localInner1{  
+ 	private int data=30;//instance variable  
+ 	void display(){  
+ 	 	class Local{  
+   			void msg(){
+				System.out.println(data);
+			}  
+	  	}  
+ 	 	Local l=new Local();  
+ 	 	l.msg();  
+ 	}  
+ 	public static void main(String args[]){  
+ 	 	localInner1 obj=new localInner1();  
+  		obj.display();  
+ 	}  
+}  
+
+Static inner class:-
+4.nested interface:-An interface created in class or interface.
+==========================================
+Syntax of nested interface which is declared within the interface
+interface interface_name{  
+ ...  
+ interface nested_interface_name{  
+  ...  
+ }  
+}   
+Syntax of nested interface which is declared within the class
+class class_name{  
+ ...  
+ interface nested_interface_name{  
+  ...  
+ }  
+}   
+
+5.Static inner class:- A static class is created inside class
+=======================================
+class TestOuter1{  
+  static int data=30;  
+  static class Inner{  
+   void msg(){System.out.println("data is "+data);}  
+  }  
+  public static void main(String args[]){  
+  TestOuter1.Inner obj=new TestOuter1.Inner();  
+  obj.msg();  
+  }  
+}  

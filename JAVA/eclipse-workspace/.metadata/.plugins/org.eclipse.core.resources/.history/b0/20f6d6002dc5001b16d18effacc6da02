@@ -1,0 +1,36 @@
+
+public class StringWithPattern {
+	static int size = 0;
+
+	public static String[] getWordsContainsPattern(String[] words, String pattern) {
+
+		String result[] = new String[words.length];
+		for (int i = 0; i < words.length; i++) {
+			char ch[] = words[i].toCharArray();
+			boolean b = false;
+			for (int j = 0; j < words[i].length(); j++) {
+
+				if (ch[j] == 'h' && ch[j + 1] == 'n') {
+					System.out.println("hi");
+					result[size] = words[i];
+					size++;
+					break;
+				}
+
+			}
+
+		}
+		return result;
+	}
+
+	public static void main(String[] args) {
+		String[] words = { "South Africa", "Afghanistan", "Sri Lanka", "New Zealand", "West Indies", "England", "India",
+				"Australia", "Pakistan", "Bangladesh" };
+		String pattern = "an";
+		String arr[] = getWordsContainsPattern(words, pattern);
+		for (int i = 0; i < size; i++) {
+			// System.out.println("hi");
+			System.out.println(arr[i]);
+		}
+	}
+}

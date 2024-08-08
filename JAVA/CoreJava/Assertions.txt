@@ -1,0 +1,30 @@
+Assertions in java:-
+=================
+
+*Assertions are used for "testing purpose during development" to ensure thar specified condition is true.
+
+*An "assert" stmt contains a boolean expression that the programmer belives to be true at the time the statement is executed.
+
+
+syntax:-
+assert expression;
+assert expression1 : expression2;
+
+
+class Test {
+    public static void main(String args[])
+    {
+        int value = 15;
+        assert value >= 20 : " Underweight";
+        System.out.println("value is " + value);
+    }
+}
+
+Output
+value is 15
+
+After enabling assertions:
+
+Output:  
+Exception in thread "main" java.lang.AssertionError: Underweight
+

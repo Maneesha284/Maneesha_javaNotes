@@ -1,0 +1,94 @@
+JDBC API
+The JDBC provides the various methods and interface for easy communication between Java application and database.
+(JDBC) API provides universal data access from the Java programming language.
+Purpose of JDBC API:-
+To access tables and its data from relation database.
+To send queries and update statement to database.
+Obtain and modify the results to and from a JDBC application.
+Find the metadata of the table.
+Performing different operations on a database, like creating table, querying data, updating data, inserting data from a Java application.
+
+DriverManager
+The DriverManager is a class that manages all database drivers.  It loads the specific database drivers in an application to establish connection with database.   
+
+Connection
+Connection is an interface that contains all methods for contacting with database.
+
+JDBC-ODBC Bridge
+JDBC-ODBC Bridge provides a interface that helps to connect database drivers to the database.
+
+
+====================================================================================================
+
+Java Database Connectivity (JDBC) is an application programming interface (API) that helps Java program to communicate with databases and manipulates 
+their data. The JDBC API provides the methods that can be used to send SQL and PL/SQL statements to almost any relational database. 
+
+Two-tier Architecture:-
+Two-tier Architecture provides direct communication between Java applications to the database. It requires a JDBC driver that can help to communicate 
+with the particular database.
+
+Three-tier Architecture:-
+In the three-tier model, commands are sent by the HTML browser to middle services i.e. Java application which can send the commands to the particular database.
+The middle tier has been written in C or C++ languages. It can also provide better performance.
+
+There are 4 types of JDBC drivers:
+Type 1 : JDBC-ODBC bridge driver
+Type 2 : Native API driver (Partial Java driver)
+Type 3 : Network Protocol driver (Pure Java driver for database middleware)
+Type 4 : Thin driver (Pure Java driver)
+
+There are following five steps to create the database connection with Java application:
+1. Register the Driver
+2. Create Connection
+3. Create SQL Statement
+4. Execute SQL Queries
+5. Close the Connection
+
+PreparedStatement Interface
+The PreparedStatement interface extends the Statement interface. It represents precompiled SQL statements and stores it in a PreparedStatement object.
+It increases the performance of the application because the query is compiled only once.
+The PreparedStatement is easy to reuse with new parameters.
+Creating PreparedStatement Object
+===================================================================================================
+
+JDBC Architecture:-
+=============
+                                                                                          Java Application
+                                                                                                     |
+                                                                                             JDBC API
+                                                                                                     |
+                                                                                         Driver Manager
+                                                 |-------------------------------------| -------------------------------------------|                                                         
+                                                 |                                                    |                                                             |
+
+                           Driver software for oracle                   Driver software for mysql             Driver sotware for sybase
+                                                 |                                                    |                                                             |
+                                                 |                                                    |                                                             |
+                              Oracle DataBase                                 MySql DataBase                                    Sybase DataBase
+
+*JDBC API provides Driver manager to Java application.
+
+*Java application can communicate with any database with the help of driver manager and database specific Driver software.
+
+Driver Manager:-
+===========
+*It is the key component in JDBC architecture.
+
+*It is a class present in java sql package.
+
+*It is responsible to manage all database drivers.
+
+*It is responsible to register a new database driver and unregister a existing database driver.
+                       DriverManager.registerDriver(driver);
+                       DriverManager.unregisterDriver(driver);
+
+*It is responsible to esablish connection to the database with the help of driver software.
+   Connection con=DriverManager.getConnection(jdbcurl,usrname,pswd);
+
+Database Driver:-
+============
+*It is very imporatant component of JDBC architecture.
+
+*Without Driver software, we can't touch Database.
+
+*It is responsible to convert java calls into database specific calls and database specific calls into java calls.                              

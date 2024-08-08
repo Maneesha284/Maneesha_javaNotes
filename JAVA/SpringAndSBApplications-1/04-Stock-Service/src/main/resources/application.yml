@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    password:
+    url:  jdbc:h2:mem:testdb
+    username: sa
+  jpa:    properties:      hibernate:
+        format_sql  : true
+        show_sql : true
+  application:
+    name: STOCK-PRICE-SERVICE
+    
+#eureka:
+ #client:
+  #service-url:
+   #defaultZone: ${DISCOVERY_URL:http://localhost:9761}/eureka/  h2:    console:      enabled: true
+server:  port: 1111
+        

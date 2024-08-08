@@ -1,0 +1,368 @@
+1. Which of the following declarations of an array is incorrect?
+public static void main(String[] args) {
+ 	int[] a[];
+ 	int b[3];
+ 	int []c[];
+ 	int[] d[]; 
+}
+Ans:
+int b[3]; //gave size but not initailize values.
+
+================================================================================================================================================================
+2) What is true after running the following code? 
+(choose 2) 
+public static void main(String[] args) { 
+	String entries[] = {"entry1","entry2"}; 
+	int count=0; 
+	while (entries [count++]!=null){ 
+		System.out.println(count); 
+	} 
+	System.out.println(count);
+ } 
+Ans: 
+1 An Exception will be thrown 
+
+================================================================================================================================================================
+3) What is the result of compiling and running the following code?
+public static void main(String[] args){
+	byte b1= 25;
+	byte b2=45;
+	byte b3= b1+b2;
+}
+Ans: 
+2 b)CompileError
+
+================================================================================================================================================================
+4) What is the result of compiling and running the following code? 
+public class Tester { 
+	public static void main(String[] args) {
+		 String stmt = "Ojas 2009"; 
+		String[] arr = stmt.split(" "); 
+		try { 
+			int x = Integer.parseInt(arr[1]); 
+			System.out.print(x); 
+		} 
+		finally { 
+			System.out.print("finally"); 
+		} 
+	} 
+} 
+Ans: 
+3 2009finally 
+
+================================================================================================================================================================
+5) What is the result of running the following program (whichwas compiled fine) given the
+command line:
+java Tester one two
+
+public class Tester {
+	public static void main(String[] args) {
+		if (args.length > 0)
+		for (String str : args)
+		System.out.print(str);
+		System.out.print("--");
+	}
+}
+
+Ans:
+3 onetwo--
+
+
+================================================================================================================================================================
+6) What is the result of compiling and running the following code? 
+public static void main(String[] args) { 
+boolean flag = false; 
+int x = 0; 
+do {
+	x++; 
+} 
+while (flag=!flag); 
+	System.out.println(x); 
+} 
+
+Ans:
+3. 2 
+
+
+================================================================================================================================================================
+9) What is true about has-a and is-a relationships? (Choose)
+Ans:
+B) Inheritance represents an is-a relationship.
+D) Instances must be used when creating a has-a relationship.
+
+================================================================================================================================================================
+10) Given the code. What is true? 
+public class Room { 
+	public int roomNr; 
+	private Date beginDtm; 
+	private Date endDttm; 
+	public void book(int roomNr, Date beginDttm, Date endDttm) {
+ 		this.roomNr = roomNr; 
+		this.beginDtm = beginDttm; 
+		this.endDttm = endDttm; 
+	} 
+} 
+D) Variables beginDttm and endDttm break polymorphism.
+
+================================================================================================================================================================
+11.What is the result of compiling and running the following
+
+code?
+
+public static void main(String[] args) {
+
+String s1 = null;
+
+String s2 = null;
+
+if (s1 == s2)
+
+System.out.print("A");
+
+if (s1.equals(s2))
+
+System.out.print("B");
+
+}
+Ans:
+2 "A" will be printed followed be a
+NullPointerException thrown
+
+================================================================================================================================================================
+12.What is the expected output? 
+public static void main(String args []) { 
+String stmt = null; 
+System.out.print(null+stmt);    //null+"null"   no ln so print one line
+System.out.print(stmt+null);    //null+"null"
+}
+Ans: 
+3 nullnullnullnull
+
+================================================================================================================================================================
+13.What is the correct output?
+
+public interface Father {
+public void go();
+}
+public interface Mother {
+public void go()
+}
+class Test implements Father, Mother { // line 1
+public void go(){ // line 2
+System.out.println("Child");
+}
+public static void main(String args[]) {
+new Test().go(); // line 3
+
+}
+
+}
+Ans:
+1 Compilation error in line 1  
+
+================================================================================================================================================================
+14.What is the correct output? 
+class Test { 
+static void go(int z){ 
+System.out.println("int"); 
+} 
+static void go(Object z){
+ System.out.println("Object");
+ } 
+static void go(Double z){ 
+System.out.println("Double"); 
+} 
+static void go(Number z){ 
+System.out.println("Number"); 
+} 
+public static void main(String... args) {
+ Integer i = 6; 
+ go(i); 
+} 
+}
+
+Ans:
+i is a Integer object  
+answer don't know
+
+================================================================================================================================================================
+15.Predict the output for below code. ?
+
+boolean a = true;
+boolean b = !true;   //false
+boolean c = a | b;   //true
+boolean d = a & b;   //false
+boolean e = d ? b : c;   //true
+System.out.println(d + " " + e); 
+
+Ans:
+flase true
+
+================================================================================================================================================================
+16.Predict the output when you call bunnyEars2(5)? 
+public static int bunnyEars2(int bunnies) {
+ if (bunnies == 0) return 0;
+ else if (bunnies % 2 == 0) 
+return 3 + bunnyEars2(bunnies ‐ 1); 
+else return 2 + bunnyEars2(bunnies ‐ 1); 
+}
+Ans:
+compiletime error because of bunnyEars(only accept int values but not expressions)
+
+================================================================================================================================================================
+17) What is JVM and is it platform independent?
+A)Java program source code can run any Opearating System that is called platform independent.
+
+================================================================================================================================================================
+18) What do you mean by platform independence of Java?
+JVM(Java virtual Machine) is used to run our Java program, Every OS have different JVM.
+
+================================================================================================================================================================
+19) Which class is the superclass of all classes?
+Super class have variables and methods is used to sub class by using extends keyword.
+By default super class is Object in java.
+
+================================================================================================================================================================
+20) What is difference between path and classpath variables?
+
+
+================================================================================================================================================================
+21)Write a program display natural numbers in the given range using method.
+
+import java.util.Scanner;
+
+public class NaturalNumbers {
+
+		static String getNaturalNumbers(int num1, int num2) {
+				String result = "";
+				
+				if(num1 < 0 || num2 < 0) {
+					result = "-1";
+				}
+				else if(num1 == 0 || num2 == 0){
+					result = "-2";
+				}
+				else {
+					while(num1 <=  num2) {
+						result += num1 + " ";		
+						num1++;
+					}
+	
+				}
+				return result;
+				
+		}
+		public static void main(String args[]) {
+			
+			Scanner sr = new Scanner(System.in);
+			System.out.println("Enter any two numbers:");
+			System.out.println(getNaturalNumbers(sr.nextInt(), sr.nextInt()));
+			
+		}
+}
+
+================================================================================================================================================================
+22)Write a program read "Welcome to Java" and display Emoclew Ot avaJ
+
+================================================================================================================================================================
+23) What a program find product of given number using Russian Multiplication?
+import java.util.Scanner;
+public class RussianMultiplication {
+	static Scanner sr = new Scanner(System.in);
+	public static int getProduct(int num1, int num2) {
+		int sum = 0;
+		int i=num1,j=num2;
+		sum=sum+num2;
+		while(i != 1) {
+			i = i / 2;
+			j = j * 2;
+			if(i % 2 == 1) { 
+				sum = sum + j; 
+					
+			}	
+		}
+		return sum;
+	}
+	public static void main(String[] args) {
+		System.out.println("Enter Num1, and Num2  values");
+		int num1 = sr.nextInt();
+		int num2 = sr.nextInt();
+		System.out.println(getProduct(num1, num2));
+
+	}
+
+}
+
+
+================================================================================================================================================================
+24) What is final keyword in java?
+Actually final keyword is appliacble for variable, method and class.
+final variable: variable cann't assign another values
+final class: class cann't extends another class
+final method: method cann't participate ovveriding
+
+================================================================================================================================================================
+25)what is package and how to create our own package in java .
+package is a group of classes and interfaces. In this package we access class members one class to another class using extends and implements keyword.
+package is a two types, 1.User defined packages 2.Pre defined packages
+syntax:-
+package <packagename>; (User defined packages)
+
+================================================================================================================================================================
+26)What is an Exception and what keywords are available to handle exception comment each one of them.
+Exception: Exception is occured program in the middle. It will stop execution and terminal the program.
+try-catch-final block, throw and throws keywords to handle exception.
+
+================================================================================================================================================================
+27) What is this keyword and super keyword in java?
+super keyword is used in constructor, varibale and method.
+super keyword declare at starting line programming mebers like method or constructor or class
+
+================================================================================================================================================================
+28)When will you get NullPointerException?
+This exception is raised at Runtime, Object doesn't have any reference value It will raise NullPointerException.
+
+================================================================================================================================================================
+29)How to create our own Exception in java?
+Using throw new keyword
+if(withdrawBal > amount) {
+	throw new "FundsNotFoundException";
+}
+else {
+	Sopln("withdraw possible");
+}
+
+================================================================================================================================================================
+30)Write a program to sort array elements in ascending order?
+import java.util.Scanner;
+
+public class SortArray {
+
+	public static void main(String[] args) {
+		Scanner sr = new Scanner(System.in);
+		System.out.println("Enter size ");
+		int size = sr.nextInt();
+		int a[] = new int[size];
+		System.out.println("Enter values: ");
+		for(int i = 0; i < size ; i++) {
+			a[i] = sr.nextInt();
+		}
+		
+		for(int i = 0; i < size; i++) {
+			for(int j = i; j < size; j++) {
+				if(a[i] >= a[j]) {
+					int temp = a[i];
+					a[i] = a[j];
+					a[j] = temp;
+				}
+			}
+		}
+		for(int i = 0; i < size ; i++) {
+			System.out.print(a[i]+" ");
+		}
+	}
+
+}
+
+
+================================================================================================================================================================

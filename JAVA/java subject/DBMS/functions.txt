@@ -1,0 +1,444 @@
+Functions:-
+--------------
+Functions slove particular task and it returns a value
+1.pre define functions  2.user define function
+
+1.Pre-define functions
+---------------------------
+1.Numerical function
+2.Character function
+3.Date function
+4.Aggregation/group function
+
+dual:- dual is a pre define/virtual table It contains one row and one column 
+It is used for pre-define and user-define functionality
+dual table can't perform insert, delete, update operations
+
+SQL> select * from dual;
+
+D
+-
+X
+
+SQL> desc dual
+ Name                                      Null?    Type
+ ----------------------------------------- -------- --------------
+ DUMMY                                              VARCHAR2(1)
+
+
+2.Character function:-
+upper():-converting lower to upper case
+SQL> select upper('Manee') from dual;
+
+UPPER
+-----
+MANEE
+
+SQL> select lower('Manee') from dual;
+
+LOWER
+-----
+manee
+ 
+SQL> select initcap('maneesha') from dual;
+
+INITCAP(
+--------
+Maneesha
+
+SQL> select length('maneesha') from dual;
+
+LENGTH('MANEESHA')
+------------------
+                 8
+
+SQL> select * from emp where length(ename)<5;
+
+substr('string',starting position,no of characters)
+SQL> select substr('maneesha',2,5) from dual;
+
+SUBST
+-----
+anees
+
+SQL> select * from emp where ename=lower('king');
+       ENO ENAME  JOB             MGR        SAL     DEPTNO       COMM
+---------- ------ -------- ---------- ---------- ---------- ----------
+      7839 king   presidnt                  5000         10
+
+NOTE:-In all realational database not allowed aggragation function but number, character, date function in where clause.
+
+instr():- This function returns numeric value position of string.
+
+SQL> select instr('maneesha','n') from dual;
+
+INSTR('MANEESHA','N')
+---------------------
+                    3
+
+SQL> select instr('maneesha','e') from dual;
+
+INSTR('MANEESHA','E')
+---------------------
+                    4
+
+SQL> select instr('maneesha','e',1,2) from dual;
+
+INSTR('MANEESHA','E',1,2)
+-------------------------
+                        5
+
+=====================================================================================================
+trim()	ltrim()	rtrim():-
+------------------------------------
+remove leftside/rightside spaces or specified characters.
+
+SQL> select trim('maneesha') from dual;
+
+TRIM('MA
+--------
+maneesha
+
+SQL> select trim('   maneesha') from dual;
+
+TRIM('MA
+--------
+maneesha
+
+SQL> select trim('   maneesha   ') from dual;
+
+TRIM('MA
+--------
+maneesha
+
+SQL> select trim('   maneesha   djd') from dual;
+
+TRIM('MANEESHA
+--------------
+maneesha   djd
+
+SQL> select trim('   maneesha') from dual;
+TRIM('MA
+--------
+maneesha
+
+SQL> select ltrim('   maneesha') from dual;
+
+LTRIM('M
+--------
+maneesha
+
+SQL> select rtrim('   maneesha') from dual;
+
+RTRIM('MANE
+-----------
+   maneesha
+
+SQL> select ltrim('maneesha    ') from dual;
+
+LTRIM('MANEE
+------------
+maneesha
+
+SQL> select rtrim('maneesha    ') from dual;
+
+RTRIM('M
+--------
+maneesha
+
+SQL> select rtrim('maneesha','a') from dual;
+
+RTRIM('
+-------
+maneesh
+
+SQL> select ltrim('maneesha','m') from dual;
+
+LTRIM('
+-------
+aneesha
+
+SQL> select ltrim('maneesha','s') from dual;
+
+LTRIM('M
+--------
+maneesha
+
+SQL> select trim('m' from 'malayalam') from dual;
+
+TRIM('M
+-------
+alayala
+
+=====================================================================================================
+translate()		replace()
+--------------------------------------
+translate() function is used to replaced charcter by charater
+replace() function is used to replaced string by string
+SQL> select translate('maneesha','n','z') from dual;
+TRANSLAT
+--------
+mazeesha
+
+SQL> select translate('maneesha','ae','pq') from dual;
+TRANSLAT
+--------
+mpnqqshp
+
+SQL> select replace('maneesha','ae','pq') from dual;
+
+SQL> select replace('maneesha','n','z') from dual;
+REPLACE(
+--------
+mazeesha
+
+REPLACE(
+--------
+maneesha
+
+SQL> select replace('india','in','xy') from dual;
+REPLA
+-----
+xydia
+
+SQL> select replace('maneesha','an','xy') from dual;
+REPLACE(
+--------
+mxyeesha
+
+ascii():-it return ascii value of starting position of char
+
+SQL> select ascii('anj') from dual;
+ASCII('A')
+----------
+        97
+
+SQL> select lpad('manee',8,'#') from dual;
+LPAD('MA
+--------
+###manee
+
+SQL> select rpad('manee',8,'#') from dual;
+
+RPAD('MA
+--------
+manee###
+=======================================================================================================================
+Date functions:-
+-------------------
+Oracle default Date format: 02-JAN-2012  (case sensitive)
+1.sysdate:-
+Display current date of system
+2.add_months():-
+It is used to add months of given date (2 parameters given date and no.of months)
+3.last_day():-
+It is used to returns last date of given month (1 parameter given date)
+4.next_day():-
+It is used to returns next occurance date from given date based on given day (2 parameter one given date and given day(SUNDAY))
+5.months_between():-
+It is used to returns numeric value no.of months between two given date (2 parameter both given dates)
+SQL> select sysdate from dual;
+
+SYSDATE
+---------
+24-FEB-21
+
+SQL> select add_months(sysdate,4) from dual;
+
+ADD_MONTH
+---------
+24-JUN-21
+
+SQL> select add_months('28-APR-1996',4) from dual;
+
+ADD_MONTH
+---------
+28-AUG-96
+
+SQL> select last_day(sysdate) from dual;
+
+LAST_DAY(
+---------
+28-FEB-21
+
+SQL> select last_day('02-FEB-2012') from dual;
+
+LAST_DAY(
+---------
+29-FEB-12
+
+SQL> select next_day('02-FEB-2012','SUNDAY') from dual;
+
+NEXT_DAY(
+---------
+05-FEB-12
+
+SQL> select months_between(sysdate,'02-FEB-2011') from dual;
+
+MONTHS_BETWEEN(SYSDATE,'02-FEB-2011')
+-------------------------------------
+                           120.725012
+
+SQL> select months_between('02-FEB-2012','24-FEB-2011') from dual;
+
+MONTHS_BETWEEN('02-FEB-2012','24-FEB-2011')
+-------------------------------------------
+                                 11.2903226
+
+Date conversion function:-
+to_char():-It is used to convert oracle date type to character type.
+
+SQL> select to_char(sysdate,'dd-mm-yyyy') from dual;
+TO_CHAR(SY
+----------
+24-02-2021
+
+SQL> select to_char(sysdate,'DAY') from dual;
+TO_CHAR(SYSDATE,'DAY')
+------------------------------------
+WEDNESDAY
+
+SQL> select to_char(sysdate,'mon') from dual;
+TO_CHAR(SYSD
+------------
+feb
+
+SQL> select to_char(sysdate,'year') from dual;
+TO_CHAR(SYSDATE,'YEAR')
+------------------------------------------
+twenty twenty-one
+
+SQL> select to_char(sysdate,'dd') from dual;
+TO
+--
+24
+
+SQL> select to_char(sysdate,'HH:MI:SS') from dual;
+TO_CHAR(
+--------
+11:53:13
+
+to_date():-It is convert date string to oracle date type.
+
+SQL> select to_date('03-august-20') from dual;
+TO_DATE('
+---------
+03-AUG-20
+=======================================================================================================================
+Aggregate/Group functions:-
+----------------------------------
+In all relational databases by default group functions are operate over no.of values in a table column and then returns single value.
+min()
+max()
+avg()
+sum()
+count(*)
+count(colname)
+
+min():-This function return minimun value from a table column
+SQL> select min(sal) from emp;
+  MIN(SAL)
+----------
+       800
+SQL> select min(ename) from emp;
+MIN(EN
+------
+adams
+
+max():-This functions returns maximum value from a table column
+SQL> select max(ename) from emp;
+MAX(EN
+------
+ward
+SQL> select max(sal) from emp;
+  MAX(SAL)
+----------
+      5000
+
+sum():-This function returns totl sum values from a table column
+SQL> select sum(sal) from emp;
+  SUM(SAL)
+----------
+     29025
+
+avg():-This function returns average value from a table column
+SQL> select avg(sal) from emp;
+  AVG(SAL)
+----------
+2073.21429
+
+
+count(*):-This function returns total(*) no.of rows from a table 
+SQL> select count(*) from emp;
+  COUNT(*)
+----------
+        14
+
+count(colname):-This function returns no.of rows from a column name
+SQL> select count(sal) from emp;
+COUNT(SAL)
+----------
+        14
+SQL> select count(mgr) from emp;
+COUNT(MGR)
+----------
+        13
+
+
+=======================================================================================================================
+Numeric Functions:-
+-------------------------- 
+1	ABS()
+Returns the absolute value of numeric expression.
+SQL> select abs(10.578) from dual;
+ABS(10.578)
+-----------
+     10.578
+
+2.	CEIL()
+Returns the smallest integer value that is not less than passed numeric expression
+SQL> select ceil(10.578) from dual;
+CEIL(10.578)
+------------
+          11
+
+3.	FLOOR()
+Returns the largest integer value that is not greater than passed numeric expression.
+SQL> select floor(10.578) from dual;
+FLOOR(10.578)
+-------------
+           10
+
+4.	GREATEST()
+Returns the largest value of the input expressions.
+SQL> select greatest(4,7,2,8) from dual;
+GREATEST(4,7,2,8)
+-----------------
+                8
+
+5.	LEAST()
+Returns the minimum-valued input when given two or more.
+SQL> select least(4,7,2,8) from dual;
+LEAST(4,7,2,8)
+--------------
+             2
+
+6.	ROUND()
+Returns numeric expression rounded to an integer. Can be used to round an expression to a number of decimal points
+SQL> select round(144.536) from dual;
+ROUND(144.536)
+--------------
+           145
+
+SQL> select round(144.436) from dual;
+ROUND(144.436)
+--------------
+           144
+
+7.	SQRT()
+Returns the non-negative square root of numeric expression.
+SQL> select sqrt(25) from dual;
+  SQRT(25)
+----------
+         5
+=======================================================================================================================

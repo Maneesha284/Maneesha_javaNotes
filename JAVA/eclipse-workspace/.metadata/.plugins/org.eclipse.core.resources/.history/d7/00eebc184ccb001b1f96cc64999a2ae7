@@ -1,0 +1,18 @@
+
+public class Main2 {
+
+	public static void main(String[] args) {
+		
+		int n=123, j=0;
+		System.out.println(j);
+		do {
+			j=j+(n%10);
+			
+		}while(n/10 != 0);
+		System.out.println("hi");
+		System.out.println(j);
+		System.out.println("hi");
+
+	}
+
+}

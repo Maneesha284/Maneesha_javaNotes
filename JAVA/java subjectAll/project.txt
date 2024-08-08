@@ -1,0 +1,13 @@
+Payment Management Module
+emppay_details(He pays salary to employee)
+purchase_details(pay bills to the equipment purchase)
+ship_details(pay bills to ship maintains cost)
+
+Users Management Module
+user_details(their hierarchy ,contact details, login details…etc. And also can update their data as per requests)
+assignment_details(He can also assign task to employees and can view the status of the task)
+
+Registration Module
+addresses(Here mail admin register new employees and store their details in database)
+
+

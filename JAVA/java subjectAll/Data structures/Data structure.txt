@@ -1,0 +1,240 @@
+1)Linear search:-
+===========
+A linear search sequentially moves through collection looking for a matching value.
+Algorithm:-
+step 1: Start from the leftmost element of array and one by one compare the element we are searching for with each element of an array.
+step 2:If there is a match between the element. we are searching for and an ele of an array, return the index.
+step 3:If there is no match between the element. we are searching for and an ele of an array, return -1.
+           Go through positions, until element found and then stop
+
+program:-
+#include <stdio.h>
+#include <conio.h>
+int main()
+{
+	int i,n,a[10],se;
+	printf("Enter the size of an array\n");
+	scanf("%d",&n);
+	printf("Enter the elements of an array\n");
+	for(i=0;i<n;i++)
+		scanf("%d",&a[i]);
+	printf("enter the serching elements\n");
+	scanf("%d\n",&se);
+	for(i=0;i<n;i++)
+	{
+		if(a[i]==se)
+		{
+			printf("%d is located at %d position",se,i);
+			break;
+		}
+		if(i==n)
+			printf("%d is not located",se);
+		return 0;
+	}
+}
+
+2)Binary search:-
+============
+*It is a fast search algorithm with run time complexity. This search algorithm works on the principle of divide and conquer. 
+  For this algorithm to work properly, the collection should be in the "sorted form".
+*Binary search looks for a particular item by comparing the "middle most item" of the collection.If a match occur index return.
+*If the middle item is "greater than the item", then item is searched in the sub array to the "left" of the middle item.
+*Otherwise, the item is searched for in the sub array to the "right" of the middle item.
+*The process continous on the sub array as well untill the the size of subarray reduces to zero.
+
+first we should determine half of the array by using formula:
+                mid=low+high/2
+                if(se==a[mid])
+                elseif(se<a[mid])
+                   high=mid-1
+                elseif(se>a[mid])
+                    low=mid+1;
+
+#include <stdio.h>
+#include <conio.h>
+int main()
+{
+int i,n,a[10],se;
+printf("Enter the size of an array\n");
+scanf("%d",&n);
+printf("Enter the elements of an array\n");
+for(i=0;i<n;i++)
+scanf("%d",&a[i]);
+printf("enter the serching elements\n");
+scanf("%d\n",&se);
+low=0;
+high=n-1;
+while(low<=high)
+{
+mid=low+high/2;
+if(se==a[mid])
+{
+c=1;
+break;
+}
+else if(se<a[mid])
+high=mid-1;
+else if(se>a[mid])
+low=mid+1;
+}
+if(c==0)
+printf("%d is not located",se);
+else
+printf("%d is located at %d",se,i);
+return 0;
+}
+
+3)Bubble sort:-
+===========
+*Bubble sort is a sorting algorithm that works by "repeatdly stepping" through lists that need to be sorted,
+comparing each pair of adjacent items and swapping them
+*If they are in wrong order This "passin procedure" repeated until no swaps are required, indicating that the list is sorted.
+Algorithm:-
+step 1:Starting with the first element(index = 0), compare the current element with the next element of the array.
+step 2:If the current element is greater than the next element of the array, swap them.
+step 3:If the current element is less than the next element, move to the next element. 
+Repeat Step 1.
+example:
+pass 1:
+(5 1 4 2 8)   (5>1)-swap    (1 5 4 2 8)
+(1 5 4 2 8)   (5>4)-swap    (1 4 5 2 8)
+(1 4 5 2 8)   (5>2)-swap    (1 4 2 5 8)
+(1 4 2 5 8)   (5<8)-noswap(1 4 2 5 8)
+pass 2:
+(1 4 2 5 8)   (1<4)-noswap    (1 4 2 5 8)
+(1 4 2 5 8)   (4>2)-swap        (1 2 4 5 8)
+(1 2 4 5 8)   (4<5)-noswap    (1 2 4 5 8)
+(1 2 4 5 8)   (5<8)-noswap    (1 2 4 5 8)
+Now the array list is already sorted but our algorithm does not known if it is completed
+The algorithm needs one whole pass without any swap to known it is sorted.
+pass 3:
+(1 2 4 5 8)   (1<2)-noswap    (1 2 4 5 8)
+(1 2 4 5 8)   (2<4)-noswap    (1 2 4 5 8)
+(1 2 4 5 8)   (4<5)-noswap    (1 2 4 5 8)
+(1 2 4 5 8)   (5<8)-noswap    (1 2 4 5 8)
+This algorithm known as array list to be sorted.
+
+#include <stdio.h>
+#include <conio.h>
+int main()
+{
+int i,j,n,a[10],temp;
+printf("Enter the size of an array\n");
+scanf("%d",&n);
+printf("Enter the elements of an array\n");
+for(i=0;i<n;i++)
+scanf("%d",&a[i]);
+for(i=1;i<n;i++)
+for(j=0;j<n-1;j++)
+{
+  if(a[j]>a[j+1])
+{
+    temp=a[j];
+    a[j]=a[j+1];
+    a[j+1]=temp;
+  }
+}
+printf("list is sorted");
+for(i=0;i<n;i++)
+scanf("%d",a[o]);
+}
+
+4)Selection sort:-
+============
+*This sorting algorithm is an in-place comparison-based algorithm in which the list is divided into two parts,
+1)The sorted part at the left end.
+2)The unsorted part at the right end. 
+*Initially, the sorted part is empty and the unsorted part is the entire list.
+*The smallest element is selected from the unsorted array and swapped with the leftmost element, and that element becomes a part of the sorted array. 
+*This process continues moving unsorted array boundary by one element to the right.
+*This algorithm is not suitable for large data sets as its average and worst case 
+Algorithm:
+step 1: set min to location 0
+step 2:search the minimum element in the list
+step 3:swap with value at location min
+step 4:increment min to point to next element
+step 5:repeat until list is sored
+example:-
+input----(5 8 9 4 2 1 7)
+(5 8 9 4 2 1 7)  
+(1| 8 9 4 2 5 7)
+(1 2| 9 4 8 5 7)
+(1 2 4| 9 8 5 7)
+(1 2 4 5| 8 9 7)
+(1 2 4 5 7| 9 8)
+(1 2 4 5 7 8| 9)
+output----(1 2 4 5 7 8 9)
+
+
+#include <stdio.h>
+int main()
+{
+   int a[100], n, i, d, posi, swap;
+   printf("Enter number of elements\n");
+   scanf("%d", &n);
+   printf("Enter elements");
+   for ( i= 0 ; i< n ; i++ )
+   scanf("%d", &a[i]);
+   for ( i = 0 ; i <  n - 1 ; i++ )
+   {
+      posi = i;
+      for ( j = i + 1 ; j < n ; j++ )
+      {
+         if ( a[posi] > a[j] )
+            posi = j;
+      }
+      if ( posi != i)
+      {
+         swap = a[i];
+         a[i] = a[posi];
+         a[posi] = swap;
+      }
+   }
+   printf("Sorted list in ascending order:\n");
+   for ( i = 0 ; i < n ; i++ )
+   printf("%d\n", a[i]);
+   return 0;
+}
+
+5)Insertion sort:-
+============
+*The idea that one element from input element is consumed in each iteration to find its correct position
+*The element in its place and moves on the next element else finds its correct position.
+Algorithm:-
+ step 1:If it is the first element, it is already sorted. return 1;
+step 2: Pick next element
+ step 3:Compare with all elements in the sorted sub-list
+ step 4:Shift all the elements in the sorted sub-list that is greater than the value to be sorted
+step 5:Insert the value
+ step 6:Repeat until list is sorted
+
+#include <stdio.h>
+int main()
+{
+    int arr[100],limit;
+    int i,j,temp;    
+    printf("Enter total number of elements: ");
+    scanf("%d",&limit);
+    printf("Enter array elements: \n");
+    for(i=0; i<limit; i++)
+    {
+        printf("Enter element %3d: ",i+1);
+        scanf("%d",&arr[i]);
+    }
+    for(i=1; i<(limit); i++)
+    {
+        j=i;
+        while(j>0 && arr[j]<arr[j-1])
+        {
+            temp=arr[j];
+            arr[j]=arr[j-1];
+            arr[j-1]=temp;           
+            j--;
+        }
+    }
+    printf("Array elements in Ascending Order:\n");
+    for(i=0; i<limit; i++)
+        printf("%d ",arr[i]);  
+    return 0;
+}
+ 

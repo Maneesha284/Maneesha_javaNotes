@@ -1,0 +1,298 @@
+Inner class in java:-
+=============
+Java inner class:-
+*Inner class or nested inner class which is declared inside the class or interface
+Advtg:-
+*Inner class can access all the data members and methods of outer class including private.
+*Logically group of classes and interfaces in one place So It is develop more readable and maintainble(easy to understand relation b/w one class to other class)
+*I requires less code write
+*code optimization.
+
+Inner class means one class which is a member of another class. There are basically four types of inner classes in java.
+a) Class level IC
+b) Method level IC
+
+1) Nested class (Static inner class)---------------------(Static memebers,non Static memebers and Abstract method)  [Example$A.class]
+2) Inner class (non-Static inner class)------------------(non Static memebers and Abstract method)                              [Example$B.class]
+3) Method Local class (local inner class)--------------(non Static memebers and Abstract method)                              [Example$1c.class](1c,2c,1d)
+4)Anonymous class (argument inner class)------------(IV,IB,IM,NSIC,!CONS,!AM)                                                    [Example$1.class](1,2,3....)
+
+Non-static inner class:-
+1.Member inner class:-A class is ctreated within class outside method
+2.Anonymous inner class:-A class is created for implemetnts interface or extends class. This name name decided by jvm compiler
+3.Local inner class:-A class is created within the method.
+Static inner class:-
+4.nested interface:-An interface created in class or interface.
+5.Static inner class:- A static class is created inside class
+
+1)Static nested classes:-
+===============
+Static nested classes are not technically an inner class. They are like a static member of outer class.
+
+class Outer   { 
+  	 private static void outerMethod() 	{ 
+  		   System.out.println("inside outerMethod"); 
+  	 }  
+  	 static class Inner 	{ 
+    		 public static void main(String[] args)    { 
+     			   System.out.println("inside inner class Method"); 
+        			   outerMethod(); 
+		 } 
+   	} 
+ }
+
+Output
+inside inner class Method
+inside outerMethod 
+
+2)Non-static Inner class:-
+===============
+Nested Inner class can access any private instance variable of outer class. 
+
+class Outer  { 
+   	int x=10;
+   	void abc()   {
+		System.out.println("method");
+ 	  }
+ 	  class Inner { 
+   		   public void show()   { 
+         			  System.out.println("In a nested class method"); 
+            			  System.out.println(x);
+             			   abc();
+      		} 
+   	} 
+} 
+class Main { 
+  	 public static void main(String[] args) { 
+      		 Outer.Inner in = new Outer().new Inner(); 
+     		  in.show(); 
+   	} 
+} 
+Output:
+In a nested class method
+10 
+method
+
+3)Method Local inner classes:-
+====================
+Inner class can be declared within a method of an outer 
+
+class Outer 
+{ 
+    void outerMethod()
+    { 
+        System.out.println("inside outerMethod");       
+        class Inner 
+        { 
+            void innerMethod() 
+             { 
+                System.out.println("inside innerMethod"); 
+            } 
+        } 
+        Inner y = new Inner(); 
+        y.innerMethod(); 
+    } 
+} 
+class MethodDemo 
+{ 
+    public static void main(String[] args) 
+   { 
+        Outer x = new Outer(); 
+        x.outerMethod(); 
+    } 
+} 
+Output
+Inside outerMethod
+Inside innerMethod
+
+Method Local inner classes can’t use local variable of outer method until that local variable is not declared as final. 
+class Outer 
+{ 
+   void outerMethod() 
+   { 
+      int x = 98; 
+      System.out.println("inside outerMethod"); 
+      class Inner 
+	  { 
+         void innerMethod() 
+	     { 
+            System.out.println("x= "+x); 
+         } 
+      } 
+      Inner y = new Inner(); 
+      y.innerMethod(); 
+   } 
+} 
+class methodic
+{ 
+   public static void main(String[] args) 
+   { 
+      Outer x=new Outer(); 
+      x.outerMethod(); 
+   } 
+}
+Output:
+local variable x is accessed from within inner class; 
+needs to be declared final
+Note : Local inner class cannot access non-final local variable till JDK 1.7. Since JDK 1.8, it is possible to access the non-final local variable in method local inner class.
+output  1.8v:-
+inside outerMethod
+x=98
+
+4)Anonymous inner classes:-
+===================
+*Anonymous inner classes are declared without any name at all.
+*The intention of anonymous inner is providing quick implementation for a interface.
+*Anonymous class always either sub class of any other class of implements class of any interface.
+*we are creating object for sub class of A but that class doesn't contains same some classname$1 
+ They are created in two ways.
+a) As subclass of specified type
+class Demo 
+{ 
+   void show()
+   { 
+      System.out.println("i am in show method of super class"); 
+   } 
+} 
+class Flavor1Demo
+{  
+   static Demo d = new Demo() { 
+   void show() 
+   { 
+           super.show(); 
+           System.out.println("i am in Flavor1Demo class"); 
+       
+  }; 
+   public static void main(String[] args)
+  { 
+       d.show(); 
+   } 
+}
+Output
+i am in show method of super class
+i am in Flavor1Demo class 
+
+a) As implementer of the specified interface
+
+class Flavor2Demo { 
+    // An anonymous class that implements Hello interface 
+    static Hello h = new Hello() { 
+        public void show() { 
+            System.out.println("i am in anonymous class"); 
+        } 
+    }; 
+    public static void main(String[] args) { 
+        h.show(); 
+    } 
+}   
+interface Hello { 
+    void show(); 
+} 
+Output:
+i am in anonymous class
+
+
+==================================
+class Example 
+{
+	static class A {};
+	class B{};
+	void m1()
+	{
+		class C {};
+	    new Thread() {};
+		class D{}
+    }
+    void m2()
+	{
+		class C {}
+		class E {}
+        new Thread() {};
+    }
+}
+
+compile:
+Example$A
+Example$B
+Example$1C
+Example$1
+Example$1D
+Example$2C
+Example$1E
+Example$2
+
+
+1.Member inner class:-A class is ctreated within class outside method
+=================================================
+class TestMemberOuter1{  
+ private int data=30;  
+ class Inner{  
+  void msg(){System.out.println("data is "+data);}  
+ }  
+ public static void main(String args[]){  
+  TestMemberOuter1 obj=new TestMemberOuter1();  
+  TestMemberOuter1.Inner in=obj.new Inner();  
+  in.msg();  
+ }  
+}  
+
+2.Anonymous inner class:-A class is created for implemetnts interface or extends class. This name name decided by jvm compiler
+=========================================================================================
+interface Eatable{  
+ void eat();  
+}  
+class TestAnnonymousInner1{  
+ public static void main(String args[]){  
+ Eatable e=new Eatable(){  
+  public void eat(){System.out.println("nice fruits");}  
+ };  
+ e.eat();  
+ }  
+}  
+3.Local inner class:-A class is created within the method.
+=======================================
+public class localInner1{  
+ private int data=30;//instance variable  
+ void display(){  
+  class Local{  
+   void msg(){System.out.println(data);}  
+  }  
+  Local l=new Local();  
+  l.msg();  
+ }  
+ public static void main(String args[]){  
+  localInner1 obj=new localInner1();  
+  obj.display();  
+ }  
+}  
+
+Static inner class:-
+4.nested interface:-An interface created in class or interface.
+==========================================
+class TestOuter1{  
+  static int data=30;  
+  static class Inner{  
+   void msg(){System.out.println("data is "+data);}  
+  }  
+  public static void main(String args[]){  
+  TestOuter1.Inner obj=new TestOuter1.Inner();  
+  obj.msg();  
+  }  
+}  
+
+5.Static inner class:- A static class is created inside class
+=======================================
+Syntax of nested interface which is declared within the interface
+interface interface_name{  
+ ...  
+ interface nested_interface_name{  
+  ...  
+ }  
+}   
+Syntax of nested interface which is declared within the class
+class class_name{  
+ ...  
+ interface nested_interface_name{  
+  ...  
+ }  
+}   

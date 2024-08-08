@@ -1,0 +1,53 @@
+
+
+XML:-
+------
+
+*we can create our own tags
+*XML is used for storing the data in structured format(possible to maintainas text based databases)
+*It is used for transfering the data from any source to destination
+*It is platfro, independent and language indpendent.
+therefore different application as well as different platforms will use.
+*XML documents are treated as trees of nodes.
+*Functionality defined by the user and extensible
+*It is case sensitive and describe the data
+*In xml for every opening tag there should be closing tags.
+*XML is given by W3C
+*It is common language and it is understandable format for all languages.
+*XML version is 1.0
+
+XML document contains
+1.Element
+2.Attributes
+3.Entity References.
+
+Elements :- From opening tag and closing tag including text data.
+<employees>
+	<employee deptno="101"> 
+		<empno>1</empno>
+		<empname>anu</empname>
+		<salary>31000</salary>
+		<age>The person age < 18</age>
+	</employee>
+</employees>
+
+When we have to use < symbol is not valid. Here we have to use Entity Reference.
+
+Element contains:-
+1.child element
+2.attributes
+3.text area
+4.mix of all
+
+Attribute:- To define extra information of an element
+Attribute value must be enclosed with either single quotes or double quotes
+duplicate elements are not allowed. Attribute order is not important.
+Some special caharacters are having some special meaning
+
+syntax:
+Entity Ref: lt
+
+we can semantaic defination of an XML document:-
+1.DTD
+2.Schema
+

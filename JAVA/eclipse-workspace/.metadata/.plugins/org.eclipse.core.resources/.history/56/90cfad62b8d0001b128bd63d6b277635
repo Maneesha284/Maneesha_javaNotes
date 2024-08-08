@@ -1,0 +1,32 @@
+package collection;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
+
+public class ListSorter {
+	public static List<Integer> sortIntList(List<Integer> list) {
+		Collections.sort(list);
+		
+		return list;	
+	}
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		List<Integer> list =new ArrayList<Integer>();
+		System.out.println("Enter integer values");
+		for(int i=0;i<6;i++) {
+			list.add(sc.nextInt());
+		}
+		Iterator i=list.iterator();
+		while(i.hasNext()) {
+			Object o=i.next();
+			System.out.println(o);
+		}
+
+	}
+
+	
+
+}

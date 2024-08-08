@@ -1,0 +1,222 @@
+Set(I):-
+====
+
+	collection(I)(1.2)
+	     |
+	set(I)(1.2)
+	   /       \
+HashSet(1.2)		SortedSet(I)(1.2)
+    |			      |
+LinkedHashSet(1.4)	NavigableSet(I)(1.6)
+			      |
+			TreeSet(1.2)
+
+*group of individual objects as a single enitity
+*duplicates not allowed insertion order is not preserved.
+*Index will not be maintained
+*set(I) doesn't contain any new methods so we have to use only collection(I) methods.
+************************************************************************************************************************************
+HashSet:-
+======
+1.The underlying Data Structure is Hashtable.
+2.Duplicates not allowed. If we are trying to insert duplicates, we won't get any compiletime or runtime error. add() method simply returns false.
+3.Insertion order is not preserved and all objects will be "inserted based on hash-code" of objects(hashing mechanism).
+4.Hetrogeneous objects are allowed.
+5.null insertion is possible. If we are inserting more than one null it return only one null value(Duplicate not allowed)
+6.implements serializable and clonable interfaces but not RandomAccess.
+7.HashSet is the best choice, If our frequent operation is serach operation.
+8.Methods are non-synchronized
+9.It supports only iterator cursor to retrive the data.
+
+Constructors:-
+HashSet, LinkedHashSet, Hashtable, HashMap, IdentityHashMap, WeakHashMap
+
+1. HashSet h=new HashSet();
+creates an empty HashSet with default capacity- 16
+
+2. HashSet h=new HashSet(int initialCapacity);
+creates an empty HashSet with specified initialCapacity and default Ratio- 0.75
+
+3. HashSet h=new HashSet(int initialCapacity, float loadFactor);
+cretes an empty HashSet with specified initialCapacity and and Speicified Load factor(fill ratio)
+
+4. HashSet h=new HashSet(Collection c);
+For inter conversion b/w Collection Object.
+
+import java.util.HashSet;
+class HashSet11 {
+       public static void main(String args[])  {
+	HashSet h=new HashSet();
+	h.add("t");
+	h.add("s");
+	h.add("m");
+	h.add("i");
+	System.out.println(h.add("m"));
+	System.out.println(h);
+         }
+}	
+
+NOTE:Load Factor/ Fill Ratio:-
+======================
+After loading the how much factor, a new HashSet Object will be created, that factor is called as Load Factor or Fill Ratio.
+************************************************************************************************************************************
+LinkedHashSet:-
+===========
+HashSet(1.2)		
+    |			     
+LinkedHashSet(1.4)
+
+
+It is exactly same as HashSet except the following difference
+1.The underlying Data Structure is Hashtable+LinkedList.
+2.Insertion order is preserved
+3.LinkedHashSet(1.4) version
+
+4.Hetrogeneous objects are allowed.
+5.null insertion is possible. If we are inserting more than one null it return only one null value(Duplicate not allowed)
+6.implements serializable and clonable interfaces but not RandomAccess.
+7.HashSet is the best choice, If our frequent operation is serach operation.
+8.Methods are non-synchronized
+9.It supports only iterator cursor to retrive the data.
+10.Duplicates not allowed. If we are trying to insert duplicates, 
+we won't get any compiletime or runtime error. add() method simply returns false.
+
+
+import java.util.LinkedHashSet;
+class LinkedHashSet1 {
+       public static void main(String args[])  {
+	LinkedHashSet h=new LinkedHashSet();
+	h.add("t");
+	h.add("s");
+	h.add("m");
+	h.add("i");
+	System.out.println(h.add("m"));
+	System.out.println(h);
+         }
+}	
+o/p:-
+flase
+[t, s, m, i]
+
+NOTE:LinkedHashSet is the best choice to develop cache based applications, where duplicates not allowed and insertion order must be preserved.
+************************************************************************************************************************************
+SortedSet(I):-
+=========
+Set(I)
+  /\
+   |
+SortedSet(I)
+ *If u want group of individual objects according to some sorting order and duplicates are not allowed.
+
+SortedSet specific methods:-
+10 20 30 40 50 60 70 80
+1.Object first()-->10
+
+2.Object last()-->20
+
+3.SortedSet headSet(Object o)
+less than particular object 
+headSet(30)--->20
+
+4.tailSet(Object o)
+greaterthan than particular object 
+tailSet(50)--->60
+
+5.subSet(Object o1, Object o2)
+returns  the sortedset whose elements are >=o1 and <o2
+subSet(30, 60)-->30, 40, 50 
+
+6.comparator():-
+returns comparator object which describe underlying sorting technique
+default natural sorting order:-(no-Ascending order for string-Alphabetical order)--->null return
+
+NOTE:-we can apply the above methods only on SortedSet implmented class Objects. That is on the TreeSet Object.
+************************************************************************************************************************************
+TreeSet:-
+=======
+1.The underlying Data Structure for TreeSet is balanced Tree.
+2.Duplicates not allowed. If we are trying to insert duplicates, we won't get any compiletime or runtime error. add() method simply returns false.
+3.Insertion order is not preserved and all objects will be inserted based according to some sorting order.
+4.Hetrogeneous not allowed.(RE: ClassCastException)
+5.null insertion is not possible
+6.1.2v
+7.Methods are non-synchronized
+8.It supports Iterator cursor to retrive tha data
+
+TreeSet<String> ts=new TreeSet<String>();
+ts.add("ffg");
+*When we insert data in TreeSet, by default it prints data in sorting order(Ascending or alhabetic order) because it is implementing SortedSet interface. 
+
+Constructors:-
+1.TreeSet t=new TreeSet();	
+default natural sorting order
+2.TreeSet t=new TreeSet(Comparator c);
+Customized sorting order(name, sal tec..) 
+3.TreeSet t=new TreeSet(Collection c);
+any Collection object(an equivalent TreeSet Object)
+4.TreeSet t=new TreeSet(SortedSet s);
+
+import java.util.TreeSet;
+class TreeSet11 {
+       public static void main(String args[])  {
+	TreeSet t=new TreeSet();
+	t.add("C");
+	t.add("b");
+	t.add("a");
+	t.add("B");
+	t.add("e");
+	t.add("M");
+	t.add("101"); 	//String
+	//t.add(new Integer(10));	//ClassCastException
+	//t.add(null);	//NullPointerException
+	System.out.println(t);
+         }
+}	
+o/p:-
+[101, B, C, M, a, b, e]
+
+null acceptance(TreeSet):-
+==================
+*For empty TreeSet as the first element null insertion is possible But after inserting that null if we are trying to insert any another element
+we will get NullPointerExcepion
+*For Non empty TreeSet if we are trying to insert Null then we will get NullPointerException.
+
+*****************************************
+*************pending(TreeSet)**************
+*****************************************
+************************************************************************************************************************************
+Diff b/w Comparable(I) and Comparator(I) :-
+============================
+	Comparable
+1.It is meant for Default sorting order.
+
+2.Present in java.lang package
+
+3.It defines only one method compareTo()
+
+4.All wrapper classes and String class implement comparable(I)
+
+	Comparator
+1.It is meant for Customized sorting order.
+
+2.Present in java.util package
+
+3.It defines 2 method compare() and equals()
+
+4.Only one implemented classes of comparator are Collator and RuleBasedCollator
+
+Comparsion of Set(I) implemented classes
+
+Poperty			HashSet		LinkedHashSet		TreeSet
+
+1.underlying DS		Hashtable		Hashtable+LinkedList		Balanced Tree
+
+2.Inserton order		Not preserved	preserved			Not Applicable
+
+3. Sorting order		Not Applicable	Not Applicable		Applicable
+
+4.Hetrogeneous objects	Allowed		Allowed			Not Allowed
+
+5.Duplicate objects		Not Allowed 	Not Allowed 		Not Allowed
+
+6.Null Acceptance 		Allowed(only once)	Allowed(only once)		Allowed(only once)For empty TreeSet

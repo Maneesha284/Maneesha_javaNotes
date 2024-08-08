@@ -1,0 +1,66 @@
+1.Diff b/w final, finally,finalize
+2.Diff b/w String and StrinBuffer
+3.Diff b/w == and .equals()
+4.what are various modifiers available in java
+5.Diff b/w StrinBuffer and StrinBuilder
+6.String vs StrinBuffer vs StrinBuilder
+7.Interface vs abstract class vs concrete class
+8.Access specifiers vs Access modifiers
+9.Diff b/w Interface and abstract class
+10.Explain about System.out.println();
+11.12.13.Explain about psvm()
+14.15.Diff b/w overloading and overriding
+16.Diff b/w Parent p=new Child();
+                     Child c=new Child();
+17.various possible Combinations of try-catch-finally
+18.Diff b/w Exception and Error
+19.Diff b/w Checked Exception and UnChecked Exception
+20.Diff b/w Fully Checked Exception and partially Checked Exception
+21.Control flow in try-catch(Exception handling)
+22.Control flow in try-catch-finally(Exception handling)
+
+
+8.Access specifiers vs Access modifiers
+Ans:
+1)In old languages like c++ public, private, protected, <default> are considerd as 
+Access specifiers.Except in remaining(like static) are considerd as Access modifiers
+2)But in java there is no terminology like specifiers.all are by default considerd as modifiers only
+12 Access modifiers
+public
+private
+protected
+<default>
+final
+static
+synchronized
+abstract
+native 
+strictfp
+transient
+volatile
+class Test (public,<default>,final,abstract,strictfp)
+{
+}
+
+9.Diff b/w Interface and abstract class
+Interface:-
+1.If we don't know anything about implementation just we have requirement specification then we should go for interface. 
+2.Inside interface every method is always public and abstract whether we are declaring or not.
+    Hence interfce is also considered as 100% pure abstract class.
+3.
+
+
+Abstract class:-
+1.If we are talking about implementation but not completely(partially implementation) then we should go for abstract class.
+2.Every method present in abstract class need not be public and abstract. In a addition to abstract methods we can take concrete methods also.
+
+
+
+
+
+
+
+
+
+
+

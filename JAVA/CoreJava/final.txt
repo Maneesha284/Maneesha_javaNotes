@@ -1,0 +1,15 @@
+final keyword:-
+--------------
+final keyword can be used in 3 context
+
+1.final variable:-
+final variable must be initailized
+final variable can't be reassigned
+
+2.final method:-
+final method of the super class can't override in the subclass
+To meet the requirment of the subclass.
+
+3.final class:-
+If super class is final that can't be inherited
+

@@ -1,0 +1,946 @@
+Spring core   //core java
+Spring DAO   //JDBC
+Spring ORM   //Hibernate, JPA
+Spring AOP     //core java, Log4J
+Spring MVC    //Servlets and JSP
+Spring JMS(post sms)
+Spring Email(Sent email)
+Spring OXM(Object xml mapping)---jaxb, castor, xmlbeans, jibix
+Spring Schedulers
+Spring Security
+Spring Hadoop
+Spring Cloud
+Spring Boot
+
+Spring core:-
+-----------------
+Intro
+Dependency Injection
+SetterInjection
+Constructor Injection
+Injecting private data types and collection classes
+Autowire
+Inner beans
+Alias Names
+Lazy Initailization
+Bean Inheritance
+Factory Metohds Configuration
+Bean Life cycle
+Bean scopes
+Dependency check
+Depends on
+Aware Interfaces
+Working with properties files
+Multiple Configuration files
+Pre processror and post processors
+118N
+Annotations
+
+Spring JDBC/DAO:-
+-------------------------
+Drawbacks of plain JDBC
+JdbcTemplate
+NamedParameterJdbcTemplate
+SimpleJdbcTemplate
+All the methods defined in Template
+DAOSupport classes
+Callback interfaces
+DrivermanagerDatasource
+BasicDataSource
+Combopooled DataSource
+ServerSupplied DataSource
+
+================================================================================================================================
+Presentation logic:-(view layer)
+-------------------------------------
+To display dat to the end user
+HTML, JSP, Velocity, Freemaker, Angular JS
+
+Validation logic:-
+--------------------
+Verify the end user data
+javascript, javacode
+
+Request processing logic:-(model and view layer)
+-------------------------------
+It is handles all the requests coming from browser and responses from model
+using servlet we can develop the RequestProcessing logic
+NOTE: If any framework  RequestProcessing logic was predefined
+
+Business logic:-(Service layer)
+--------------------
+The main logic of the application(perform operations on server side) 
+
+Persistance logic:-(persistance/DAO layer)
+-----------------------
+Storage area
+JDBC, Hibernate, JPA, DAO, ORM,
+
+[PRESENTATION LAYER----(structs,spring MVC, Wicket JSF)----------CONTROLLER LAYER]---------[SERVICE/BUSINESS LAYER------(model)-------DAO LAYER]-------DATABASE
+
+SERVICE/BUSINESS LAYER:-
+-------------------------------
+JavaBean
+EJB seeeion bean
+Spring context
+Spring JEE
+Spring OXM
+Spring JMS
+Spring Email
+
+PERSISTANCE/DAO LAYER:-
+----------------------------------
+JDBC
+Hibernate
+JPA
+Spring DAO
+Spring ORM
+JDO
+TopLink
+
+CONTROLLER LAYER:-
+------------------------------------
+Servlet
+Filter
+EmployeeServlet
+ActionServlet
+DispatcherServlet
+ 
+PRESENTATION LAYER:-
+-----------------------------------
+HTML
+JSP
+Velocity
+Freemaker
+Angular JS
+React JS
+
+===============================================================================================================================
+Spring:-
+Open source:-
+*We will get the source code
+
+Light weight:-
+*Server not required, size of container, Spring provides two containers 1.BeanFactory container 2.ApplicationContext containers
+
+Loosely coupled:-
+*We can use individual/few/all module's of spring to develop App
+*We can integrate Spring with other frameworks. like struts, Hibernate
+
+Framework:-
+*It is a reusable semi completed app  that can be used to develop the app.
+*Set of well defined classes and interfaces 
+*To develop SA, EA, WA and RemoteApp etc.
+*Found:-Rod Jhonson under Apache in june 2003
+
+*Spring is a layer above your JAVA and J2EE, but never spring is a replacement for the JAVA and J2EE
+Spring provides the flexbility to the developers, To develop the Enterprice App using POJO class
+It is a modular fashion.
+
+getEmployeeCount() {
+	String sql="Select count(*) from emp";
+	int count=getQueryForInt(sql);
+
+	List<Employee> li=jdbctemplate.queryForList(sql);
+}
+
+*Spring handles the infrastructures(like con object)
+
+*Testing of the spring based App(Unit testing) is simple.
+
+*Spring's web f/w is a well-designed web MVC f/w, Which provides a great alternative to web f/w such as struts
+=================================================================================================================================
+Spring 1.x:-  only one jar file needed(spring.jar)
+--------------
+Spring core
+Spring AOP   
+Spring ORM   
+Spring DAO 
+Spring context 
+Spring WEB 
+Spring Web MVC  
+
+spring 2.x:-  only one jar file needed(spring.jar)
+------------
+Spring core
+Spring AOP   
+Spring ORM  
+Spring DAO 
+Spring WEB (Spring WEB /Spring Web MVC -1.x )
+Spring JEE (Spring context -1.x )
+
+Spring 3.x:-  (multiple jar files)
+Test
+core container(Beans,core,context,Expression lang)
+AOP
+Aspects
+Instrumantation
+DataAcess/Integration(Transaction,JDBC,ORM,OXM,JMS)
+Web[MVC/Remoting](web, servlet, portlet, structs)
+
+Spring 4.x:-  
+--------------
+Test
+core container(Beans,core,context,Expression lang)
+AOP
+Aspects
+Instrumantation
+Messaging
+DataAcess/Integration(Transaction,JDBC,ORM,OXM,JMS)
+Web[MVC/Remoting](web, servlet, portlet, WebSocket)
+
+Spring 5.x:-  
+--------------
+core container(Beans,core,context,SP E lang)
+AOP
+Aspects
+Instrumantation
+Messaging
+DataAcess/Integration(Transaction,JDBC,ORM,OXM,JMS)
+Web[MVC/Remoting](web, servlet, portlet, WebSocket)
+
+
+===============================================================================================================================
+Spring Modules (Spring-1.x):-
+---------------------------------
+1.core Module:-
+--------------------
+basic fondation spring
+pojo, Autowiring
+Autowiring:-
+one bean object attached(injecting) to another bean object, another bean object attached(injecting) to another bean object
+It is base module for all the modules. It provides container. All Beans managed by container. i.e; BeanFactory or ApplicationContext.
+It maintains bean life cycle.
+
+2.Spring JDBC/DAO Module:-To interact with DB 
+-------------------------------------
+To develop the persistance logic. It provides the abstraction layeron top of JDBC.
+	//JDBC-common code(Boiler plate code)
+jdbcTemplate.execute("select * from emp");
+
+3.Spring ORM Module:-
+--------------------------------
+Spring provides an integation support with most of the ORM tools
+Ex:-Hibernate, top link, JPA etc.
+The boilerpltecode is abstracted
+[	In the hibernet
+1.create configuration object
+Configuration cfg=new Configuration();
+cfg.configure();
+
+2.create SessionFactory object
+SessionFactory sf=cfg.buildSessionFactory();
+
+3.create Session object
+Session s=sf.openSession();
+
+4.create Transaction Object
+Transaction tx=s.beginTransaction();
+
+5.Perform Database operations
+   int kval=s.save(emp);
+
+6.tx.commit();
+
+7.close the resources
+s.close();
+sf.close();		]
+
+Spring hibernate:
+The boilerpltecode is abstracted
+HibernateTemplate
+hibernateTemplate.save(emp);
+
+4.Spring AOP Module:-
+-----------------------------------
+(Aspect oriented programming)
+*Business logic and services logic seperatly
+*It is not given flexibility to write services code inside business logic.
+*we are able define services logic explicitly
+*Which location requires services(Authentication,Transaction) is needed(maybe before method after method)
+
+5.Spring Transaction Module:-
+-------------------------------------
+Relationship b/w DB
+Must be applied Business logic
+Transaction Module provide very good environment transactions
+@transactional
+
+6.Spring web Module:-
+----------------------------
+(web application prepare more effective manner)
+web Module:-structs framework(MVC based), JSF... presentation
+Web MVC Module:-only MVC 
+
+7.Spring Security Module:-
+-------------------------------------
+web application securiry like username, password
+ Authentication and Autherization services 
+
+================================================================================================================================
+DependencyInjection:-(DesignPattern)
+----------------------------------------------
+*We are not creating an object but getting Object on address.
+*Spring creating an object 
+*One object into another Object
+*DesignPattern to avoid writing unnecessary code, while creating object Application
+
+Dependency:-
+-----------------
+*has-A relationship/Association
+*One object depends on another Object.
+Ex:-Employee depends on Address.
+EmployeeDAO depends on Connection.
+public class Employee{
+	//Employee properties
+	private Address addr;
+}
+class Address{
+	//Address properties
+}
+
+Injecting:-
+-------------
+*Setting One object data into another Object address of the Employee(Injecting)
+Ex:-Setting address of the Employee(Injecting)
+Employee e1=new Employee();
+Address a1=new Address();
+e1.setAddress(a1);
+
+DependencyInjection:-
+------------------------
+*DependencyInjection based java framework to develop any type of App.
+Ex:-Injecting address object into employee
+e1.setAddress(a1);
+
+*DependencyInjection is also called IOcC
+*Spring container creates objects and those objects are injected into our App.
+
+Example:-
+1.The DAO classes uses the DataSource which can be injected into DAO classes.
+2.The service layer uses DAO class object, Which can be injectes intoDAO classes.
+
+There are 2 ways to set the data into object
+1.setter method
+2.parameterized constructor
+
+In spring there are 2 types of injections
+----------------------------------------------
+1.Setter injection: Setter method
+2.Constructor injection: Parameterized constructor 
+
+Rules:-Spring bean class
+------------------------------
+1.class should be public and non-abstract
+2.implements java.io.seralizable
+3.provide default Setter method and parameterized constructor to support Constructor injection
+4.private properties
+5.generate Setter and getter for each property to support Setter injection
+
+================================================================================================================================
+1.CORE MODULE:-
+--------------------------
+Steps to prepare first Spring App core module:-
+1.Download Spring framework(jar's)
+
+https://repo.spring.io/release/org/springframework/spring/
+https://commons.apache.org/proper/commons-logging/download_logging.cgi
+
+commons-logging-1.2
+beans
+context
+context-support
+core
+expression
+
+spring-beans-4.3.10.RELEASE
+spring-context-4.3.10.RELEASE
+spring-context-support-4.3.10.RELEASE
+spring-core-4.3.10.RELEASE
+spring-expression-4.3.10.RELEASE
+commons-logging-1.2
+
+2.prepare java project
+3.prepare spring library with the required jar files
+
+4.prepare bean class
+--------------------------
+*Bean is reusable component , It is a normal java class having properties and the respective setXxx() and getXxx() methods
+
+*Spring f/w is using POJO classes(It not extends predefien  java.io.Serializable)
+JSP-useBean
+structs-ActioForm/FormBean
+JSF-BackingBean
+Spring and Hibernate-POJO
+
+*POJO class must be a java bean class, It must be declared as public, non abstract non final
+a)Bean as public is to make available to spring f/w inorder to create object
+b)Spring f/w must crete object for Bean class it must be non-abstract
+c)If u want to bean class properties to use another bean class To code reusability it must be non-final
+
+*In Bean class declare properties as per the req and we must provide a seperate set of setXxx() and getXxx()
+
+*In Bean class declare all properties as private and methods as public "Encapsulation"
+
+*In Bean class if u want to provide constructor but it must be public and zero-argument constructor
+because while instantaiting Bean class, spring f/w search and execute only public and zero-arg cons
+
+*if u want to provide our own comparision b/w 2 bean objects then we have to override eqauls().
+
+*if u want to generate hashCode values of the Bean objects in our own view then we have to Override hashCode()
+
+5.prepare spring configuration file with bean configuration file
+------------------------------------------------------------------------------
+*It is an xml file , It will include all beans configuration details like 
+name of the bean class, identify of bean class, properties and their values of the Bean class.
+
+*The main intention of Bean configuration in Spring configuration file is to create Bean object by spring frameworke(activiat  container).
+(Each and Every Bean class Spring f/w will create sepearte object) and container creates responsibilty Bean object.
+
+*Spring f/w is able to allow any name to the configuration file but suggistable name is "applicationContext.xml"
+other developers---->spring.xml  beans.xml   spring-beans.xml
+
+*
+<beans   ------XSD------->
+<bean id="reference/beanid" class="--"/>
+<property name="Message" value="GM">>
+</beans>
+
+id=It will take variable name as an identity to the genearted Bean object.
+class=It will take fully qualified name of the respective Bean class
+
+<beans ----XSD---->
+	<bean id="helloBean" class="com.durgasoft.beans.HelloBean">
+</beans>
+
+================================================================================================================================
+core container class name is BeanFactory(I)-----implementation-------->XmlBeanFactory(c)
+
+J2EE container class name is ApplicationContext(I)------>ConfigurableApplicationContext(I)------implementation------->ClassPathXmlApplicationContext(c)
+
+web container class name is WebApplicationContext(I)------implementation------>WebApplicationContextUtil(c)(Factory class)
+
+How to start/stop IOC container:-
+--------------------------------------
+new XmlBeanFactory();
+
+new ClassPathXmlApplicationContext();
+
+WebApplicationContextUtil.getObject();
+===============================================================================================================================
+
+6.Prepare Test App
+--------------------------
+*The main intension is to activate container from spring f/w and allows to create bean objects by getting beans details from spring configuration file 
+and to use Bean objects  in our application as per the req.
+
+*There are two types of containers in Spring f/w
+	1.BeanFactory
+	2.ApplicationContext
+
+*To create BeanFactory container
+
+<beans   ------XSD------->
+<bean id="helloBean" class="com..HelloBean"/>
+<property name="Message" value="GM">
+</beans>
+
+public class Test {
+       psvm(-) {
+	Resource resource=new ClassPathResource("hello.xml");
+	BeanFactory beanFactory=new XmlBeanFactory(resource);
+/*
+=>In the above code, the BeanFactory instance is created using the XmlBeanFactory class, by loading .xml using FileSystemResource class.
+=>getBean() method can be used to get a particularbean object by specifying its id.
+*/
+	Sopln("Activate BeanFactory:   "+beanFactory);
+	HelloBean bean=(HelloBean) beanFactory.getBean("helloBean");
+/*
+getBean("--") method to get the bean object
+public object getBean(String name)
+Above method returns Object, but to get our bean object(HelloBean) we need to perform type cast
+If there is no bean defination in the configuration file it throws NoSuchBeanDefinationException.
+
+*/
+	Sopln(bean.sayHello());
+        }
+}
+
+============================================================================================================================
+1.Download spring f/w 
+2.create java project in Eclipse IDE with spring library(user define library)
+3.prepare pojo class
+4.prepare spring configuration file 
+xsd:for validating tags/attributes
+dtd:spring 4.0v not supported
+5.prepare Test Application.
+Activate Application context container
+================================================================================================================================
+Hello.java
+---------------
+package com.mani.bean;
+public interface Hello {
+	public String sayHello();
+}
+
+HelloBean.java
+----------------------
+package com.mani.bean;
+public class HelloBean implements Hello {
+	private String message;
+	public HelloBean(){
+		System.out.println("Default constructor......");
+	}
+	public String getMessage() {
+		System.out.println("getMessage method......");
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;	
+	}
+	@Override
+	public String sayHello() {
+		System.out.println(" sayHello Message method......");
+		return null;
+	}
+}
+
+hello.xml
+-----------
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        <bean id="helloBean" class="com.mani.bean.HelloBean">
+          <property name="message" value="Good morning...."></property>
+         </bean>
+ </beans>
+
+HelloClient.java
+---------------------
+package com.mani.bean;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+@SuppressWarnings("deprecation")
+public class HelloClient {
+	public static void main(String[] args) {
+		Resource resource=new ClassPathResource("hello.xml");
+		BeanFactory beanFactory=new XmlBeanFactory(resource);
+//BeanFactory beanf = new XmlBeanFactory(new FileSystemResource("hello.xml"));
+		System.out.println("Activate BeanFactory:   "+beanFactory);
+		HelloBean bean=(HelloBean) beanFactory.getBean("helloBean");
+		System.out.println(bean.sayHello());
+
+	}
+
+}
+output:
+Activate BeanFactory:   org.springframework.beans.factory.xml.XmlBeanFactory@6a38e57f: defining beans [helloBean]; root of factory hierarchy
+Default constructor......
+SayHello Message method......
+null
+
+================================================================================================================================
+HelloBean.java
+--------------------
+package com.manee.beans;
+public class HelloBean {
+	public String sayHello() {
+		return "Hello user....";
+	}
+}
+
+applicationContext.xml
+---------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        <bean id="helloBean" class="com.manee.beans.HelloBean"></bean>
+ </beans>
+
+Test.java
+------------
+package com.manee.test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import com.manee.beans.HelloBean;
+public class Test {
+	public static void main(String[] args)throws Exception {
+		ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
+/* ApplicationContext container will take name and location of the configuration file from ClassPathXmlApplicationContext constructor and search for applicationContext.xml specified
+location if identified then ApplicationContext container will load applicationContext.xml file into the memory and parse  the applicationContext.xml file read the applicationContext.xml
+file ApplicationContext will search for Bean configurations how many no.of beans are configure inside .xml ApplicationContext will create object for each and every bean defination
+and bean objects maintained by ApplicationContext */
+
+		HelloBean h1=(HelloBean)context.getBean("helloBean");
+		System.out.println(h1.sayHello());		
+	}
+}
+================================================================================================================================
+.xml file:-
+--------------
+*To perform setter injection in xml use <property> tag
+
+*If the property type is primitive or wrapper class or string, to configure this property the "value" attribute or value tag/attribute.
+
+*If the property type is userdefined class or pre defined class /userdefined interface or pre defined interaface this property the "ref" arrtibute".
+================================================================================================================================
+
+Setter Injection example:-
+-------------------------------
+Employee.java
+------------------
+package com.mani.emp;
+public class Employee {
+	private Long empid;
+	private String ename;
+	private byte age;
+	private double salary;
+	private Address address;
+	//Setter Injection(Setter mandatory getter optional)
+	public Employee(){
+		System.out.println("Emp Def cons.....");
+	}
+	public Long getEmpid() {
+		return empid;
+	}
+	public void setEmpid(Long empid) {
+		this.empid = empid;
+	}
+	public String getEname() {
+		return ename;
+	}
+	public void setEname(String ename) {
+		this.ename = ename;
+	}
+	public byte getAge() {
+		return age;
+	}
+	public void setAge(byte age) {
+		this.age = age;
+	}
+	public double getSalary() {
+		return salary;
+	}
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
+	}	
+}
+
+Addrees.java
+----------------
+package com.mani.emp;
+
+public class Address {
+	private String hno;
+	private String city;
+	private String state;
+	private String pincode;
+	//Setter Injection(Setter mandatory getter optional)
+	public Address(){
+		System.out.println("Emp Def cons.....");
+	}
+	public String getHno() {
+		return hno;
+	}
+	public void setHno(String hno) {
+		this.hno = hno;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	public String getPincode() {
+		return pincode;
+	}
+	public void setPincode(String pincode) {
+		this.pincode = pincode;
+	}	
+}
+
+EmpAdd.xml:- VALUES ARE(static) INJECTING BY SPRING CONTAINER
+----------------
+<?xml version="1.0" encoding="UTF-8"?>
+ <beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+        <bean id="address" class="com.mani.emp.Address">
+        	<property name="hno" value="8-5-29"></property>
+        	<property name="city" value="hyd"></property>
+        	<property name="state" value="Telangana"></property>
+       		<property name="pincode" value="500089"></property>   
+        </bean>
+        
+        <bean id="id5" class="com.mani.emp.Employee">
+        	<property name="empid" value="101"></property>
+        	<property name="ename" value="manisha"></property>
+        	<property name="age" value="25"></property>
+       		 <property name="salary" value="10000"></property>
+        	<property name="address" ref="address"></property>
+        </bean>
+        </beans>
+
+Test.java
+------------
+package com.mani.emp;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+public class Test {
+	public static void main(String[] args) {
+		//Active container by spring configuration file
+		ApplicationContext applicationContext=new ClassPathXmlApplicationContext("EmpAdd.xml");
+		//get Employee object
+		Employee emp=(Employee) applicationContext.getBean("id5");
+		//Employee employee=context.getBean("employee",Employee.class);
+	
+		System.out.println(emp.getEmpid());
+		System.out.println(emp.getEname());
+		System.out.println(emp.getSalary());
+		System.out.println(emp.getAge());
+	
+		Address address=emp.getAddress();
+	
+		System.out.println(address.getCity());
+		System.out.println(address.getHno());
+		System.out.println(address.getState());
+		System.out.println(address.getPincode());
+	}
+}
+OUTPUT:
+--------------
+Add Def cons.....
+Emp Def cons.....
+101
+manisha
+10000.0
+25
+hyd
+8-5-29
+Telangana
+500089
+
+==================================================================================================================
+Constructor Injection example:-
+-----------------------------------------
+Parameterized constructor:-
+*Spring container uses this constructor to create Employee/Address object and to populate the properties.
+*Setter methods are not required, we are not performing setter injection
+*getter methods are required, To get the data from Employee/Address object
+
+.xml file:-
+--------------
+*To perform Constructor injection in xml use <constructor-arg> tag
+*If the property type is primitive or wrapper class or string, to configure this property the "value" attribute or value tag.
+*If the property type is userdefined class or pre defined class /userdefined interface or pre defined interaface this property the "ref" arrtibute".
+*Order should be importent vlaue of <constructor-arg> tag
+
+Address.java
+------------------
+package com.mani.emp;
+public class Address {
+	private String hno;
+	private String city;
+	private String state;
+	private String pincode;
+	//Constructor Injection
+	public Address(String hno, String city, String state, String pincode) {
+		this.hno = hno;
+		this.city = city;
+		this.state = state;
+		this.pincode = pincode;
+	}
+	public String getHno() {
+		return hno;
+	}
+	public String getCity() {
+		return city;
+	}
+	public String getState() {
+		return state;
+	}
+	public String getPincode() {
+		return pincode;
+	}
+}
+
+Employee.java
+-------------------
+package com.mani.emp;
+public class Employee {
+	private Long empid;
+	private String ename;
+	private byte age;
+	private double salary;
+	private Address address;
+	//Constructor Injection
+	public Employee(Long empid, String ename, byte age, double salary, Address address) {
+		this.empid = empid;
+		this.ename = ename;
+		this.age = age;
+		this.salary = salary;
+		this.address = address;
+	}
+	public Long getEmpid() {
+		return empid;
+	}
+	public String getEname() {
+		return ename;
+	}
+	public byte getAge() {
+		return age;
+	}
+	public double getSalary() {
+		return salary;
+	}
+	public Address getAddress() {
+		return address;
+	}	
+}
+
+EmpAddConst.xml:-
+--------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+        <bean id="address" class="com.mani.emp.Address">
+        	<constructor-arg>
+        		<value>8-5-29</value>
+        	</constructor-arg>
+        	<constructor-arg>
+        		<value>kakinada</value>
+        	</constructor-arg>
+        	<constructor-arg>
+        		<value>Andhrapradesh</value>
+        	</constructor-arg>
+        	<constructor-arg>
+        		<value>533255</value>
+        	</constructor-arg>
+        </bean>
+        <bean id="employee" class="com.mani.emp.Employee">
+        	<constructor-arg value="102"></constructor-arg>
+        	<constructor-arg value="anusha"></constructor-arg>
+        	<constructor-arg value="26"></constructor-arg>
+        	<constructor-arg value="25000"></constructor-arg>
+        	<constructor-arg ref="address"></constructor-arg>
+        </bean>
+ </beans>
+
+Test.java
+-----------
+ package com.mani.emp;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+public class Test {
+	public static void main(String[] args) {
+		//Active container by spring configuration file
+				ApplicationContext context=new ClassPathXmlApplicationContext("EmpAddConst.xml");
+				//get Employee object
+				//Employee emp=(Employee) context.getBean("employee");
+				Employee emp=context.getBean("employee",Employee.class);
+			
+				System.out.println(emp.getEmpid());
+				System.out.println(emp.getEname());
+				System.out.println(emp.getSalary());
+				System.out.println(emp.getAge());
+			
+				Address address=emp.getAddress();
+				
+				System.out.println(address.getHno());
+				System.out.println(address.getCity());
+				System.out.println(address.getState());
+				System.out.println(address.getPincode());
+	}
+}
+OUTPUT:-
+-------------
+102
+anusha
+25000.0
+26
+8-5-29
+kakinada
+Andhrapradesh
+533255
+================================================================================================================
+Parameterized Constructor:-
+====================
+Hello.java  Hello.xml, HelloClient.xml(same as first program)
+-----------------------------------------------------------------------------
+HelloBean.java
+------------------
+package com.mani.bean;
+public class HelloBean implements Hello {
+	
+	private String message;
+	
+	public HelloBean(String message) {
+		this.message = message;
+		System.out.println("parameterized constructor......");
+	}
+
+	@Override
+	public String sayHello() {
+		System.out.println("SayHello Message method......");
+		return null;
+	}
+}
+================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

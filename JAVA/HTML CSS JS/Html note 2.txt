@@ -1,0 +1,222 @@
+formating tags
+--------------
+ b tag
+ -----
+  > b stand for bold
+  > b tag used ot print text in bold format
+  > b is paired 
+  Syn:
+	<b> text </b>
+
+ u tag
+ ------
+  > u stand for underline
+  > u tag used to print text with underline (draws a line base of text)
+  > u is paired 
+  Syn:
+	<u> text </u>
+
+strikeout tag
+-------------
+  > strikeout tag used to print text with line (draws a line middle of text)
+  > strikeout is paired 
+  Syn:
+	<strike> text </strike>
+
+superscript
+-----------
+>this tag used to display text top of upperline 
+> superscript is paired tag
+Syn:
+   <sup> text </sup>
+
+subscript
+---------
+>this tag used to display text bottom of baseline
+> subscript is paired tag
+Syn:
+   <sub> text </sub>
+
+i tag
+-----
+ > i stand for italic (inclined)
+ > i tag used to print text with libit banding
+ > i is paired 
+  Syn:
+	<i> text </i>
+
+
+nbsp
+----
+nbsp stands for non-remove blank space
+Syn:	&nbsp;
+
+
+br tag
+------	
+> br used for line breaking (enter key or \n)
+> br is un-paired (Single)
+Syn:
+	<br>	
+
+Note: in html tab key, space bar, enter key are not accepted (browser not processing these keys)
+
+
+pre tag		
+-------
+> pre stands for pre-formating
+> pre tag is used to print data/text, how we typed in same format
+> pre is paired tag
+Syn:
+	<pre> text </pre>
+
+
+attributes
+----------
+> attribute is a special feature/setting/property of a tag.
+> attributes are used to change the default look/feel of data.
+> every tag they have attributes(1-n)
+Syn:
+	<tagname attribute="parameter" attribute="parameter" ...>
+parameter means the values of attribute.
+
+types:
+as per html5 we have 4types of attributes, those are
+   >global attributes (universal)
+   >specific attributes (personal)
+   >event attributes  (dynamic)
+   >optional attribute <== html5
+
+global attributes
+-----------------		
+these attribute are common for most of tags (99.9% of tags)
+those attributes are:
+		class, id, name, style etc...
+  ex:
+	<h1 class="" id="" name="a" style="" ...>
+	<p class="" id="" name="b" style="" ...>
+	<pre class="" id="" name="c" style="" ...>
+
+
+specific attributes
+-------------------		
+these attribute are specific to some tags/elements only (not common).
+those attributes are:
+		src, href, placeholder, width, hegith, etc...
+  ex:
+	<a href="url" ... >
+	<img src="" ...>
+
+event attributes
+----------------		
+these attribute are used to some logical operations.
+logical operations we can perform by using JavaScript
+these also called dynamic attribute.
+those attributes are:
+		onclick, oninput, onfocus, onexit, onload, onchange,....
+  ex:
+	<button onclick="js code/fun1">
+	<body onload="js code">
+
+optional attributes
+-------------------
+these attribute are not comp to specify/to use.
+these type attributes are supported since html5.0.
+those attributes are:
+		type, method ...
+    ex:
+	<style type="text/stylesheet" ...>
+	<script type="text/javascirpt" ...>
+	<link type="image/jpg" ...>
+	<form method="post" ...>
+
+cat:
+   html attributes  <tag attribute="value">
+   css attributes   <tag style="css-attribute:value; css-attribute:value;...">
+
+note:
+	css attributes we cant in html attribute place
+	html attributes we cant in ccc attribute place
+
+images 
+------
+> "img" tag is used to display images on webpage.
+> in one webpages we can display any no.of images and any type of images.
+> it is strongly recommand to all images in side root folder or crate sub folder with name images in root folder
+>its un-paired tag
+Syn:
+	<img attributes>
+
+attributes:
+   src => to specify which img you want to display
+   width => width of image (pixel)
+   height => height of image (pixel)
+   title  =>  it is used to specify tool tip. (whenever mouse pointer comes on top of image)
+   alt => alternative text, if image not loaded in webpage/not display, we want to display text message to user it called as alt
+		+
+	global attributes
+
+
+hyperlinks
+----------
+> "a" tag is used to crate a hyperlink, whenever user clicks on the hyperlink, the specified page is open. 
+> destination page sometime with in same application or other application.
+> a stands for "anchor"
+>web application basically contains links to other pages, so its very comm used tag.
+
+> by default every browser provides built-in style for each hyperlink, 
+i.e blue color+hand symbol+under line.
+we can  customize these style by using CSS.
+> its paired tag
+Syn:
+     <a attributes>Display Text</a>
+     <a attributes> <img> </a>
+
+attributes:
+   href   : hyper reference, used to specify the address of	
+	    destination webpage or destination web site.		    i.e whenever user clicks on that link, which page you want to open url may be html page, server side file, image, audio file, video, pdf file, documents etc...
+
+   target  : where you want open destination page
+	   _blank ==> opens the link in a window/tab
+	   _self  ==> opens the link in current working tab/window (its default)
+	   _parent ==> opens the link in parent frame
+	   _top  ==> opens the link in full body of window
+	   framename ==> opens the link in specified frame
+
+html colors
+-----------
+html supports 3types of patterns, those are
+   > named colors
+   > RGB colors
+   > Hexadecimal number colors
+
+named colors:
+   >it sup to write direct colorname
+   >we have some limited colors (15 to 20)
+    ex: white, black, red, green etc...
+   > color names are not case-sen
+
+RGB colors:
+   >RGB model specifies that the composition of 3 basic colors (Red, Green, Blue)
+   >RGB produces 16millions colors.
+   Syn:   rgb(red,green,blue)
+	red => 0 - 255
+	green => 0 - 255
+	blue => 0 - 255
+	ex: rgb(10, 45, 120)
+
+Hexadecimal number colors:
+   >Hexadecimal model is the shortcut for rgb model
+   >Hexadecimal system range from 0 - 15
+		0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f
+   Syn:   #redgreenblue
+	ex: #11bb4e	
+
+Note: in realtime "Hexadecimal model" is recommended.
+
+these colors we can use for foreground color, background color, border color etc..
+for setting colors we have some attributes, those are
+     color
+     background-color
+     border-color
+all these are CSS attributes.

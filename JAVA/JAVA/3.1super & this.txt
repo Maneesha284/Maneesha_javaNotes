@@ -1,0 +1,327 @@
+Super Keyword in Java:-(extends)
+================
+The super keyword in Java is a reference variable which is used to refer "immediate parent class object".
+Whenever you create the instance of subclass, an instance of parent class is created implicitly which is referred by super reference variable.
+
+Usage of Java super Keyword:-
+1)super can be used to refer "immediate parent class instance variable".
+2)super can be used to invoke "immediate parent class method".
+3)super() can be used to invoke "first parent class constructor".(by default)
+
+1) super is used to refer immediate parent class instance variable.
+We can use super keyword to access the data member or field of parent class. It is used if parent class and child class have same fields.
+
+class Animal
+{  
+  String color="white";  
+}  
+class Dog extends Animal
+{  
+  String color="black";  
+  void printColor(){  
+  System.out.println(color);//prints color of Dog class  
+  System.out.println(super.color);//prints color of Animal class  
+ }  
+}  
+class TestSuper1
+{  
+   public static void main(String args[])
+  {  
+    Dog d=new Dog();  
+    d.printColor();  
+   }
+}  
+Output:
+black
+white
+ 
+2) super can be used to invoke parent class method
+The super keyword can also be used to invoke parent class method. It should be used if subclass contains the same method as parent class.
+In other words, it is used if method is overridden.
+
+class Animal
+{  
+  void eat()
+  {
+    System.out.println("eating...");
+  }  
+}  
+class Dog extends Animal
+{  
+   void eat()
+   {
+     System.out.println("eating bread...");
+   }  
+   void bark()
+   {
+     System.out.println("barking...");
+    }  
+     void work()
+    {  
+        super.eat();  
+        bark();  
+    }  
+ }  
+class TestSuper2
+{  
+  public static void main(String args[])
+ {  
+    Dog d=new Dog();  
+    d.work();  
+  }
+}  
+Output:
+eating...
+barking...
+
+3) super is used to invoke parent class constructor.
+The super keyword can also be used to invoke the parent class constructor. Let's see a simple example:
+
+class Animal
+{  
+  Animal()
+  {
+    System.out.println("animal is created");
+  }  
+}
+class Lion extends Animal
+{  
+  Lion()
+  {
+    System.out.println("Lion is created");
+  }  
+}  
+class Cat extends Lion
+{  
+  Cat()
+  {
+    System.out.println("Cat is created");
+  }  
+}  
+class Dog extends Cat
+{  
+  Dog()
+  {  
+    super(); //call to super must be first stmmt in constructor
+    System.out.println("dog is created");  
+  }  
+}  
+class TestSuper3
+{  
+   public static void main(String args[])
+  {  
+   Dog d=new Dog();  
+  }
+}  
+
+Output:
+animal is created
+Lion is created
+Cat is created
+dog is created
+
+What is 'this' Keyword in Java:-
+=====================
+Keyword 'this' is a reference variable in Java that refers to the current object.
+
+The various usages of  'this' keyword in Java are as follows:-
+1.It can be used to refer instance variable of current class
+2.It can be used to invoke or initiate current class constructor
+3.It can be passed as an argument in the method call
+4.It can be passed as argument in the constructor call
+5.It can be used to return the current class instance
+
+1. Using ‘this’ keyword to refer current class instance variables
+class Test5 
+{ 
+    int a=5; 
+    int b=6; 
+    // Parameterized constructor 
+    Test5(int a, int b) 
+    { 
+       a = a; 
+       this.b = b; 
+    } 
+    void display() 
+    { 
+        System.out.println("a = " + a + "  b = " + b); 
+    } 
+    public static void main(String[] args) 
+    { 
+        Test5 object = new Test5(10, 20); 
+        object.display(); 
+    } 
+} 
+Output:
+a = 5  b = 20
+ 
+2. Using this() to invoke current class constructor
+class Test6 
+{ 
+    int a; 
+    int b; 
+    Test6() 
+    {   
+        this(10, 20);    //call to Test6(int c, int d) 
+        System.out.println("Inside default constructor \n");    //2
+    } 
+    Test6(int c, int d) 
+    { 
+        a = c; 
+        b = d; 
+        System.out.println("Inside parameterized constructor");     //1
+         System.out.println("a = " + a + "  b = " + b); 
+    }   
+    public static void main(String[] args) 
+    { 
+        Test6 object = new Test6(); 
+    } 
+} 
+Output:
+Inside parameterized constructor
+a = 10  b=20
+Inside default constructor
+ 
+3. Using ‘this’ keyword to return the current class instance
+class Test7
+{ 
+    int a; 
+    int b; 
+    Test7() 
+    { 
+        a = 10; 
+        b = 20; 
+        System.out.println("constructor"); 
+    } 
+    Test7 get() 
+    { 
+        return this;		
+    } 
+    void display() 
+    { 
+        System.out.println("a = " + a + "  b = " + b); 
+    } 
+    public static void main(String[] args) 
+    { 
+        Test7 object = new Test7(); 
+        object.get().display(); 
+    } 
+} 
+Output:
+constructor
+a = 10  b = 20
+ 
+4. Using ‘this’ keyword as method parameter
+class Test8
+{ 
+    int a; 
+    int b; 
+    Test8() 
+    { 
+        a = 10; 
+        b = 20; 
+		System.out.println("1");
+    } 
+    void display(Test8 obj) 
+    { 
+		System.out.println("3");
+        System.out.println("a = " + a + "  b = " + b); 
+    } 
+    void get() 
+    { 
+		System.out.println("2");
+        display(this); 
+    }   
+    public static void main(String[] args) 
+    { 
+        Test8 object = new Test8(); 
+        object.get(); 
+    } 
+} 
+Output:
+1
+2
+3
+a = 10  b = 20
+
+5. Using ‘this’ keyword to invoke current class method
+class Test9 
+{  
+    void display() 
+    { 
+        this.show(); 
+       System.out.println("Inside display function"); 
+    }     
+    void show() { 
+        System.out.println("Inside show funcion"); 
+    }
+      public static void main(String args[]) { 
+        Test9 t1 = new Test9(); 
+        t1.display(); 
+    } 
+} 
+Output :
+Inside show funcion
+Inside display function
+ 
+6. Using ‘this’ keyword as an argument in the constructor call
+class A 
+{ 
+    B obj; 
+    A(B obj) 
+    {  
+        System.out.println("2");
+        this.obj = obj; 
+
+        obj.display(); 
+    }   
+} 
+class B 
+{ 
+    int x = 5;
+    B() 
+    { 
+        System.out.println("1");
+        A obj = new A(this); 
+    } 
+    void display() 
+    { 
+        System.out.println("3");
+        System.out.println("Value of x in Class B : " + x); 
+    }      
+    public static void main(String[] args) { 
+        B obj = new B(); 
+    } 
+} 
+Output :
+1
+2
+3
+Value of x in Class B : 5
+
+Using super and this
+==============
+class Person{  
+int id;  
+String name;  
+Person(int id,String name){  
+this.id=id;  
+this.name=name;  
+}  
+}  
+class Emp extends Person{  
+float salary;  
+Emp(int id,String name,float salary){  
+super(id,name);//reusing parent constructor  
+this.salary=salary;  
+}  
+void display(){System.out.println(id+" "+name+" "+salary);}  
+}  
+class TestSuper5{  
+public static void main(String[] args){  
+Emp e1=new Emp(1,"ankit",45000f);  
+e1.display();  
+}}  
+
+Output:
+1 ankit 45000

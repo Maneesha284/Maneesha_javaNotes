@@ -1,0 +1,648 @@
+Java 8 features:-
+------------------
+concise code(less code) just because of enabling functional programming
+Lambda Expressions To enalbe functional programming
+Lambda function can handle just like object
+
+1.Lambda Expressions:-
+-----------------------------
+*The main Objective of  LE is to bring benefits of functional programming into java.
+*It is an anonymous function nameless/without return type/without modifiers
+
+//single line no need {} and multiple lines need{} no need datatype,return,method name,modifiers
+
+2.FunctionalInterface:-
+---------------------------
+FI=FunctionalInterface
+*A Functional Interface have only one single Abstract Method 
+*LE only applicable for only Functional Interface
+//Exapmle Runnable run() // Comparable compareTo() //Comparator compare() // Callable call()
+
+Lambda Expression with Functional Interfaces:-
+-------------------------------------------------------
+*A Functional Interface have only one single Abstract Method 
+It used to If we want to invoke LE to need Functional Interface must be required
+Functional interfaces:-
+If an interface contains only one abstract method is called SAM
+Ex:-
+Runnable  ----> run()
+Comparable  ----> compareTo()
+ActionListener  ----> actionPerformed()
+Callable  ----> call()
+
+Inside function interface in addition to SAM we can write no.of static and default methods.
+
+Predicate:-
+===========
+It is an interface 
+java.util.function.*; package
+interface Preducate<T>{
+	public boolean test(T t)
+}
+As predicate is a FI and hence it can refer LE.
+
+
+return type is boolean 
+boolean accept(T t);
+
+It is possible to join predicates into single predicated by using following methods 
+and()
+or()
+negate()
+
+Expression -> more than one condition
+Logical Operators -> &&, ||, !
+
+Function
+==========
+It is an interface
+java.util.Function
+
+interface Function(T ,R){
+   public R apply(T t);
+}
+
+Function are exactly same as predicate except that functions can return any type of result but function 
+can return only one value that can be any type of result as per the requirement.
+
+Streams:-
+==========
+Diff b/w collection and stream:-
+*If we want to represent a group of individual objects as a single entity tehn we should go for collection.
+
+*If we want to process group of objects from the collection then we should go for streams.
+
+*We can create a stream object to the collection by using stream() method of Collection interface.
+
+*stream() method is a default method added to the collection in 1.8 version.
+
+*default Stream stream()
+
+
+
+JDK 1.8 Features:-
+==============
+*This was added in java in the year march-2014
+*The main intention of JDK 1.8 write the code in less code and providing more predefine code.
+*JDK 1.8 provides more flexibility to work with interfaces.
+
+Types of interfaces:-
+1.marker interface:-marker interface doens't have abstract methods. 
+EX:-Serializabel,Clonabe,RandomAccess
+public interface Serializabel{}
+public interface Clonabe{}
+public interface RandomAccess{}
+
+2.Functional inteface:-
+*This interface contains only one abstract method.
+@FunctionalInterface
+interface I{
+	public abstract void m1();
+}
+*This interface contains only one abstract method.may contains multiple defalut and static methods and may contains java.lang.Object class
+methods as a abstract method in interface I
+*Functionalinterface can be particpeted in inheritance either with other functional interface or normal interface.
+Example:-
+
+@FunctionalInterface
+interface I{
+	public abstract void m1();
+	public default void m2(){}
+	public default void m3(){}
+	public static void m4(){}
+	public static void m5(){}
+	public abstarct boolean equals(Object o);
+}
+
+3.General interface:-This interface contains one or more abastract methods.
+interface I{
+	public abstract void m1();
+}
+interface J{
+	public abstract void m1();
+	public abstract void m2();
+	public abstract void m3();
+}
+
+Adapter class:-
+=========
+A class which is only empty impelementation is called Adapter class.
+Example
+interface I{
+	public abstract void m1();
+	public abstract void m2();
+	public abstract void m3();  //newly added
+}
+class Main implements I{
+	public void m1(){}
+	public void m2(){}
+}
+After adding new specification create one "adapter class" and provide empty implememtation.
+abstract class AC implements I{
+	public void m3(){}
+}
+In the above classes code we should write "extends AC implements I"(little bit of code change)
+
+why shoud we add default and static method in interface(1.8)  private method(1.9):-
+==========================================================
+*without doing any small modifications in all implementation classes, If we want provide logic in inteface.
+
+default method in interface(1.8):-
+==============================
+interface I {
+	public default void m1(){}
+}
+*default method can be participated in method overriding.
+*we can't write private and protected combinely with default, but we can write multiple default methods.
+*these methods always executable through implementation class memory.
+*default method not a treated as concrete method.
+*not override toString() method
+
+static method in interface(1.8):-
+================================
+*If we want provide any logic to inteface without any requierments of implementation class.
+*The main intention of static method is developing utility methods.
+
+@FunctionalInterface
+interface I{
+	public abstract void m1();
+	public static void m2(){
+		System.out.println("=======");
+	}
+	public static void m3(){
+		System.out.println("=======");
+	}
+}
+
+private method in interface(1.9):-
+=======================
+*These are useful adding logic to interface.
+*Thsese methods are avoiding duplicate that means execute common logic in all methods
+*private methods either static or non-static.
+@FunctionalInterface
+interface I{
+	private default void m1() {
+		//common logic
+	}
+	private default void m2(){
+		//common logic
+	}
+	private default void m3(){
+		//common logic
+	}
+}
+
+NOTE:-If we want to add body type method in interface, That method should be contains default, static and private. 
+
+Lambda Expression:-
+==============
+*It is a function or expression which is provide fast and lesscode implementation for Functional interface/SAMI/one method inteface.
+*It is an annonymous function.
+*It is best suitable for working with collection object for reading, searching and navigating so on.
+*Lamda expression don't have .class file
+*It is design for developing functional programming in java
+*The process of sending one function as inputt
+another function parameter is called is functional programming.
+
+
+
+
+
+==========================================================================================================================================
+
+java 1.8 new Features(2014):-
+------------------------------------
+*concise code(less code) just because of enabling functional programming
+Lambda Expressions To enalbe functional programming
+Lambda function can handle just like object
+
+//Sqrt program
+import java.util.function.Function;
+public class FuntionEx1 {
+	public static void main(String args[]) {
+		Function<Integer,Integer> f=i->i*i;  //i->i*i(Lambda function)
+		System.out.println("The 30 sqrt value: "+f.apply(30));
+		System.out.println("The 20 sqrt value: "+f.apply(20));
+	}
+}
+
+//even or not
+import java.util.function.Predicate;
+public class FunctionEx2 {
+	public static void main(String args[]) {
+		Predicate<Integer> p=i->i%2==0;
+		System.out.println("The 3 is even: "+p.test(3));  //false
+		System.out.println("The 2 is even: "+p.test(2));  //true
+	}
+}
+
+1.Lambda Expression
+2.Functional Interface
+3.Default methods and static methods
+4.Predefined Functional Interfaces
+*Predicate, Function, Consumer, Supplier etc
+5.Double colon Operator (::)
+*Method reference, constructor reference
+6.Streams
+7.Date and Time API
+8.Optional class
+9.Nashorn JavaScript Engine etc
+===========================================================================================================================
+1.Lambda Expressions:-
+-----------------------------
+*Lambda Expressions available in many lang. The main Objective of  LE is to bring benefits of functional functional programming into java.
+*It is an anonymous function=nameless/without return type/without modifiers
+
+//single line no need {} and multiple lines need{} no need datatype,return,method name,modifiers
+()-> System.out.println("Hi");	   //LE
+
+()->{			   	//LE
+	System.out.println("Hi");
+	System.out.println("Hello");
+ }
+
+public void m1(int a,int b) {
+	System.out.println(a+b);
+}
+
+(a,b)->System.out.println(a+b);      //LE
+
+public int m1(int n) {
+	return n*n;
+}
+
+n->{ return n*n; };   //LE
+n->n*n;   //LE
+
+Note:-Without {} we cannot use return keyword    //n->n*n;
+within {} If we want to return some value complsary we should use return stmt  //n->{ return n*n; };
+
+Finf length of string
+public void m1(String s) {
+	retun s.length();
+}
+
+s->s.length();   //LE
+===========================================================================================================================
+2.FunctionalInterface:-
+---------------------------
+FI=FunctionalInterface
+*A Functional Interface have only one single Abstract Method 
+*LE only applicable for only Functional Interface
+//Exapmle Runnable run() // Comparable compareTo() //Comparator compare() // Callable call()
+
+Lambda Expression with Functional Interfaces:-
+-------------------------------------------------------
+*A Functional Interface have only one single Abstract Method 
+It used to If we want to invoke LE to need Functional Interface must be required
+
+*Inside Functional Interface allows both static and default methods also and only one abstract mehod but not write multiple abstract methods.
+@FunctionalInterface
+interface Inter1{
+	public static void m1() {}
+	public void m2();   //manadatory
+	void m3() {}	
+}
+
+@FunctionalInterface is used If we doing any mistake immedaitely alert the complier . It is optional.
+
+//VALID
+@FunctionalInterface
+interface A{
+	public void m1();
+}
+@FunctionalInterface
+interface B extends A{
+}
+
+//VALID
+@FunctionalInterface
+interface A{
+	public void m1();
+}
+@FunctionalInterface
+interface B extends A{
+	public void m1();     //Override
+}
+
+//INVALID
+@FunctionalInterface
+interface A{
+	public void m1();
+}
+@FunctionalInterface
+interface B extends A{
+	public void m2();    //2 abstract methods
+}
+
+//VALID
+@FunctionalInterface
+interface A{
+	public void m1();
+}
+interface B extends A{
+	public void m2();    //normal interface
+}
+
+//Normal java code
+/*interface I1{
+	public void m1();
+}
+class Demo implements I1 {
+	public void m1(){
+		System.out.println("hi...");
+	}
+}
+public class LE_Ex1 {
+	public static void main(String[] args) {
+		Demo i=new Demo();
+		i.m1();
+	}
+}*/
+//Java 8
+@FunctionalInterface
+interface I1{
+	public void m1();
+}
+public class LE_Ex1 {
+	public static void main(String[] args) {
+		I1 i=()->System.out.println("hi...by lambda expression");
+		i.m1();
+		i.m1();
+	}
+}
+
+//Java 8
+@FunctionalInterface
+interface I2{
+	public abstract void add(int a,int b); 
+}
+public class LE_Ex2 {
+	public static void main(String[] args) {
+		I2 i=(a,b)->System.out.println("Add two number by LE: "+(a+b));
+		i.add(10, 20);	//30
+		i.add(30, 10);	//40
+	}
+}
+
+//java 8
+@FunctionalInterface
+interface I3{
+	public int sqrt(int n);
+}
+public class LE_Ex3 {
+	public static void main(String[] args) {
+		//I3 i=n->n*n;   //valid
+		I3 i=n->{ return n*n; };   //valid
+		System.out.println("Square root value by LE:  "+i.sqrt(10));
+		System.out.println("Square root value by LE:  "+i.sqrt(4));
+	}
+}
+NOTE: LE wont be seperate .class files generated
+
+Runnable //run()
+------------
+//Java8 (Implementing Runnable interface by LE)
+public class LE_Thread1 {
+	public static void main(String[] args) {
+		Runnable r=()->{
+			for(int i=0;i<5;i++){
+				System.out.println("child Thread "+i);
+			}
+		};
+		Thread t=new Thread(r);
+		t.start();
+		for(int i=0;i<5;i++){
+			System.out.println("Main Thread "+i);
+		}
+	}
+}
+
+Comparator  //compare()
+--------------
+int compare(Object obj1,Object obj2)
+returns -ve iff obj1 has to come before obj2
+returns +ve iff obj1 has to come after obj2
+returns 0 iff obj1 and obj2 are equal
+
+//java 1.8 Comparator by LE
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+public class LE_Collection1 {
+	public static void main(String[] args) {
+		ArrayList<Integer> al=new ArrayList<Integer>();
+		al.add(10);
+		al.add(70);
+		al.add(40);
+		al.add(80);
+		al.add(20);
+		al.add(60);
+		System.out.println(al);
+		//Comparator<Integer> c=(i1,i2)->{return (i1<i2)?-1:(i1>i2)?1:0;};   //valid
+		Comparator<Integer> c=(i1,i2)->(i1<i2)?-1:(i1>i2)?1:0;
+		Collections.sort(al,c);
+		System.out.println(al);
+		//al.stream().forEach(System.out::println);  //To print values one by one //  ::(It is called method reference)
+		/*
+		List<Integer> al2=al.stream().filter(i->i%2==0).collect(Collectors.toList());
+		System.out.println(al2);
+		*/
+	}
+}
+
+/*
+import java.util.*;
+class MyComparator implements Comparator<Integer>{
+	public int compare(Integer i1,Integer i2) {
+		return (i1<i2)?-1:(i1>i2)?1:0;
+		/*
+		if(i1<i2) 
+			return -1;
+		else if(i1>i2) 
+			return +1;
+		else
+			return 0;
+		*/
+	}
+}
+public class LE_Collection1 {
+	public static void main(String[] args) {
+		ArrayList<Integer> al=new ArrayList<Integer>();
+		al.add(10);
+		al.add(70);
+		al.add(40);
+		al.add(90);
+		al.add(20);
+		al.add(60);
+		System.out.println(al);
+		Collections.sort(al,new MyComparator());
+		System.out.println(al);
+	}
+}
+*/
+
+===========================================================================================================================
+concise code(less code) just because of enabling functional programming
+Lambda Expressions To enalbe functional programming
+Lambda function can handle just like object
+
+1.Lambda Expressions:-
+-----------------------------
+*Lambda Expressions available in many lang. The main Objective of  LE is to bring benefits of functional functional programming into java.
+*It is an anonymous function=nameless/without return type/without modifiers
+
+//single line no need {} and multiple lines need{} no need datatype,return,method name,modifiers
+
+2.FunctionalInterface:-
+---------------------------
+FI=FunctionalInterface
+*A Functional Interface have only one single Abstract Method 
+*LE only applicable for only Functional Interface
+//Exapmle Runnable run() // Comparable compareTo() //Comparator compare() // Callable call()
+
+Lambda Expression with Functional Interfaces:-
+-------------------------------------------------------
+*A Functional Interface have only one single Abstract Method 
+It used to If we want to invoke LE to need Functional Interface must be required
+Functional interfaces:-
+If an interface contains only one abstract method is called SAM
+Ex:-
+Runnable  ----> run()
+Comparable  ----> compareTo()
+ActionListener  ----> actionPerformed()
+Callable  ----> call()
+
+Inside function interface in addition to SAM we can write no.of static and default methods.
+
+Predicate:-
+===========
+It is an interface 
+java.util.function.*; package
+interface Preducate<T>{
+	public boolean test(T t)
+}
+As predicate is a FI and hence it can refer LE.
+
+
+return type is boolean 
+boolean accept(T t);
+
+It is possible to join predicates into single predicated by using following methods 
+and()
+or()
+negate()
+
+Expression -> more than one condition
+Logical Operators -> &&, ||, !
+
+Function
+==========
+It is an interface
+java.util.Function
+
+interface Function(T ,R){
+   public R apply(T t);
+}
+
+Function are exactly same as predicate except that functions can return any type of result but function 
+can return only one value that can be any type of result as per the requirement.
+
+Streams:-
+==========
+Diff b/w collection and stream:-
+*If we want to represent a group of individual objects as a single entity tehn we should go for collection.
+
+*If we want to process group of objects from the collection then we should go for streams.
+
+*We can create a stream object to the collection by using stream() method of Collection interface.
+
+*stream() method is a default method added to the collection in 1.8 version.
+
+*default Stream stream().
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+Consumer
+Java Consumer is a functional interface which represents an operation that accepts a single input argument and returns no result.
+ Unlike most other functional interfaces, Consumer is expected to operate via side-effects.
+
+@FunctionalInterface
+public interface Consumer<T> {
+    void accept(T t);
+}
+
+==================================================
+Supplier is a functional interface whose functional method is  get(). The Supplier interface represents an operation that takes no argument and returns
+ a result(number/T/F/String). 
+As this is a functional interface and can therefore be used as the assignment target for a lambda expression or method reference.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+===========================================================================================================================
+Streams:-
+=======
+IOStream(data)
+Collection-Stream(object)
+Diff b/w collection and streams:
+--------------------------------------
+To represent group of objects as a single entity(Collection)
+If we want to process objects from the collection(Collection-Stream
+
+If we want get the stream:-
+Stream s=col.stream();
+java.util.stream package
+===========================================================================================================================

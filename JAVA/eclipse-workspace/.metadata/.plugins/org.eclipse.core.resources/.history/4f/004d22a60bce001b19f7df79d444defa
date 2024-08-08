@@ -1,0 +1,29 @@
+package collection;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+public class SetCopy {
+
+	public static void main(String[] args) {
+		Set<Integer> s1=new HashSet<Integer>();
+		s1.add(10);
+		s1.add(20);
+		s1.add(30);
+		s1.add(40);
+		s1.add(null);
+		s1.add(60);
+		s1.add(70);
+		s1.add(null);
+		Set<Integer> s2=new HashSet<Integer>();
+		Iterator i=s1.iterator();
+		while(i.hasNext()) {
+			Object o=i.next();
+			s1.add(o);
+		}
+		
+
+	}
+
+}

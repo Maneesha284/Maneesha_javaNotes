@@ -1,0 +1,177 @@
+Static members :- The members which is created  "OUTSIDE OF METHOD AT CLASS LEVEL WITH STATIC KEYWORD" is called static member.
+SV,SB,SM,MM,SIC,SI
+
+1)static variable:-
+============
+*A static variable is common to all the instances (or objects) of the class because it is a "class level variable". 
+*Like variables we can have SB, SM, SIC to read about them refer.
+*Static variables are initialized before any static method of the class executes.
+*Static variables reduce the amount of memory used by a program (single copy shared among all the instances of the class). 
+*Order top to bottom
+*Can't we declare local variables or parameters as static
+
+JVM exceutes SV
+class VariableDemo
+{
+   static int count=0;
+   public void increment()
+   {
+       count++;
+   }
+   public static void main(String args[])
+   {
+       VariableDemo obj1=new VariableDemo();
+       VariableDemo obj2=new VariableDemo();
+       obj1.increment();   
+       System.out.println("Obj1: count is="+obj1.count);    //1
+       obj1.increment();
+       obj2.increment();  
+       System.out.println("Obj1: count is="+obj1.count);     //3
+       obj2.increment();
+       System.out.println("Obj2: count is="+obj2.count);       //4
+   }  
+}
+
+Output:-
+Obj1: count is=1
+Obj1: count is=3
+Obj2: count is=4
+
+2)Static Block:-
+===========
+Static blocks will be called only once. These are also called initialization blocks.
+These SB will be called when JVM loads the class into memory. 
+Incase a class has multiple SB's across the class, then JVM combines all these blocks as a single block of code and executes it.
+
+import java.util.ArrayList;
+import java.util.List; 
+public class MyStaticBlock
+{
+    private static List<String> list;
+    static
+   {
+        System.out.println("SB");
+        list = new ArrayList<String>();
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.add("four");
+    }     
+    public void testList()
+   {
+        System.out.println(list);
+    }    
+    public static void main(String a[])
+   {
+        MyStaticBlock msb = new MyStaticBlock();
+        msb.testList();
+    }
+}
+Output:-
+SB
+[one, two, three, four]
+
+3.static method:-
+===========
+*JVM does not executes static method by itself. 
+*They are executed only if they are called explicitly by developer either from MM, or SV as its assignment stmt, or SB
+*Usually SM are utility methods that we want to expose to be used by other classes without need of creating an object
+*A SM  can access only static members of class and invoke only SM of the class
+*Java wrapper classes and utility classes contain a lot of SM.
+*MM()-->Entry point of java program itself is a SM
+*SM are useful if you have only one instance "Don't need multiple copies"
+Example:
+class Test17
+{
+	static void m1()
+	{
+		System.out.println("from m1");
+	}
+	public static void main(String[] args) 
+	{
+		m1();
+	}
+}
+output:
+from m1
+
+4)Static inner classes:-
+===============
+Static inner/nested classes are not technically an inner class. They are like a static member of outer class.
+
+class Outer 
+{ 
+   private static void outerMethod() 
+{ 
+     System.out.println("inside outerMethod"); 
+   }  
+   static class Inner 
+{ 
+     public static void main(String[] args) 
+{ 
+        System.out.println("inside inner class Method"); 
+        outerMethod(); 
+ } 
+   } 
+  
+}
+Output:
+inside inner class Method
+inside outerMethod 
+
+5)main() method:-
+============
+Static:-[modifier](one time memory allocation)
+The main() method is static so that JVM can invoke it without instantiating the class. 
+This also "saves the unnecessary wastage of memory" which would have been "used by the object declared only for calling the main()" method by the JVM.
+
+class GeeksforGeeks { 
+    public void main(String[] args) 
+   { 
+        System.out.println("I am a Geek"); 
+    } 
+} 
+Error: Main method is not static in class test, please define the main method as:
+public static void main(String[] args)
+
+Static block and constructor example:-
+==========================
+class Test
+{
+	static
+	{
+		System.out.println("Test:block");
+	}
+	Test()
+	{
+		System.out.println("Test:cons");
+	
+	}
+}
+class Demo
+{
+	static
+	{
+		System.out.println("Demo:block");
+	}
+	Demo()
+	{
+		System.out.println("Demo:cons");
+	
+	}
+}
+class DemoApp
+{
+	static
+	{
+		System.out.println("Main:block");        //Main:block
+	}
+	public static void main(String[] args)throws Exception
+	{
+		System.out.println("start");       //start
+		Test t1=new Test();                //Test:block   Test:cons
+		Test t2=new Test();                //Test:cons
+		Class.forName("Demo");             //Demo:block
+                                      System.out.println("end");         //end
+	}
+}

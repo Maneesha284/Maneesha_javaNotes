@@ -1,0 +1,88 @@
+Binary Search:-
+==============
+*Binary search is the search technique which works efficiently
+*First of all we should perform any sorting technique
+*After that Binary search technique works on sorted list.
+*Hence, in order to search an element into some list by using binary search technique. 
+*Binary search follows divide and conquer approach
+*The list is divided into two parts and the item is compared with the middle element of the list.
+*If the match is found then, the location of middle element is returned otherwise,
+*we search into either of the parts depending upon the result produced through the match.
+
+20	40 	10	30	60	50	70
+
+After sorting:
+10	20	30	40	50	60  	70
+
+ Binary Search:-
+value:	 10	20	30	40	50	60	70
+index:	  0	1	2	3	4	5	6
+
+search = 60
+
+low =0
+high=6
+
+flag = 0;
+while(low <= high) {    0<=6
+
+	mid = low + high/2 = 0+6/2 = 3 (40)
+
+	if(se == a[mid]) { //60 !=40
+		flag = 1;
+		break;
+	}
+	else if(se <= a[mid]) { //60 <= 40
+
+		high = mid -1; //high = 3-1 = 2
+
+	}
+	else if(se >= a[mid]) {
+
+		low = mid+1; //low = 3+1 = 4
+
+	}
+}
+
+
+value:	 10	20	30	40	50	60	70
+index:	  0	1	2	3	4	5	6
+
+low =4
+high =7
+while(low <= high) {    0<=7
+
+	mid = low + high/2 = 4+7/2 = 5 (40)
+
+	if(se == a[mid]) { //60 ==60
+		flag = 1;
+		break;
+	}
+	else if(se <= a[mid]) { //60 <= 60
+
+		high = mid -1; //high = 7-1 = 6
+
+	}
+	else if(se >= a[mid]) {
+
+		low = mid+1; //low = 4+1 = 5
+
+	}
+}
+
+
+
+if(flag == 1)
+	"element found"
+else
+	"element not found"
+
+
+value:	 10	20	30	40	50	60	70
+index:	  0	1	2	3	4	5	6
+
+while(low <= high){    //low = 3 high =2  3<=2
+	"element not found"
+}
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  

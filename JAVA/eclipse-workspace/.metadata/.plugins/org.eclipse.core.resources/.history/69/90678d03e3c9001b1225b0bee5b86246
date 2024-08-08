@@ -1,0 +1,21 @@
+import java.nio.file.FileVisitResult;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+
+
+public class FileUsingPath {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
+class ProcessFile extends SimpleFileVisitor<Path>{
+	public FileVisitResult visitFile(Path file,BasicFileAttributes attr) {
+		if(file.toString().endsWith(".java")) {
+			System.out.println(file);
+		}
+		return FileVisitResult.CONTINUE;
+	}
+}

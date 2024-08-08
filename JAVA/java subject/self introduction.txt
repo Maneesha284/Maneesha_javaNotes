@@ -1,0 +1,126 @@
+As you know i'm maneesha
+i'm basically from rcpm in E.G.dt of AP but currently staying in hyderabad.
+
+I have completed my post graduation in MCA 2019 passedout with an agregate of 76%
+After my post graduation I have invested my time on java and techical skills
+so I have aquaired knowledge in core java advanced java logical sql css and html.
+
+I belongs to nucler family. i have father mother younger brother and consists of me.
+
+My short term goal is get a job as a java developer and my long term goal is achive a good position
+where i can built my carrer and the help the organization to.
+If i have free time watching random television programs. 
+Thats all about me. thank you for giving this oppurtunity.
+===========================================================================================
+Advtg: 
+good decision making, learning new tech, self confidence
+I am quick learner if come a new tech in your company. i'm easily to learning new tech.
+
+If you give the task in project work. i completed task with in the less time.
+
+disadvtg:-
+past few month not good at communication skills
+so i'm paticipating in communication classes and watching small motivation classes 
+so currently i'm improving communication skills
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+why you hire you?
+I have knowlegede in java and logical matching the your req's of the company
+so my technical skills helps to your company
+==========================================================================================================
+about company
+------------------
+Since It is  founding by Tech Leaders from Fortune 50 companies in 2013, Eclature has been defined by evolution and innovation.
+
+Eclature Technologies, within a short span of time, has become one of the leading professional services companies in the world.
+“Eclature” represents our core principle which is"Excellent redefined"
+Global 1000 companies and mid-market enterprise clients across the world. Headquartered in the Manchester, United Kingdom, Eclature has operations
+ and delivery locations in Daresbury,  UK, Hyderabad, India, and Dubai supporting global clients.
+Eclature combines both UI/UX to create exceptional use cases that can drive conversions quickly by accelerating online business standards.
+Irrespective of the type of interface, like web, mobile, or even word interfaces
+
+CEO: Anil Kumar's
+General Manager-Murali Krishna 
+
+Headquarters:
+Sci-Tech Innovation Centre, Daresbury Order Cialis Soft 20 mg generic Keckwick Ln, Daresbury, Borough of Halton, WA4 4FS, United Kingdom
+
+=============================================================================================================
+my salary based on as per your company rules 
+i'm expecting not only salary  
+expecting both salary and subject beacause of subject kno is bulid my carrer
+============================================================================
+degree
+i'm not focused first and second year on my studies, because of facing some personal issues,
+but final year onwards concentrated on my studies 
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Objective:
+This project is aimed at developing a ship management system which can streamline the administration of a ship based transport company. It’s often 
+felt that the ship management is a difficult task. It involves many administrative work and co-ordination. This project is to develop and deploy a web based 
+application so that the different aspects of a ship based transport company administration become easy to handle.
+Existing System:
+•	This existing system is not providing secure registration and profile management of all the users properly.
+
+Proposed System:
+The development of this new system contains more activities, which try to automate the entire process keeping in the view of database integration approach.
+•	This system maintains user’s personal, address, and contact details.
+•	User friendliness is provided in the application with various controls provided by system rich user interface.
+•	This system makes the overall project management much easier and flexible.
+•	Various classes have been used for maintain the details of all the users   and catalog. 
+•	Authentication is provided for this application only registered users can access.
+•	The user’s information files can be stored in Centralized database which can be maintained by the system.
+•	This system is providing more memory for the users to maintain data. 
+•	This system is providing accessibility control to data with respect to users.
+•	This system is providing online facilities to book both cargo ships and passenger ships for voyages.
+•	This is providing facilities to store different type of administrative data through online like ship details, ship parts stock, employee details, 
+ship reservation details, purchase  details and different pay bill details e t c.
+•	This system also providing facilities to access the above data to generate requirement specific report.
+
+1.	Authentication and Security Module
+2.	Admin Module
+3.	Employee Module.
+4.	User Module.
+5.	Ship Module.
+6.	Account Module.
+7.	Reports Module.
+
+2.	Admin Module
+This module consists of the following sub modules: 
+a.	Registration Module
+Here mail admin register new employees and store their details in database. Not only Employees , by the help of other modules but also registers new ships an
+d their new equipment purchase.
+b.	Users Management Module
+•	Here an admin can access any user related information, for example their hierarchy ,contact details, login details…etc. And also can update their data 
+as per requests.
+•	He can also assign task to employees and can view the status of the task.
+c.	Payment Management Module
+In this module admin manages different payments made by him. He pays salary to employee, pay bills to the equipment purchase, pay bills to ship maintains cost.
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+I have worked as a key member on offloading management and faced more complications and overgain these complications.
+
+3.2	PROPOSED SYSTEM
+     In this proposed system, MEC system with multiple SBSs serving multiple users equipments. The energy-efficient computation offloading management is
+ used to reduce the energy consumption of all user equipments. The energy efficient computation management scheme by optimizing the offloading decision 
+making, channel allocation, computation resource allocation scheme, while taking into account the interference management and power control scheme. 
+An efficient computation offloading scheme is needed. These need a deep study on the problem in the deployed small cell networks (SCN). The computation 
+offloading system model in a densely deployed distributed SCN with MEC, where the macro base station (MBS) and the SBSs are all equipped with MEC 
+server. The computation offloading model and formulate this problem as a mix integer non-linear programming problem, which is NP-hard. The advantages
+ of genetic algorithm (GA) and particle swarm optimization (PSO), this design a suboptimal algorithm named as hierarchical genetic algorithm and particle
+ swarm optimization-based computation algorithm to solve this problem. The Computation offloading mainly three phases. They are uploading data through 
+the wireless channels, executing the task on the MEC servers and downloading results from the MEC server to the user equipments .Specially, the user 
+equipments need not only to decide whether to offload but also to determine where to offload in the offloading decision making.
+Advantages:
+This system solves the mix integer non-linear programming.
+MEC servers are used to the reducing energy consumption.
+This system obtains the benefit of efficiency, which is significant.
+
+3.4 Functional Requirements
+The energy computation management scheme should be needed for optimizing the offloading decision making.
+The channel allocation should be needed.
+The computation resource allocation should be done.
+The interference management and power control schemes should be implemented.
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+how many months will give training for fresher

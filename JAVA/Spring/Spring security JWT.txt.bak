@@ -1,0 +1,23 @@
+JWT:
+JWT in Spring Security
+JSON Web Token is a URL-safe it's representing claims to be transferred between two parties. The claims in a JWT are encoded 
+as a JSON object that is used as the payload of a JSON Web Signature (JWS) structure, enabling the claims to be digitally 
+signed or integrity protected with a Message Authentication Code (MAC).
+
+Client requests authentication: 
+The client sends a login request with the user credentials (username and password) to the server.
+
+Server authenticates the credentials: 
+The server verifies the credentials and, if valid, creates a token containing user information and possibly some claims/roles.
+
+Server sends JWT: 
+The server sends the token back to the client.
+
+Client stores JWT: 
+The client stores the token (usually in local storage or a cookie).
+
+Client sends JWT on requests:
+For subsequent requests to protected endpoints, the client includes the token in the Authorization header(using the Bearer schema).
+
+Server verifies JWT: 
+The server verifies the JWT, ensuring it's valid and not expired, and processes the request if valid.

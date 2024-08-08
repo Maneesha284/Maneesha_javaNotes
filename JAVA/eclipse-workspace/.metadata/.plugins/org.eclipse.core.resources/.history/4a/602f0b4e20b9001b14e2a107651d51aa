@@ -1,0 +1,12 @@
+
+public class OccuranceCounter {
+	static int getCount(int num1, int num2) {
+		int result = 0;
+		return result;
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

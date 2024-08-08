@@ -1,0 +1,113 @@
+Access Modifiers:-
+============
+*The AM can be used to define the level of either the members in the (class/interface) or (packages)
+*Using the AM we can define the scope of the classes/interfaces or its members and provide security
+1)public
+2)private
+3)protected
+4)default
+
+MODIFIERS:-
+==========
+
+Modifiers                     Classes                                                                                                          Interfaces                              enum
+                             Outer            Inner            Methods            Variables            Blocks            Outer            Inner            Outer            Inner            Constructors
+
+public                       Y                  Y                    Y                        Y                       (N)                   Y                  Y                  Y                  Y                      Y
+
+private                     (N)                Y                    Y                        Y                       (N)                  (N)                Y                 (N)                Y                     Y
+
+protected                 (N)                Y                    Y                        Y                       (N)                  (N)                Y                 (N)                Y                     Y
+
+<default>                 Y                  Y                    Y                        Y                       (N)                   Y                  Y                    Y                 Y                    Y
+
+final                          Y                  Y                    Y                        Y                       (N)                  (N)               (N)                (N)              (N)                  (N)   
+
+abstract                     Y                  Y                    Y                       (N)                     (N)                   Y                  Y                  (N)               (N)                 (N)
+
+static                        (N)                Y                    Y                        Y                         Y                    (N)               Y                  (N)                Y                    (N)
+
+synchroinized          (N)               (N)                  Y                       (N)                      Y                     (N)              (N)                (N)              (N)                  (N)   
+
+native                       (N)               (N)                  Y                       (N)                    (N)                    (N)              (N)                (N)              (N)                  (N)   
+
+strictfp                       Y                  Y                    Y                       (N)                    (N)                     Y                  Y                  Y                 Y                     (N)
+
+transient                   (N)               (N)                 (N)                       Y                     (N)                     (N)              (N)               (N)              (N)                  (N)   
+
+volatile                    (N)               (N)                 (N)                        Y                     (N)                     (N)              (N)               (N)              (N)                  (N)   
+
+Declaration and AM:-
+==============
+1)Java source file structure
+2)Class level Modifiers 
+3)Member level Modifiers 
+4) Interfaces
+
+1)Java source file structure:-
+case 1: "public"
+===========
+class A{} class B{} class c{}------>save java file any name
+class A{} public class B{} class c{}------>save only B.java(public class name and program name must be matched)
+(only one public class)(otherwise we will get CE)
+
+case 2:
+class A
+{
+   psvm()
+  {
+        Sopl("a");
+   }
+}
+ class B
+{
+     psvm()
+    {
+        Sopl("b");
+     }
+} 
+class c
+{
+       psvm()
+     {
+        Sopl("c");
+     }
+}
+class D
+{
+}
+
+save java file to give any name.4 classes are generated 
+but run this program only >java A  >java B >java C
+otherwise java D RE:NoSuchMethodError: main class not found
+
+case 2:
+class Test
+{
+  psvm()
+  {
+    java.util.ArrayList l=new  java.util.ArrayList();  //Fully qualified name it increases length of code
+  }
+}
+
+but "import java.util.Array;" write one time any line uses in program.
+
+import statements:-  
+============
+ 2 types
+1)Explicit class import  (import java.util.ArrayList; ) ----------->It is highly recmonded to use ECI.  It improves readability of code.
+2)implicit class import  (import java.util.*;)  ----------->It is not remonded to use ECI.  It reduces readability of code(typing easy).
+Readability is importent then typing
+
+example:-
+import com.hdfc.Account;
+import com.icic.loan;
+//import com.hdfc.*;     It is dificult searching for account and loan
+//import com.icic.*;
+{
+   Accoun a=new Account();
+   a.getInfo();
+   Loan l=newe Loan();
+   l.getLoan();
+ }
+}

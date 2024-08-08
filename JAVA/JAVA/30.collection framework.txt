@@ -1,0 +1,797 @@
+instanceOf:
+**********
+2811197571
+instanceOf is a keyword that is used for checking if a reference variable is containing a given type of object reference or not.
+=====================================================================================
+what is diff b/w Collection & Collections
+What is diff b/w List & Set
+What is diff b/w Collection & Map
+
+Collection framework(CF):-
+===================
+*Collection in java is framework. If you want to represent "Group of individual objects" to store in single object(entity). 
+Easy to manipulate single object.
+*We can achieve all the operations. (searching, sorting, insertion, manipulation, and object deletion)
+*CF provides interface(set, list, queue, dequeue) and classes(ArrayList, linkedlist, Hashset, LinkedHashset, Treeset, 
+priorityqueue, vector)
+        collection interface(java.util.Collection)
+        Map           interface(java.util.Map)
+[Array group of objects-->Disadvt-->Simillar datatype, size limit  Advt--No.of ele to store one variable(obj)]
+*CF to overcome disadvantage. This is not a fixed size length. Diff datatypes to store a one variable.
+*Group of object to move a one object to another object is called Iterator. Iterator is an interface the element it has 3 
+methods
+
+Java                                                      C++
+===============================
+collection------------------------------>container
+Collection framework---------------->STL(standard template library)
+
+It is used to traverse the list and modify the elements
+1)hasNext():- To check a next element is their or not
+2)next():- To print a "current element"
+3)remove():- To remove a "current element"
+
+Collections Framework:-
+=================
+CF contains several classes and interfaces. Which can be used to represent "Group of individual objects" to store in single 
+object(entity)
+collection=interface(It is can provide information then class)-- Root interface with basic methods [add(), remove(), isEmpty(),
+ contains(), addAll()] 
+
+9 key interfaces of CF
+                           COLLECTION(parent collection)
+         |------------------|------------------|-----------------------|
+     List                     Set                   Queue                   Deque   
+                       
+List=List allow "duplicate ele" and oredered list.
+         You can access any ele from it's index
+         For example implementations are 1.LinkedList 2.ArrayList
+example:- (2, 2, 4, 5, 5, 6)
+
+Set=Set "doesn't allow duplicate ele" unique values stored.
+       HashSet, TreeSet, LinkedSet using set convertion.
+       Don't using random access.
+       We can use iterator or foreach loop to traverse ele's to set.
+example:- ("abc", "pqr", "xyz")
+
+Queue=(FIFO) priority queue, ele are inserted the tail(last) of the queue
+
+Deque=(LIFO & FIFO) (Insert and remove both ends)
+             Deque short name double ended queue(deck)
+
+Map=To store contains 'key' 'value' pairs
+       /* (key)(no dup)
+          (value)(dup)  */
+          A Map can't contains duplicate keys.
+         HashMap, TreeMap, LinkedHashMap
+        HashMap<Integer,string>
+example:-HashMap(1,"maneesha")
+
+Collection framework:-
+================
+The Collection framework represents a unified architecture for storing and manipulating a group of objects. It has:
+1)Interfaces and its implementations, i.e., classes
+2)Algorithm
+
+Need of collection framework:-
+=====================
+An array is an indexed collection of fixed no.of Homogneous data elements
+we want to 1000 values  declaring 1000 variables readability going to down
+To overcome this problem should goes Arrays concept
++student[] s=new student[1000];   (doesn't inc/dec size)
+The advt of array is we can represent huge no.of values by a single variable
+Array can hold both primitives and objects
+"int[] x;   and   Integer[]"
+Limitation of Array:-
+1.Fixed in size(fixed in array size a[10] only 10 values)
+2.Array can hold only Homogeneuos type of element
+student[] s=new student[1000];
+s[0]=new student();  [yes]
+s[1]=new customer();  [no]
+CE:incompatible types found: coustmer required :student
+we can solve this problem by using Object type arrays
+Object[] a=new Object[1000];  [yes]
+a[0]=new student();  [yes]         student is object type
+a[1]=new customer();  [yes]      customer is object type
+3. Arrays is not implemented based on some standard DS and predefine method not support for every req we have to write to code 
+explicitly which inc complexity of programming
+To overcome this problem we should go for collection
+
+Collection:-[Advt]
+========
+1.Collections are growable in nature (does inc/dec size)
+2.Collections can hold both Homogeneuos and hetrogeneous objects
+3.Every collection class is implemented based some standard DS. Hence for every req predefine method support is available 
+Being a programmer we are responsible to use those methods and we are not responsible to implement those methods.
+
+*It is highly recommended Array concept because Collection are API feature 
+*Collection can hold only object type but "not primitives"
+"Integer[]"  [no]
+
+9 key interfaces of CF:-
+=================
+1.Collection
+2.List
+3.Set
+4.Soreted Set
+5.Navigable Set
+6.Queue
+7.Map
+8.Sorted Map
+9.Navigable Map
+
+Note:Collection and Map no relation at all
+
+1.Collection(I):-
+===========
+1.If u want to represent a group of individual objects as a single entity then we should go for collection.
+2.Collection Interface defines the most common methods which are applicable for any collection object
+3.In general CI is considered as Root Interface of collection Framework.
+4.There is a "concrete class" which implements collection interface directly
+ 
+         COLLECTION(parent collection)
+                             |
+         |--------------|
+     List    
+       |
+  -----------------------
+  |                               |   
+AL                           LL     
+
+Diff b/w Collection and Collections :-
+=========================
+*Collection is an interface. If u want represent a group of individual objects as a single entity.
+*Collections is an utility class present in java.util package to define several utility methods for collection objects.
+(Like sorting, searching etc..)
+[If u want to sorted AL-----> collections.sort(al);]
+
+2.List(I):-
+=======
+1.It is the child Interface of collection 
+2.If u want to represent a group of individual objects as a single entity where duplicates are allowed and insertion ordered must be preserved.
+                    
+                      COLLECTION(1.2V) 
+                                |
+                           List(I)(1.2V)                             
+                                |
+         |--------------------------------|--------------------------|
+     ArrayList(1.2V)              LinkedList(1.2V)         vector(1.0V) 
+                                                                                            |      
+                                                                                        Stack(1.0V)
+Note:-In (1.2V) Vector and Stack classes are "updated" to implements List Interface.
+
+3.Set(I):-
+======
+1.It is the child Interface of collection 
+2.If u want to represent a group of individual objects as a single entity where duplicates are not allowed and insertion order not required.
+                    
+                      COLLECTION(1.2V) 
+                                  |--------------------
+                           Set(I)(1.2V)                             
+                                |
+                       |-----------------
+             HashSet(1.2V)                                                             
+                       |
+       LinkedHashSet(1.4V)   
+
+4.SortedSet:-
+=========
+1.It is the child Interface of set.
+2.If u want to represent a group of individual objects as a single entity where duplicates are not allowed and "all objects should be inserted according to some 
+sorting order".
+
+5.NavigableSet:-
+=============
+1.It is the child Interface of Sortedset.
+2.It contains several methods for navigation purposes.
+NavigableSet may be traversed either ascending or descending order.
+NavigableSet<Integer> ns=new TreeSet();
+NavigableSet<Integer> rev=ns.descendingSet();
+                          COLLECTION(1.2V) 
+                                  |--------------------
+                           Set(I)(1.2V)                             
+                                |
+                       ----------------|
+                                      SortedSet(I)(1.2V)   
+                                             |
+                                        NavigableSet(I)(1.6V)   
+                                               |
+                                        TreeSet(1.2V)
+6.Queue(I):-
+=========
+1.It is the child Interface of Collection
+2.If u want to represent a group of individual objects "prior to processing" then we should go for queue
+3.Usually queue follows FIFO based on requirment we can implement "our own priority order also"
+for example before sending mail all mail id's we have to store in some Datastructure in which order we added mail id's in in the same order only mail 
+should be delivered for this req queue is best choice
+ 
+                                COLLECTION(I)(1.2V)
+                                                |----------------------
+                                           Queue (I)(1.5v)
+         |-------------------------------|
+PriorityQueue            BlockingQueue
+                                           |
+                                           1.PriorityBlockingQueue
+                                           2.LinkedBlockingQueue
+
+Note:-All the above Interfaces c,l,s,ss,ns and q ment for representing a group of individual objects.
+If u want to represent a group of objects as Key value pairs then we should go for Map
+
+7.Map(I):-
+=======
+1.Map is "not child" Interface of collection
+2.If u want to represent a group of objects as (key, value) pairs then we should go for Map.
+Key            Value
+---------------------
+E.id           E.name
+101                A
+102                B
+103                C
+104                A
+--->Both key and value are objects only 
+--->Duplicate keys are not allowed but values can be duplicated
+                                                                                                                                              Dictionery(1.0V)
+                                                   Map(I)(1.2V)                                                                                 |
+          |------------------------------|-----------------------------------------|-------------------------------|
+     HashMap(1.2V)            WeakHashMap(1.2V)         IdentityHashMap(1.4V)                   Hashtable(1.0V)
+           |                                                                                                                                               |
+LinkedHashMap(1.4V)                                                                                                             Properties(1.0V)
+
+8.SortedMap(I):-
+===========
+1.It is the child Interface of Map.
+2.If u want to represent a group of (key, value) pairs according to "some sorting order of keys" then we should go for sorted Map.
+3.In sorted map the shorting should be based on key but not based on value.
+
+9. NavigableMap(I):-
+===============
+1.It is the child Interface of SortedMap.
+2.It defines several methods for navigation purposes.
+                             Map(I)(1.2V) 
+                                  |--------------------
+                           SortedMap(I)(1.2V)                             
+                                  |
+                          NavigableMap(I)(1.6V)
+                                 |
+                          TreeMap(1.2V)
+SORTING:-
+========
+1.Default sorting order---------->comparable(I)
+2.Cosutamized sorting---------->comparator(I)
+
+If u want get object one by one we should go for Cursors
+1.Enumeration(I)(1.0V)
+2.Iterator(I)
+3.ListIterator(I)
+
+If u want utility classes 
+1.Collections
+2.Arrays
+
+Note:The following are lagecy characters present in CF
+1.Enumneration(I)
+2.Dictionary(Abstract Class)
+3.Vector(C)
+4.Stack(C)
+5.Hashtable(C)
+6.Properties(C)
+
+All CF classes and interfaces are prsent in java.util package
+Collection(I):-
+==========
+1.If u want to represent a group of individual objects as a single entity.
+2.CI define the most common methods which are applicable for any collection object.
+
+1.I want to add a single object------------------------------------------------->boolean add(Object o)
+2.I want to add a group of object---------------------------------------------->boolean addAll(Collection c)
+3.I want to remove a particular object---------------------------------------->boolean remove(Object o)
+4.I want to remove a group of object----------------------------------------->boolean removeAll(Collection c)
+5.I want clear all objects should be removed-------------------------------->void clear()
+6.To remove all objects except those present in c -------------------------->boolean retainAll(Collection c)
+7.I want to check particular object is their or not --------------------------->boolean contains(Object o)
+8.I want to check particular a group of objects is their or not ------------->boolean containsAll(Collection c)
+9.I want to check is empty or not---------------------------------------------->boolean isEmpty()
+10.I want to check how no.of objects inside collection size----------------->int size()
+11.I want to Convert to Collection to Array----------------------------------->Object[] a=c.toArray()
+12.I want to get this objects one by some cursor is required. What is universal cursor------>Iterator iterator()
+Note:- There is no concrete class which implements collection interface directly.
+
+List(I):-
+======
+1.List is the child Interface of collection 
+2.If u want to represent a group of individual objects as a single entity where duplicates are allowed and insertion ordered must be preserved.
+3.We can preserve insertion order via "index" and we can "differtiate duplicate objects" by using index. Hence index will play very imp role in List
+List interface defines the following specific methods:-
+next wacent cell----------------------------------------------------->l.add("A");
+If u want to add this our req own index---------------------------------->void add(int index, Object o);         [l.add(3,"A");l.add(int index, Object o)]
+If u want to add group objects ------------------------------------>void addAll(int index,Collection c);
+I want to remove a paricular object------------------------------->Object remove("A");
+I want to remove a object corresponding index------------------>Object remove(int index);
+I want to get a object corresponding index----------------------->Object get(int index);     //no object return null
+To replace the element present at specified index with provided object and returns old object ------------------------------->Object set(int index,Object new);        
+Returns index of first occurance of 'o'----------------------------->int indexOf(object o)
+I want to index of particular object last occurance--------------->int lastIndexOf(object o)
+If u want to list iterator---------------------------------------------->ListIterator  listIterator()
+
+          COLLECTION(1.2V) 
+                              |
+                        List(I)(1.2V)                             
+                              |
+         |--------------------------------|--------------------------|
+     ArrayList(1.2V)              LinkedList(1.2V)         vector(1.0V) 
+                                                                                            |      
+                                                                                        Stack(1.0V)
+ ArrayList:-
+========
+1.The underline DataStracture is Resizable array or Growable Array
+2.duplicate objects are allowed 
+3.insertion order must be preserved
+4.AL can hold Heterogeneous objects.(All datatyoes allowed)
+every where Heterogeneous are allowed except TreeSet and TreeMap are Heterogeneous are not allowed.
+5.null insertion is possible---------->l.add(null);
+
+Constructors of AL:-
+1.ArrayList l=new ArrayList();
+   creates an empty AL object with default initial capacity=10
+   once AL reaches max capacity then A new AL object will be created with  
+   new capacity=(current capacity+cc/2)+1=16   25   38........
+    Big perforamce problem come
+2.ArrayList l=new ArrayList(int initialcapacity);
+    creates an empty AL object with specified initial capacity=1000
+3.ArrayList l=new ArrayList(Collection c);
+    creates an equalent AL object for the given Collection.
+LL to AL
+V to AL
+TS to AL
+
+import java.util.ArrayList;
+import java.util.Iterator;
+class ArrayLista {
+	public static void main(String args[]) {
+		ArrayList a1=new ArrayList();
+		a1.add(10);
+		a1.add(20);
+		a1.add(30);
+		a1.add(40);
+		a1.add(50);
+		Iterator it=a1.iterator();
+		while(it.hasNext()) {
+			Integer i1=(Integer)it.next();{
+				System.out.println(i1);
+			}
+		}
+	}
+}
+
+*Usually we can use Collections to hold and transfer object from one location to another location(Container) to provide support for this req every 
+Collection class by default implements "serializable" and "clonable(duplicate)" interfaces.
+
+*AL and vector classes implements "Random Accesss" Interface. So that any random ele we access with the same speed.
+
+RandomAccesss(I):-(marker interface)
+Random Accesss Interface present in java.util package and it doesn't contain any methods it is a marker interface, were required ablity will be provided 
+automatically by the JVM.
+
+ArrayList al=new ArrayList();
+LinkedList ll=new LinkedList();
+Sopln(al instanceof Serializable);      //true
+Sopln(ll instanceof Cloneable);      //true
+Sopln(al instanceof RandomAccesss);      //true
+Sopln(ll instanceof RandomAccesss);      //false
+
+*AL is the best choice If our frequent operation is retrival operation(Bcz AL imlements Random Accesss Interface).
+*AL is the worest choice If our frequent operation is insertion and deletion in the middle.
+
+What is diff b/w AL and Vector:-
+
+                ArrayList                                                                    Vector
+----------------------------------------------------------------------------------------------------------------
+1.Non synchronized                                                         1.Synchronized
+
+1.Every method present in the AL is Non synchronized   1..Every method present in the is Vector synchronized
+
+2.Multiple threads are allowed to operate                     2.only one thread are allowed to operate 
+   AL is not thread safe                                                        AL is thread safe
+
+2.At a time Multiple threads are allowed to operate on AL object and hence it is not thread safe 
+2.At a time only one thread are allowed to operate  on vector object and hence it is thread safe 
+
+3.Relatively performance is high                                   3.Relatively performance is low
+
+3.Relatively performance is high bcz threads are not required to wait operate on AL object
+3.Relatively performance is low  bcz threads are required to wait operate on vector object
+
+4.1.2V------Non lagacy                                                  4.1.0V------lagacy
+
+4.Introduced in 1.2V and it is Non lagacy   
+4.Introduced in 1.0V and it is lagacy   
+
+How to get synchronized version of ArrayList object
+==================================== 
+By default AL is Non synchronized, but we can get synchronized version of ArrayList object by using collections class synchronizedList(al) method
+
+ArrayList al=new ArrayList();----------->Non-Synchronized
+List l=Collections.synchronizedList(al); ----->Synchronized
+
+public static List synchronizedList(List l)  
+  
+Synchronized set and map:-
+==================
+similarly  we can get synchronized version of  Set and Map object by using collections class synchronizedList(al) method
+public static Set synchronizedSet(Set s) 
+public static Map synchronizedMap(Map m) 
+ ==================================================================================================
+
+
+LinkedList:-
+======
+|  |a|  |-----------|    |b|   |----------|  |c|  |-----------|    |d|   |
+
+1.The underlying data structure is Double LL
+2.insertion order is preserved
+3.Duplicates are allowed
+4.Hetrogeneous objects are allowed
+5.null insertion is possible 
+
+*LL implements serializable and clonable interfaces but not  Random Accesss Interface.
+*LL is the best choice If our frequent operation is insertion and deletion in the middle. 
+*LL is the worest choice If our frequent operation is retrival operation.
+
+*LL to implements Stack and Queue to provide suuport for this req LL class
+--->void addFirst(Object o)
+--->void addLast(Object o)
+--->Object getFirst()
+--->Object getLast()
+--->Object removeFirst()
+--->Object removeLast()
+create an empty LL Object
+LinkedList l=new LinkedList();
+create an equivalent LL object for the give collection
+LinkedList l=new LinkedList(Collection c);
+
+import java.util.LinkedList;
+class LinkedList11 {
+	public static void main(String args[])  {
+		LinkedList ll=new LinkedList();
+		ll.add("durga");
+		ll.add(30);
+		ll.add(null);
+		ll.add("durga");
+		System.out.println(ll);
+		ll.set(0,"sw");
+		System.out.println(ll);
+		ll.add(0,"venky");
+		System.out.println(ll);
+		ll.addFirst("ccc");
+		System.out.println(ll);
+	}
+}
+
+import java.util.LinkedList;
+import java.util.ListIterator;
+class LinkedList2 {
+	public static void main(String args[]) {
+		LinkedList a1=new LinkedList();
+		a1.add(10);
+		a1.add(20);
+		a1.add(30);
+		a1.add(40);
+		ListIterator lit=a1.listIterator();
+		while(lit.hasNext()) {
+			Integer i1=(Integer)lit.next();{
+				System.out.println(i1);
+			}
+		}
+	}
+}
+
+
+Diff b/w AL and LL:-
+================
+AL:-
+*AL is the best choice If our frequent operation is retrival operation.
+*AL is the worest choice If our frequent operation is insertion and deletion in the middle.
+*Underlying DS for AL is resizable or growable Array
+*AL implements Random Accesss Interface.
+LL:-
+*LL is the best choice If our frequent operation is insertion and deletion in the middle. 
+*LL is the worest choice If our frequent operation is retrival operation.
+*LL is the underlying data structure is Double LL
+*LL implements serializable and clonable interfaces but not  Random Accesss Interface.
+
+Vector:-
+=======
+*Vector object is a thread safe(Sychronized)
+1.The underline DataStracture is Resizable array or Growable Array
+2.duplicate objects are allowed 
+3.insertion ordere must be preserved
+4.Vector can hold Heterogeneous objects.
+every where Heterogeneous are allowed except TreeSet and TreeMap are Heterogeneous are not allowed.
+5.null insertion is possible
+6.best choice If our frequent operation is retrival
+7.Vector class implements serializable and clonable interfaces and Random Accesss Interface.
+8.null insertion is possible
+9. Vecor methods are synchronized
+10.Applicable cursors Iterator, Enumeration, ListIteraror
+
+Vector methods:-
+============
+add(Object o)  -------->from collection
+add(int index,Object o)  -------->from List
+addElement(Object o)  -------->from Vector
+
+Remove(Object o)  / clear()-------->from collection
+remove(int index)  -------->from List
+removeElement(Object o)  -------->from Vector
+RemoveElementAt(int index)  -------->from Vector
+removeAllElement()  -------->from Vector
+
+Object get(int index)  ---->collection
+Object elementAt(int index) ----->vector
+Object firstElement() ----->vector
+Object lastElement() ----->vector
+
+int size();
+int capacity();
+Enumeration elements(); -->If you want get objects one by one from the vector
+
+Vector constructor:-
+=============
+1.Vector v= new Vector();	//default(10)
+size inc--->cc*2--->10*2=20---->20*2=40
+
+2.Vector v=new Vector(int initailcapacity);
+Vector v= new Vector(1000);
+
+3.Vector v= new Vector(int initailcapacity, int incrementalcapacity);
+Vector v= new Vector(1000,5);
+
+4.Vector v= new Vector(Collection c);  //createsv an equivalent vector object for the given collection
+
+==================================================================================================================
+
+Stack:-
+=====
+  vector
+    |
+    \/
+  Stack
+introduced in 1.0version
+it is child class of Vector
+It is designed class for LIFO
+constructor:-
+Stack s=new Stack();
+methods:-
+Object push(Object o)   //adding
+Object pop()   //remove and return top of the stack
+Object peek()  //To return  top of the stackn without remove
+boolean empty()   //to check whether stack is empty or not
+int search(Object o)   //return offset(index value) if ele not there -1
+offset
+| C |   1
+----
+| B |    2
+----
+| A |     3
+----
+
+Three Cursors in JAVA:-
+=================
+If u want to retrieve objects one by one from the collection
+1.Enumeration(I)
+2.Iterator(I)
+3.ListIterator(I)
+
+1.Enumeration:-(1.0v)
+we can use Enumeration get the objects one by one from the collection
+we can create Enumeration object by using elements() of vector class.
+
+public Enumeration elements();
+Vector v=new Vector();
+Enumeration e=v.elements();
+
+methods:-
+======
+boolean hasMoreElements();
+Object nextElement();
+
+import java.util.Vector;
+import java.util.Enumeration;
+class Enumeration1 {
+       public static void main(String args[])  {
+	Vector v= new Vector();	
+	for(int i=0;i<=10;i++) {
+		v.addElement(i);
+	}
+	System.out.println(v);
+	Enumeration e=v.elements();
+	while(e.hasMoreElements())  {
+		Integer i=(Integer)e.nextElement();
+		if(i%2==0) {
+			System.out.println(i);
+		}
+	}
+	System.out.println(v);
+         }
+}
+
+Limitation of Enumeration:-
+1. It is applicable only for lagacy classes (not a universal cursor)
+2. we can get only read access and we can't perform remove operation.
+To overcome above Limitation of Enumeration we should go for Iterator.
+
+Iterator:-
+======
+1. It is applicable only for a universal cursor(any collection object).
+2. we can perform both read and remove operation.
+
+we can create iterator object by using iterator() of collection interface  
+public Iterator iterator()
+
+Iterator itr=cobj.itearator();
+methods:-
+1.public boolean hasNext()
+2.public Object next()
+3.public void remove()
+
+import java.util.ArrayList;
+import java.util.Iterator;
+class Iterator1 {
+       public static void main(String args[])  {
+	ArrayList al= new ArrayList();	
+	for(int i=1;i<=10;i++) {
+		al.add(i);
+	}
+	System.out.println(al);
+	Iterator itr=al.iterator();
+	while(itr.hasNext())  {
+		Integer i=(Integer)itr.next();
+		if(i%2==0) {
+			System.out.println(i);
+		}
+		else {
+			itr.remove();
+		}
+	}
+	System.out.println(al);
+         }
+}
+Limitation of Iterator:-
+================
+1.only forward direction(backward direction not there)
+2.only read and remove(replace ele not there)
+
+ListIterator(I):-
+==========
+1.Bidirectional cursor(forward direction and backward direction)
+2.replacement and addtion of new Objects in addition to read and remove operations.
+
+we can create ListIterator object by using listIterator() of List interface
+public ListIterator listIterator()
+ListIterator ltr=lobj.listIterator();  //lobj--->any list O-bject
+Iterator(I)
+      /\
+       |
+       |
+ListIterator(I)
+
+methods(9):-
+forward:-
+1.public boolean hasNext()
+2.public Object next()
+3.public int nextIndex()
+backward:-
+1.public boolean hasPrevious()
+2.public Object previous()
+3.public int previousIndex()
+
+1.public void remove()
+2.public void set(Object new)     //replace with new ele 
+3.public void add(Object new)
+
+import java.util.LinkedList;
+import java.util.ListIterator;
+class ListIterator1 {
+       public static void main(String args[])  {
+	LinkedList ll= new LinkedList();	
+	ll.add("bala");
+	ll.add("venki");
+	ll.add("chiru");
+	ll.add("nag");
+	System.out.println(ll);
+	ListIterator ltr=ll.listIterator();
+	while(ltr.hasNext())  {
+		String s=(String)ltr.next();
+		if(s.equals("venki")) {
+			ltr.remove();
+		}
+		else if(s.equals("chiru")) {
+			ltr.set("anu");
+		}
+		else if(s.equals("bala")) {
+			ltr.add("mani");
+		}
+	}
+	System.out.println(ll);
+         }
+}
+o/p:-
+[bala, venki, chiru, nag]
+[bala, mani, anu, nag]
+
+drawback:-
+LI more powerfull but It is applicable only List
+
+property		Enumeration			Iterator			ListIterator
+
+version			1.0(Inteerface)			1.2(interface)			1.2(interface)			
+
+vesrionsupports		It supports both normal
+			and generic version		
+
+Applicable for		only legacy classes		Any collextion classes		only list classes
+
+Movements		forward				forward				forward and backward
+
+Accessbility 		only read			read and remove			read remove reaplace and add operations
+
+how to get ir		elements() of vector		iterator() of collection	listIterator() of List interface
+
+methods			hasMoreElements()		hasNext() next() remove()	9 methods
+			nextElement()
+
+is it legacy 		yes				No				No
+
+purpose 		Its is used retrive data	Retrive tha objects from 	Retrive tha objects from
+			 from collection classes	Collection classes		Collection classes
+
+
+
+Vector v=new Vector();
+v.add(10);
+Enumeration e=v.iterator();
+
+Vector v=new Vector();
+v.add(10);
+Enumeration e=v.listIterator();
+
+
+
+import java.util.Vector;
+import java.util.ListIterator;
+import java.util.Enumeration;
+import java.util.Iterator;
+class Cursor1 {
+       public static void main(String args[])  {
+	Vector v=new Vector();
+	Enumeration e=v.elements();
+	Iterator i=v.iterator();
+	ListIterator li=v.listIterator();
+	System.out.println(e.getClass().getName());	
+	System.out.println(i.getClass().getName());	
+	System.out.println(li.getClass().getName());	
+     }
+}
+
+o/p:-
+java.util.Vector$1
+java.util.Vector$Itr
+java.util.Vector$ListItr
+
+import java.util.Vector;
+import java.util.Enumeration;
+class Enumeration1 {
+       public static void main(String args[])  {
+	Vector v=new Vector();   //Stack also same code
+	v.addElement(10);
+	v.addElement(20);
+	v.addElement(30);
+	v.addElement(40);
+	Enumeration e=v.elements();
+	while(e.hasMoreElements()) {
+		Integer i1=(Integer)e.nextElement(); {
+			System.out.println(i1);
+		}
+	}
+         }
+}

@@ -1,0 +1,60 @@
+Java I/O :-
+
+The process of Input and procduce the Output.
+
+Stream:-
+Stream is a sequance of data. Stream is composed of bytes.
+
+3 streams are created for us automatically. All these streams attached with console.
+1.System.out  :Standard output stream
+2.System.in     :Standard input stream
+3.System.err    :Standard error stream
+
+System.out.println("meesage");
+System.err.println("error msg");
+
+int i=System.in.read();   //return ASCII code of 1st character
+System.out.println((char)i);
+
+OuputStream:-
+Java application usese OutpuStream to write data to a destination file/array.
+InputStream:-
+Java application usese InpuStream to read data from a source file/array.
+
+
+OuputStream methods:-
+void write(int)----->write a byte to the current output stream
+void write(byte[])---->write an array of byte to the current output stream
+void flush()---->flushes the current output stream
+void close()----->closes the current output stream
+
+OutputStream Hierarchy:-
+				OutputStream
+				          |
+	----------------------------------------------------------------------------------------------------------------------------
+	|		|			|		|		|
+FileOutputStream	ByteArrayOutputStream	FilterOutputStream	PipedOutputStream	ObjectOutputStream
+						|
+		-----------------------------------------------------------------------------------
+		|			|			|
+	DataOutputStream		BufferOutputStream		         PrintStream
+
+InputStream class:-
+InputStream class is an abstract class. It is the super class of all classes
+
+InputStream methods:-
+abstract int read()----->read the next byte data from the InputStream
+void write(byte[])---->write an array of byte to the current output stream
+int available()---->returns an estimate of the number of bytes
+void close()----->closes the current input stream
+
+InputStream Hierarchy:-
+				InputStream
+				          |
+	----------------------------------------------------------------------------------------------------------------------------
+	|		|			|		|		|
+FileInputStream	ByteArrayInputStream		FilterInputStream	PipedInputStream	ObjectInputStream
+						|
+		-----------------------------------------------------------------------------------
+		|			|			|
+	DataInputStream		BufferInputStream		         PushBackInputStream

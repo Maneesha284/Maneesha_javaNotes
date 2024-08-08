@@ -1,0 +1,309 @@
+Operators are used in select statement:-
+============================
+SQL> select * from emp;
+
+       ENO ENAME  	JOB             MGR        SAL     DEPTNO
+---------- ------              --------	 ----------  ---------- ----------
+      7369 smith  	clerk          	  7902        800          20
+      7499 allen  	salesman      7698       1600         30
+      7521 ward  	 salesman     7698       1250         30
+      7566 jones  	manager       7839       2975         20
+      7654 martin 	salesmgr      7698       1250          30
+      7698 balke  	manager       7839       2850         30
+      7782 clark  	manager       7839       2450         10
+      7788 scott  	analyst         7566       3000          20
+      7839 king   	presidnt                       5000          10
+      7844 turner 	salesman      7698       1500          30
+      7876 adams  	clerk         	 7788       1100           20
+      7900 james  	clerk          	 7698        950            30
+      7902 ford   	analyst         7566       3000          20
+      7934 miller 	clerk          	 7782       1300          10
+ 14 rows selected.
+
+SQL> select * from dept;
+    DEPTNO DNAME      LOC
+---------- ----------	 --------
+        10 accounting 	new york
+        20 research   	dallas
+        30 sales      	chicago
+        40 operations boston
+1.Airthmetic operator(+,-,*,/)
+Airthmetic operators are used to number, date datatype columns.
+
+a)Display the emps ename, sal, annual salary 
+SQL>select col1,col2 <columnaliasname> from <tablename>;
+
+SQL> select ename,sal,sal*12 annualsal from emp;
+ENAME      SAL   ANNUALSAL
+------ 	---------- ----------
+smith         	800         9600
+allen        	1600      19200
+ward         	1250      15000
+jones        	2975      35700
+martin       	1250      15000
+balke        	2850      34200
+clark        	2450      29400
+scott        	3000      36000
+king         	5000      60000
+turner       	1500      18000
+adams         1100      13200
+james          950        11400
+ford         	3000      36000
+miller       	1300      15600
+14 rows selected.
+
+b)Display the who are getting more than 30000 annual salary 
+SQL> select ename,sal,sal*12 annualsal from emp where annualsal>30000;
+select ename,sal,sal*12 annualsal from emp where annualsal>30000                                                 *
+ERROR at line 1:
+ORA-00904: "ANNUALSAL": invalid identifier
+Note:-In oracle we are "not allowed to use column alias name" in where class.
+
+SQL> select ename,sal,sal*12 annualsal from emp where sal*12>30000;
+ENAME         SAL  ANNUALSAL
+------ 	---------- ----------
+jones    	   2975      35700
+balke     	   2850      34200
+scott     	   3000      36000
+king       	   5000      60000
+ford      	   3000      36000
+
+2.Relational operator(=,<,<=,>,>=)(< > or !=)
+Relational operator only used where condition
+
+SQL> select * from emp where job!='clerk';
+a)Display the emp except job as clerk
+       ENO ENAME  JOB             MGR        SAL
+---------- ------ -------- ---------- ----------
+      7499 allen  	salesman       7698       1600
+      7521 ward   	salesman       7698       1250
+      7566 jones  	manager        7839       2975
+      7654 martin 	salesmgr       7698       1250
+      7698 balke  	manager        7839       2850
+      7782 clark  	manager        7839       2450
+      7788 scott  	analyst           7566       3000
+      7839 king   	presidnt                         5000
+      7844 turner 	salesman       7698       1500
+      7902 ford   	analyst           7566       3000
+10 rows selected.
+b. Display the emp we are getting more than 3000 sal
+SQL> select * from emp where sal>3000;
+
+       ENO ENAME      JOB             MGR        SAL
+----------    ------ 	-------- ---------- ----------
+      7839    king             presidnt                  5000
+
+c.Display th emps who are belongs to 20th dept 
+SQL> select * from emp where deptno=20;
+
+       ENO ENAME  	JOB             MGR        SAL     DEPTNO
+---------- ------  	-------- ---------- ---------- ----------
+      7369 smith              clerk          	7902        800         20
+      7566 jones  	manager     	7839       2975         20
+      7788 scott 	 analyst        7566       3000         20
+      7876 adams  	clerk      	 7788       1100         20
+      7902 ford   	analyst       	 7566       3000         20
+
+d.creting a new table from exising table(with coping data)
+SQL>create table <newtablename> as select * from <old table name>;
+                                       (OR)
+SQL>create table <newtablename> as select * from <old table name> where <truecondition>;
+
+SQL> create table department
+  2  as
+  3  select * from dept;
+Table created.
+
+SQL> select * from department;
+
+ DEPTNO 	DNAME     	 LOC
+---------- 	---------- 		--------
+        10 	accounting 	new york
+        20 	research   		dallas
+        30 	sales      		chicago
+        40 	operations 		boston
+
+e.creting a new table from exising table(without coping data)
+SQL>create table <newtablename> as select * from <old table name> where <falsecondition>;
+
+SQL> create table employee
+  2  as
+  3  select * from emp where 1=2;
+Table created.
+
+SQL> select * from employee;
+no rows selected
+
+SQL> desc employee
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ------------
+ ENO                                                NUMBER(4)
+ ENAME                                              VARCHAR2(6)
+ JOB                                                VARCHAR2(8)
+ MGR                                                NUMBER(4)
+ SAL                                                NUMBER(5)
+ DEPTNO                                             NUMBER(2)
+
+3.Logical operator(And, or, not)
+4.special operator
+===================================================================================================
+
+Relational operator:- (=     <    >    <=     >=     <> or !=)
+----------------------------
+Relational operator only used in only where condition.
+
+1.select * from emp where job!='clerk'; (not a clerk job)
+
+2.select * from emp where sal>=3000;  (more than 3000)
+
+3. select * from emp where deptno=20;   (belongs to 20th deptno)
+
+4.create new table from existing table(using) with coping data
+SQL> create table newtab
+  2  as
+  3  select * from emp2;
+
+5.create table from existing table without coping data(structure copied only)
+SQL> create table newtab1
+  2  as
+  3  select * from emp2 where 1=2;
+
+6.create table from existing table with coping data
+SQL> create table newtab2
+  2  as
+  3  select * from emp2 where 1=1;
+
+Airthmetic operator:-(*   /     +    -)
+------------------------
+Aithmetic operator used in number,date datatype column only
+
+1. select ename,sal,sal*12 annualsal from emp;(annualsal(sal*12)---alias name)
+
+2.annualsal(sal*12)---alias name---->annual salary morethan 30000
+select ename,sal,sal*12 annualsal from emp where annualsal>=30000;   (because of alias name(annualsal) not working)
+select ename,sal,sal*12 annualsal from emp where annualsal>=30000                             
+ERROR at line 1:
+ORA-00904: "ANNUALSAL": invalid identifier
+
+SQL> select ename,sal,sal*12 annualsal from emp where sal*12>=30000;  (correct)
+
+Logical operator:- (And Or Not)
+--------------------------------------
+If you want to use more than one condition in wher clause then we are allowed to use logical operator.
+
+And:-And operator displays if both 1st and 2nd conditions true
+1.clerk job and sal morethan 3000
+ select * from emp where job='clerk' and sal>=3000;
+
+2.clerk job and belongs to 20th deptno
+select * from emp where job='clerk' and deptno=20;
+
+Or:-Or operator displays either 1st conditions is true or 2nd conditions is true
+
+1.clerk job or sal morethan 3000
+select * from emp where job='clerk' or sal>=3000;
+
+2.job is clerk or salesman
+select * from emp where job='salesman' or job='clerk';
+
+3.deptno belonds to 20,30,50
+select * from emp where deptno=20 or deptno=30 or deptno=50;
+
+in:- in operator to read values one by one from list values in(, ,...)		//Or operator
+--------------------------------------------------------------------------------
+SQL> select * from emp where deptno in(20,30);
+
+SQL> select * from emp where mgr in(7698,7839,null);
+
+not in:-To display the all values except from list values
+--------------------------------------------------------------------------------
+SQL> select * from emp where deptno not in(20,30);
+
+//not in operator desn't work all relational database with "null" values
+SQL> select * from emp where mgr not in(7698,7839,null);
+no rows selected
+SQL> select * from emp where mgr not in(7698,7839);
+5 rows selected
+
+between:-It is used to retrived range of a values (between------and)
+--------------------------------------------------------------------------------
+SQL> select * from emp where sal>=1200 and sal<=3000;
+SQL> select * from emp where sal between 1200 and 3000;
+
+not between:-
+--------------------------------------------------------------------------------
+SQL> select * from emp where sal not between 1200 and 3000;
+
+null:-
+--------------------------------------------------------------------------------
+SQL> select * from emp where mgr is null;
+
+not null:-
+--------------------------------------------------------------------------------
+SQL> select * from emp where mgr is not null;
+
+
+null:-null is a undefined value It is not same as zero.
+--------------------------------------------------------------------------------
+we are performing Aithmetic operation again with return null(null+50=null)
+SQL> select ename,sal,comm,sal+comm from emp where ename='allen';
+ENAME         SAL       COMM   SAL+COMM
+allen       	 1600        	100       	1700
+SQL> select ename,sal,comm,sal+comm from emp where ename='smith';
+ENAME         SAL       COMM   SAL+COMM
+smith             800
+
+nvl(exp1,exp2)	nvl2(exp1,exp2,exp3)
+--------------------------------------------------------------------------------
+exp1,exp2,exp3 must be belongs to same datatype
+
+SQL> select nvl(10,20) from dual;
+
+NVL(10,20)
+----------
+        10
+
+SQL> select nvl(null,20) from dual;
+NVL(NULL,20)
+------------
+          20
+
+SQL> select nvl2(10,20,30) from dual;
+NVL2(10,20,30)
+--------------
+            20
+
+SQL> select nvl2(null,20,30) from dual;
+NVL2(NULL,20,30)
+----------------
+              30
+
+SQL> select ename,sal,comm,sal+comm from emp where ename='smith';
+ENAME         SAL       COMM   SAL+COMM
+------ ---------- ---------- ----------
+smith         800
+
+SQL> select ename,sal,comm,sal+nvl(comm,0) from emp where ename='smith';
+ENAME         SAL       COMM SAL+NVL(COMM,0)
+------ ---------- ---------- ---------------
+smith         800                        800
+
+Like:-'Like' operator is used to retrive data based on pattern in where caluse
+-----------------------------------------------------------------------------------------
+%(percentage)--------->group of characters
+_(underscore)--------->single character
+
+SQL> select * from emp where ename like 's%';
+
+SQL> select * from emp where job like '_l%';
+       
+SQL> select * from emp where job like '_l';
+no rows selected
+
+not like:-
+---------
+SQL> select * from emp where ename not like '%r';
+
+SQL> select * from emp where job not like '__l%';
+
+=====================================================================================================

@@ -1,0 +1,48 @@
+package collection;
+
+import java.util.HashSet;
+import java.util.Iterator;
+class Employee4{
+	private int eno;
+	private String ename;
+	
+	
+	public Employee4(int eno, String ename) {
+		super();
+		this.eno = eno;
+		this.ename = ename;
+		
+	}
+	public int getEno() {
+		return eno;
+	}
+	public String getEname() {
+		return ename;
+	}
+	
+	
+	
+}
+public class HashSet2 {
+
+	public static void main(String[] args) {
+		HashSet<Employee> hs =new HashSet<Employee>();
+		Employee e1=new Employee(10,"anu");
+		Employee e2=new Employee(20,"manu");
+		Employee e3=new Employee(10,"anu");
+		Employee e4=new Employee(40,"anu");
+		Employee e5=new Employee(20,"manu");
+		Employee e6=new Employee(10,"anu");
+		
+		System.out.println(hs.add("d"));
+		System.out.println(hs.add("d"));
+		System.out.println(hs);
+		
+		Iterator<String> i=hs.iterator();
+		while(i.hasNext()) {
+			System.out.println(i.next());
+		}
+
+	}
+
+}

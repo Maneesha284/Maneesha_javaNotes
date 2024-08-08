@@ -1,0 +1,19 @@
+package serialize;
+
+import java.io.*;
+
+public class StudentTest {
+
+	public static void main(String[] args) {
+		try {
+			InputStream is =new FileInputStream("student.dat");
+			
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		
+
+	}
+
+}

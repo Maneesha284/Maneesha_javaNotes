@@ -1,0 +1,114 @@
+Java by developed by James Gosling
+Sun Certified Java Programmer (SCJP) and Oracle Certified Java Programmer(OCJP)
+
+Object class methods:- 11 methods
+========================
+equals()
+toString()
+hashCode()
+finalize()
+clone()
+getClass()
+
+wait()
+wait(-,-)
+wait(-,-,-)
+notify()
+notifyAll()
+
+1)Public:-[Access modifier](To access another classes data)
+Making the main() method public makes it globally available. 
+It is made public so that JVM can invoke it from outside the class as "it is not present in the current class".
+
+In java 8V:-
+class GeeksforGeeks { 
+   	 private static void main(String[] args)  {	 
+        		System.out.println("I am a Geek"); 
+    	}
+ } 
+Error: Main method not found in class, please define the main method as:
+public static void main(String[] args)
+or a JavaFX application class must extends javafx.application.Application
+
+2)Static:-[modifier](one time memory allocation)
+The main() method is static so that JVM can invoke it without instantiating the class. 
+This also "saves the unnecessary wastage of memory" which would have been "used by the object declared only for calling the main()" method by the JVM.
+
+class GeeksforGeeks { 
+	public void main(String[] args)  { 
+		System.out.println("I am a Geek"); 
+   	 } 
+} 
+Error: Main method is not static in class test, please define the main method as:
+public static void main(String[] args)
+
+3)void:-[Return type](doen't return any value)
+ It is a keyword and used to specify that a method doesn’t return anything. 
+As main() method doesn’t return anything, its return type is void. As soon as the main() method terminates, the java program terminates too.
+Hence, it doesn’t make any sense to return from main() method as JVM can’t do anything with the return value of it.
+
+class GeeksforGeeks { 
+    public static int main(String[] args) 
+    { 
+        System.out.println("I am a Geek"); 
+        return 1; 
+    }
+ } 
+Error: Main method not found in class, please define the main method as:
+public static void main(String[] args)
+or a JavaFX application class must extend javafx.application.Application
+
+4)main():-[method name]
+It is the identifier that the JVM looks for as the "starting point of the java program". It’s not a keyword. main method name.
+
+class GeeksforGeeks { 
+    public static void myMain(String[] args) 
+    { 
+        System.out.println("I am a Geek"); 
+    }
+} 
+Error: Main method not found in class, please define the main method as:
+public static void main(String[] args)
+or a JavaFX application class must extend javafx.application.Application
+
+5)String[] args:-[parameter type and parameter name](To access class of data into string array   args-reference variable)
+It stores Java command line arguments and is an array of type java.lang.String class. 
++Here, the name of the String array is args but it is not fixed and user can use any name in place of it.
+
+class GeeksforGeeks { 
+    public static void main(String[] args) { 
+        for (String elem : args) 
+            System.out.println(elem); 
+    }
+ } 
+>java GeeksforGeeks 1 2 3
+output:-
+1
+2
+3
+
+WITH OUT MAIN METHOD:-
+======================
+In java upto 6 version:-
+possible(static block)
+
+In java 7 version:-
+Not possible
+
+
+In java 8,9,10 version:-
+Directly not possible but we can make it possible by taking app as the javafx.application.Application
+public abstract class vers8 extends javafx.application.Application
+{
+	static
+	{
+		System.out.println("Hello World!");
+	}
+}
+
+output:
+Hello World!
+Exception _____________
+
+In java 11 version:-
+Not possible because remove javafx.application.Application from jdk

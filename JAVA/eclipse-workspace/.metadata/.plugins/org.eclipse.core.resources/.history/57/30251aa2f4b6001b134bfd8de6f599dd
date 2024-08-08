@@ -1,0 +1,63 @@
+class Node {
+	int data;
+	Node link;
+
+	Node() {
+		this.link = null;
+	}
+}
+
+public class LinkedList {
+	static Node head = null;
+
+	public static void create(int data) {
+		Node temp = new Node();
+		temp.data = data;
+		temp.link = null;
+		if (head == null) {
+			head = temp;
+		} else {
+			Node p = head;
+			while (p.link != null) {
+				p = p.link;
+			}
+			p.link = temp;
+		}
+	}
+
+	public static int length() {
+		int count=0;
+		Node temp = head;
+		if (temp == null) {
+			System.out.println("No elements are present in Linked list");
+		} else {
+			while (temp.link != null) {
+				count++;
+				temp=temp.link;
+			}
+			count++;
+		}
+		return count;
+	}
+	public static void (int data) {
+		Node temp=new Node();
+		temp.data=data;
+		temp.link=null;
+		if(head==null) {
+			head=temp;
+		}
+		else {
+			Node p=head;
+			while(p.link!=null) {
+				p=p.link;
+			}
+			p.link=temp;
+		}
+	}
+
+
+	public static void main(String[] args) {
+
+	}
+
+}

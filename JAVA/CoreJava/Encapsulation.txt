@@ -1,0 +1,39 @@
+Encapsulation:-
+===============
+Encapsulation is a process wraping of code and data togather into a single unit.
+Encapsulation is technique of making the fields in a class private and providing access to the 
+fields via public methods.
+If a field is declared private, it cannot be accessed by anyone outside the class, there by 
+hiding the fields within the class.
+Encapsulation is also data hiding
+
+*Ability to modify our implemented code without breaking the code of others who use our code.
+*Helps in protecting against accidental or wrong usage.
+*Gives maintainbility, flexibility and extensibilty to our code.
+
+1.Declare class as public 
+2.Declare all attributes as private.
+3.Every attribute we have define one pair of setter and getter methods
+4.Setter method is used to initailize instance variables of the class
+5.Getter method is used to access the value of the variable.
+6.we can override methods which are present in object.
+equals(), toString(), hashCode()
+
+*toString() converts object to string.
+
+public class Employee1 {
+	private int empNo;
+	private String ename;
+	public int getEmpNo() {
+		return empNo;
+	}
+	public void setEmpNo(int empNo) {
+		this.empNo = empNo;
+	}
+	public String getEname() {
+		return ename;
+	}
+	public void setEname(String ename) {
+		this.ename = ename;
+	}
+}

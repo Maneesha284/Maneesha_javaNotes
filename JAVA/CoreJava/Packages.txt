@@ -1,0 +1,83 @@
+Packages:-
+==========
+Collection of related classes and interfaces togather is called package.
+Related: common functionalties
+Default package in java: java.lang.*;
+To use other than lang package into our program we must use import keyword.
+
+java.lang.*;
+System
+Class
+Throwable 
+Exception
+
+I created one class that name is System : i have kept diff functionalty :ERROR
+
+java.util.Date
+
+Advantages:
+1.Reusablity and reduce the complexity
+2.Avoid nameSpace collision
+3.Readability will increase.
+
+packages of two types
+Built in packages:-
+-------------------
+The predefined packages of java is called Java API(Application programming interface)
+1.java.util.*
+class, Object, Exception, Throwable, Thread....
+2.java.util.*
+Date, Scanner, List, Set, Map, HashMap, ArrayList, Vector, Iterator, Enumeration
+3.java.io.*
+File,Reader,Writer,FileReader,FileWriter,IbjectInputStream,ObjectOutputStream
+4.java.awt.*
+Frame,List,Choice,TextField,Label,Menu 
+5.java.awt.event
+ActionEvent,ActionListerner,MouseEvent
+6.java.applet.
+7.java.sql.*
+DriverManager,
+
+User define package:-
+=====================
+package <packagenmae>;
+Here package is a keyword used to create a packages follwed by package name
+syntax:
+package package1.package2;
+here package1 is a package, which contains a sub-package
+
+How to compile the program
+===========================
+javac -d . Hello.java
+-d stands for "directory"whuch explains the compliler the location where the class files should be created
+.(dot) stands for current directory.
+
+syntax:-
+package com.ojas.emps.inventory;
+package domainname.companyname.projecctname.modulename;
+
+To access the sub packag classes one has to explicitly import it.
+import javax.servlet.*;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

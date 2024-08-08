@@ -1,0 +1,30 @@
+LinkedList:-
+============
+int 10;
+Node link;
+
+head		data   link		
+null		10     null		
+		
+		   1010			 
+
+temp -1010
+
+head		data   link		
+1010		10     null		
+		
+		   1010	
+
+head		data   link		data   link		data   link
+null		10     2020		20	3030		30	null
+		
+		   1010			  2020			3030
+
+
+
+
+
+head		data   link		data   link		data   link
+1010		20     2020---------->	30	3030---------->	40	null
+		
+		   1010			  2020			3030

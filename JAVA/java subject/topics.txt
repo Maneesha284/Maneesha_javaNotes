@@ -1,0 +1,10 @@
+1.Identifiers
+2.Reserved words
+3.Data type
+4.literals
+5.Arrays
+6.Type of variables
+7.var arg methods
+8.main method
+9.Cmd line arg
+10.Java coding standards

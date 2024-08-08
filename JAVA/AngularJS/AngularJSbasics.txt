@@ -1,0 +1,186 @@
+Angular JS:-
+============
+*Component is type script class which is reponsible to handle request comping from template
+*Template is html file which containing presentation logic 
+*Databinding is ued to bind the data b/w component and template. Compent prperis will be binded to html elements
+for data binding
+* service is typescript class which contains re-usable business logic.
+*DI is ued for injectingg service class object into component class object
+*Data about data is called meta dta. Relation b/w compoenet and template will be maintained in metadata
+*Directive ares are used to manipulate DOM elements.
+*Pipes are used to transform the data before diplaying in template.
+*Collections of components is called module.
+*Routing are used to navigate from one page to another page.
+
+*Typescript is a PL which is developed based on JS
+* Typescript is superset of JS
+*Typescript cannot execute directly in browser
+* 
+
+>npm install -g typescript
+
+==========================================================================================
+console.log('hello')
+
+var fno:number=100;
+var sno:number=200;
+var res:number;
+console.log(res);
+res=fno+sno;
+console.log(res);
+
+>code .
+>tsc first.ts
+>node first
+==========================================================================================
+var a:number=10;
+var b:any=5;
+var add:any;
+console.log(add);
+add=a+b;
+console.log(add);
+var sub:any;
+sub=a-b;
+console.log(sub);
+
+var sname;
+console.log(sname);
+sname="mani";
+console.log(typeof(sname));
+sname=10;
+console.log(typeof(sname));
+console.log(sname);
+var name1:string=null;
+console.log(name1);
+==========================================================================================
+const:- const is a keyword used to declare constant values.
+
+const a=10;
+
+const num=101;
+console.log(num);
+//num=102;
+console.log(num);
+var num1=101;
+num1=102;
+console.log(num1);
+==========================================================================================
+let uname:string="mani";
+let subject:string="JS";
+let sentence:string=`Hello i am ${uname} and i am your ${subject} trainer`;
+console.log(sentence);
+==========================================================================================
+var s:number=1;
+for(s;s<5;s++)
+console.log(s);
+==========================================================================================
+
+// for in takes index of array
+var marsks:number[]=[10,20,30];
+for (var idx in marks){
+	console.log(`marks for std ${parseInt(idx)+1} are ${marks[idx]}`);
+}
+
+//for of takes elements of array
+for(var m of marks{
+	console.log(m);
+//console.log(marks[m]);
+}
+==========================================================================================
+var marks:number[]=[10,20,30,40,50];
+for(var m of marks){
+    console.log(m);
+    
+}
+for(var idx in marks){
+   console.log(`marks for std ${parseInt(idx)+1} are ${marks[idx]}`);
+  
+}
+for(var m1 in marks){
+    console.log(marks[m1]);
+}
+output:
+
+[LOG]: 10 
+[LOG]: 20 
+[LOG]: 30 
+[LOG]: 40 
+[LOG]: 50 
+[LOG]: "marks for std 1 are 10" 
+[LOG]: "marks for std 2 are 20" 
+[LOG]: "marks for std 3 are 30" 
+[LOG]: "marks for std 4 are 40" 
+[LOG]: "marks for std 5 are 50" 
+[LOG]: 10 
+[LOG]: 20 
+[LOG]: 30 
+[LOG]: 40 
+[LOG]: 50 
+==========================================================================================
+
+splice():- 
+----------
+It is used to adding and removing elements into an array.
+
+var arr1:string[]=["anu","nani","vaishu"];
+console.log(arr1);
+arr1.splice(2,0,"maneesha");
+console.log(arr1);
+arr1.splice(1,1);
+console.log(arr1);
+
+[LOG]: ["anu", "nani", "vaishu"] 
+[LOG]: ["anu", "nani", "maneesha", "vaishu"] 
+[LOG]: ["anu", "maneesha", "vaishu"] 
+
+==========================================================================================
+push():-
+It is used to adding the new element to an array at the end position
+
+var arr1:string[]=["anu","nani","vaishu"];
+arr1.push("manikanta");
+console.log(arr1);
+
+[LOG]: ["anu", "nani", "vaishu", "manikanta"] 
+
+==========================================================================================
+
+pop():-
+It is used to removes the last element from an array
+
+var arr1:string[]=["anu","nani","vaishu"];
+arr1.pop();
+console.log(arr1);
+
+[LOG]: ["anu", "nani"]
+==========================================================================================
+
+shift():-
+It is used to remove the first element and all other elements to covert lowr index.
+
+var arr1:string[]=["anu","nani","vaishu"];
+arr1.shift();
+console.log(arr1);
+
+[LOG]: ["nani", "vaishu"]
+==========================================================================================
+
+unshift():-
+It is used to add the new element and unshift older elements.
+
+var arr1:string[]=["anu","nani","vaishu"];
+arr1.unshift("ramya");
+console.log(arr1);
+
+[LOG]: ["ramya", "anu", "nani", "vaishu"] 
+==========================================================================================
+
+Changing elements:-
+Array elements are accessed using their index number
+
+var arr1:string[]=["anu","nani","vaishu"];
+arr1[2]="manisha";
+console.log(arr1);
+
+[LOG]: ["anu", "nani", "manisha"]
+

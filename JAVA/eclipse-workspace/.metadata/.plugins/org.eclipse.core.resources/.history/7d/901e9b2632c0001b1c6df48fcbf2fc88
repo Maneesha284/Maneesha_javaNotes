@@ -1,0 +1,104 @@
+import java.util.Scanner;
+
+public class StackOperation {
+	int top;
+	int size = 5;
+	int stack[] = new int[size];
+
+	boolean isEmpty() {
+		return (top < 0);
+	}
+
+	StackOperation() {
+		top = -1;
+	}
+
+	void push(Scanner sr) {
+		if (top == size - 1) {
+			System.out.println("stack is overflow...");
+
+		} 
+		else {
+			System.out.println("Enter element into a stack");
+			int value = sr.nextInt();
+			top++;
+			stack[top] = value;
+			System.out.println("Element is inserted into stack...");
+
+		}
+	}
+
+	void peek() {
+		if (top == -1) {
+			System.out.println("stack is underflow...");
+
+		} 
+		else {
+			System.out.println("Element display at top..." + stack[top]);
+
+		}
+
+	}
+
+	void pop() {
+		if (top == -1) {
+			System.out.println("stack is underflow...");
+
+		} 
+		else {
+			System.out.println("Element deleted..." + stack[top]);
+			top--;
+
+		}
+	}
+
+	void display() {
+		if (top == -1) {
+			System.out.println("stack is underflow...");
+
+		} 
+		else {
+			System.out.println("elements in stack");
+			for (int i = top; i >= 0; i--) {
+				System.out.print(stack[i] + " ");
+			}
+
+		}
+	}
+
+	public static void main(String[] args) {
+		Scanner sr = new Scanner(System.in);
+		StackOperation s = new StackOperation();
+		int ch = 0;
+		while (ch != 5) {
+			System.out.println("Enter you choice: ");
+			System.out.println("1.push \n2.peek \n3.pop \n4.display \n5.exit");
+			ch = sr.nextInt();
+			switch (ch) {
+			case 1: {
+				s.push(sr);
+				break;
+			}
+			case 2: {
+				s.peek();
+				break;
+			}
+			case 3: {
+				s.pop();
+				break;
+			}
+			case 4: {
+				s.display();
+				break;
+			}
+			case 5: {
+				System.exit(0);
+				break;
+			}
+			default: {
+				System.out.println("Invalid choice");
+			}
+			}
+		}
+	}
+}

@@ -1,0 +1,212 @@
+Autowire:
+-------------
+Injection<----->wiring
+*All pervoius examples uses Explicit wiring-->Programmer has to configure in xml fiel to inject the data
+to configure Object type use "ref" attribute.
+
+*Spring provides the Autowiring to inject the dependencies automatically without configuration.
+*Instead of manually configuration the injection, we done it automatically by using auto wiring.
+*To enable autowiring we have to use "autowie" attribute of <bean> tag.
+*Autowire only applicable for Object(User/Pre defined interface/class)
+*The following values are possible values to the "autowire" attribue.
+1. no
+2. byName
+3. byType
+4. constructor
+5. autodetect (remove 3.0)
+
+*byName, byType both will uses setter injection.
+=====================================================================================================
+no:
+-----
+This is default value, Which means no autowiring applied and you should use explicit bean reference for wiring So It is use "ref" attribute in bean tag.
+
+        <bean id="address" class="com.mani.emp.Address">
+        	<property name="hno" value="8-5-29"></property>
+        	<property name="city" value="hyd"></property>
+        	<property name="state" value="Telangana"></property>
+       		<property name="pincode" value="500089"></property>   
+        </bean>
+        
+        <bean id="employee" class="com.mani.emp.Employee" autowire="no">
+        	<property name="empid" value="101"></property>
+        	<property name="ename" value="manisha"></property>
+        	<property name="age" value="25"></property>
+       		 <property name="salary" value="10000"></property>
+        	<property name="address" ref="address"></property>
+        </bean>
+=====================================================================================================
+byName:
+----------
+Autowiring by property name.
+Maily it check for 3 conditions, If all thses are valid the it inject the values by setter approach.
+1.Dependeny bean name
+2.configured bean id
+3.setter method name.
+If dependency name is "address" bean configuration should be "address" and setter method should be setAddress(--) spring container performs autowiring.
+
+It should match property name in class and id bean in xml.
+
+public class Employee {
+	private Long empid;
+	private String ename;
+	private byte age;
+	private double salary;
+	private Address address;
+	------------------------------------
+	---------------------------------------
+}
+<beans --->
+	<bean id="address" class="com.mani.emp.Address">
+        	<property name="hno" value="8-5-29"></property>
+        	<property name="city" value="hyd"></property>
+        	<property name="state" value="Telangana"></property>
+       		<property name="pincode" value="500089"></property>   
+        </bean>
+        
+        <bean id="employee" class="com.mani.emp.Employee" autowire="byName">
+        	<property name="empid" value="101"></property>
+        	<property name="ename" value="manisha"></property>
+        	<property name="age" value="25"></property>
+       		 <property name="salary" value="10000"></property>
+        	
+        </bean>
+</beans>
+=====================================================================================================
+byType:
+---------
+Autowiring by property datatype.
+Maily it check for 3 conditions, If all thses are valid the it inject the values by setter approach.
+1.Dependeny bean type
+2.configured bean type
+3.setter method argument type.
+
+It may not  match property name in class and id bean in xml 
+So It should match address type.
+
+public class Employee {
+	private Long empid;
+	private String ename;
+	private byte age;
+	private double salary;
+	private Address address;
+	------------------------------------
+	---------------------------------------
+}
+
+        <bean id="add" class="com.mani.emp.Address">
+        	<property name="hno" value="8-5-29"></property>
+        	<property name="city" value="hyd"></property>
+        	<property name="state" value="Telangana"></property>
+       		<property name="pincode" value="500089"></property>   
+        </bean>
+        
+        <bean id="employee" class="com.mani.emp.Employee" autowire="byType">
+        	<property name="empid" value="101"></property>
+        	<property name="ename" value="manisha"></property>
+        	<property name="age" value="25"></property>
+       		 <property name="salary" value="10000"></property>
+        	
+        </bean>
+
+*If we write multiple addresses then we should configure autowire="byType"and should go for byName match with property name.
+public class Employee {
+	private Long empid;
+	private String ename;
+	private byte age;
+	private double salary;
+	private Address currentAddress;
+	private Address permamnantAddress;
+	------------------------------------
+	---------------------------------------
+}   
+
+    <bean id="currentAddress" class="com.mani.emp.Address">
+        	<property name="hno" value="8-5-29"></property>
+        	<property name="city" value="hyd"></property>
+        	<property name="state" value="Telangana"></property>
+       		<property name="pincode" value="500089"></property>   
+        </bean>
+         <bean id="permamnantAddress" class="com.mani.emp.Address">
+        	<property name="hno" value="4-3-29"></property>
+        	<property name="city" value="kkd"></property>
+        	<property name="state" value="AP"></property>
+       		<property name="pincode" value="594512"></property>   
+        </bean>
+        
+        <bean id="employee" class="com.mani.emp.Employee" autowire="byName">
+        	<property name="empid" value="101"></property>
+        	<property name="ename" value="manisha"></property>
+        	<property name="age" value="25"></property>
+       		 <property name="salary" value="10000"></property>
+        	
+        </bean>
+
+=====================================================================================================
+constructor:-
+---------------
+constructor mainly it checks for 3 conditions . If all these are valid then it injects the values by constructor approach.
+
+1.Dependeny bean type
+2.configured bean type
+3.constructor argument type.
+autowire by constructor will uses constructor injection. so we have to place parameterized constructor in Emloyee class.
+
+public class Employee {
+	private Long empid;
+	private String ename;
+	private byte age;
+	private double salary;
+	private Address address;
+	public Employee(Address address) {
+		this.address = address;
+		System.out.println("Employee Parameterized constructor...");
+	}
+	------------------
+	------------------
+}
+
+        <bean id="address" class="com.mani.emp.Address">
+        	<property name="hno" value="8-5-29"></property>
+        	<property name="city" value="hyd"></property>
+        	<property name="state" value="Telangana"></property>
+       		<property name="pincode" value="500089"></property>   
+        </bean>
+        <bean id="employee" class="com.mani.emp.Employee" autowire="constructor">
+        <!-- <bean id="employee" class="com.mani.emp.Employee" autowire="byType"> -->
+        	<property name="empid" value="101"></property>
+        	<property name="ename" value="manisha"></property>
+        	<property name="age" value="25"></property>
+       		 <property name="salary" value="10000"></property>
+        	
+        </bean>
+=====================================================================================================
+autodetect:
+-------------
+If you want to see the output for autodetect change the spring xsd version to 2.5
+autodetect chosses "constructor" or "byType".
+
+If the defalut constructor is found, "byType" gets applied. If not found it will apply "constructor"
+If we placed both default constructor and parameterized constructor, auto detect uses byType(default constructor).
+Note: autowire will reduce code in the configuration file. but it is not recomended to use autowire in realworld applications. beacause it is very difficult to know which beans are injected.
+Still if  you want to use autowire, along with dependency check you can use it, or @Autowired annotation
+=====================================================================================================
+Annotation:
+----------------
+public class Employee {
+	private int id;
+	@Autowired
+	private address address; //Address object automatically injecting in Employee
+}
+=====================================================================================================
+
+
+
+
+
+
+
+
+
+
+

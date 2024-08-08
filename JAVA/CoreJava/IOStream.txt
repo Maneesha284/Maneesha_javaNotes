@@ -1,0 +1,201 @@
+Implementing the file class:-
+============================
+Accessing files by using the file class
+*The File class in the java.io. package provides various methods to access the properties of a file or a directory,
+such as file permissions, dat and time of creation and path of a direcory.
+Constructor to create an instance of the file class.
+*File(File dirobj, String Filename) :- cretes a new instance of the file class.
+The dirobj 
+*File(String directoryPath): create a new instance of the file class
+
+
+*Methods of the File class
+String getName(): Specified file
+String getParent(): name of Parent directory
+String getPAth(): path of specified file.
+String[] list(): display list of files and dir inside the specified directory.
+
+*Accessing file properties:
+boolean delete(): this method is used to delete a specified file T/F
+boolean renameTo(File newName): rename specified file . If success T/F
+
+Strean: continous flow of data from source to destination
+
+import java.io.*;
+IOStream
+
+1)ByteStream:-
+=================
+Transfer the into bytes.
+it's range is Ascii 0 -255
+
+i)InputStream:-
+===============
+reading the dta from into source
+InputStreams are the byte streams that read data in the form of bytes. The InputStream class is an abstract class that enables its subclasses to read data from different sources, such as a file
+and keyboard and displays the dta on the monitor.
+Class hierachy of the InputStream class
+
+InputStream
+PipedInputStream
+ByteArrayInputStream
+FilterInputStream---->BufferedInputStream, DataInputStream, PushBackInputStream
+SequanceInputStream
+StringBuilderInputStream
+ObjectInputStream
+
+int read() :- reads the next byte of data from an input stream, it returns -1 if it encounters the end of a stream.
+int read(byte b[])
+int read(byte b[], int offset, int length)
+available
+
+void close()
+reset() :- File pointer
+System.in object:-
+The system class in the java.lang pack has static member variable, in that refers to the keyboard.
+
+FileInputStream class performs file operations
+FileInputStream(File f):create a file input connects to an existing file to be used data source 
+FileInputStream(String s): create a file input connects to an existing file to be used data source 
+int read() :
+
+
+BufferedInputStream:-
+The BufferedInputStream class accepts data from other input streams and stores it ina memory buffer.
+
+DataInputStream:-
+The DataInputStream class is used read primitive data types, such as int, float and double from an input sream.
+final int read(byte b[])
+
+ii)OutputStream:-
+=================
+writing the dta to the destination
+
+Output Streams are byte streams that write data in the form of bytes the OutputStream class is an bastract class that enables its.
+
+
+OutputStream
+PipedOutputStream
+FilterOutputStream---->BufferedOutputStream, DataOutputStream, PushBackOutputStream
+ByteArrayOutputStream
+ObjectOutputStream
+
+write(int b):-writes specified byte to a file
+write(byte b[])
+write(byte b[], int offset, int length):- offset:Starting of position
+close()
+flush():- clears the buffers by removing any buffered output written on the disk.
+System.out:
+The System class in the java.lang pack has static member variable, out that respresents the computer monitor. 
+The out variable is an instance of the PrintStream class
+
+
+2)ChracterStream:-
+==================
+Transfer the in the form of characters
+it's range is  0 - 65636unicode range Any language
+
+i)Reader:-
+=========
+The java.io.Reader class is an abstract class that provides various methods for reading the unicode character data from input devices, such as hard disk, keyboard, and memory
+
+BufferedReader-------->LineNumberReader
+StringReader
+InputStreamReader-------->FileReader
+PipedReader
+FilterReader-------->Pushback
+CharArray
+
+
+
+
+
+
+
+
+
+
+
+
+
+ii)Writer:-
+===========
+
+===============================================================================================
+
+Files:-
+=========
+It consists of static methods athat operates on the files, directories other types of files.
+It is a part of java.nio.file package which is introduced in java 1.7
+copy()
+delete()
+deleteExists()
+move()
+isDirectory()
+readAllLines()
+walkFileTree()
+
+Path: Represents a path that is hierarchical composed of a sequence of directories and file names seperated by a delimiter.
+Path p=Paths.get("file");
+
+
+===============================================================================================
+
+
+Client		Server
+India		USA
+Window		Linux
+Java		.net Java
+Telenet		Http
+
+	Hetrogeneious System
+
+CORBA(Common object Request Broker Architecture)
+
+RMI (Remote Method Invocation)
+
+
+message(Object)--->Its should be serialized in the ordered series of bytes 
+
+
+java.io.Serializable
+
+Student
+--------
+sno
+sname
+
+Implementing Object Serialization:-
+===================================
+*Serializing object is the process of wrting objects to a file. When an object is serailized, its state and other attributes are converted into an ordered series of bytes.
+This byte series can be written into streams.
+*Interfaces and classes that support serialization
+The Serializable interface:-
+It is used for 
+The ObjectInputStream class:-
+This class extends the InputStream class and implements the ObjectInput interface.
+public final Object readObject()  throws IOException, CNFE:- Reads an object from ObjectInputStream.
+
+
+The ObjectOutPutStream class:-
+This class extends the OutPutStream class and implements the ObjectOutput interface. Methods of the ObjectOutputStream class.
+public void writeObject(object obj) throws IOException :-writes the obj to the ObjectInputStream
+flush():- Ensures that the data strored in the buffer is written to a file to which the stream is connected.
+close():-closes the stream and releases all the resources occupied by the stream.
+
+transient:-
+-----------
+The data members of a class that are not required to be serialized are declared as transient. The serialization process ignores the transient variable.
+
+*A class implements the serializable interface in order to serialize its objects. The class that implements the serializable interface may be 
+
+
+
+
+
+
+
+
+
+
+

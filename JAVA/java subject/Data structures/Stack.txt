@@ -1,0 +1,335 @@
+Stack:-
+====
+This is an algorithm works based on Last In First Out(LIFO). This is one abstract datatype or set of rules
+It is use store information in the of some situtions if follow the rules of stack we can access the information effectivly
+Every DS or stack should have particular amount of memory block initially "capacity of stack". How will decide
+either using static memory allocation or dynamic memory allocation
+
+Static memory allocation(constant memory allocation/fixed memory) we are using concept of array
+int arr[5] ----->
+int stack[5]---->
+
+|             |   2054 
+----------
+|             |  2052
+----------
+|             |  2050
+----------
+|             |  2048
+-----------
+|             |  2046
+-----------
+             /\
+              |
+stack   |2046|
+
+Dynamic memory allocation(malloc(),calloc(),realloc(),free()
+stdlib.h calloc()=we can allocate memory dynamically occouse but with fixed size, realoc()=if you want to inc or dec size go to raloc()
+capacity=5;
+int* stack;
+satck=(int*)calloc(capacity,sizeof(int));    [5*2=10bytes memoty allocate]
+                         |
+                        \/
+                      void*
+                         |
+                        \/
+                      generic pointer
+
+Stack operations:-
+1)creation
+2)push(int ele);                 (insertion elements)
+3)pop();
+4)traverse();                      (dislpaying all the elements of stack)
+5)isEmpty();
+6)isFull();
+7)size();                              (how many ele present in the stack)
+           
+Creation of stack:-
+=============
+//int capacity=5;(global variable)
+   
+#define CAPACITY 5   //constantcapacity->pre-processor macro(before compilation)
+int top=-1;
+int stack[CAPACITY];   //delclaration of an array
+
+   ---------
+4|             |   2054 
+  ----------
+3|             |  2052
+  ----------
+2|             |  2050
+ ----------
+1|             |  2048
+  -----------
+0|             |  2046
+  -----------
+             /\
+              |
+stack   |2046|
+
+we are creating stack
+If u want push the ele If u want pop the ele i.e; possible top of the stack
+top=-1;
+
+How to insert ele into the stack:-
+======================
+int isFull()
+{
+   if(top==capacity-1)
+    {
+        return 1;
+    }
+    else
+    {
+       return 0;
+   }
+}
+    
+void push(int ele)
+{
+   if(isFull())       
+   {
+       printf("stack is full");
+   }
+   else
+    {
+       top++;
+       stack[top]=ele;
+       printf("%d insert",ele);
+    }
+}
+
+How to delete ele from the stack:-
+=======================
+int isEmpty()
+{
+   if(top= =-1)
+    {
+        return 1;      //no ele
+    }
+    else
+    {
+       return 0;       //ele are there
+   }
+}
+
+int pop()
+{
+   int ele;
+   if(isEmpty())       
+   {
+       return 0;
+   }
+   else
+    {
+       ele=stack[top];
+       top--;
+    }
+    return top;
+}
+
+peek():-
+=====
+It will return the top of ele but it will not be removed 
+int peek()
+{
+   if(isEmpty())       
+   {
+       return 0;
+   }
+   else
+   {
+      return stack[top];
+    }
+} 
+traverse():-To display all ele from stack
+void traverse()
+{
+   if(isEmpty())       
+   {
+       printf("No ele \n");
+   }
+   else
+  {
+    printf("stack elements");
+    for(int i=0;i<=top;i++)
+    {
+       printf("%d \n",stack[i]);
+    }
+}
+**************************************************************************
+program:-
+=======
+/*stack implementation using static array*/
+#include<stdio.h>
+#define SIZE 5   //pre-process macro
+int stack[SIZE], top=-1;
+void push(int);
+int pop(void);
+int isFull(void);
+int isEmpty(void);
+void traverse(void);
+void peek(void);
+void main(void)
+{ 
+   int ch,item;
+   while(1)
+   {
+     printf("1.push \n");
+     printf("2.pop\n");
+     printf("3.peek\n");
+     printf("4.Traverse\n");
+     printf("5.quit\n");
+     printf("Enter ur choice\n");
+     scanf("%d\n",&ch);
+      switch(ch)
+      {
+          case 1: printf("enter ele:");
+                       scanf("%d",&item);
+                       push(item);
+                       break;
+          case 2:ele=pop();
+                      if(item==0)
+                      {
+                               printf("under flow\n");
+                       }
+                        else
+                           {
+                               printf("popped ele:%d\n",ele);
+                             }
+                             break;
+          case 3:peek();
+                      break;
+          case 4:traverse();
+                      break;
+          case 5:exit(1);
+          default:  printf("Invalid choice");
+        }
+   }
+}
+void push(int ele)
+{
+    if(isFull())
+   {
+      printf("stack is overflow");
+   }
+   else
+    {
+        top++;
+        stack[top]=ele;
+        printf("insert ele %d",ele);
+     }
+}
+
+int isFull()
+ {
+     if(top==SIZE-1)
+   {  
+       return 1;
+   }
+   else
+    {
+       return 0;
+     }
+}    
+int pop()
+{
+    if(isEmpty())
+    {
+      return 0;
+    }
+    else
+    {
+       return stack[top--];
+    }
+}
+int isEmpty()
+ {
+     if(top==-1)
+   {  
+       return 1;
+   }
+   else
+    {
+       return 0;
+     }
+}
+void peek()
+{
+    if(isEmpty())
+    {
+        printf("stack is empty");
+     }
+     else
+       {
+           printf("peek ele:  %d \n",stack[top]);
+      }
+}
+int traverse()
+{
+   if(isEmpty())
+    {
+        printf("stack is empty");
+     }
+     else
+     {
+        printf("stack ele are");
+        for(int i=0;i<=top;i++)
+        {
+              printf("%d\n",stack[i]);
+         }
+      }
+}
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

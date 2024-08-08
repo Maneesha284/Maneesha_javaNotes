@@ -1,0 +1,39 @@
+Introduction to Advanced JAVA
+ ======================
+*We can develope Stand Alone APP by using Core Java knowlegde. Which are running on single mechine
+Stand alone app 2 types
+
+1.GUI based application
+Eg:-calculator, video games, Ms word, paint---->Desktop App
+
+2.CUI based application
+Eg:-Command prompt(cmd>java Test)----->Console App
+
+3.Web Application
+We want to develop Web Application. 
+The app which can  provide services over the web is called Web Application. In java can able to develop we app by using JDBC, Servlets, JSP
+Eg:-gmail.com, facebook.com etc..
+                                                          Process servlet
+Login page(login.jsp)------------->validating data-------------------------------------->DB
+details page
+results page                                      read data                                                               Invalid page(valid)(inbox.jsp)
+                                                         compare with db values                                      Error page(in valid)(error.jsp)
+                                                         read mails from db
+
+JSP:-
+To develop View Component of JSP(presentation logic to display somthing for end user)
+Servlet:-
+It is processing our request. The component which is working internally to process our request/logic this component called servlet. servlet ment for processing logic
+(Where ever processing/business logic is required then go for servlet)
+JDBC:-
+Some times java component required to communicate with db
+(Java<---->db) Then we should go for JDBC
+
+1.Java Standard Edition (J2SE / JSE)---------->core java+JDBC
+2.Java Enterprise Edition (J2EE / JEE)-------->Servlets+JSPs
+3.Java Micro Edition (J2ME / JME)------------>To develop mobile/embeded app
+
+JDBC---->4.2V
+Servlets--->3.1V
+JSPs------->2.3V
+

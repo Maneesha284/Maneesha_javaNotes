@@ -1,0 +1,16 @@
+package boxing;
+import static java.lang.Integer.*;
+import static java.lang.System.*;
+public class StatiicImport {
+
+	public static void main(String[] args) {
+		int a=10,b=20;
+		Integer c=sum(a,b);
+		System.out.println(c);
+	}
+
+	static void sum(int a, int b) {
+		out.println(a+b);
+	}
+
+}

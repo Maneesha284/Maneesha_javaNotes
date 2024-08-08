@@ -1,0 +1,518 @@
+Race condition:-
+The process of allowing multiple threads executing any logic of an object at a time is called race condion. This wills always leads inaccurate result.
+vi.Synchronization:-
+==============
+*Synchronized is the modifier applicable only for methods and blocks but not for classes and variables
+*If multiple threads are trying to operate simultneously and the same java object then there may be chance of  "Data inconsistancy" problem
+*To overcome this problem we should go for Synchronized keyword.
+*If a method or block declared as Synchronized then at atime only one thread allow to execute that method or block and the given object.
+   so that "Data inconsistancy" problem will be resolved 
+Advtg:-
+The main Advtg Synchronized keyword is we can resolved Data inconsistancy problems
+Disadvt:-
+The main DisAdvt Synchronized keyword is It increses waiting time of threads and creates performance problem.
+Hence If there is no specific req then its not recomended to use synchronized keyword
+
+"Internally synchronization concept is implemented by using lock every object in java has a unique lock
+Whenever we are using synchronized keyword then only lock concept will comming to the picture"
+
+*If a thread wants to executed Synchronized  method on the given object first it has to get lock of that object
+*once thread got the lock then it is allow to execute any Synchronized method on that object
+*once method exceution completes automatically thread releases the lock
+*Aquiring and realeasing lock internally takes care by JVM but programmer not responsible for this activity
+*while a thread exceuting Synchronized  method on the given object the reamining threads are not allowed any Synchronized  method simultneously on the 
+  simultaneouslyobject but remaining threads are allow to execute non Synchronized  method simultaneously
+
+example:-
+claa X
+{
+   synch m1()   //methods
+   synch m2()
+    m3()
+}
+on this object(x) t1 came  exe m1()  t1--->lock(x)
+If  t2 came exe same m1()-->waiting state
+If  t3 came exe m2()-->waiting state
+If t4 came exe m3()--->It will get chance immedaitely
+
+*lock concept is implemented based on object but not based on method
+ *object:- objects has a two types of areas
+                                                              object
+                                                                    |
+                             |-----------------------------------------------------|
+             Synchronized Area                                               Non Synchronized Area
+Synchronized Area:-
+=============
+This Area can be accessed by any no.of threads simultaneously
+Where ever we are performing updted opertions Add/remove/delete/replace, where state of object changing
+Non Synchronized Area:-
+This Area can be accessed by only one thread
+where ever object state won't be changed like read() operation
+
+class ReservationSystem    {
+ non -synchronized  CheckAvailability()   {
+     //just read operation
+     }
+  synchronized  bookticket()   {
+    //update 
+  }
+}
+
+Example1 :- 
+========
+(Regular output with synchronized method)
+Both threads exceute one by one
+(Irregular output without synchronized method)
+Both threads exceute simultaneously
+class Display   {
+	public synchronized void wish(String name)   {
+		for(int i=0;i<5;i++)   {
+			System.out.print("Good morning: ");
+				try {
+						Thread.sleep(2000);
+				}
+				catch(InterruptedException e) {
+					System.out.println("InterruptedException");
+				}
+				System.out.println(name);
+		}    
+	}
+}
+class MyThread extends Thread   {
+	Display d;
+	String name;
+	MyThread(Display d,String name)  {
+		this.d=d;
+		this.name=name;
+	}
+	public void run()   {
+		d.wish(name);
+	}
+}
+class synch1  {
+	public static void main(String[] args)  {
+		Display d=new Display();
+		MyThread t1=new MyThread(d,"abc");
+		MyThread t2=new MyThread(d,"pqr");
+		MyThread t3=new MyThread(d,"xyz");
+		t1.start();
+		t2.start();
+		t3.start();
+	}
+}
+output:-
+Good morning: abc
+Good morning: abc
+Good morning: abc
+Good morning: abc
+Good morning: abc
+Good morning: xyz
+Good morning: xyz
+Good morning: xyz
+Good morning: xyz
+Good morning: xyz
+Good morning: pqr
+Good morning: pqr
+Good morning: pqr
+Good morning: pqr
+Good morning: pqr
+
+Exmaple2:-
+========
+class Display1   {
+	public synchronized void wish(String name)   {
+		for(int i=0;i<5;i++)   {
+			System.out.print("Good morning: ");
+				try {
+						Thread.sleep(2000);
+				}
+				catch(InterruptedException e) {
+					System.out.println("InterruptedException");
+				}
+				System.out.println(name);
+		}    
+	}
+}
+class MyThread1 extends Thread   {
+	Display1 d;
+	String name;
+	MyThread1(Display1 d,String name)  {
+		this.d=d;
+		this.name=name;
+	}
+	public void run()   {
+		d.wish(name);
+	}
+}
+class synch2  {
+	public static void main(String[] args)  {
+		Display1 d1=new Display1();
+		Display1 d2=new Display1();
+		MyThread1 t1=new MyThread1(d1,"abc");
+		MyThread1 t2=new MyThread1(d2,"pqr");
+		t1.start();
+		t2.start();
+	}
+}
+(Irregular output with synchronized method)
+Both threads exceute simultaneously bcz diff objects(d1,d2)
+*Case study:-Even though wish method is synchronized  we will get
+Irregular output Threads are operationg on diff objects(d1,d2)
+*conclusion:-If multiple Threads are operating on same object then synchronized   is required
+If multiple Threads are operating on multiple objects object then synchronized is not required
+output:-
+Good morning: abc
+Good morning: pqr
+Good morning: abc
+Good morning: pqr
+Good morning: abc
+Good morning: pqr
+Good morning: abc
+Good morning: pqr
+Good morning: abc
+Good morning: pqr
+
+class level lock:-
+===========
+Every class in java has a unique lock which is nothing but class level lock
+If a thread wants to execute a "static synchronized" method then thread required class level lock
+once thread got class level lock then it is allow to exceute any synchronized method of that class
+once method execution compltes automaticllay thread release the lock
+
+Example3:-
+=========
+class Display   {
+	public static synchronized void wish(String name)   {
+		for(int i=0;i<5;i++)   {
+			System.out.print("Good morning: ");
+				try {
+						Thread.sleep(2000);
+				}
+				catch(InterruptedException e) {
+					System.out.println("InterruptedException");
+				}
+				System.out.println(name);
+		}    
+	}
+}
+class MyThread extends Thread   {
+	Display d;
+	String name;
+	MyThread(Display d,String name)  {
+		this.d=d;
+		this.name=name;
+	}
+	public void run()   {
+		d.wish(name);
+	}
+}
+class synch3  {
+	public static void main(String[] args)  {
+		Display d1=new Display();
+		Display d2=new Display();
+		MyThread t1=new MyThread(d1,"abc");
+		MyThread t2=new MyThread(d2,"pqr");
+		t1.start();
+		t2.start();
+	}
+}
+output:-
+//Regular output
+
+While a Thread exceuting static synchronized method the remaining threads not allowed to execute any static synchronized method of that class simultaneously
+But remaining threads allowed to exe the following methods simultaneously
+1)normal static methods
+2)synchronized instance methods
+3)normal instance methods
+
+class{
+	static synchronized m1()   
+	static synchronized m2()
+	static m3()  
+	synchronized  m4()
+	m5()
+}
+
+Example4:-
+========
+class Display   {
+	//public synchronized void displayn()  {
+	public void displayn()   {
+		for(int i=1;i<=10;i++)   {
+			System.out.print(i);
+				try {
+						Thread.sleep(2000);
+				}
+				catch(InterruptedException e) {
+					System.out.println("InterruptedException");
+				}
+				
+		}    
+	}
+	//public synchronized void displayc()  {
+	public void displayc()   {
+		for(int i=65;i<=75;i++)   {
+			System.out.print((char)i);
+				try {
+						Thread.sleep(2000);
+				}
+				catch(InterruptedException e) {
+					System.out.println("InterruptedException");
+				}
+				
+		}    
+	}
+}
+class MyThread1 extends Thread   {
+	Display d;	
+	MyThread(Display d)  {
+		this.d=d;		
+	}
+	public void run()   {
+		d.displayn();
+	}
+}
+class MyThread2 extends Thread   {
+	Display d;	
+	MyThread(Display d)  {
+		this.d=d;		
+	}
+	public void run()   {
+		d.displayc();
+	}
+}
+class synch4  {
+	public static void main(String[] args)  {
+		Display d=new Display();
+		MyThread1 t1=new MyThread1(d);
+		MyThread2 t2=new MyThread2(d);
+		t1.start();
+		t2.start();
+	}
+}
+only one object
+t1-->displayn()
+t2-->displayc()
+
+output:-    
+//public synchronized void displayn()  
+//public synchronized void displayc()  
+(Regular output with synchronized method)
+Both threads exceute simultaneously one by one
+12345678910ABCDEFGHIJK
+           OR
+ABCDEFGHIJK12345678910
+(Irregular output without synchronized method)
+Both threads exceute simultaneously
+1AB2C3D4.........
+
+Synchronized Block:-
+===============
+m1()  {                                      //without synchronized method
+//here 10000 lines of code   
+//but 10 lines of code required Synchronization It is used to Synchronized block
+     Synchronized(this) {     //Synchronized block
+         //10 lines of code
+     }                           
+}
+
+If very few lines of code required Synchronization then its not recommended to declare then entair method as synchronization
+we have to enclose those few lines of code required Synchronized block
+The main advt synchronized block over synchronized method is it reducses waiting time of threads and improves performance of the app
+
+we can declare synchronized block as follows:-
+=================================
+1.To get lock of current object:-
+--------------------------------------
+Synchronized(this) {     
+         //If a thread got lock of current object, then only it is allowed to execute this area
+}
+
+2.To get lock of particular object:-
+-----------------------------------------
+Synchronized(b) {    
+         //If a thread got lock of  particular object 'b', then only it is allowed to execute this area
+}
+
+3.To get class level lock:-
+-------------------------------
+Synchronized(display.class) {     
+         //If a thread got class level lock of  "Display" class, then only it is allowed to execute this area
+}
+
+Example 5:-
+========
+class Display   {
+	public void wish(String name)   {
+                                        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;; //1 lakh lines of code
+                        synchronized(this)   {
+		for(int i=0;i<5;i++)   {
+			                   		System.out.print("Good morning: ");
+					try {
+						Thread.sleep(2000);
+					}
+					catch(InterruptedException e) {
+					System.out.println("InterruptedException");
+					}
+				System.out.println(name);
+                                                    		}
+		}    
+                                        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;; //1 lakh lines of code
+	}
+}
+class MyThread extends Thread   {
+	Display d;
+	String name;
+	MyThread(Display d,String name)  {
+		this.d=d;
+		this.name=name;
+	}
+	public void run()   {
+		d.wish(name);
+	}
+}
+class synch5  {
+	public static void main(String[] args)  {
+		Display d=new Display();
+		MyThread t1=new MyThread(d,"abc");
+		MyThread t2=new MyThread(d,"xyz");
+		t1.start();
+		t2.start();
+	}
+}
+
+output:-
+//Regular output bcz of Synchronized block (one object)
+
+Example 6:-
+=========
+//same asual as
+class synch6  {
+	public static void main(String[] args)  {
+		Display d1=new Display();
+		Display d2=new Display();
+		MyThread t1=new MyThread(d,"abc");
+		MyThread t2=new MyThread(d,"xyz");
+		t1.start();
+		t2.start();
+	}
+}
+output:-
+//Irregular output bcz of Synchronized block, both threads current objects (two objects) 
+
+Examle7:-
+========
+class Display   {
+	public void wish(String name)   {
+                                        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;; //1 lakh lines of code
+                        synchronized(Display.class)   {
+		for(int i=0;i<5;i++)   {
+			                   		System.out.print("Good morning: ");
+					try {
+						Thread.sleep(2000);
+					}
+					catch(InterruptedException e) {
+					System.out.println("InterruptedException");
+					}
+				System.out.println(name);
+                                                    		}
+		}    
+                                        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;; //1 lakh lines of code
+	}
+}
+class MyThread extends Thread   {
+	Display d;
+	String name;
+	MyThread(Display d,String name)  {
+		this.d=d;
+		this.name=name;
+	}
+	public void run()   {
+		d.wish(name);
+	}
+}
+class synch7  {
+	public static void main(String[] args)  {
+		Display d=new Display();
+		MyThread t1=new MyThread(d,"abc");
+		MyThread t2=new MyThread(d,"xyz");
+		t1.start();
+		t2.start();
+	}
+}
+output:-
+//Regular output bcz of Synchronized block (two objects, Synchronized block get class level lock )
+class level lock only one object second object waiting
+
+primitive value try to Synchronized block:-
+int x=10;
+synchronized(x)
+{
+  =========
+}
+CE:Unexpected type 
+found : int 
+required: refernce
+
+Note:-Lock concept applicable for object types and class type but not primitives
+Hence we cann't pass primitive type as argument to Synchronized block otherwise we will get CE saying 
+CE:Unexpected type 
+found : int 
+required: refernce
+
+imp of questions in interview:-
+=================
+1.What is synchronized keyword where we can apply?
+A. synchronized modifier applicable for blocks, methods but not for class and variable
+2.Advt of synchronized keyword?
+A.we can resolve "Data inconsistancy" problems
+3.Disadvt of synchronized keyword?
+A.It increases waiting time of threads and create performance problem
+4.What is Race Condition?
+A.If multiple threads are operating simultaneously on same java object, Then there may be chance of "Data inconsistancy" problem. This is called Race 
+Condition. we can overcome this problem by using synchronized keyword
+5.What is object lock and when it is required?
+A.Every object in java has unique lock which is nothing but object lock, whenever a thread wants to execute instance synchronized method then thread reqired
+    object lock
+6.What is class level lock and when it is required?
+A.Every object in java has unique lock which is nothing but class level lock, whenever a thread wants to execute static synchronized method then thread reqired
+    class level lock
+7.What is the diff b/w class level lock and object lock?
+A.If a thread wants to execute instance synchronized method then thread reqired object lock
+If a thread wants to execute static synchronized method then thread reqired class level lock
+8.While a thread executing synchronized method on the given object is the remaining threads are allow to execute any other synchronized method simultaneously
+ on  the same object
+A.No
+9.What is synchronized block
+
+10.How to declare synchronized block to get lock of current object
+A.sychronized(this)
+11.How to declare synchronized block to get class level lock
+A.sychronized(<classname>.class)
+12.What is Advt of synchronized block over synchronized method 
+A.performance by default will be improved waiting time of threads will be reduced
+13.Is a thread can aquire multiple locks simultaneously?
+A.Yes. Ofcourse from diff objects
+Example:-
+=======
+class x  {
+	public synchronized void m1()   {	    //here thread has lock of x object
+		Y y=new Y();
+		synchronized(y)  {           //here thread has locks of x,y objects
+			Z z=new Z();
+			synchronized(z)  {         //here thread has locks of x,y,z objects
+			}
+		}
+	}
+}
+	
+14.What is synchronized statement
+A.
+synchronization m1() {
+	//statement
+}
+synchronized(this){
+	//statement
+}
+interview people create
+The stmts present in synchronized method and synchronized block are called synchronized statement

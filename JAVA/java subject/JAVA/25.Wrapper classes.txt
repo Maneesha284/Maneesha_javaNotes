@@ -1,0 +1,278 @@
+Wrapper classes:-
+===========
+1)To convert primitive into object form. So that we can handle primitives also just like objects.
+
+import java.util.*;
+class Test1 
+{
+	public static void main(String[] args) 
+	{
+		ArrayList l=new ArrayList();  
+	    Integer I=new Integer(10);
+	    l.add(I);
+                       System.out.println(l);
+	}
+}
+
+compile:-
+Note: Test1.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Run:-
+[10]
+
+2)To Convert primitive value into string form. To define several utility methods for primitives.[like toString()..........]
+ex:- String s=Integer.toString(10);
+
+primitive    wrapper class
+==================
+byte --------> Byte
+short --------> Short
+int --------> Integer
+long --------> Long
+float --------> Float
+double --------> Double
+boolean --------> Boolean
+char --------> Character
+
+How to create wrapper class object:-
+=========================
+Constructors are available
+1)Corresponding primitive as argument
+Integer I=new Integer(10);
+2)String argument
+Integer I=new Integer("10");
+
+import java.util.*;
+class Test1 
+{
+	public static void main(String[] args) 
+	{
+		Integer i1=new Integer(10);                            //10
+      		  System.out.println(i1);
+		Integer i2=new Integer("10");                        //10              
+      		  System.out.println(i2);
+		/*Integer t=new Integer("ten");                        Number formate Exception
+      		  System.out.println(t);*/
+
+ 		Long l1=new Long(79834943554456441l);       //79834943554456441
+		System.out.println(l1);
+		Long l2=new Long("79834943554456441");     //79834943554456441
+		System.out.println(l2);
+
+		Float f1=new Float(11.5f);                        //11.5
+    		    System.out.println(f1);
+		Float f2=new Float(11.5);                        //11.5
+     		   System.out.println(f2);
+		Float f3=new Float("11.5");                        //11.5
+        		System.out.println(f3);
+
+		Double d1=new Double(10.5);                        //10.5
+   		     System.out.println(d1);
+     		   Double d2=new Double("10.5");                        //10.5
+      		  System.out.println(d2);
+    		    Double d3=new Double(10.5f);                        //10.5
+     		   System.out.println(d3);
+		
+		Boolean t1=new Boolean(true);                        //true
+        		System.out.println(t1);
+		Boolean t2=new Boolean(false);                        //false
+    		    System.out.println(t2);
+		Boolean t3=new Boolean("true");                        //true
+      		  System.out.println(t3);
+		Boolean t4=new Boolean("True");                        //true
+      		  System.out.println(t4);
+		Boolean t5=new Boolean("yes");                        //false
+      		  System.out.println(t5);
+		Boolean t6=new Boolean("no");                        //false
+       		 System.out.println(t6);
+		Boolean t7=new Boolean("hi");                        //false
+    		    System.out.println(t7);
+		/*Boolean t8=new Boolean(True);                  //Error
+       		 System.out.println(t8);
+		Boolean t9=new Boolean(False);                    //Error
+        		System.out.println(t9);*/
+
+		Character ch1=new Character('c');                    //c
+		System.out.println(ch1);
+		/*Character ch2=new Character("abc");            //string cannot be converted char
+		System.out.println(ch2);     */		
+	}
+}
+Boolean: 1)If we are passing boolean primitive as argument the only allowed values are: true or false.
+                 2)If we are passing boolean string argument then case is not importent and content is not importent.
+                 3)If the content is true (lowercase or upper case) then it is treated as true otherwise it is false.
+
+example2:-                     Boolean x=new Boolean("yes");
+		 Boolean y=new Boolean("no");
+		 System.out.println(x);                          //false              
+		 System.out.println(y);                          //false
+		 System.out.println(x.equals(y));          //true
+
+Utility Methods:-
+============
+1) valueOf() 	PV------------>WO
+
+2) xxxValue()	WO------->PV
+
+3) parseXxx()	String---------->PV
+
+4) toString()
+
+1) valueOf():-   PV------------>WO
+==========
+ we can valueOf() method to create wrapper class object for the given "primitives and strings".
+Integer I=Integer.valueOf(10);
+Integer I=Integer.valueOf("10");
+
+Form 1:- All wrapper classes except "character class" contains a static valueOf() method to  create wrapper object for given string.
+
+public static wrapper/*return type*/ valueOf(String s)
+
+Integer I=Integer.valueOf(10);
+Float F=Float.valueOf("10.5f");
+Double d=Double.valueOf("10.5");
+Boolean b=Boolean.valueOf("true");
+
+Form 2:- Only integral type wrapper classes(Byte, Short, Long, Integer)
+(Boolean, Character, Float Double are not aplicable)
+To convert binary string to Wrapper object
+
+public static wrapper/*return type*/ valueOf(String s, int radix)
+------->radix means binary, decimal, hexa decimal, octal..........
+
+Integer I=Integer.valueOf("1111",2);
+System.out.println(I);          //15
+
+Allowed radix range(2,3,4,5,6,...........36)
+
+2------->0,1                                                     0 to 9=======>10
+8-------> 0 to 7                                                a to z=======>26
+10------>0 to 9                                                                total----36
+11------>0 to 9, a
+12------>0 to 9, a,b
+16------>0 to 9, a to f
+36------>0 to 9, a to z
+
+Form 3:- All Wrapper classes including Character class contains follwing valueOf() method.
+
+public static wrapper valueOf(primitive p)
+
+Integer I=Integer.valueOf(10);
+Float F=Float.valueOf(10.5f);
+Double d=Double.valueOf(10.5);
+Boolean b=Boolean.valueOf(true);
+Character c =Character.valueOf('a');
+
+2)xxxValue():-  WO------->PV
+=========
+Find primitive value for the given wrapper object.
+6(Wrapperclassobj)   *        6(primitive value)     =36
+Byte                          byteValue()
+Short                        shortValue()
+Integer                       intValue()
+Long                         longValue()
+Float                         floatValue()
+Double                     doubleValue()
+
+Integer I=new Integer(130);
+System.out.println(I.byteValue());                     //-126
+System.out.println(I.shortValue());                     //130
+System.out.println(I.intValue());                     //130
+System.out.println(I.longValue());                     //130
+System.out.println(I.floatValue());                     //130.0
+System.out.println(I.doubleValue());                     //130.0
+
+Float F=new Float(130);
+System.out.println(F.byteValue());                     //-126
+System.out.println(F.shortValue());                     //130
+System.out.println(F.intValue());                     //130
+System.out.println(F.longValue());                     //130
+System.out.println(F.floatValue());                     //130.254
+System.out.println(F.doubleValue());                     //130.2539978..
+
+Boolean                    booleanValue()       1
+Character                  charValue()              1          36+1+1=38 methods
+
+booleanValue() :- For the given boolean object, if we want to find boolean primitive 
+Boolean B=new Boolean(true);
+boolean b=B.booleanValue();
+System.out.println(b);                        //true
+
+charValue():-For the given boolean object, if we want to find char primitive
+Chracter ch=new Character('a');
+char c=ch.charValue();
+System.out.println(c);               //a
+
+3)parseXxx():-      String---------->PV
+==========
+For the given String, to find primitive value
+Form1:-Every wrapper class except "Character" class this parsexxx(_
+public static primitive parsexxx(String s)
+int i=Integer.parseInt("10");
+double d=Double.parseDouble("10.5");
+boolean bo=Boolean.parseBoolean("true");
+
+public static primitive parsexxx(String s,int radix)
+int i=Integer.parseInt("1111",2);      //15
+only Integral type wrapper classes(Byte,Short,Integer,Long)
+The allowed range of radix: 2 to 36
+
+Autoboxing & AutoUnboxing:-
+=====================
+untill 1.4v we can't to provide primitive value---->wrapper object
+we can't to provide primitive value In the place of wrapper object
+In the place of we can't to provide wrapper object----->primitive value
+In the place of primitive value we can't provide wrapper object
+
+Ex:- According 1.4v
+import java.util.*;
+class Test
+{
+  psvm()
+   {
+    ArrayList l=new ArrayList();
+    l.add(10);
+  }
+}
+>javac -source 1.4 Test.java
+1 error
+no suitable methods
+
+Ex2:-
+class Test
+{
+  psvm()
+   {
+     Boolean b=new Boolean(true);
+     if(b)
+   {
+     --------
+      --------
+  }
+ }
+}
+>javac -source 1.4 Test.java
+error:
+Boolean con't be converted to boolean
+
+In 1.5v to convert primitive value in the place of wrapper object and wrapper object in the place of primitive value compiler automatically
+
+Autoboxing:-valueOf()
+=========
+I want to covert primitive value to wrapper object Automatic conversion by complier
+primitive value------------->wrapper object
+
+Integer I=10;[compiler converts int to integer automatically by autoboxing]
+      |
+     \/
+Integer I=Integer.valueOf(10);
+
+AutoUnboxing:-   xxxValue()
+============
+I want to covert wrapper object to primitive value Automatic conversion by complier
+wrapperobject------------->primitive value
+Integer I=Integer.valueOf(10);
+int i=I;[compiler converts integer to int automatically by AutoUnboxing]
+      |
+     \/
+int i=I.intValue();

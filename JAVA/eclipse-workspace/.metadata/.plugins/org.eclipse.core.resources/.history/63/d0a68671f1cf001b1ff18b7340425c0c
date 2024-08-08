@@ -1,0 +1,54 @@
+package predicate;
+
+import java.util.ArrayList;
+
+class Student{
+	private int sno;
+	private String sname;
+	private String course;
+	public int getSno() {
+		return sno;
+	}
+	public void setSno(int sno) {
+		this.sno = sno;
+	}
+	public String getSname() {
+		return sname;
+	}
+	public void setSname(String sname) {
+		this.sname = sname;
+	}
+	public String getCourse() {
+		return course;
+	}
+	public void setCourse(String course) {
+		this.course = course;
+	}
+	public Student(int sno, String sname, String course) {
+		super();
+		this.sno = sno;
+		this.sname = sname;
+		this.course = course;
+	}
+	
+}
+public class Predicate5 {
+
+	public static void main(String[] args) {
+		ArrayList<Student> list =new ArrayList<Student>();
+		Student s1=new Student(101,"anu","java");
+		Student s2=new Student(102,"kiran","python");
+		Student s3=new Student(103,"sandhya","java");
+		Student s4=new Student(104,"mani","UI");
+		Student s5=new Student(101,"nithya","python");
+		list.add(s1);
+		list.add(s2);
+		list.add(s3);
+		list.add(s4);
+		list.add(s5);
+		
+		
+
+	}
+
+}

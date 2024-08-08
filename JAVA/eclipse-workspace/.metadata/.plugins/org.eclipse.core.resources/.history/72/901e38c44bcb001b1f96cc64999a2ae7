@@ -1,0 +1,26 @@
+
+public class Main2 {
+
+	public static void main(String[] args) {
+		int x=0, y=x--/--x;
+		if(x==y)
+			System.out.println(x+y);
+		else if(y==x)
+			System.out.println(x-y);
+		else {
+			System.out.println(x);
+		
+		System.out.println(y);
+			System.out.println(2*x+y);
+		}
+		
+		int n=123, j=0;
+		do {
+			j=j+(n%10);
+			
+		}while(n/10 != 0);
+		System.out.println(j);
+
+	}
+
+}

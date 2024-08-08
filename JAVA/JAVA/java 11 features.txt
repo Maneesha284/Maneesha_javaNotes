@@ -1,0 +1,106 @@
+Java 11, released in September 2018, introduced several new features and enhancements to improve the language, runtime, 
+and overall developer experience. Here are some of the key features and improvements in Java 11:
+
+
+
+Local-Variable Syntax for Lambda Parameters:
+--------------------------------------------
+You can use the var keyword in lambda expressions to declare the types of parameters. This allows for better alignment with 
+the style used in local variable declarations.
+java
+
+code
+=====
+(var x, var y) -> x + y;
+
+
+
+HTTP Client (Standard):
+--------------------------
+Java 11 introduced a new HttpClient API, which supports HTTP/2, WebSockets, and is now a standard feature. This makes it 
+easier and more efficient to perform HTTP operations.
+java
+code
+====
+HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("https://example.com"))
+    .build();
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+System.out.println(response.body());
+
+
+String Methods:
+--------------
+Several new methods were added to the String class, including isBlank(), lines(), strip(), stripLeading(), stripTrailing(), 
+and repeat(int).
+java
+code
+=====
+String str = "  Hello, World!  ";
+System.out.println(str.isBlank()); // false
+System.out.println(str.strip()); // "Hello, World!"
+System.out.println("foo\nbar".lines().collect(Collectors.toList())); // [foo, bar]
+System.out.println("abc".repeat(3)); // "abcabcabc"
+
+
+Files Methods:
+--------------
+The Files class received new methods for file handling, such as readString(), writeString(), and newBufferedReader() and 
+newBufferedWriter().
+java
+code
+====
+Path path = Paths.get("example.txt");
+Files.writeString(path, "Hello, World!");
+String content = Files.readString(path);
+System.out.println(content); // "Hello, World!"
+
+
+Optional Methods:
+-------------------
+New methods were added to the Optional class, including isEmpty(), which is the opposite of isPresent().
+java
+code
+========Optional<String> opt = Optional.of("Hello");
+System.out.println(opt.isEmpty()); // false
+
+
+Running Java Files with java Launcher:
+---------------------------------------
+You can run a single-file source-code program without explicitly compiling it. The java launcher will compile and run the 
+program in one step.
+bash
+code
+=======
+java HelloWorld.java
+
+
+Nest-Based Access Control:
+-------------------------
+A new access control mechanism that allows classes that are part of a "nest" (typically inner classes and the enclosing class) 
+to access each other's private members.
+
+
+New Epsilon Garbage Collector:
+------------------------------
+Introduced as a low-overhead garbage collector that handles memory allocation but does not implement any actual memory 
+reclamation. It's useful for performance testing.
+
+
+Flight Recorder:
+-----------------
+Java Flight Recorder (JFR) is now part of the JDK. It's a profiling and event collection framework designed for use in 
+production environments.
+
+
+Deprecations and Removals:
+--------------------------
+Some features and APIs were deprecated or removed, such as the removal of the Java EE and CORBA modules.
+
+
+Unicode 10:
+----------
+Java 11 updated the Unicode support to version 10, adding several new characters and scripts.
+These features and enhancements make Java 11 a robust and efficient version, continuing the trend of improving performance, 
+security, and developer productivity.
